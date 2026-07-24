@@ -1,0 +1,228 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments project_types API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: project_types
+  x-displayName: Project Types
+  description: 'Use the project types API to query the project types in Workday Strategic Sourcing.
+
+
+    Project Types are used in the project resource. On POST and PATCH related endpoints for this resource a project_type_id can be added to set the project type. The project_type_id is a foreign key for the project_types resource''s id.
+
+
+    ## Project Type Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/ProjectTypeModel" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /project_types:
+    get:
+      tags:
+      - project_types
+      description: Returns a list of all project types.
+      operationId: List Project Types
+      summary: List Project Types
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/ProjectTypeModel'
+                    meta:
+                      type: object
+                      description: Result set metadata.
+                      properties:
+                        count:
+                          type: integer
+                          description: Number of pages in the result set.
+                    links:
+                      $ref: '#/components/schemas/SelfLink'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-2'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/project_types\"\n"
+  /project_types/{id}:
+    get:
+      tags:
+      - project_types
+      description: 'Retrieves the details of an existing project type.
+
+        '
+      operationId: Get a Project Type
+      summary: Get a Project Type
+      parameters:
+      - name: id
+        in: path
+        description: Unique project type identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ProjectTypeModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/show_response-2'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/project_types/1\"\n"
+components:
+  schemas:
+    ProjectTypeBase:
+      title: ProjectType
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ProjectTypeType'
+        id:
+          $ref: '#/components/schemas/ProjectTypeId'
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    ProjectTypeAttributes:
+      type: object
+      description: Project type attributes.
+      required:
+      - name
+      - shortcode
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Project type name.
+          example: My Project Type
+        shortcode:
+          type: string
+          maxLength: 4
+          description: Contract type short code.
+          example: PRJA
+    ProjectTypeModel:
+      allOf:
+      - $ref: '#/components/schemas/ProjectTypeBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/ProjectTypeAttributes'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    ProjectTypeType:
+      type: string
+      description: Object type, should always be `project_types`.
+      example: project_types
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    ProjectTypeId:
+      type: integer
+      description: Project type identifier string.
+      example: 1
+  examples:
+    show_response-2:
+      value:
+        data:
+          type: project_types
+          id: '1'
+          attributes:
+            name: The Project Type
+            shortcode: PRJT
+          links:
+            self: https://api.us.workdayspend.com/services/projects/v1/project_types/1
+    index_response-2:
+      value:
+        meta:
+          count: 2
+        data:
+        - type: project_types
+          id: '1'
+          attributes:
+            name: 'Project Type #1'
+            shortcode: PRJA
+          links:
+            self: https://api.us.workdayspend.com/services/projects/v1/project_types/1
+        - type: project_types
+          id: '2'
+          attributes:
+            name: 'Project Type #2'
+            shortcode: PRJB
+          links:
+            self: https://api.us.workdayspend.com/services/projects/v1/project_types/2
+        links:
+          self: https://api.us.workdayspend.com/services/projects/v1/project_types
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

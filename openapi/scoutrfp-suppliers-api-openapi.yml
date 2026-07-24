@@ -1,0 +1,283 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments suppliers API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: suppliers
+  x-displayName: Suppliers
+  description: 'This report returns a list of Suppliers.
+
+    '
+paths:
+  /suppliers:
+    get:
+      tags:
+      - suppliers
+      description: 'Returns a list of all suppliers.
+
+
+        **Query Params**
+
+
+        | **Param**    |    |
+
+        | ------------ | -- |
+
+        | `include`  | Include supplier contacts with `include=contacts` |
+
+        | `sort`     | Sort the suppliers. Supported values: `name`, `-name`, `created_at`, `-created_at`. |
+
+        '
+      operationId: All suppliers
+      summary: All suppliers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Supplier'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-10'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2018-04-01\"\n     \"https://api.us.workdayspend.com/suppliers\"\n"
+  /suppliers/{supplier_id}:
+    get:
+      tags:
+      - suppliers
+      description: 'Returns a single supplier.
+
+
+        You can optionally include the following query parameter to include supplier contacts in the response:
+
+
+        `suppliers/1?include=contacts`
+
+        '
+      operationId: Single supplier
+      summary: Single supplier
+      parameters:
+      - name: supplier_id
+        in: path
+        description: Unique Supplier identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Supplier'
+              examples:
+                success:
+                  $ref: '#/components/examples/show_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2018-04-01\"\n     \"https://api.us.workdayspend.com/suppliers/{supplier_id}\"\n"
+components:
+  schemas:
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    SupplierContactId:
+      description: Supplier contact identifier string.
+      example: 1
+    Supplier:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierType'
+        id:
+          $ref: '#/components/schemas/SupplierId'
+        attributes:
+          $ref: '#/components/schemas/SupplierAttributes'
+        relationships:
+          properties:
+            contacts:
+              type: array
+              items:
+                $ref: '#/components/schemas/SupplierContactReference'
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+    SupplierType:
+      description: Object type, should always be `suppliers`.
+      example: suppliers
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SupplierContactReference:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        data:
+          properties:
+            type:
+              $ref: '#/components/schemas/SupplierContactType'
+            id:
+              $ref: '#/components/schemas/SupplierContactId'
+    SupplierAttributes:
+      description: Supplier attributes. See example response.
+      properties:
+        name:
+          type: string
+        custom_fields:
+          type: array
+          items:
+            properties:
+              name:
+                description: Name of custom field
+              value:
+                description: Value of custom field
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    SupplierId:
+      description: Supplier identifier string.
+      example: 1
+    SupplierContactType:
+      description: Object type, should always be `supplier_contacts`.
+      example: supplier_contacts
+  examples:
+    index_response-10:
+      value:
+        data:
+        - id: '3'
+          type: suppliers
+          attributes:
+            name: Hubschrauber LLC
+          relationships:
+            contacts:
+              data:
+              - id: '3'
+                type: supplier_contacts
+        - id: '1'
+          type: suppliers
+          attributes:
+            name: Schnappi Group
+          relationships:
+            contacts:
+              data: []
+        - id: '2'
+          type: suppliers
+          attributes:
+            name: Trippy Cow Inc
+          relationships:
+            contacts:
+              data:
+              - id: '2'
+                type: supplier_contacts
+              - id: '1'
+                type: supplier_contacts
+        links:
+          prev: null
+          next: null
+    show_response:
+      value:
+        data:
+          id: '177'
+          type: suppliers
+          attributes:
+            name: Hubschrauber LLC
+            custom_fields:
+            - name: Country of incorporation
+              value: France
+            - name: Supplier options
+              value:
+              - 'Option #1'
+              - 'Option #2'
+            - name: Foundation year
+              value: 2015
+            - name: Logo
+              value:
+              - title: The logo file
+                file_type: img
+                url: /downloads/1
+          relationships:
+            contacts:
+              data:
+              - id: '59'
+                type: supplier_contacts
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

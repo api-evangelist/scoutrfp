@@ -1,0 +1,3697 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments contracts API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: contracts
+  x-displayName: Contracts
+  description: 'Use the contracts API to create, update, and query the contracts in Workday Strategic Sourcing.
+
+
+    ## Contract Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/Contract" exampleRef="#/components/examples/Contract" showReadOnly={true} showWriteOnly={true} />
+
+
+    ## Docusign Envelope Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/DocusignEnvelope" showReadOnly={true} showWriteOnly={true} />
+
+
+    ## Adobe Sign Agreement Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/AdobeSignAgreement" showReadOnly={true} showWriteOnly={true} />
+
+
+    ## Adobe Sign Document Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/AdobeSignDocument" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /contracts:
+    get:
+      tags:
+      - contracts
+      description: Returns a list of contracts for the specified criteria.
+      operationId: List Contracts
+      summary: List Contracts
+      parameters:
+      - name: filter
+        in: query
+        description: 'Filter contracts by multiple criteria. Only one filter per attribute is supported.
+
+          For best performance, we recommend 5 or less filters.
+
+          '
+        schema:
+          $ref: '#/components/schemas/ContractInputFilter'
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/ContractRelatedResources'
+        description: 'To reduce the number of HTTP requests, related resources can be requested along with the
+
+          requested primary resources. Such responses are called "compound documents". In a compound
+
+          document, all included resources will be represented as an array of resource objects in a
+
+          top-level `included` member.
+
+
+          The value of the `include` parameter must be a comma-separated list of relationships from
+
+          the list of available relationships.
+
+
+
+
+          ```
+
+          /contracts?include=contract_type,supplier_company
+
+          ```
+
+
+          In the response, relationships will be represented as normal linkage objects (containing
+
+          `id` and `type`), and full related resource details will be presented in the `included`
+
+          section as resource objects (with `attributes`, `links`, and potentially `relationships`).
+
+          '
+      - name: page
+        in: query
+        description: 'Customize pagination results with `size`.
+
+          '
+        schema:
+          $ref: '#/components/schemas/PageInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Contract'
+                    included:
+                      $ref: '#/components/schemas/ContractIncludedResources'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                simple_request:
+                  summary: Simple request
+                  $ref: '#/components/examples/index_response'
+                compound_request:
+                  summary: Compound request
+                  $ref: '#/components/examples/index_compound_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contracts\"\n"
+    post:
+      tags:
+      - contracts
+      description: 'Create a contract with given attributes.
+
+        '
+      operationId: Create a Contract
+      summary: Create a Contract
+      parameters:
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/ContractRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          '
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/ContractCreate'
+            examples:
+              simple_request:
+                summary: Simple request
+                $ref: '#/components/examples/create_simple_request'
+              compound_request:
+                summary: Assign relationships by Scout ID
+                $ref: '#/components/examples/create_compound_request'
+              compound_external_request:
+                summary: Assign relationships by external ID
+                $ref: '#/components/examples/create_compound_external_request'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Contract'
+                  included:
+                    $ref: '#/components/schemas/ContractIncludedResources'
+              examples:
+                simple_request:
+                  summary: Simple request
+                  $ref: '#/components/examples/create_simple_response'
+                compound_request:
+                  summary: Compound request
+                  $ref: '#/components/examples/create_compound_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":{\"type\":\"contracts\",\"attributes\":{\"title\":\"My Contract\"}}}' \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contracts\"\n"
+  /contracts/{id}:
+    get:
+      tags:
+      - contracts
+      description: 'Retrieves the details of an existing contract. You need to supply the unique contract
+
+        identifier that was returned upon contract creation.
+
+        '
+      operationId: Get a Contract
+      summary: Get a Contract
+      parameters:
+      - name: id
+        in: path
+        description: Unique Contract identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/ContractRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Contract'
+                  included:
+                    $ref: '#/components/schemas/ContractIncludedResources'
+              examples:
+                simple_request:
+                  summary: Simple request
+                  $ref: '#/components/examples/show_response'
+                compound_request:
+                  summary: Compound request
+                  $ref: '#/components/examples/show_compound_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contracts/1\"\n"
+    patch:
+      tags:
+      - contracts
+      description: 'Updates the details of an existing contract. You need to supply the unique supplier
+
+        contract that was returned upon contract creation.
+
+
+        Please note, that request body must include an `id` attribute with the value of your contract
+
+        unique identifier (the same one you passed in the URL).
+
+        '
+      operationId: Update a Contract
+      summary: Update a Contract
+      parameters:
+      - name: id
+        in: path
+        description: Unique Contract identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/ContractRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          '
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/ContractUpdate'
+            examples:
+              simple_request:
+                summary: Simple request
+                $ref: '#/components/examples/update_simple_request'
+              compound_request:
+                summary: Assign relationships by Scout ID
+                $ref: '#/components/examples/update_compound_request'
+              compound_external_request:
+                summary: Assign relationships by external ID
+                $ref: '#/components/examples/update_compound_external_request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Contract'
+                  included:
+                    $ref: '#/components/schemas/ContractIncludedResources'
+              examples:
+                simple_request:
+                  summary: Simple request
+                  $ref: '#/components/examples/update_simple_response'
+                compound_request:
+                  summary: Compound request
+                  $ref: '#/components/examples/update_compound_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              examples:
+                invalid_type:
+                  summary: Missing or invalid 'type' specified, expected 'contracts'
+                  description: 'Returns error due to invalid `type` parameter.
+
+                    '
+                  value:
+                    errors:
+                    - detail: Missing or invalid 'type' specified, expected 'contracts'
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"contracts\",\"id\":\"1\",\"attributes\":{\"segmentation_status\": \"out_of_compliance\"}}}' \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contracts/1\"\n"
+    delete:
+      tags:
+      - contracts
+      description: 'Deletes a contract. You need to supply the unique contract
+
+        identifier that was returned upon contract creation.
+
+        '
+      operationId: Delete a Contract
+      summary: Delete a Contract
+      parameters:
+      - name: id
+        in: path
+        description: Unique Contract identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contracts/1\"\n"
+  /contracts/{external_id}/external_id:
+    get:
+      tags:
+      - contracts
+      description: 'Retrieves the details of an existing contract. You need to supply the unique
+
+        contract external identifier (the one you used when created the contract).
+
+        '
+      operationId: Get a Contract by External ID
+      summary: Get a Contract by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Contract external identifier.
+        required: true
+        schema:
+          type: string
+        example: 1234-5678-abcd-efgh
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/ContractRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Contract'
+                  included:
+                    $ref: '#/components/schemas/ContractIncludedResources'
+              examples:
+                success:
+                  $ref: '#/components/examples/external_show_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contracts/SUP-1234/external_id\"\n"
+    patch:
+      tags:
+      - contracts
+      description: 'Updates the details of an existing contract. You need to supply the unique contract
+
+        external identifier (the one you used when created the contract).
+
+
+        Please note, that request body must include an `id` attribute with the value of your contract
+
+        external identifier (the same one you passed in the URL).
+
+        '
+      operationId: Update a Contract by External ID
+      summary: Update a Contract by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Contract external identifier.
+        required: true
+        schema:
+          type: string
+        example: 1234-5678-abcd-efgh
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/ContractRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          '
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/ContractUpdate'
+            examples:
+              success:
+                $ref: '#/components/examples/external_update_request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Contract'
+                  included:
+                    $ref: '#/components/schemas/ContractIncludedResources'
+              examples:
+                success:
+                  $ref: '#/components/examples/external_update_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"contracts\",\"id\":\"SUP-1234\",attributes\":{\"segmentation_status\": \"out_of_compliance\"}}}' \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contracts/SUP-1234/external_id\"\n"
+    delete:
+      tags:
+      - contracts
+      description: 'Deletes a contract. You need to supply the unique contract
+
+        external identifier (the one you used when created the contract).
+
+        '
+      operationId: Delete a Contract by External ID
+      summary: Delete a Contract by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Contract external identifier.
+        required: true
+        schema:
+          type: string
+        example: 1234-5678-abcd-efgh
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contracts/SUP-1234/external_id\"\n"
+  /contracts/describe:
+    get:
+      tags:
+      - contracts
+      description: Returns a list of fields for the contract object.
+      operationId: Describe Contract object
+      summary: Describe Contract object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ContractFieldModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/describe_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contracts/describe\"\n"
+components:
+  schemas:
+    ContractIncludedResources:
+      allOf:
+      - type: array
+        items:
+          anyOf:
+          - $ref: '#/components/schemas/ContractType'
+          - $ref: '#/components/schemas/SpendCategory'
+          - $ref: '#/components/schemas/SupplierCompany'
+          - $ref: '#/components/schemas/DocusignEnvelope'
+          - $ref: '#/components/schemas/AdobeSignAgreement'
+    ContractCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeValue'
+        attributes:
+          $ref: '#/components/schemas/ContractAttributes'
+        relationships:
+          $ref: '#/components/schemas/ContractCreateRequestRelationship'
+    DescribeFieldBase:
+      title: DescribeFieldModel
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/DescribeFieldType'
+        id:
+          $ref: '#/components/schemas/DescribeFieldId'
+    CustomFieldDecimal:
+      title: Decimal
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            format: decimal
+            description: A decimal value represented as a number with floating point.
+    OpenApiEnum:
+      type: string
+      enum:
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
+    AdobeSignAgreementType:
+      type: string
+      description: Object type, should always be `adobe_sign_agreements`
+      example: adobe_sign_agreements
+    ContractRelationship:
+      type: object
+      description: Contract relationship.
+      properties:
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentBase'
+        supplier_company:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/SupplierCompanyBase'
+        creator:
+          type: object
+          description: Contract creator is set based on API keys.
+          properties:
+            data:
+              $ref: '#/components/schemas/StakeholderBase'
+        owner:
+          type: object
+          description: Contract owner.
+          properties:
+            data:
+              $ref: '#/components/schemas/StakeholderBase'
+        docusign_envelopes:
+          type: array
+          description: List of docusign envelopes
+          items:
+            $ref: '#/components/schemas/DocusignEnvelopeBase'
+        adobe_sign_agreements:
+          type: array
+          description: List of Adobe Sign Agreements
+          items:
+            $ref: '#/components/schemas/AdobeSignAgreementBase'
+        contract_type:
+          type: object
+          description: Contract type
+          properties:
+            data:
+              $ref: '#/components/schemas/ContractTypeBase'
+        spend_category:
+          type: object
+          description: Spend category type
+          properties:
+            data:
+              $ref: '#/components/schemas/SpendCategoryBase'
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+          deprecated: true
+    StakeholderEmail:
+      type: string
+      format: email
+      description: Stakeholder's email.
+      example: stakeholder.email@example.com
+    ContractState:
+      type: string
+      enum:
+      - draft
+      - requested
+      - in_progress
+      - out_for_approval
+      - approved
+      - active
+      - expired
+      - terminated
+      description: Current contract state.
+      example: in_progress
+    DocusignEnvelopeBase:
+      title: DocusignEnvelope
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/DocusignEnvelopeType'
+        id:
+          $ref: '#/components/schemas/DocusignEnvelopeId'
+    PaymentCurrencyType:
+      type: string
+      description: Object type, should always be `payment_currencies`.
+      example: payment_currencies
+    CustomFieldCheckbox:
+      title: Checkbox
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: boolean
+            example: true
+    SpendCategoryAttributes:
+      type: object
+      description: Spend category attributes.
+      required:
+      - name
+      properties:
+        name:
+          $ref: '#/components/schemas/SpendCategoryName'
+        external_id:
+          $ref: '#/components/schemas/SpendCategoryExternalId'
+        usages:
+          $ref: '#/components/schemas/SpendCategoryUsages'
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    DescribeFieldType:
+      type: string
+      description: Object type, should always be `describe_fields`.
+      example: describe_fields
+    ExternalSupplierCompanyId:
+      type: integer
+      description: Supplier company external identifier string.
+      example: 1
+    StakeholderId:
+      type: integer
+      description: Stakeholder identifier string.
+      example: 1
+    CustomFieldShortText:
+      title: Short Text
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A short text (usually under 255 characters).
+    ContractTypeValue:
+      type: string
+      description: Object type, should always be `contracts`.
+      example: contracts
+    CustomFieldCurrency:
+      title: Currency
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            format: integer
+            description: A currency value represented as an integer. The maximum value is 9,007,199,254,740,991.
+    CustomFieldParagraph:
+      title: Paragraph
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A longer text paragraph.
+    ContractUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeValue'
+        id:
+          $ref: '#/components/schemas/ContractId'
+        attributes:
+          $ref: '#/components/schemas/ContractAttributes'
+        relationships:
+          $ref: '#/components/schemas/ContractRequestRelationship'
+    ContractInputFilter:
+      type: object
+      properties:
+        updated_at_from:
+          type: string
+          format: date-time
+          description: Return contracts updated on or after the specified timestamp.
+          example: '2019-10-29T21:28:46.790Z'
+        updated_at_to:
+          type: string
+          format: date-time
+          description: Return contracts updated on or before the specified timestamp.
+          example: '2019-10-29T21:28:46.790Z'
+        number_from:
+          type: string
+          format: integer
+          description: Find contracts with the number equal or greater than the specified one.
+        number_to:
+          type: string
+          format: integer
+          description: Find contracts with the number equal or smaller than the specified one.
+        title_contains:
+          type: string
+          description: Return contracts with title containing the specified string.
+        title_not_contains:
+          type: string
+          description: Return contracts with title not containing the specified string.
+        description_contains:
+          type: string
+          description: Return contracts with description containing the specified string.
+        description_not_contains:
+          type: string
+          description: Return contracts with description not containing the specified string.
+        external_id_empty:
+          type: boolean
+          description: Return contracts with `external_id` blank.
+          example: true
+        external_id_not_empty:
+          type: boolean
+          description: Return contracts with non-blank `external_id`.
+          example: false
+        external_id_equals:
+          type: string
+          description: Find contracts by a specific external ID.
+          example: SUP-123
+        external_id_not_equals:
+          type: string
+          description: Find contracts excluding the one with the specified external ID.
+          example: SUP-123
+        actual_start_date_from:
+          type: string
+          format: date
+          description: Return contracts started on or after the specified date.
+        actual_start_date_to:
+          type: string
+          format: date
+          description: Return contracts started on or before the specified date.
+        actual_end_date_from:
+          type: string
+          format: date
+          description: Return contracts ended on or after the specified date.
+        actual_end_date_to:
+          type: string
+          format: date
+          description: Return contracts ended on or before the specified date.
+        actual_spend_amount_from:
+          type: number
+          format: double
+          description: Return contracts with an actual spend amount equal or greater than the specified amount.
+        actual_spend_amount_to:
+          type: number
+          format: double
+          description: Return contracts with an actual spend amount equal or smaller than the specified amount.
+        auto_renewal:
+          type: array
+          description: Auto-renewal mode.
+          items:
+            type: string
+            enum:
+            - 'yes'
+            - 'no'
+            - evergreen
+          example:
+          - 'yes'
+          - evergreen
+        needs_attention_equals:
+          type: boolean
+          description: Return contracts with the specified "needs attention" status.
+        needs_attention_not_equals:
+          type: boolean
+          description: Return contracts with the "needs attention" status not equal to the specified one.
+        renew_number_of_times_from:
+          type: integer
+          description: Find contracts that should be renewed at least the specified number of times.
+        renew_number_of_times_to:
+          type: integer
+          description: Find contracts that should be renewed at most the specified number of times.
+        state_equals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContractState'
+          description: Find contracts with specified states.
+          example:
+          - expired
+          - terminated
+        terminated_note_contains:
+          type: string
+          description: Return contracts with termination note containing the specified string.
+        terminated_note_not_contains:
+          type: string
+          description: Return contracts with termination note not containing the specified string.
+        terminated_note_empty:
+          type: string
+          description: Return contracts with an empty termination note.
+        terminated_note_not_empty:
+          type: string
+          description: Return contracts with a non-empty termination note.
+        terminated_reason_contains:
+          type: string
+          description: Return contracts with termination reason containing the specified string.
+        terminated_reason_not_contains:
+          type: string
+          description: Return contracts with termination reason not containing the specified string.
+        terminated_reason_empty:
+          type: string
+          description: Return contracts with an empty termination reason.
+        terminated_reason_not_empty:
+          type: string
+          description: Return contracts with a non-empty termination reason.
+        contract_type_id_equals:
+          type: integer
+          description: Find contracts with the specified contract type.
+        contract_type_id_not_equals:
+          type: integer
+          description: Find contracts with the contract type different from the specified one.
+        marked_as_needs_attention_at_from:
+          type: string
+          format: date-time
+          description: Find contracts marked as "needs attention" after or on the specified date.
+        marked_as_needs_attention_at_to:
+          type: string
+          format: date-time
+          description: Find contracts marked as "needs attention" before or on the specified date.
+        needs_attention_note_contains:
+          type: string
+          description: Return contracts with "needs attention" note containing the specified string.
+        needs_attention_note_not_contains:
+          type: string
+          description: Return contracts with "needs attention" note not containing the specified string.
+        needs_attention_note_empty:
+          type: string
+          description: Return contracts with an empty "needs attention" note.
+        needs_attention_note_not_empty:
+          type: string
+          description: Return contracts with a non-empty "needs attention" note.
+        needs_attention_reason_contains:
+          type: string
+          description: Return contracts with "needs attention" reason containing the specified string.
+        needs_attention_reason_not_contains:
+          type: string
+          description: Return contracts with "needs attention" reason not containing the specified string.
+        needs_attention_reason_empty:
+          type: string
+          description: Return contracts with an empty "needs attention" reason.
+        needs_attention_reason_not_empty:
+          type: string
+          description: Return contracts with a non-empty "needs attention" reason.
+        renewal_termination_notice_date_from:
+          type: string
+          format: date
+          description: Find contracts with the termination notice date on or after the specified one.
+        renewal_termination_notice_date_to:
+          type: string
+          format: date
+          description: Find contracts with the termination notice date on or before the specified one.
+        renewal_termination_reminder_date_from:
+          type: string
+          format: date
+          description: Find contracts with the termination reminder date on or after the specified one.
+        renewal_termination_reminder_date_to:
+          type: string
+          format: date
+          description: Find contracts with the termination reminder date on or before the specified one.
+        spend_category_id_equals:
+          type: array
+          items:
+            type: integer
+          description: Find contracts using the specified Spend Category IDs.
+          example:
+          - 1
+          - 2
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    PageInput:
+      type: object
+      properties:
+        size:
+          type: number
+          format: integer
+          description: The number of results returned per page. Default is `10` and max is `100`.
+          example: '25'
+    CustomFieldDate:
+      title: Date
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            format: date
+            description: A date value.
+    CustomFieldSingleSelect:
+      title: Single Select
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A single value from a predefined list of possible options.
+    StakeholderBaseData:
+      title: Stakeholder Data
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/StakeholderBase'
+    ContractBase:
+      title: Contract
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeValue'
+        id:
+          $ref: '#/components/schemas/ContractId'
+    CustomField:
+      oneOf:
+      - $ref: '#/components/schemas/CustomFieldCheckbox'
+      - $ref: '#/components/schemas/CustomFieldShortText'
+      - $ref: '#/components/schemas/CustomFieldParagraph'
+      - $ref: '#/components/schemas/CustomFieldDate'
+      - $ref: '#/components/schemas/CustomFieldInteger'
+      - $ref: '#/components/schemas/CustomFieldCurrency'
+      - $ref: '#/components/schemas/CustomFieldDecimal'
+      - $ref: '#/components/schemas/CustomFieldSingleSelect'
+      - $ref: '#/components/schemas/CustomFieldMultipleSelect'
+      - $ref: '#/components/schemas/CustomFieldURL'
+      - $ref: '#/components/schemas/CustomFieldLookup'
+      - $ref: '#/components/schemas/CustomFieldRelated'
+    ExternalSupplierCompanyBase:
+      title: ExternalSupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ExternalSupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/ExternalSupplierCompanyId'
+    CustomFieldLookup:
+      title: Lookup
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A value from a customer-provided lookup data source.
+    DocusignEnvelopeAttributes:
+      type: object
+      description: Docusign envelope attributes
+      required:
+      - name
+      properties:
+        docusign_created_at:
+          type: string
+          maxLength: 255
+          description: Docusign created at timestamp
+          example: 2023-07-25 14:11:20 UTC
+        docusign_updated_at:
+          type: string
+          maxLength: 255
+          description: Docusign updated at timestamp
+          example: 2023-07-26 16:11:17 UTC
+        error_code:
+          type: string
+          maxLength: 255
+          description: Error Code
+          example: '123'
+        error_message:
+          type: string
+          maxLength: 255
+          description: Error message
+          example: Oops, we ran into a problem
+        state:
+          type: string
+          maxLength: 255
+          description: Current state of the Docusign Envelope
+          example: creating
+        title:
+          type: string
+          maxLength: 255
+          description: Title of the Docusign envelope
+          example: My envelope
+        docusign_id:
+          type: string
+          maxLength: 255
+          description: Docusign object ID
+          example: '5'
+    CustomFieldMultipleSelect:
+      title: Multiple Select
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: array
+            description: A list of values from a predefined list of possible options.
+            items:
+              type: string
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    ContractFieldModel:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            description: Object type, should always be `contract_fields`.
+            example: contract_fields
+      - $ref: '#/components/schemas/DescribeFieldModel'
+    CustomFieldEnum:
+      type: string
+      enum:
+      - Checkbox
+      - File
+      - Short Text
+      - Paragraph
+      - Date
+      - Integer
+      - Currency
+      - Decimal
+      - Single Select
+      - Multiple Select
+      - URL
+      - Lookup
+      - Related
+      description: Internal name and meaning of each field.
+      example: Short Text
+    AttachmentBase:
+      title: Attachment
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/AttachmentType'
+        id:
+          $ref: '#/components/schemas/AttachmentId'
+    StakeholderMetaEmailLookup:
+      title: Stakeholder Meta by Email
+      type: object
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          description: Search for a stakeholder by email.
+          required:
+          - email
+          properties:
+            email:
+              $ref: '#/components/schemas/StakeholderEmail'
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    CustomFieldBase:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Custom field name.
+          example: My Custom Field
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    ContractCreateRequestRelationship:
+      allOf:
+      - $ref: '#/components/schemas/ContractRequestRelationship'
+      - type: object
+        properties: {}
+    ContractId:
+      type: integer
+      description: Contract identifier string.
+      example: 1
+    ContractRequestRelationship:
+      allOf:
+      - type: object
+        properties:
+          owner:
+            $ref: '#/components/schemas/StakeholderLookup'
+      - type: object
+        description: Contract request relationship. external_supplier_company can be used to associate the supplier_company using the supplier external_id attribute.
+        properties:
+          supplier_company:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/SupplierCompanyBase'
+          external_supplier_company:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/ExternalSupplierCompanyBase'
+          contract_type:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/ContractTypeBase'
+          external_contract_type:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/ContractTypeBase'
+          spend_category:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/SpendCategoryBase'
+          payment_currency:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/PaymentCurrencyBase'
+    StakeholderType:
+      type: string
+      description: Object type, should always be `stakeholders`.
+      example: stakeholders
+    CustomFieldURL:
+      title: URL
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            format: url
+            description: URL string.
+    DescribeFieldModel:
+      allOf:
+      - $ref: '#/components/schemas/DescribeFieldBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/DescribeFieldAttributes'
+    AttachmentId:
+      type: integer
+      description: Attachment identifier string.
+      example: 1
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    StakeholderBase:
+      title: Stakeholder
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/StakeholderType'
+        id:
+          $ref: '#/components/schemas/StakeholderId'
+    CustomFieldInteger:
+      title: Integer
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: integer
+            description: An integer value. The maximum value is 9,007,199,254,740,991.
+    AdobeSignAgreementRelationship:
+      title: Adobe Sign Agreement relationships
+      type: object
+      properties:
+        documents:
+          type: array
+          description: List of Adobe Sign Documents
+          items:
+            $ref: '#/components/schemas/AdobeSignDocumentBase'
+    AdobeSignDocumentId:
+      type: integer
+      description: Adobe Sign Document identifier string
+      example: 1
+    ContractTypeId:
+      type: integer
+      description: Contract type identifier string.
+      example: 1
+    AdobeSignAgreementId:
+      type: integer
+      description: Adobe Sign Agreement identifier string
+      example: 1
+    SpendCategoryName:
+      type: string
+      maxLength: 255
+      description: Spend category name.
+    ContractType:
+      allOf:
+      - $ref: '#/components/schemas/ContractTypeBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/ContractTypeAttributes'
+    ContractRelatedResources:
+      allOf:
+      - type: string
+        enum:
+        - contract_type
+        - spend_category
+        - supplier_company
+        - docusign_envelopes
+        - adobe_sign_agreements
+    ExternalSupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    CustomFieldRelated:
+      title: Related
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A value related to the lookup custom field value, retrieved from the same data source object.
+    DocusignEnvelope:
+      allOf:
+      - $ref: '#/components/schemas/DocusignEnvelopeBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/DocusignEnvelopeAttributes'
+          relationships:
+            $ref: '#/components/schemas/DocusignEnvelopeRelationship'
+    AdobeSignAgreement:
+      allOf:
+      - $ref: '#/components/schemas/AdobeSignAgreementBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/AdobeSignAgreementAttributes'
+          relationships:
+            $ref: '#/components/schemas/AdobeSignAgreementRelationship'
+    ContractAttributes:
+      type: object
+      description: Contract attributes.
+      required:
+      - title
+      properties:
+        title:
+          type: string
+          maxLength: 255
+          description: A contract title.
+          example: Contract Title
+        description:
+          type: string
+          description: Contract description.
+          example: Contract Description
+        state:
+          $ref: '#/components/schemas/ContractState'
+        state_label:
+          type: string
+          description: Customer-specific contract state label.
+          example: Discovery
+        number:
+          type: integer
+          readOnly: true
+          description: Contract number, generated sequentially.
+          example: 1
+        external_id:
+          type: string
+          description: Customer provided unique contract identifier.
+          example: 1234-5678-abcd-efgh
+        actual_start_date:
+          type: string
+          format: date
+          description: Contract start date.
+          example: '2028-12-30'
+        actual_end_date:
+          type: string
+          format: date
+          description: Contract end date.
+          example: '2031-12-30'
+        actual_spend_amount:
+          type: number
+          format: double
+          description: Actual spend amount.
+          example: 11.11
+        auto_renewal:
+          type: string
+          description: Auto-renewal mode.
+          enum:
+          - 'yes'
+          - 'no'
+          - evergreen
+          example: 'yes'
+        marked_as_needs_attention_at:
+          type: string
+          format: date-time
+          description: Date and time when the contract was flagged as needs attention.
+          example: null
+        needs_attention:
+          type: boolean
+          description: Identifies whether the contract needs attention.
+          example: null
+        needs_attention_note:
+          type: string
+          description: Additional notes on why the contract needs attention.
+          example: null
+        needs_attention_reason:
+          type: string
+          description: The reason why the contract needs attention.
+          example: null
+        renew_number_of_times:
+          type: integer
+          description: How many times the contracts should be renewed.
+          example: 3
+        renewal_term_unit:
+          type: string
+          description: Term unit for contract renewals.
+          enum:
+          - days
+          - weeks
+          - months
+          - years
+          example: days
+        renewal_term_value:
+          type: integer
+          description: Number of term units between contract renewals.
+          example: 4
+        renewal_termination_notice_date:
+          type: string
+          format: date
+          readOnly: true
+          description: Date when the termination notice should be sent based on actual end date and notice settings.
+          example: '2031-07-30'
+        renewal_termination_notice_unit:
+          type: string
+          description: Term unit for contract termination notice.
+          enum:
+          - days
+          - weeks
+          - months
+          - years
+          example: months
+        renewal_termination_notice_value:
+          type: integer
+          description: Number of term units before the contract actual end date for the termination notice to be sent out.
+          example: 5
+        renewal_termination_reminder_date:
+          type: string
+          format: date
+          readOnly: true
+          description: Date when the termination reminder should be sent based on termination notice date and reminder settings.
+          example: '2031-06-18'
+        renewal_termination_reminder_unit:
+          type: string
+          description: Term unit for contract termination reminder.
+          enum:
+          - days
+          - weeks
+          - months
+          - years
+          example: weeks
+        renewal_termination_reminder_value:
+          type: integer
+          description: Number of term units before the contract termination notice for the termination reminder to be sent out.
+          example: 6
+        terminated_note:
+          type: string
+          description: Termination notes.
+          example: null
+        terminated_reason:
+          type: string
+          description: Termination reason.
+          example: null
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Last modification date.
+          example: '2019-10-29T21:28:46.790Z'
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+          description: 'Custom field values. Note: custom fields of type File can only be accessed through the user interface, they will be only exposed as `null` in the public API.'
+        approved_at:
+          type: string
+          format: date-time
+          description: Date and time when the contract was approved.
+          readOnly: true
+        approval_rounds:
+          type: integer
+          description: Times contract has been sent for approval.
+          example: 1
+        first_sent_for_approval_at:
+          type: string
+          format: date-time
+          description: Date and time when contract was sent for approval for first time.
+          readOnly: true
+        sent_for_approval_at:
+          type: string
+          format: date-time
+          description: Date and time when the contract was sent for approval.
+          readOnly: true
+        public:
+          type: boolean
+          description: '''Public visibility'' of a contract, Note: Only applies when Public Site is enabled'
+          example: true
+    PaymentCurrencyId:
+      type: integer
+      description: Payment currency identifier string.
+      example: 1
+    SpendCategoryBase:
+      title: SpendCategory
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SpendCategoryType'
+        id:
+          $ref: '#/components/schemas/SpendCategoryId'
+    StakeholderLookup:
+      oneOf:
+      - $ref: '#/components/schemas/StakeholderBaseData'
+      - $ref: '#/components/schemas/StakeholderMetaIdLookup'
+      - $ref: '#/components/schemas/StakeholderMetaEmailLookup'
+    SpendCategoryId:
+      type: integer
+      description: Spend category identifier string.
+      example: 1
+    SpendCategoryUsages:
+      type: array
+      description: Spend category usages. Only spend categories with `procurement` usage can be used for requisitions.
+      items:
+        type: string
+        enum:
+        - procurement
+        - expense
+        - ad_hoc_payment
+        - supplier_invoice
+    DocusignEnvelopeRelationship:
+      title: Docusign envelope relationships
+      type: object
+      properties:
+        attachments:
+          type: array
+          description: Docusign envelope list of attachments
+          items:
+            $ref: '#/components/schemas/AttachmentBase'
+    SupplierCompany:
+      allOf:
+      - $ref: '#/components/schemas/SupplierCompanyBase'
+    Contract:
+      allOf:
+      - $ref: '#/components/schemas/ContractBase'
+      - type: object
+        properties:
+          attributes:
+            allOf:
+            - $ref: '#/components/schemas/ContractAttributes'
+          relationships:
+            $ref: '#/components/schemas/ContractRelationship'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    SpendCategoryExternalId:
+      type: string
+      maxLength: 255
+      description: Spend category external identifier string.
+    ContractTypeAttributes:
+      type: object
+      description: Contract type attributes.
+      required:
+      - name
+      - shortcode
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Contract type name.
+          example: My Contract Type
+        shortcode:
+          type: string
+          maxLength: 4
+          description: Contract type short code.
+          example: CPUB
+        external_id:
+          type: string
+          description: Customer provided unique contract type identifier.
+          example: 1234-5678-abcd-efgh
+    ContractTypeBase:
+      title: ContractType
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeType'
+        id:
+          $ref: '#/components/schemas/ContractTypeId'
+    SpendCategoryType:
+      type: string
+      description: Object type, should always be `spend_categories`.
+      example: spend_categories
+    AdobeSignDocumentType:
+      type: string
+      description: Object type, should always be `adobe_sign_documents`
+      example: adobe_sign_documents
+    DescribeFieldId:
+      type: string
+      description: Field identifier string.
+      example: field_name
+    SupplierCompanyId:
+      type: integer
+      description: Supplier company identifier string.
+      example: 1
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    DocusignEnvelopeType:
+      type: string
+      description: Object type, should always be `docusign_envelopes`.
+      example: docusign_envelopes
+    AdobeSignAgreementAttributes:
+      type: object
+      description: Adobe Sign Agreement attributes
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Name of Adobe Sign Agreement
+          example: 'Agreement #236'
+        state:
+          type: string
+          maxLength: 255
+          description: Current state of Adobe Sign Agreement
+          example: CREATING
+        adobe_created_at:
+          type: string
+          maxLength: 255
+          description: Adobe Created Date
+          example: '2019-10-29T21:28:46.790Z'
+        adobe_id:
+          type: string
+          maxLength: 255
+          description: Adobe Sign Agreement ID
+          example: '24'
+        adobe_signed_at:
+          type: string
+          maxLength: 255
+          description: Date Adobe Sign Agreement signed
+          example: '2019-10-29T21:28:46.790Z'
+        adobe_sign_errors:
+          type: string
+          maxLength: 255
+          description: Raw JSON representation of Adobe Sign Agreement errors
+          example: '{}'
+    PaymentCurrencyBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentCurrencyType'
+        id:
+          $ref: '#/components/schemas/PaymentCurrencyId'
+    SpendCategory:
+      allOf:
+      - $ref: '#/components/schemas/SpendCategoryBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SpendCategoryAttributes'
+    AdobeSignDocumentBase:
+      title: AdobeSignDocument
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/AdobeSignDocumentType'
+        id:
+          $ref: '#/components/schemas/AdobeSignDocumentId'
+    StakeholderMetaIdLookup:
+      title: Stakeholder Meta by ID
+      type: object
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          description: Search for a stakeholder by ID.
+          required:
+          - id
+          properties:
+            id:
+              $ref: '#/components/schemas/StakeholderId'
+    SupplierCompanyBase:
+      title: SupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyId'
+    AdobeSignAgreementBase:
+      title: AdobeSignAgreement
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/AdobeSignAgreementType'
+        id:
+          $ref: '#/components/schemas/AdobeSignAgreementId'
+    DocusignEnvelopeId:
+      type: integer
+      description: Docusign envelope identifier string.
+      example: 1
+    AttachmentType:
+      type: string
+      description: Object type, should always be `attachments`.
+      example: attachments
+    DescribeFieldAttributes:
+      type: object
+      description: Describe field attributes.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Describe field name.
+          example: field_name
+        data_type:
+          $ref: '#/components/schemas/OpenApiEnum'
+        type_description:
+          $ref: '#/components/schemas/CustomFieldEnum'
+        custom_field:
+          type: boolean
+          description: Flag for determining if this is a user created custom field or an internal system field.
+          example: false
+    ContractTypeType:
+      type: string
+      description: Object type, should always be `contract_types`.
+      example: contract_types
+  examples:
+    create_simple_response:
+      value:
+        data:
+          type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: 11.11
+            actual_start_date: '2028-12-30'
+            auto_renewal: 'yes'
+            approved_at: null
+            approval_rounds: 0
+            description: Contract Description
+            external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 1
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_date: '2031-07-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_date: '2031-06-18'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            first_sent_for_approval_at: null
+            sent_for_approval_at: null
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title
+            updated_at: '2019-10-29T21:28:46.790Z'
+            scc_updated_at: null
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
+            public: false
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            supplier_company:
+              data: null
+            creator:
+              data:
+                id: '1'
+                type: stakeholders
+            owner:
+              data:
+                id: '1'
+                type: stakeholders
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            docusign_envelopes:
+              data: []
+            adobe_sign_agreements:
+              data: []
+            attachments:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/1
+    update_compound_response:
+      value:
+        data:
+          type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2032-12-30'
+            actual_spend_amount: 22.11
+            actual_start_date: '2029-12-30'
+            auto_renewal: 'yes'
+            approved_at: '2019-10-11T09:12:31.080Z'
+            approval_rounds: 1
+            description: Contract Description Updated
+            external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 1
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_date: '2032-07-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_date: '2032-06-18'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title Updated
+            updated_at: '2019-10-29T21:28:46.790Z'
+            scc_updated_at: null
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 987654321
+            - name: Custom Field Integer
+              value: 987654321
+            - name: Custom Field Checkbox
+              value: false
+            - name: Custom Field Decimal
+              value: 876543.21
+            - name: Custom Field Date
+              value: '2018-12-25T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text updated
+            - name: Custom Field Paragraph
+              value: longer text than short text updated
+            - name: Custom Field URL
+              value: http://www.example.com/updated
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+              - id: '2'
+                type: attachments
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            creator:
+              data:
+                id: '1'
+                type: stakeholders
+            owner:
+              data:
+                id: '2'
+                type: stakeholders
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            docusign_envelopes:
+              data: []
+            adobe_sign_agreements:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/1
+        included:
+        - id: '3'
+          type: contract_types
+          attributes:
+            name: Contract type 1
+            shortcode: XTCH
+            external_id: 40424xe5lzosfl8
+          links:
+            self: ' https://api.us.workdayspend.com/services/contracts/v1/contract_types/3'
+    update_simple_request:
+      value:
+        data:
+          type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2032-12-30'
+            actual_spend_amount: '22.11'
+            actual_start_date: '2029-12-30'
+            auto_renewal: 'yes'
+            description: Contract Description Updated
+            external_id: 1234-5678-abcd-efgh
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title Updated
+            custom_fields:
+            - name: Custom Field Currency
+              value: 987654321
+            - name: Custom Field Integer
+              value: 987654321
+            - name: Custom Field Checkbox
+              value: false
+            - name: Custom Field Decimal
+              value: 876543.21
+            - name: Custom Field Date
+              value: '2018-12-25T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text updated
+            - name: Custom Field Paragraph
+              value: longer text than short text updated
+            - name: Custom Field URL
+              value: http://www.example.com/updated
+          relationships:
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+    index_response:
+      value:
+        meta:
+          count: 2
+        data:
+        - type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: 11.11
+            actual_start_date: '2028-12-30'
+            approved_at: '2019-10-11T09:12:31.080Z'
+            approval_rounds: 1
+            auto_renewal: 'yes'
+            description: Contract Description
+            external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 1
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_date: '2031-07-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_date: '2031-06-18'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title
+            updated_at: '2019-10-29T21:28:46.790Z'
+            scc_updated_at: null
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
+            public: false
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+              - id: '2'
+                type: attachments
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            creator:
+              data:
+                id: '1'
+                type: stakeholders
+            owner:
+              data:
+                id: '1'
+                type: stakeholders
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            docusign_envelopes:
+              data:
+              - id: '3'
+                type: docusign_envelopes
+            adobe_sign_agreements:
+              data:
+              - id: '4'
+                type: adobe_sign_agreements
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/1
+        - type: contracts
+          id: '2'
+          attributes:
+            actual_end_date: '2033-12-30'
+            actual_spend_amount: 22.22
+            actual_start_date: '2030-12-30'
+            auto_renewal: 'yes'
+            approved_at: '2019-10-11T09:12:31.080Z'
+            approval_rounds: 1
+            description: 'Contract #2 Description'
+            external_id: abcd-efgh-1234-5678
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 2
+            renew_number_of_times: 6
+            renewal_term_unit: days
+            renewal_term_value: 3
+            renewal_termination_notice_date: '2033-08-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 4
+            renewal_termination_reminder_date: '2033-07-26'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 5
+            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: 'Contract #2 Title'
+            updated_at: '2019-10-29T21:28:46.790Z'
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            scc_updated_at: null
+            request_opened_at: null
+            public: false
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data: []
+            supplier_company:
+              data: null
+            creator:
+              data:
+                id: '1'
+                type: stakeholders
+            owner:
+              data:
+                id: '1'
+                type: stakeholders
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            docusign_envelopes:
+              data:
+              - id: '3'
+                type: docusign_envelopes
+            adobe_sign_agreements:
+              data:
+              - id: '5'
+                type: adobe_sign_agreements
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/2
+        links:
+          self: https://api.us.workdayspend.com/services/contracts/v1/contracts?page%5Bsize%5D=10
+          next: https://api.us.workdayspend.com/services/contracts/v1/contracts?page%5Bcursor%5D=WzM2NV0%3D&page%5Bdirection%5D=next&page%5Bsize%5D=10
+          prev: https://api.us.workdayspend.com/services/contracts/v1/contracts?page%5Bcursor%5D=WzM2NF0%3D&page%5Bdirection%5D=prev&page%5Bsize%5D=10
+    update_compound_request:
+      value:
+        data:
+          type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2032-12-30'
+            actual_spend_amount: '22.11'
+            actual_start_date: '2029-12-30'
+            auto_renewal: 'yes'
+            description: Contract Description Updated
+            external_id: 1234-5678-abcd-efgh
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title Updated
+            custom_fields:
+            - name: Custom Field Currency
+              value: 987654321
+            - name: Custom Field Integer
+              value: 987654321
+            - name: Custom Field Checkbox
+              value: false
+            - name: Custom Field Decimal
+              value: 876543.21
+            - name: Custom Field Date
+              value: '2018-12-25T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text updated
+            - name: Custom Field Paragraph
+              value: longer text than short text updated
+            - name: Custom Field URL
+              value: http://www.example.com/updated
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            owner:
+              meta:
+                email: contract.owner@example.com
+            payment_currency:
+              data:
+                id: '149'
+                type: payment_currencies
+    external_update_response:
+      value:
+        data:
+          type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2032-12-30'
+            actual_spend_amount: 22.11
+            actual_start_date: '2029-12-30'
+            approved_at: '2019-10-11T09:12:31.080Z'
+            approval_rounds: 1
+            auto_renewal: 'yes'
+            description: Contract Description Updated
+            external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 1
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_date: '2032-07-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_date: '2032-06-18'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title Updated
+            updated_at: '2019-10-29T21:28:46.790Z'
+            scc_updated_at: null
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
+            public: false
+            custom_fields:
+            - name: Custom Field Currency
+              value: 987654321
+            - name: Custom Field Integer
+              value: 987654321
+            - name: Custom Field Checkbox
+              value: false
+            - name: Custom Field Decimal
+              value: 876543.21
+            - name: Custom Field Date
+              value: '2018-12-25T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text updated
+            - name: Custom Field Paragraph
+              value: longer text than short text updated
+            - name: Custom Field URL
+              value: http://www.example.com/updated
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+              - id: '2'
+                type: attachments
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            creator:
+              data:
+                id: '1'
+                type: stakeholders
+            owner:
+              data:
+                id: '2'
+                type: stakeholders
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            docusign_envelopes:
+              data: []
+            adobe_sign_agreements:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/1
+    show_response:
+      value:
+        data:
+          type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: 11.11
+            actual_start_date: '2028-12-30'
+            approved_at: '2019-10-11T09:12:31.080Z'
+            approval_rounds: 1
+            auto_renewal: 'yes'
+            description: Contract Description
+            external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 1
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_date: '2031-07-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_date: '2031-06-18'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title
+            updated_at: '2019-10-29T21:28:46.790Z'
+            scc_updated_at: null
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
+            public: false
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+              - id: '2'
+                type: attachments
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            creator:
+              data:
+                id: '1'
+                type: stakeholders
+            owner:
+              data:
+                id: '1'
+                type: stakeholders
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            docusign_envelopes:
+              data:
+              - id: '3'
+                type: docusign_envelopes
+            adobe_sign_agreements:
+              data:
+              - id: '4'
+                type: adobe_sign_agreements
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/1
+    describe_response:
+      value:
+        meta:
+          count: 40
+        data:
+        - id: actual_end_date
+          type: contract_fields
+          attributes:
+            name: actual_end_date
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: actual_spend_amount
+          type: contract_fields
+          attributes:
+            name: actual_spend_amount
+            data_type: number
+            type_description: Currency
+            custom_field: false
+        - id: actual_start_date
+          type: contract_fields
+          attributes:
+            name: actual_start_date
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: auto_renewal
+          type: contract_fields
+          attributes:
+            name: auto_renewal
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: description
+          type: contract_fields
+          attributes:
+            name: description
+            data_type: string
+            type_description: Paragraph
+            custom_field: false
+        - id: external_id
+          type: contract_fields
+          attributes:
+            name: external_id
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: needs_attention
+          type: contract_fields
+          attributes:
+            name: needs_attention
+            data_type: boolean
+            type_description: Checkbox
+            custom_field: false
+        - id: renew_number_of_times
+          type: contract_fields
+          attributes:
+            name: renew_number_of_times
+            data_type: integer
+            type_description: Integer
+            custom_field: false
+        - id: renewal_term_unit
+          type: contract_fields
+          attributes:
+            name: renewal_term_unit
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: renewal_term_value
+          type: contract_fields
+          attributes:
+            name: renewal_term_value
+            data_type: integer
+            type_description: Integer
+            custom_field: false
+        - id: renewal_termination_notice_unit
+          type: contract_fields
+          attributes:
+            name: renewal_termination_notice_unit
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: renewal_termination_notice_value
+          type: contract_fields
+          attributes:
+            name: renewal_termination_notice_value
+            data_type: integer
+            type_description: Integer
+            custom_field: false
+        - id: renewal_termination_reminder_unit
+          type: contract_fields
+          attributes:
+            name: renewal_termination_reminder_unit
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: renewal_termination_reminder_value
+          type: contract_fields
+          attributes:
+            name: renewal_termination_reminder_value
+            data_type: integer
+            type_description: Integer
+            custom_field: false
+        - id: state
+          type: contract_fields
+          attributes:
+            name: state
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: state_label
+          type: contract_fields
+          attributes:
+            name: state_label
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: terminated_note
+          type: contract_fields
+          attributes:
+            name: terminated_note
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: terminated_reason
+          type: contract_fields
+          attributes:
+            name: terminated_reason
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: title
+          type: contract_fields
+          attributes:
+            name: title
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: approved_at
+          type: contract_fields
+          attributes:
+            name: approved_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: marked_as_needs_attention_at
+          type: contract_fields
+          attributes:
+            name: marked_as_needs_attention_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: needs_attention_note
+          type: contract_fields
+          attributes:
+            name: needs_attention_note
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: needs_attention_reason
+          type: contract_fields
+          attributes:
+            name: needs_attention_reason
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: number
+          type: contract_fields
+          attributes:
+            name: number
+            data_type: integer
+            type_description: Integer
+            custom_field: false
+        - id: renewal_termination_notice_date
+          type: contract_fields
+          attributes:
+            name: renewal_termination_notice_date
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: renewal_termination_reminder_date
+          type: contract_fields
+          attributes:
+            name: renewal_termination_reminder_date
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: sent_for_approval_at
+          type: contract_fields
+          attributes:
+            name: sent_for_approval_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: updated_at
+          type: contract_fields
+          attributes:
+            name: updated_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: scc_updated_at
+          type: contract_fields
+          attributes:
+            name: scc_updated_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: public
+          type: contract_fields
+          attributes:
+            name: public
+            data_type: boolean
+            type_description: Checkbox
+            custom_field: false
+        - attributes:
+            custom_field: true
+            data_type: number
+            name: Custom Field Currency
+            type_description: Currency
+          type: contract_fields
+        - attributes:
+            custom_field: true
+            data_type: integer
+            name: Custom Field Integer
+            type_description: Integer
+          type: contract_fields
+        - attributes:
+            custom_field: true
+            data_type: boolean
+            name: Custom Field Checkbox
+            type_description: Checkbox
+          type: contract_fields
+        - attributes:
+            custom_field: true
+            data_type: number
+            name: Custom Field Decimal
+            type_description: Decimal
+          type: contract_fields
+        - attributes:
+            custom_field: true
+            data_type: string
+            name: Custom Field Date
+            type_description: Date
+          type: contract_fields
+        - attributes:
+            custom_field: true
+            data_type: string
+            name: Custom Field Select
+            type_description: Single Select
+          type: contract_fields
+        - attributes:
+            custom_field: true
+            data_type: array
+            name: Custom Field Multiple
+            type_description: Multiple Select
+          type: contract_fields
+        - attributes:
+            custom_field: true
+            data_type: string
+            name: Custom Field Short Text
+            type_description: Short Text
+          type: contract_fields
+        - attributes:
+            custom_field: true
+            data_type: string
+            name: Custom Field Paragraph
+            type_description: Paragraph
+          type: contract_fields
+        - attributes:
+            custom_field: true
+            data_type: string
+            name: Custom Field URL
+            type_description: URL
+          type: contract_fields
+        links: {}
+    create_compound_external_request:
+      value:
+        data:
+          type: contracts
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: '11.11'
+            actual_start_date: '2028-12-30'
+            auto_renewal: 'yes'
+            description: Contract Description
+            external_id: 1234-5678-abcd-efgh
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            external_supplier_company:
+              data:
+                id: zeta
+                type: supplier_companies
+            owner:
+              meta:
+                email: contract.owner@example.com
+            external_contract_type:
+              data:
+                id: CONT1
+                type: contract_types
+    show_compound_response:
+      value:
+        data:
+          type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: 11.11
+            actual_start_date: '2028-12-30'
+            approved_at: '2019-10-11T09:12:31.080Z'
+            approval_rounds: 1
+            auto_renewal: 'yes'
+            description: Contract Description
+            external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 1
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_date: '2031-07-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_date: '2031-06-18'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title
+            updated_at: '2019-10-29T21:28:46.790Z'
+            scc_updated_at: null
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+              - id: '2'
+                type: attachments
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            wday_financial_company:
+              data:
+                id: '1'
+                type: wday_financial_company
+            payment_currency:
+              data:
+                id: '1'
+                type: payment_currencies
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            docusign_envelopes:
+              data:
+              - id: '3'
+                type: docusign_envelopes
+            adobe_sign_agreements:
+              data:
+              - id: '4'
+                type: adobe_sign_agreements
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/1
+        included:
+        - id: '3'
+          type: contract_types
+          attributes:
+            name: Contract type 1
+            shortcode: XTCH
+            external_id: 40424xe5lzosfl8
+          links:
+            self: ' https://api.us.workdayspend.com/services/contracts/v1/contract_types/3'
+    update_simple_response:
+      value:
+        data:
+          type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2032-12-30'
+            actual_spend_amount: 22.11
+            actual_start_date: '2029-12-30'
+            auto_renewal: 'yes'
+            approved_at: '2019-10-11T09:12:31.080Z'
+            approval_rounds: 1
+            description: Contract Description Updated
+            external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 1
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_date: '2032-07-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_date: '2032-06-18'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title Updated
+            updated_at: '2019-10-29T21:28:46.790Z'
+            scc_updated_at: null
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
+            public: false
+            custom_fields:
+            - name: Custom Field Currency
+              value: 987654321
+            - name: Custom Field Integer
+              value: 987654321
+            - name: Custom Field Checkbox
+              value: false
+            - name: Custom Field Decimal
+              value: 876543.21
+            - name: Custom Field Date
+              value: '2018-12-25T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text updated
+            - name: Custom Field Paragraph
+              value: longer text than short text updated
+            - name: Custom Field URL
+              value: http://www.example.com/updated
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+              - id: '2'
+                type: attachments
+            supplier_company:
+              data: null
+            creator:
+              data:
+                id: '1'
+                type: stakeholders
+            owner:
+              data:
+                id: '2'
+                type: stakeholders
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            docusign_envelopes:
+              data: []
+            adobe_sign_agreements:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/1
+    external_show_response:
+      value:
+        data:
+          type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: 11.11
+            actual_start_date: '2028-12-30'
+            auto_renewal: 'yes'
+            approved_at: '2019-10-11T09:12:31.080Z'
+            approval_rounds: 1
+            description: Contract Description
+            external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 1
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_date: '2031-07-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_date: '2031-06-18'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title
+            updated_at: '2019-10-29T21:28:46.790Z'
+            scc_updated_at: null
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
+            public: false
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+              - id: '2'
+                type: attachments
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            creator:
+              data:
+                id: '1'
+                type: stakeholders
+            owner:
+              data:
+                id: '1'
+                type: stakeholders
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            docusign_envelopes:
+              data:
+              - id: '3'
+                type: docusign_envelopes
+            adobe_sign_agreements:
+              data:
+              - id: '4'
+                type: adobe_sign_agreements
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/1
+    external_update_request:
+      value:
+        data:
+          type: contracts
+          id: 1234-5678-abcd-efgh
+          attributes:
+            actual_end_date: '2032-12-30'
+            actual_spend_amount: '22.11'
+            actual_start_date: '2029-12-30'
+            auto_renewal: 'yes'
+            description: Contract Description Updated
+            external_id: 1234-5678-abcd-efgh
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title Updated
+            custom_fields:
+            - name: Custom Field Currency
+              value: 987654321
+            - name: Custom Field Integer
+              value: 987654321
+            - name: Custom Field Checkbox
+              value: false
+            - name: Custom Field Decimal
+              value: 876543.21
+            - name: Custom Field Date
+              value: '2018-12-25T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text updated
+            - name: Custom Field Paragraph
+              value: longer text than short text updated
+            - name: Custom Field URL
+              value: http://www.example.com/updated
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            owner:
+              meta:
+                email: contract.owner@example.com
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+    create_compound_request:
+      value:
+        data:
+          type: contracts
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: '11.11'
+            actual_start_date: '2028-12-30'
+            auto_renewal: 'yes'
+            description: Contract Description
+            external_id: 1234-5678-abcd-efgh
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            owner:
+              meta:
+                email: contract.owner@example.com
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            payment_currency:
+              data:
+                id: '149'
+                type: payment_currencies
+    index_compound_response:
+      value:
+        meta:
+          count: 2
+        data:
+        - type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: 11.11
+            actual_start_date: '2028-12-30'
+            approved_at: '2019-10-11T09:12:31.080Z'
+            approval_rounds: 1
+            auto_renewal: 'yes'
+            description: Contract Description
+            external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 1
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_date: '2031-07-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_date: '2031-06-18'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title
+            updated_at: '2019-10-29T21:28:46.790Z'
+            scc_updated_at: null
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+              - id: '2'
+                type: attachments
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            wday_financial_company:
+              data:
+                id: '1'
+                type: wday_financial_companies
+            payment_currency:
+              data:
+                id: '1'
+                type: payment_currencies
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '1'
+                type: contract_types
+            docusign_envelopes:
+              data: []
+            adobe_sign_agreements:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/1
+        - type: contracts
+          id: '2'
+          attributes:
+            actual_end_date: '2033-12-30'
+            actual_spend_amount: 22.22
+            actual_start_date: '2030-12-30'
+            auto_renewal: 'yes'
+            approved_at: '2019-10-11T09:12:31.080Z'
+            approval_rounds: 1
+            description: 'Contract #2 Description'
+            external_id: abcd-efgh-1234-5678
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 2
+            renew_number_of_times: 6
+            renewal_term_unit: days
+            renewal_term_value: 3
+            renewal_termination_notice_date: '2033-08-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 4
+            renewal_termination_reminder_date: '2033-07-26'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 5
+            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: 'Contract #2 Title'
+            updated_at: '2019-10-29T21:28:46.790Z'
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            scc_updated_at: null
+            request_opened_at: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data: []
+            supplier_company:
+              data: null
+            payment_currency:
+              data: null
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            docusign_envelopes:
+              data: []
+            adobe_sign_agreements:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/2
+        included:
+        - id: '3'
+          type: contract_types
+          attributes:
+            name: Contract type 1
+            shortcode: XTCH
+            external_id: 40424xe5lzosfl8
+          links:
+            self: ' https://api.us.workdayspend.com/services/contracts/v1/contract_types/3'
+        links:
+          self: https://api.us.workdayspend.com/services/contracts/v1/contracts?page%5Bsize%5D=10
+          next: https://api.us.workdayspend.com/services/contracts/v1/contracts?page%5Bcursor%5D=WzM2NV0%3D&page%5Bdirection%5D=next&page%5Bsize%5D=10
+          prev: https://api.us.workdayspend.com/services/contracts/v1/contracts?page%5Bcursor%5D=WzM2NF0%3D&page%5Bdirection%5D=prev&page%5Bsize%5D=10
+    update_compound_external_request:
+      value:
+        data:
+          type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2032-12-30'
+            actual_spend_amount: '22.11'
+            actual_start_date: '2029-12-30'
+            auto_renewal: 'yes'
+            description: Contract Description Updated
+            external_id: 1234-5678-abcd-efgh
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title Updated
+            custom_fields:
+            - name: Custom Field Currency
+              value: 987654321
+            - name: Custom Field Integer
+              value: 987654321
+            - name: Custom Field Checkbox
+              value: false
+            - name: Custom Field Decimal
+              value: 876543.21
+            - name: Custom Field Date
+              value: '2018-12-25T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text updated
+            - name: Custom Field Paragraph
+              value: longer text than short text updated
+            - name: Custom Field URL
+              value: http://www.example.com/updated
+          relationships:
+            external_supplier_company:
+              data:
+                id: zeta
+                type: external_supplier_companies
+            owner:
+              meta:
+                email: contract.owner@example.com
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            external_contract_type:
+              data:
+                id: CONT1
+                type: contract_types
+    create_compound_response:
+      value:
+        data:
+          type: contracts
+          id: '1'
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: 11.11
+            actual_start_date: '2028-12-30'
+            auto_renewal: 'yes'
+            approved_at: null
+            approval_rounds: 0
+            description: Contract Description
+            external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 1
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_date: '2031-07-30'
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_date: '2031-06-18'
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            first_sent_for_approval_at: null
+            sent_for_approval_at: null
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title
+            updated_at: '2019-10-29T21:28:46.790Z'
+            scc_updated_at: null
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            creator:
+              data:
+                id: '1'
+                type: stakeholders
+            owner:
+              data:
+                id: '2'
+                type: stakeholders
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+            docusign_envelopes:
+              data: []
+            adobe_sign_agreements:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contracts/1
+        included:
+        - id: '3'
+          type: contract_types
+          attributes:
+            name: Contract type 1
+            shortcode: XTCH
+            external_id: 40424xe5lzosfl8
+          links:
+            self: ' https://api.us.workdayspend.com/services/contracts/v1/contract_types/3'
+    create_simple_request:
+      value:
+        data:
+          type: contracts
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: '11.11'
+            actual_start_date: '2028-12-30'
+            auto_renewal: 'yes'
+            description: Contract Description
+            external_id: 1234-5678-abcd-efgh
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            renew_number_of_times: 3
+            renewal_term_unit: days
+            renewal_term_value: 4
+            renewal_termination_notice_unit: months
+            renewal_termination_notice_value: 5
+            renewal_termination_reminder_unit: weeks
+            renewal_termination_reminder_value: 6
+            state: in_progress
+            state_label: Discovery
+            terminated_note: null
+            terminated_reason: null
+            title: Contract Title
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            spend_category:
+              data:
+                id: '2'
+                type: spend_categories
+            contract_type:
+              data:
+                id: '3'
+                type: contract_types
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

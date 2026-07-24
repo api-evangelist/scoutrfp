@@ -1,0 +1,238 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments event_templates API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: event_templates
+  x-displayName: Event Templates
+  description: 'Use the contract types API to query the event templates in Workday Strategic Sourcing.
+
+
+    Event Templates are used as a blueprint for newly created events.
+
+
+    ## Event Template Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/EventTemplateModel" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /event_templates:
+    get:
+      tags:
+      - event_templates
+      description: Returns a list of all event templates.
+      operationId: List Event Templates
+      summary: List Event Templates
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/EventTemplateModel'
+                    meta:
+                      type: object
+                      description: Result set metadata.
+                      properties:
+                        count:
+                          type: integer
+                          description: Number of pages in the result set.
+                    links:
+                      $ref: '#/components/schemas/SelfLink'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/event_templates\"\n"
+  /event_templates/{id}:
+    get:
+      tags:
+      - event_templates
+      description: 'Retrieves the details of an existing event template.
+
+        '
+      operationId: Get an Event Template
+      summary: Get an Event Template
+      parameters:
+      - name: id
+        in: path
+        description: Unique event template identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EventTemplateModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/show_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/event_templates/1\"\n"
+components:
+  schemas:
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    EventTemplateBase:
+      title: EventTemplate
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/EventTemplateType'
+        id:
+          $ref: '#/components/schemas/EventTemplateId'
+    EventTemplateAttributes:
+      type: object
+      description: Event template attributes.
+      required:
+      - name
+      - shortcode
+      properties:
+        title:
+          type: string
+          maxLength: 255
+          description: Event template title.
+          example: My Event Template
+        event_type:
+          $ref: '#/components/schemas/EventTypeEnum'
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    EventTemplateModel:
+      allOf:
+      - $ref: '#/components/schemas/EventTemplateBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/EventTemplateAttributes'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    EventTemplateId:
+      type: integer
+      description: Event template identifier string.
+      example: 1
+    EventTemplateType:
+      type: string
+      description: Object type, should always be `event_templates`.
+      example: event_templates
+    EventTypeEnum:
+      type: string
+      enum:
+      - RFP
+      - AUCTION
+      - AUCTION_WITH_LOTS
+      - AUCTION_LOT
+      - PERFORMANCE_REVIEW_EVENT
+      - PERFORMANCE_REVIEW_SCORE_CARD_ONLY_EVENT
+      - SUPPLIER_REVIEW_EVENT
+      - SUPPLIER_REVIEW_MASTER_EVENT
+      description: Event type.
+      example: RFP
+  examples:
+    index_response:
+      value:
+        meta:
+          count: 2
+        data:
+        - type: event_templates
+          id: '1'
+          attributes:
+            title: 'Event Template #1'
+            event_type: RFP
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/event_templates/1
+        - type: event_templates
+          id: '2'
+          attributes:
+            title: 'Event Template #2'
+            event_type: PERFORMANCE_REVIEW_EVENT
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/event_templates/2
+        links:
+          self: https://api.us.workdayspend.com/services/events/v1/event_templates
+    show_response:
+      value:
+        data:
+          type: event_templates
+          id: '1'
+          attributes:
+            title: The Event Template
+            event_type: RFP
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/event_templates/1
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

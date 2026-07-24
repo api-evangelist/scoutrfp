@@ -1,0 +1,453 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments supplier_groups API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: supplier_groups
+  x-displayName: Supplier Groups
+  description: 'Use the supplier groups API to create, update, and query the supplier groups in Workday Strategic Sourcing.
+
+
+    ## Supplier Group Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/SupplierGroup" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /supplier_groups:
+    get:
+      tags:
+      - supplier_groups
+      description: Returns a list of supplier groups.
+      operationId: List Supplier Groups
+      summary: List Supplier Groups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SupplierGroup'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-9'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups\"\n"
+    post:
+      tags:
+      - supplier_groups
+      description: 'Create a supplier group with given parameters.
+
+        '
+      operationId: Create a Supplier Group
+      summary: Create a Supplier Group
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/SupplierGroupCreate'
+            examples:
+              success:
+                $ref: '#/components/examples/create_request-8'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SupplierGroup'
+              examples:
+                success:
+                  $ref: '#/components/examples/create_response-9'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":{\"type\":\"supplier_groups\",\"attributes\":{\"name\":\"Supplier Group\"}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups\"\n"
+  /supplier_groups/{id}:
+    patch:
+      tags:
+      - supplier_groups
+      description: 'Updates the details of an existing supplier group. You need to supply the unique
+
+        identifier that was returned upon supplier group creation.
+
+
+        Please note, that request body must include an `id` attribute with the value of your supplier group
+
+        unique identifier (the same one you passed in the URL).
+
+        '
+      operationId: Update a Supplier Group
+      summary: Update a Supplier Group
+      parameters:
+      - name: id
+        in: path
+        description: Unique supplier group identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/SupplierGroupUpdate'
+            examples:
+              success:
+                $ref: '#/components/examples/update_request-9'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SupplierGroup'
+              examples:
+                success:
+                  $ref: '#/components/examples/update_response-9'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              examples:
+                invalid_type:
+                  summary: Missing or invalid 'type' specified, expected 'supplier_groups'
+                  description: 'Returns error due to invalid `type` parameter.
+
+                    '
+                  value:
+                    errors:
+                    - detail: Missing or invalid 'type' specified, expected 'supplier_groups'
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"supplier_groups\",\"id\":\"2\",\"attributes\":{\"name\":\"Updated Supplier Group\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/2\"\n"
+    delete:
+      tags:
+      - supplier_groups
+      description: 'Deletes a supplier group. You need to supply the unique supplier group
+
+        identifier that was returned upon supplier group creation.
+
+        '
+      operationId: Delete a Supplier Group
+      summary: Delete a Supplier Group
+      parameters:
+      - name: id
+        in: path
+        description: Unique supplier group identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1\"\n"
+  /supplier_groups/{external_id}/external_id:
+    patch:
+      tags:
+      - supplier_groups
+      description: 'Updates the details of an existing supplier group. You need to supply the unique
+
+        external identifier assigned to the supplier group on creation.
+
+
+        Please note, that request body must include an `id` attribute with the value of your supplier group
+
+        unique identifier (the same one you passed in the URL).
+
+        '
+      operationId: Update a Supplier Group by External ID
+      summary: Update a Supplier Group by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Unique supplier group external identifier.
+        required: true
+        schema:
+          type: string
+        example: SUPGROUP
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/SupplierGroupUpdate'
+            examples:
+              success:
+                $ref: '#/components/examples/external_update_request-6'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SupplierGroup'
+              examples:
+                success:
+                  $ref: '#/components/examples/external_update_response-6'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"supplier_groups\",\"id\":\"SUPGROUP\",\"attributes\":{\"name\":\"Updated Supplier Group\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/SUPGROUP/external_id\"\n"
+    delete:
+      tags:
+      - supplier_groups
+      description: 'Deletes a supplier group. You need to supply the unique supplier group
+
+        external identifier assigned to the supplier group on creation.
+
+        '
+      operationId: Delete a Supplier Group by External ID
+      summary: Delete a Supplier Group by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Unique supplier group external identifier.
+        required: true
+        schema:
+          type: string
+        example: SUPGROUP
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/SUPGROUP/external_id\"\n"
+components:
+  schemas:
+    SupplierGroupType:
+      type: string
+      description: Object type, should always be `supplier_groups`.
+      example: supplier_groups
+    SupplierGroup:
+      allOf:
+      - $ref: '#/components/schemas/SupplierGroupBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierGroupAttributes'
+    SupplierGroupAttributes:
+      type: object
+      description: Supplier group attributes.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Supplier group name.
+        external_id:
+          type: string
+          maxLength: 255
+          description: Supplier group external identifier.
+    SupplierGroupBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierGroupType'
+        id:
+          $ref: '#/components/schemas/SupplierGroupId'
+    SupplierGroupCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierGroupType'
+        attributes:
+          $ref: '#/components/schemas/SupplierGroupAttributes'
+    SupplierGroupUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierGroupType'
+        id:
+          $ref: '#/components/schemas/SupplierGroupId'
+        attributes:
+          $ref: '#/components/schemas/SupplierGroupAttributes'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    SupplierGroupId:
+      type: integer
+      description: Supplier group identifier string.
+      example: 1
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+  examples:
+    create_response-9:
+      value:
+        data:
+          id: '1'
+          type: supplier_groups
+          attributes:
+            name: 'Supplier Group #1'
+            external_id: SUPGROUP-1
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1
+    external_update_request-6:
+      value:
+        data:
+          type: supplier_groups
+          id: SUPGROUP
+          attributes:
+            name: Supplier Group Updated
+    create_request-8:
+      value:
+        data:
+          type: supplier_groups
+          attributes:
+            name: 'Supplier Group #1'
+            external_id: SUPGROUP-1
+    index_response-9:
+      value:
+        data:
+        - id: '1'
+          type: supplier_groups
+          attributes:
+            name: 'Supplier Group #1'
+            external_id: SUPGROUP-1
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1
+        - id: '2'
+          type: supplier_groups
+          attributes:
+            name: 'Supplier Group #2'
+            external_id: SUPGROUP-2
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/2
+        links:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups
+    update_request-9:
+      value:
+        data:
+          type: supplier_groups
+          id: '1'
+          attributes:
+            name: Supplier Group Updated
+            external_id: SUPGROUP-UPD
+    external_update_response-6:
+      value:
+        data:
+          id: '1'
+          type: supplier_groups
+          attributes:
+            name: Supplier Group Updated
+            external_id: SUPGROUP
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1
+    update_response-9:
+      value:
+        data:
+          id: '1'
+          type: supplier_groups
+          attributes:
+            name: Supplier Group Updated
+            external_id: SUPGROUP-UPD
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

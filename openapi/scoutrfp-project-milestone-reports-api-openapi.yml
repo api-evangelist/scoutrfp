@@ -1,0 +1,424 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments project_milestone_reports API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: project_milestone_reports
+  x-displayName: Project Milestone Reports
+  description: 'This report returns a list of Project Milestone report entries.
+
+    '
+paths:
+  /project_milestone_reports/entries:
+    get:
+      tags:
+      - project_milestone_reports
+      description: Returns a list of project milestone entries.
+      operationId: Project Milestone Report Entries
+      summary: Project Milestone Report Entries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/ProjectMilestoneReportEntry'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-5'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/project_milestone_reports/entries\"\n"
+  /project_milestone_reports/schema:
+    get:
+      tags:
+      - project_milestone_reports
+      description: Returns the project milestone report schema.
+      operationId: Project Milestone Report Schema
+      summary: Project Milestone Report Schema
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ProjectMilestoneReportEntryFieldModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/schema_response-6'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/project_milestone_reports/schema\"\n"
+components:
+  schemas:
+    ProjectMilestoneReportEntryAttributes:
+      description: Project Milestone Report Entry attributes. See example response and schema.
+      properties: {}
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    ProjectMilestoneReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `project_milestone_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `project_milestone_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+    ProjectMilestoneReportEntryId:
+      description: Project Milestone Report identifier string.
+      example: 1
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    ProjectMilestoneReportEntryType:
+      description: Object type, should always be `project_milestone_report_entries`.
+      example: project_milestone_report_entries
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ProjectMilestoneReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ProjectMilestoneReportEntryType'
+        id:
+          $ref: '#/components/schemas/ProjectMilestoneReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/ProjectMilestoneReportEntryAttributes'
+  examples:
+    schema_response-6:
+      value:
+        data:
+          id: project_milestone_schemas
+          type: project_milestone_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-Milestone Name
+            - type: date
+              name: Scout-Milestone Date
+            - type: integer
+              name: Scout-Milestone Date FY
+            - type: integer
+              name: Scout-Milestone Date FQ
+            - type: select
+              name: Scout-Milestone Status
+            - type: date
+              name: Scout-Milestone Complete Date
+            - type: integer
+              name: Scout-Milestone Complete Date FY
+            - type: integer
+              name: Scout-Milestone Complete Date FQ
+            - type: select
+              name: Scout-Template Milestone
+            - type: select
+              name: Scout-Milestone Created By
+            - type: date
+              name: Scout-Milestone Create Date
+            - type: integer
+              name: Scout-Milestone Create Date FY
+            - type: integer
+              name: Scout-Milestone Create Date FQ
+            - type: date
+              name: Scout-Milestone Assign Date
+            - type: select
+              name: Scout-Milestone Assignee
+            - type: select
+              name: Scout-Mark Completed By
+            - type: integer
+              name: Scout-# of Days Milestone is Open
+            - type: text
+              name: 'Scout-ID #'
+            - type: text
+              name: Scout-Project Title
+            - type: select
+              name: Scout-Project Type
+            - type: select
+              name: Scout-Project Type Short Code
+            - type: text
+              name: Scout-Project Needs Attention
+            - type: select
+              name: Scout-Project State & Status
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: select
+              name: Scout-Project Requester
+            - type: select
+              name: Scout-Category
+            - type: date
+              name: Scout-Estimated Start Date
+            - type: integer
+              name: Scout-Estimated Start Date FY
+            - type: integer
+              name: Scout-Estimated Start Date FQ
+            - type: date
+              name: Scout-Estimated End Date
+            - type: integer
+              name: Scout-Estimated End Date FY
+            - type: integer
+              name: Scout-Estimated End Date FQ
+            - type: date
+              name: Scout-Actual Start Date
+            - type: integer
+              name: Scout-Actual Start Date FY
+            - type: integer
+              name: Scout-Actual Start Date FQ
+            - type: date
+              name: Scout-Actual End Date
+            - type: integer
+              name: Scout-Actual End Date FY
+            - type: integer
+              name: Scout-Actual End Date FQ
+            - type: date
+              name: Scout-Request Submitted
+            - type: date
+              name: Scout-Request Opened
+            - type: string
+              name: 'Field #15'
+    index_response-5:
+      value:
+        data:
+        - id: '1'
+          type: project_milestone_report_entries
+          attributes:
+            Scout-Milestone Name: example 1
+            Scout-Milestone Date: '2020-04-16'
+            Scout-Milestone Date FY: 2020
+            Scout-Milestone Date FQ: 2
+            Scout-Milestone Status: Open
+            Scout-Milestone Complete Date: null
+            Scout-Milestone Complete Date FY: null
+            Scout-Milestone Complete Date FQ: null
+            Scout-Template Milestone: false
+            Scout-Milestone Created By: null
+            Scout-Milestone Create Date: '2020-04-14'
+            Scout-Milestone Create Date FY: 2020
+            Scout-Milestone Create Date FQ: 2
+            Scout-Milestone Assign Date: null
+            Scout-Milestone Assignee: null
+            Scout-Mark Completed By: null
+            Scout-# of Days Milestone is Open: null
+            'Scout-ID #': 1
+            Scout-Project Title: Enormous Rubber Plate
+            Scout-Project Type: 'Project Type #72'
+            Scout-Project Type Short Code: 72P5
+            Scout-Project Needs Attention: 'No'
+            Scout-Project State & Status: Planned
+            Scout-Sourcing Owner: Miss McLaughlin
+            Scout-Project Requester: null
+            Scout-Category: null
+            Scout-Estimated Start Date: '2020-04-28'
+            Scout-Estimated Start Date FY: 2020
+            Scout-Estimated Start Date FQ: 2
+            Scout-Estimated End Date: '2020-06-14'
+            Scout-Estimated End Date FY: 2020
+            Scout-Estimated End Date FQ: 2
+            Scout-Actual Start Date: null
+            Scout-Actual Start Date FY: null
+            Scout-Actual Start Date FQ: null
+            Scout-Actual End Date: null
+            Scout-Actual End Date FY: null
+            Scout-Actual End Date FQ: null
+            Scout-Request Submitted: null
+            Scout-Request Opened: null
+            Custom field for project!: Custom field value
+        - id: '2'
+          type: project_milestone_report_entries
+          attributes:
+            Scout-Milestone Name: example 2
+            Scout-Milestone Date: '2020-04-16'
+            Scout-Milestone Date FY: 2020
+            Scout-Milestone Date FQ: 2
+            Scout-Milestone Status: Open
+            Scout-Milestone Complete Date: null
+            Scout-Milestone Complete Date FY: null
+            Scout-Milestone Complete Date FQ: null
+            Scout-Template Milestone: false
+            Scout-Milestone Created By: null
+            Scout-Milestone Create Date: '2020-04-14'
+            Scout-Milestone Create Date FY: 2020
+            Scout-Milestone Create Date FQ: 2
+            Scout-Milestone Assign Date: null
+            Scout-Milestone Assignee: null
+            Scout-Mark Completed By: null
+            Scout-# of Days Milestone is Open: null
+            'Scout-ID #': 1
+            Scout-Project Title: Enormous Rubber Plate
+            Scout-Project Type: 'Project Type #72'
+            Scout-Project Type Short Code: 72P5
+            Scout-Project Needs Attention: 'No'
+            Scout-Project State & Status: Planned
+            Scout-Sourcing Owner: Miss McLaughlin
+            Scout-Project Requester: null
+            Scout-Category: null
+            Scout-Estimated Start Date: '2020-04-28'
+            Scout-Estimated Start Date FY: 2020
+            Scout-Estimated Start Date FQ: 2
+            Scout-Estimated End Date: '2020-06-14'
+            Scout-Estimated End Date FY: 2020
+            Scout-Estimated End Date FQ: 2
+            Scout-Actual Start Date: null
+            Scout-Actual Start Date FY: null
+            Scout-Actual Start Date FQ: null
+            Scout-Actual End Date: null
+            Scout-Actual End Date FY: null
+            Scout-Actual End Date FQ: null
+            Scout-Request Submitted: null
+            Scout-Request Opened: null
+            Custom field for project!: Custom field value
+        - id: '3'
+          type: project_milestone_report_entries
+          attributes:
+            Scout-Milestone Name: this will not show up
+            Scout-Milestone Date: '2020-04-16'
+            Scout-Milestone Date FY: 2020
+            Scout-Milestone Date FQ: 2
+            Scout-Milestone Status: Open
+            Scout-Milestone Complete Date: null
+            Scout-Milestone Complete Date FY: null
+            Scout-Milestone Complete Date FQ: null
+            Scout-Template Milestone: false
+            Scout-Milestone Created By: null
+            Scout-Milestone Create Date: '2020-04-14'
+            Scout-Milestone Create Date FY: 2020
+            Scout-Milestone Create Date FQ: 2
+            Scout-Milestone Assign Date: null
+            Scout-Milestone Assignee: null
+            Scout-Mark Completed By: null
+            Scout-# of Days Milestone is Open: null
+            'Scout-ID #': 1
+            Scout-Project Title: Enormous Rubber Plate
+            Scout-Project Type: 'Project Type #72'
+            Scout-Project Type Short Code: 72P5
+            Scout-Project Needs Attention: 'No'
+            Scout-Project State & Status: Planned
+            Scout-Sourcing Owner: Miss McLaughlin
+            Scout-Project Requester: null
+            Scout-Category: null
+            Scout-Estimated Start Date: '2020-04-28'
+            Scout-Estimated Start Date FY: 2020
+            Scout-Estimated Start Date FQ: 2
+            Scout-Estimated End Date: '2020-06-14'
+            Scout-Estimated End Date FY: 2020
+            Scout-Estimated End Date FQ: 2
+            Scout-Actual Start Date: null
+            Scout-Actual Start Date FY: null
+            Scout-Actual Start Date FQ: null
+            Scout-Actual End Date: null
+            Scout-Actual End Date FY: null
+            Scout-Actual End Date FQ: null
+            Scout-Request Submitted: null
+            Scout-Request Opened: null
+            Custom field for project!: Custom field value
+        links:
+          prev: null
+          next: null
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

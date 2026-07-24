@@ -1,0 +1,590 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments contract_types API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: contract_types
+  x-displayName: Contract Types
+  description: 'Use the contract types API to query the contract types in Workday Strategic Sourcing.
+
+
+    Contract Types are used in the contract resource. On POST and PATCH related endpoints for this resource a contract_type_id can be added to set the contract type. The contract_type_id is a foreign key for the contract_types resource''s id.
+
+
+    ## Contract Type Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/ContractType" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /contract_types:
+    get:
+      tags:
+      - contract_types
+      description: Returns a list of all contract types.
+      operationId: List Contract Types
+      summary: List Contract Types
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/ContractTypeModel'
+                    meta:
+                      type: object
+                      description: Result set metadata.
+                      properties:
+                        count:
+                          type: integer
+                          description: Number of pages in the result set.
+                    links:
+                      $ref: '#/components/schemas/SelfLink'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-2'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contract_types\"\n"
+    post:
+      tags:
+      - contract_types
+      description: 'Create a contract type with given parameters.
+
+        '
+      operationId: Create a Contract Type
+      summary: Create a Contract Type
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/ContractTypeCreate'
+            examples:
+              success:
+                $ref: '#/components/examples/create_request'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContractTypeModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/create_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":{\"type\":\"contract_types\",\"attributes\":{\"name\":\"Contract Type\", \"shortcode\":\"CRT\", \"external_id\": \"CRT$1\"}}' \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contract_types\"\n"
+  /contract_types/{id}:
+    get:
+      tags:
+      - contract_types
+      description: 'Retrieves the details of an existing contract type.
+
+        '
+      operationId: Get a Contract Type
+      summary: Get a Contract Type
+      parameters:
+      - name: id
+        in: path
+        description: Unique contract type identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContractTypeModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/show_response-2'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contract_types/1\"\n"
+    patch:
+      tags:
+      - contract_types
+      description: 'Updates the details of an existing contract type. You need to supply the unique
+
+        identifier that was returned upon contract type creation.
+
+
+        Please note, that request body must include an `id` attribute with the value of your contract type
+
+        unique identifier (the same one you passed in the URL).
+
+        '
+      operationId: Update a Contract Type
+      summary: Update a Contract Type
+      parameters:
+      - name: id
+        in: path
+        description: Unique contract type identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/ContractTypeUpdate'
+            examples:
+              success:
+                $ref: '#/components/examples/update_request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContractTypeModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/update_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              examples:
+                invalid_type:
+                  summary: Missing or invalid 'type' specified, expected 'contract_types'
+                  description: 'Returns error due to invalid `type` parameter.
+
+                    '
+                  value:
+                    errors:
+                    - detail: Missing or invalid 'type' specified, expected 'contract_types'
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"contract_types\",\"id\":\"2\",\"attributes\":{\"name\":\"Updated Contract Type\"}}}' \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contract_types/2\"\n"
+    delete:
+      tags:
+      - contract_types
+      description: 'Deletes a contract type. You need to supply the unique contract type
+
+        identifier that was returned upon contract type creation.
+
+        '
+      operationId: Delete a Contract Type
+      summary: Delete a Contract Type
+      parameters:
+      - name: id
+        in: path
+        description: Unique contract type identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contract_types/1\"\n"
+  /contract_types/{external_id}/external_id:
+    get:
+      tags:
+      - contract_types
+      description: 'Retrieves the details of an existing contract type.
+
+        '
+      operationId: Get a Contract Type by External ID
+      summary: Get a Contract Type by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Unique contract type external identifier.
+        required: true
+        schema:
+          type: string
+        example: CTR$1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContractTypeModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/external_show_response-2'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contract_types/CTR$1/external_id\"\n"
+    patch:
+      tags:
+      - contract_types
+      description: 'Updates the details of an existing contract type. You need to supply the unique
+
+        external identifier assigned to the contract type on creation.
+
+
+        Please note, that request body must include an `id` attribute with the value of your contract type
+
+        unique identifier (the same one you passed in the URL).
+
+        '
+      operationId: Update a Contract Type by External ID
+      summary: Update a Contract Type by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Unique contract type external identifier.
+        required: true
+        schema:
+          type: string
+        example: CTR$1
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/ContractTypeUpdate'
+            examples:
+              success:
+                $ref: '#/components/examples/external_update_request-2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContractTypeModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/external_update_response-2'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"contract_types\",\"id\":\"CTR$1\",\"attributes\":{\"name\":\"Updated Contract Type\"}}}' \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contract_types/CTR$1/external_id\"\n"
+    delete:
+      tags:
+      - contract_types
+      description: 'Deletes a contract type. You need to supply the unique contract type
+
+        external identifier assigned to the contract type on creation.
+
+        '
+      operationId: Delete a Contract Type by External ID
+      summary: Delete a Contract Type by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Unique contract type external identifier.
+        required: true
+        schema:
+          type: string
+        example: CTR$1
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/contracts/v1/contract_types/CTR$1/external_id\"\n"
+components:
+  examples:
+    update_request:
+      value:
+        data:
+          id: '1'
+          type: contract_types
+          attributes:
+            name: Updated Contract Type
+            shortcode: C1
+            external_id: C$1
+    show_response-2:
+      value:
+        data:
+          type: contract_types
+          id: '1'
+          attributes:
+            name: The Contract Type
+            shortcode: CTRT
+            external_id: CTR$1
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+    index_response-2:
+      value:
+        meta:
+          count: 2
+        data:
+        - type: contract_types
+          id: '1'
+          attributes:
+            name: 'Contract Type #1'
+            shortcode: CTRA
+            external_id: CTR$1
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+        - type: contract_types
+          id: '2'
+          attributes:
+            name: 'Contract Type #2'
+            shortcode: CTRB
+            external_id: CTR$2
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/2
+        links:
+          self: https://api.us.workdayspend.com/services/contracts/v1/contract_types
+    create_request:
+      value:
+        data:
+          type: contract_types
+          attributes:
+            name: The Contract Type
+            shortcode: CTRT
+            external_id: CTR$1
+    external_update_request-2:
+      value:
+        data:
+          id: CTR$1
+          type: contract_types
+          attributes:
+            name: Updated Contract Type
+            shortcode: C1
+            external_id: C$1
+    external_update_response-2:
+      value:
+        data:
+          id: '1'
+          type: contract_types
+          attributes:
+            name: Updated Contract Type
+            shortcode: C1
+            external_id: C$1
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+    create_response:
+      value:
+        data:
+          type: contract_types
+          id: '1'
+          attributes:
+            name: The Contract Type
+            shortcode: CTRT
+            external_id: CTR$1
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+    update_response:
+      value:
+        data:
+          id: '1'
+          type: contract_types
+          attributes:
+            name: Updated Contract Type
+            shortcode: C1
+            external_id: C$1
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+    external_show_response-2:
+      value:
+        data:
+          type: contract_types
+          id: '1'
+          attributes:
+            name: The Contract Type
+            shortcode: CTRT
+            external_id: CTR$1
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+  schemas:
+    ContractTypeCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeType'
+        attributes:
+          $ref: '#/components/schemas/ContractTypeAttributes'
+    ContractTypeId:
+      type: integer
+      description: Contract type identifier string.
+      example: 1
+    ContractTypeAttributes:
+      type: object
+      description: Contract type attributes.
+      required:
+      - name
+      - shortcode
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Contract type name.
+          example: My Contract Type
+        shortcode:
+          type: string
+          maxLength: 4
+          description: Contract type short code.
+          example: CPUB
+        external_id:
+          type: string
+          description: Customer provided unique contract type identifier.
+          example: 1234-5678-abcd-efgh
+    ContractTypeModel:
+      allOf:
+      - $ref: '#/components/schemas/ContractTypeBase'
+      - type: object
+        properties:
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    ContractTypeBase:
+      title: ContractType
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeType'
+        id:
+          $ref: '#/components/schemas/ContractTypeId'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    ContractTypeUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeType'
+        id:
+          $ref: '#/components/schemas/ContractTypeId'
+        attributes:
+          $ref: '#/components/schemas/ContractTypeAttributes'
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    ContractTypeType:
+      type: string
+      description: Object type, should always be `contract_types`.
+      example: contract_types
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

@@ -1,0 +1,348 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments awards API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: awards
+  x-displayName: Awards
+  description: 'Use the Awards API to query the Awards in Workday Strategic Sourcing.
+
+
+    Awards are used for procurement.
+
+
+    ## Award Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/Award" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /awards:
+    get:
+      tags:
+      - awards
+      description: Returns a list of awards.
+      operationId: List Awards
+      summary: List Awards
+      parameters:
+      - name: filter
+        in: query
+        description: 'Filter awards by multiple criteria.
+
+          '
+        schema:
+          $ref: '#/components/schemas/AwardInputFilter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Award'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/awards/v1/awards\"\n"
+components:
+  schemas:
+    AwardState:
+      type: string
+      description: Award state. The default value is `draft` when the award is created.
+      enum:
+      - draft
+      - confirmed
+      - awaiting_requisition_sync
+      - requisition_created
+    StakeholderType:
+      type: string
+      description: Object type, should always be `stakeholders`.
+      example: stakeholders
+    AwardTitle:
+      type: string
+      maxLength: 255
+      description: Award title.
+    AwardType:
+      type: string
+      description: Object type, should always be `awards`.
+      example: awards
+    ProjectId:
+      type: integer
+      description: Project identifier string.
+      example: 1
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    StakeholderBase:
+      title: Stakeholder
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/StakeholderType'
+        id:
+          $ref: '#/components/schemas/StakeholderId'
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+          deprecated: true
+    ProjectType:
+      type: string
+      description: Object type, should always be `projects`.
+      example: projects
+    AwardInputFilter:
+      type: object
+      properties:
+        state_equals:
+          type: array
+          description: Find awards by their state.
+          example:
+          - draft
+          - confirmed
+        updated_at_from:
+          type: string
+          format: date-time
+          description: Return awards updated on or after the specified timestamp.
+          example: '2021-05-29T21:28:46.790Z'
+        updated_at_to:
+          type: string
+          format: date-time
+          description: Return awards updated on or before the specified timestamp.
+          example: '2021-05-29T21:28:46.790Z'
+    AwardAttributes:
+      type: object
+      description: Award attributes.
+      required:
+      - title
+      properties:
+        title:
+          $ref: '#/components/schemas/AwardTitle'
+        external_id:
+          $ref: '#/components/schemas/AwardExternalId'
+        state:
+          $ref: '#/components/schemas/AwardState'
+        updated_at:
+          $ref: '#/components/schemas/AwardUpdatedAt'
+        pros:
+          $ref: '#/components/schemas/AwardPros'
+        cons:
+          $ref: '#/components/schemas/AwardCons'
+    Award:
+      allOf:
+      - $ref: '#/components/schemas/AwardBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/AwardAttributes'
+          relationships:
+            $ref: '#/components/schemas/AwardRelationship'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    AwardId:
+      type: integer
+      description: Award identifier string.
+      example: 1
+    AwardCons:
+      type: string
+      description: Cons associated with award option
+      example: <p>Expensive company</p>
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    AwardRelationship:
+      type: object
+      description: Award relationships.
+      properties:
+        creator:
+          type: object
+          description: Project creator is the user whose API keys are used for authentication.
+          properties:
+            data:
+              $ref: '#/components/schemas/StakeholderBase'
+        project:
+          type: object
+          description: Project associated with this award.
+          properties:
+            data:
+              $ref: '#/components/schemas/ProjectBase'
+    StakeholderId:
+      type: integer
+      description: Stakeholder identifier string.
+      example: 1
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    ProjectBase:
+      title: Project
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ProjectType'
+        id:
+          $ref: '#/components/schemas/ProjectId'
+    AwardPros:
+      type: string
+      description: Pros associated with award option
+      example: <p>Reliable company</p>
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    AwardExternalId:
+      type: string
+      maxLength: 255
+      description: Award ID in your internal database.
+    AwardBase:
+      title: Award
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/AwardType'
+        id:
+          $ref: '#/components/schemas/AwardId'
+    AwardUpdatedAt:
+      type: string
+      format: date-time
+      readOnly: true
+      description: Last modification date.
+      example: '2021-05-29T21:28:46.790Z'
+  examples:
+    index_response:
+      value:
+        meta:
+          count: 2
+        data:
+        - type: awards
+          id: '1'
+          attributes:
+            title: 'Award #1 title'
+            state: draft
+            updated_at: '2021-05-29T21:28:46.790Z'
+            external_id: null
+            pros: <p>Reliable</p>
+            cons: <p>Expensive</p>
+          relationships:
+            creator:
+              data:
+                id: '1'
+                type: stakeholders
+            project:
+              data:
+                id: '1'
+                type: projects
+        - type: awards
+          id: '2'
+          attributes:
+            title: 'Award #2 title'
+            state: draft
+            updated_at: '2021-05-29T21:28:46.790Z'
+            external_id: AW-2
+            pros: null
+            cons: null
+          relationships:
+            creator:
+              data:
+                id: '2'
+                type: stakeholders
+            project:
+              data:
+                id: '2'
+                type: projects
+        links:
+          self: https://api.us.workdayspend.com/services/awards/v1/awards?page%5Bsize%5D=10
+          next: https://api.us.workdayspend.com/services/awards/v1/awards?page%5Bcursor%5D=WzgzXQ%3D%3D&page%5Bdirection%5D=next&page%5Bsize%5D=10
+          prev: null
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

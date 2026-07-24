@@ -1,0 +1,439 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments supplier_reports API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: supplier_reports
+  x-displayName: Supplier Reports
+  description: 'This report returns a list of Supplier report entries.
+
+    '
+paths:
+  /supplier_reports/entries:
+    get:
+      tags:
+      - supplier_reports
+      description: Returns a list of supplier entries.
+      operationId: Supplier Report Entries
+      summary: Supplier Report Entries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SupplierReportEntry'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-8'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/supplier_reports/entries\"\n"
+  /supplier_reports/schema:
+    get:
+      tags:
+      - supplier_reports
+      description: Returns the supplier report schema.
+      operationId: Supplier Report Schema
+      summary: Supplier Report Schema
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SupplierReportEntryFieldModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/schema_response-9'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/supplier_reports/schema\"\n"
+components:
+  schemas:
+    SupplierReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `supplier_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `supplier_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+    SupplierReportEntryId:
+      description: Supplier Report identifier string.
+      example: 1
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+    SupplierReportEntryAttributes:
+      description: Supplier Report Entry attributes. See example response and schema.
+      properties: {}
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SupplierReportEntryType:
+      description: Object type, should always be `supplier_report_entries`.
+      example: supplier_report_entries
+    SupplierReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierReportEntryType'
+        id:
+          $ref: '#/components/schemas/SupplierReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/SupplierReportEntryAttributes'
+  examples:
+    index_response-8:
+      value:
+        data:
+          id: supplier_schemas
+          type: supplier_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-Supplier ID
+            - type: text
+              name: Scout-Supplier Name
+            - type: text
+              name: Scout-Website
+            - type: text
+              name: Scout-Supplier Description
+            - type: select
+              name: Scout-Tags
+            - type: text
+              name: Scout-External ID
+            - type: select
+              name: Scout-Workday Supplier Status
+            - type: select
+              name: Scout-Supplier Status
+            - type: select
+              name: Scout-Segmentation
+            - type: select
+              name: Scout-Supplier Risk
+            - type: text
+              name: Scout-Segmentation Notes
+            - type: select
+              name: Scout-Supplier Category
+            - type: select
+              name: Scout-Supplier Groups
+            - type: date
+              name: Scout-Created Date
+            - type: date
+              name: Scout-Last Updated Date
+            - type: integer
+              name: Scout-# of Events
+            - type: select
+              name: Scout-Events List
+            - type: select
+              name: Scout-Event Type List
+            - type: integer
+              name: Scout-# of Sourcing Owners (Events)
+            - type: select
+              name: Scout-Sourcing Owner List (Events)
+            - type: integer
+              name: Scout-# of Contacts
+            - type: text
+              name: Scout-Contact(s)
+            - type: text
+              name: Scout-Contact Email
+            - type: text
+              name: Scout-Contact Title
+            - type: text
+              name: Scout-Contact Phone
+            - type: select
+              name: Scout-Contact International Calling Code
+            - type: select
+              name: Scout-Contact Types
+            - type: text
+              name: Scout-Contact Notes
+            - type: text
+              name: Scout-Last Login
+            - type: integer
+              name: Scout-# of RSVP Yes
+            - type: integer
+              name: Scout-# of RSVP No
+            - type: integer
+              name: Scout-# of Bids Submitted
+            - type: integer
+              name: Scout-# of Awarded Bids
+            - type: text
+              name: Scout-Awarded Event List
+            - type: select
+              name: Scout-Sanction List Screening Status
+            - type: date
+              name: Scout-Sanction List Screening Date
+            - type: select
+              name: Scout-Parent
+            - type: select
+              name: Scout-Children
+            - type: select
+              name: Scout-Default Payment Type
+            - type: select
+              name: Scout-Default Payment Term
+            - type: select
+              name: Scout-Payment Types
+            - type: select
+              name: Scout-Accepted Currencies
+            - type: select
+              name: Scout-Accept All Currencies
+            - type: select
+              name: Scout-Address Country
+            - type: select
+              name: Scout-Address State / Province
+            - type: select
+              name: Scout-Address Usage
+            - type: text
+              name: Scout-Address Postal Code
+            - type: select
+              name: Scout-Bank Account Type
+            - type: select
+              name: Scout-Bank Account Country
+            - type: text
+              name: Scout-Bank Account Nickname
+            - type: select
+              name: Scout-Bank Account Payment Types
+            - type: select
+              name: Scout-Phone Device Type
+            - type: select
+              name: Scout-International Calling Code
+            - type: text
+              name: Scout-Phone Number
+            - type: select
+              name: Scout-Tax Country
+            - type: select
+              name: Scout-Tax ID Type
+            - type: string
+              name: 'Field #27'
+    schema_response-9:
+      value:
+        data:
+          id: supplier_schemas
+          type: supplier_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-Supplier ID
+            - type: text
+              name: Scout-Supplier Name
+            - type: text
+              name: Scout-Website
+            - type: text
+              name: Scout-Supplier Description
+            - type: select
+              name: Scout-Tags
+            - type: text
+              name: Scout-External ID
+            - type: select
+              name: Scout-Workday Supplier Status
+            - type: select
+              name: Scout-Supplier Status
+            - type: select
+              name: Scout-Segmentation
+            - type: select
+              name: Scout-Supplier Risk
+            - type: text
+              name: Scout-Segmentation Notes
+            - type: select
+              name: Scout-Supplier Category
+            - type: select
+              name: Scout-Supplier Groups
+            - type: date
+              name: Scout-Created Date
+            - type: date
+              name: Scout-Last Updated Date
+            - type: integer
+              name: Scout-# of Events
+            - type: select
+              name: Scout-Events List
+            - type: select
+              name: Scout-Event Type List
+            - type: integer
+              name: Scout-# of Sourcing Owners (Events)
+            - type: select
+              name: Scout-Sourcing Owner List (Events)
+            - type: integer
+              name: Scout-# of Contacts
+            - type: text
+              name: Scout-Contact(s)
+            - type: text
+              name: Scout-Contact Email
+            - type: text
+              name: Scout-Contact Title
+            - type: text
+              name: Scout-Contact Phone
+            - type: select
+              name: Scout-Contact International Calling Code
+            - type: select
+              name: Scout-Contact Types
+            - type: text
+              name: Scout-Contact Notes
+            - type: text
+              name: Scout-Last Login
+            - type: integer
+              name: Scout-# of RSVP Yes
+            - type: integer
+              name: Scout-# of RSVP No
+            - type: integer
+              name: Scout-# of Bids Submitted
+            - type: integer
+              name: Scout-# of Awarded Bids
+            - type: text
+              name: Scout-Awarded Event List
+            - type: select
+              name: Scout-Sanction List Screening Status
+            - type: date
+              name: Scout-Sanction List Screening Date
+            - type: select
+              name: Scout-Parent
+            - type: select
+              name: Scout-Children
+            - type: select
+              name: Scout-Default Payment Type
+            - type: select
+              name: Scout-Default Payment Term
+            - type: select
+              name: Scout-Payment Types
+            - type: select
+              name: Scout-Accepted Currencies
+            - type: select
+              name: Scout-Accept All Currencies
+            - type: select
+              name: Scout-Address Country
+            - type: select
+              name: Scout-Address State / Province
+            - type: select
+              name: Scout-Address Usage
+            - type: text
+              name: Scout-Address Postal Code
+            - type: select
+              name: Scout-Bank Account Type
+            - type: select
+              name: Scout-Bank Account Country
+            - type: text
+              name: Scout-Bank Account Nickname
+            - type: select
+              name: Scout-Bank Account Payment Types
+            - type: select
+              name: Scout-Phone Device Type
+            - type: select
+              name: Scout-International Calling Code
+            - type: text
+              name: Scout-Phone Number
+            - type: select
+              name: Scout-Tax Country
+            - type: select
+              name: Scout-Tax ID Type
+            - type: string
+              name: 'Field #27'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

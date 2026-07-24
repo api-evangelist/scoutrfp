@@ -1,0 +1,469 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments payment_currencies API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: payment_currencies
+  x-displayName: Payment Currencies
+  description: 'Use the payment currencies API to create, update, and query the payment currencies in Workday Strategic Sourcing.
+
+
+    ## Payment Currency Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/PaymentCurrency" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /payment_currencies:
+    get:
+      tags:
+      - payment_currencies
+      description: Returns a list of payment currencies.
+      operationId: List Payment Currencies
+      summary: List Payment Currencies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaymentCurrency'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-3'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_currencies\"\n"
+    post:
+      tags:
+      - payment_currencies
+      description: 'Create a payment currency with given parameters.
+
+        '
+      operationId: Create a Payment Currency
+      summary: Create a Payment Currency
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/PaymentCurrencyCreate'
+            examples:
+              success:
+                $ref: '#/components/examples/create_request-3'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PaymentCurrency'
+              examples:
+                success:
+                  $ref: '#/components/examples/create_response-3'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":{\"type\":\"payment_currencies\",\"attributes\":{\"alpha\":\"EUR\",\"numeric\":\"978\"}}' \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_currencies\"\n"
+  /payment_currencies/{id}:
+    patch:
+      tags:
+      - payment_currencies
+      description: 'Updates the details of an existing payment currency. You need to supply the unique
+
+        identifier that was returned upon payment currency creation.
+
+
+        Please note, that request body must include an `id` attribute with the value of your payment currency
+
+        unique identifier (the same one you passed in the URL).
+
+        '
+      operationId: Update a Payment Currency
+      summary: Update a Payment Currency
+      parameters:
+      - name: id
+        in: path
+        description: Unique payment currency identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/PaymentCurrencyUpdate'
+            examples:
+              success:
+                $ref: '#/components/examples/update_request-3'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PaymentCurrency'
+              examples:
+                success:
+                  $ref: '#/components/examples/update_response-3'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              examples:
+                invalid_type:
+                  summary: Missing or invalid 'type' specified, expected 'payment_currencies'
+                  description: 'Returns error due to invalid `type` parameter.
+
+                    '
+                  value:
+                    errors:
+                    - detail: Missing or invalid 'type' specified, expected 'payment_currencies'
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"payment_currencies\",\"id\":\"2\",\"attributes\":{\"alpha\":\"UAH\",\"numeric\":\"980\"}}}' \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_currencies/2\"\n"
+    delete:
+      tags:
+      - payment_currencies
+      description: 'Deletes a payment currency. You need to supply the unique payment currency
+
+        identifier that was returned upon payment currency creation.
+
+        '
+      operationId: Delete a Payment Currency
+      summary: Delete a Payment Currency
+      parameters:
+      - name: id
+        in: path
+        description: Unique payment currency identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_currencies/1\"\n"
+  /payment_currencies/{external_id}/external_id:
+    patch:
+      tags:
+      - payment_currencies
+      description: 'Updates the details of an existing payment currency. You need to supply the unique
+
+        external identifier assigned to the payment currency on creation.
+
+
+        Please note, that request body must include an `id` attribute with the value of your payment currency
+
+        unique identifier (the same one you passed in the URL).
+
+        '
+      operationId: Update a Payment Currency by External ID
+      summary: Update a Payment Currency by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Unique payment currency external identifier.
+        required: true
+        schema:
+          type: string
+        example: PAYCUR
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/PaymentCurrencyUpdate'
+            examples:
+              success:
+                $ref: '#/components/examples/external_update_request-3'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PaymentCurrency'
+              examples:
+                success:
+                  $ref: '#/components/examples/external_update_response-3'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"payment_currencies\",\"id\":\"PAYCUR\",\"attributes\":{\"alpha\":\"UAH\",\"numeric\":\"980\"}}}' \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_currencies/PAYCUR/external_id\"\n"
+    delete:
+      tags:
+      - payment_currencies
+      description: 'Deletes a payment currency. You need to supply the unique payment currency
+
+        external identifier assigned to the payment currency on creation.
+
+        '
+      operationId: Delete a Payment Currency by External ID
+      summary: Delete a Payment Currency by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Unique payment currency external identifier.
+        required: true
+        schema:
+          type: string
+        example: PAYCUR
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_currencies/PAYCUR/external_id\"\n"
+components:
+  examples:
+    external_update_response-3:
+      value:
+        data:
+          id: '1'
+          type: payment_currencies
+          attributes:
+            alpha: UAH
+            numeric: '980'
+            external_id: PAYCUR
+          links:
+            self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies/1
+    create_request-3:
+      value:
+        data:
+          type: payment_currencies
+          attributes:
+            alpha: EUR
+            numeric: '978'
+            external_id: PAYCUR-1
+    external_update_request-3:
+      value:
+        data:
+          type: payment_currencies
+          id: PAYCUR
+          attributes:
+            alpha: UAH
+            numeric: '980'
+    create_response-3:
+      value:
+        data:
+          id: '1'
+          type: payment_currencies
+          attributes:
+            alpha: EUR
+            numeric: '978'
+            external_id: PAYCUR-1
+          links:
+            self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies/1
+    update_request-3:
+      value:
+        data:
+          type: payment_currencies
+          id: '1'
+          attributes:
+            alpha: UAH
+            numeric: '980'
+            external_id: PAYCUR-UPD
+    update_response-3:
+      value:
+        data:
+          id: '1'
+          type: payment_currencies
+          attributes:
+            alpha: UAH
+            numeric: '980'
+            external_id: PAYCUR-UPD
+          links:
+            self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies/1
+    index_response-3:
+      value:
+        data:
+        - id: '1'
+          type: payment_currencies
+          attributes:
+            alpha: EUR
+            numeric: '978'
+            external_id: PAYCUR-1
+          links:
+            self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies/1
+        - id: '2'
+          type: payment_currencies
+          attributes:
+            alpha: UAH
+            numeric: '980'
+            external_id: PAYCUR-2
+          links:
+            self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies/2
+        links:
+          self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies
+  schemas:
+    PaymentCurrency:
+      allOf:
+      - $ref: '#/components/schemas/PaymentCurrencyBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/PaymentCurrencyAttributes'
+    PaymentCurrencyType:
+      type: string
+      description: Object type, should always be `payment_currencies`.
+      example: payment_currencies
+    PaymentCurrencyId:
+      type: integer
+      description: Payment currency identifier string.
+      example: 1
+    PaymentCurrencyCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentCurrencyType'
+        attributes:
+          $ref: '#/components/schemas/PaymentCurrencyAttributes'
+    PaymentCurrencyBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentCurrencyType'
+        id:
+          $ref: '#/components/schemas/PaymentCurrencyId'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    PaymentCurrencyUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentCurrencyType'
+        id:
+          $ref: '#/components/schemas/PaymentCurrencyId'
+        attributes:
+          $ref: '#/components/schemas/PaymentCurrencyAttributes'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    PaymentCurrencyAttributes:
+      type: object
+      description: Payment currency attributes.
+      required:
+      - alpha
+      - numeric
+      properties:
+        alpha:
+          type: string
+          minLength: 2
+          maxLength: 255
+          description: Payment currency three-letter alphabetic code.
+        numeric:
+          type: string
+          format: integer
+          minLength: 0
+          maxLength: 255
+          description: Numeric code representing the payment currency. May be an empty string and may contain alphanumeric characters.
+        external_id:
+          type: string
+          maxLength: 255
+          description: Payment currency external identifier.
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

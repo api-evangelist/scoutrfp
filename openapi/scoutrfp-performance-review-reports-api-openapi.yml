@@ -1,0 +1,309 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments performance_review_reports API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: performance_review_reports
+  x-displayName: Performance Review Reports
+  description: 'This report returns a list of Performance Review report entries.
+
+    '
+paths:
+  /performance_review_reports/entries:
+    get:
+      tags:
+      - performance_review_reports
+      description: Returns a list of peformance review entries.
+      operationId: Performance Review Report Entries
+      summary: Performance Review Report Entries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/PerformanceReviewReportEntry'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-4'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/performance_review_reports/entries\"\n"
+  /performance_review_reports/schema:
+    get:
+      tags:
+      - performance_review_reports
+      description: Returns the performance review report schema.
+      operationId: Performance Review Report Schema
+      summary: Performance Review Report Schema
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PerformanceReviewReportEntryFieldModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/schema_response-5'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/performance_review_reports/schema\"\n"
+components:
+  schemas:
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    PerformanceReviewReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PerformanceReviewReportEntryType'
+        id:
+          $ref: '#/components/schemas/PerformanceReviewReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/PerformanceReviewReportEntryAttributes'
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    PerformanceReviewReportEntryType:
+      description: Object type, should always be `performance_review_report_entries`.
+      example: performance_review_report_entries
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    PerformanceReviewReportEntryId:
+      description: Performance Review Report identifier string.
+      example: 1
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    PerformanceReviewReportEntryAttributes:
+      description: Performance Review Report Entry attributes. See example response and schema.
+      properties: {}
+    PerformanceReviewReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `performance_review_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `performance_review_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+  examples:
+    schema_response-5:
+      value:
+        data:
+          id: performance_review_schemas
+          type: performance_review_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-Supplier Name
+            - type: text
+              name: Scout-Project ID
+            - type: text
+              name: Scout-Performance Review Title
+            - type: integer
+              name: Scout-Total Score
+            - type: integer
+              name: Scout-High
+            - type: integer
+              name: Scout-Low
+            - type: integer
+              name: Scout-Median
+            - type: text
+              name: Scout-Executive Summary
+            - type: date
+              name: Scout-Scorecard Completed Date
+            - type: select
+              name: Scout-Category
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: string
+              name: 'Field #13'
+    index_response-4:
+      value:
+        data:
+        - id: '1'
+          type: performance_review_report_entries
+          attributes:
+            Scout-Supplier Name: Mr. Dannielle Von's General Store
+            Scout-Project ID: 1
+            Scout-Performance Review Title: Ergonomic Wooden Table
+            Scout-Total Score: null
+            Scout-High: null
+            Scout-Low: null
+            Scout-Median: null
+            Scout-Executive Summary: Executive summary 1
+            Scout-Scorecard Completed Date: null
+            Scout-Category: null
+            Scout-Sourcing Owner: null
+            'Scout-Total: Pricing & Financials': null
+            'Scout-Weight: Pricing & Financials': null
+            'Scout-Total: Quality & Level of Service': null
+            'Scout-Weight: Quality & Level of Service': null
+            'Scout-Total: Maintenance & Delivery': null
+            'Scout-Weight: Maintenance & Delivery': null
+            'Scout-Total: Account Management': null
+            'Scout-Weight: Account Management': null
+            'Scout-Total: Innovation': null
+            'Scout-Weight: Innovation': null
+            Custom string field name: null
+        - id: '2'
+          type: performance_review_report_entries
+          attributes:
+            Scout-Supplier Name: Alejandro Konopelski's General Store
+            Scout-Project ID: 1
+            Scout-Performance Review Title: Ergonomic Wooden Table
+            Scout-Total Score: null
+            Scout-High: null
+            Scout-Low: null
+            Scout-Median: null
+            Scout-Executive Summary: Executive summary 2
+            Scout-Scorecard Completed Date: null
+            Scout-Category: null
+            Scout-Sourcing Owner: null
+            'Scout-Total: Pricing & Financials': null
+            'Scout-Weight: Pricing & Financials': null
+            'Scout-Total: Quality & Level of Service': null
+            'Scout-Weight: Quality & Level of Service': null
+            'Scout-Total: Maintenance & Delivery': null
+            'Scout-Weight: Maintenance & Delivery': null
+            'Scout-Total: Account Management': null
+            'Scout-Weight: Account Management': null
+            'Scout-Total: Innovation': null
+            'Scout-Weight: Innovation': null
+            Custom string field name: Custom string field value
+        - id: '3'
+          type: performance_review_report_entries
+          attributes:
+            Scout-Supplier Name: Giovanni Watsica's General Store
+            Scout-Project ID: 1
+            Scout-Performance Review Title: Ergonomic Wooden Table
+            Scout-Total Score: null
+            Scout-High: null
+            Scout-Low: null
+            Scout-Median: null
+            Scout-Executive Summary: Executive summary 3
+            Scout-Scorecard Completed Date: null
+            Scout-Category: null
+            Scout-Sourcing Owner: null
+            'Scout-Total: Pricing & Financials': null
+            'Scout-Weight: Pricing & Financials': null
+            'Scout-Total: Quality & Level of Service': null
+            'Scout-Weight: Quality & Level of Service': null
+            'Scout-Total: Maintenance & Delivery': null
+            'Scout-Weight: Maintenance & Delivery': null
+            'Scout-Total: Account Management': null
+            'Scout-Weight: Account Management': null
+            'Scout-Total: Innovation': null
+            'Scout-Weight: Innovation': null
+            Custom string field name: null
+        links:
+          prev: null
+          next: null
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

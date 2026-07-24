@@ -1,0 +1,409 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments contract_milestone_reports API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: contract_milestone_reports
+  x-displayName: Contract Milestone Reports
+  description: 'This report returns a list of contract milestone report entries.
+
+    '
+paths:
+  /contract_milestone_reports/entries:
+    get:
+      tags:
+      - contract_milestone_reports
+      description: Returns a list of milestone report entries.
+      operationId: Contract Milestone Report Entries
+      summary: Contract Milestone Report Entries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/ContractMilestoneReportEntry'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/contract_milestone_reports/entries\"\n"
+  /contract_milestone_reports/schema:
+    get:
+      tags:
+      - contract_milestone_reports
+      description: Returns the contract milestone report schema.
+      operationId: Contract Milestone Report Schema
+      summary: Contract Milestone Report Schema
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContractMilestoneReportEntryFieldModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/schema_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/contract_milestone_reports/schema\"\n"
+components:
+  schemas:
+    ContractMilestoneReportEntryAttributes:
+      description: Contract Milestone Report Entry attributes. See example response and schema.
+      properties: {}
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    ContractMilestoneReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractMilestoneReportEntryType'
+        id:
+          $ref: '#/components/schemas/ContractMilestoneReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/ContractMilestoneReportEntryAttributes'
+    ContractMilestoneReportEntryId:
+      description: Contract Milestone identifier string.
+      example: 1
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ContractMilestoneReportEntryType:
+      description: Object type, should always be `contract_milestone_report_entries`.
+      example: contract_milestone_report_entries
+    ContractMilestoneReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `contract_milestone_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `contract_milestone_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+  examples:
+    schema_response:
+      value:
+        data:
+          id: contract_milestone_schemas
+          type: contract_milestone_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-System ID
+            - type: text
+              name: Scout-Milestone Name
+            - type: date
+              name: Scout-Milestone Date
+            - type: integer
+              name: Scout-Milestone Date FY
+            - type: integer
+              name: Scout-Milestone Date FQ
+            - type: select
+              name: Scout-Milestone Status
+            - type: date
+              name: Scout-Milestone Complete Date
+            - type: integer
+              name: Scout-Milestone Complete Date FY
+            - type: integer
+              name: Scout-Milestone Complete Date FQ
+            - type: select
+              name: Scout-Template Milestone
+            - type: select
+              name: Scout-Milestone Created By
+            - type: date
+              name: Scout-Milestone Create Date
+            - type: integer
+              name: Scout-Milestone Create Date FY
+            - type: integer
+              name: Scout-Milestone Create Date FQ
+            - type: date
+              name: Scout-Milestone Assign Date
+            - type: select
+              name: Scout-Milestone Assignee
+            - type: select
+              name: Scout-Mark Completed By
+            - type: integer
+              name: Scout-# of Days Milestone is Open
+            - type: select
+              name: Scout-Requestor Name
+            - type: date
+              name: Scout-Request Submitted
+            - type: date
+              name: Scout-Request Opened
+            - type: text
+              name: 'Scout-ID #'
+            - type: select
+              name: Scout-Contract Type
+            - type: select
+              name: Scout-Contract Type Short Code
+            - type: select
+              name: Scout-Supplier
+            - type: text
+              name: Scout-Contract Title
+            - type: select
+              name: Scout-Contract State & Status
+            - type: select
+              name: Scout-Auto Renewal
+            - type: date
+              name: Scout-Start Date
+            - type: integer
+              name: Scout-Start Date FY
+            - type: integer
+              name: Scout-Start Date FQ
+            - type: date
+              name: Scout-End Date
+            - type: integer
+              name: Scout-End Date FY
+            - type: integer
+              name: Scout-End Date FQ
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: select
+              name: Scout-Category
+            - type: text
+              name: Scout-Renewal Term
+            - type: string
+              name: 'Field #3'
+    index_response:
+      value:
+        data:
+        - id: '1'
+          type: contract_milestone_report_entries
+          attributes:
+            Scout-System ID: 1
+            Scout-Milestone Name: example 1
+            Scout-Milestone Date: '2020-04-16'
+            Scout-Milestone Date FY: 2020
+            Scout-Milestone Date FQ: 2
+            Scout-Milestone Status: Open
+            Scout-Milestone Complete Date: null
+            Scout-Milestone Complete Date FY: null
+            Scout-Milestone Complete Date FQ: null
+            Scout-Template Milestone: false
+            Scout-Milestone Created By: null
+            Scout-Milestone Create Date: '2020-04-14'
+            Scout-Milestone Create Date FY: 2020
+            Scout-Milestone Create Date FQ: 2
+            Scout-Milestone Assign Date: null
+            Scout-Milestone Assignee: null
+            Scout-Mark Completed By: null
+            Scout-# of Days Milestone is Open: null
+            Scout-Requestor Name: null
+            Scout-Request Submitted: null
+            Scout-Request Opened: null
+            'Scout-ID #': 1
+            Scout-Contract Type: 'Contract Type #11'
+            Scout-Contract Type Short Code: 11VD
+            Scout-Supplier: null
+            Scout-Contract Title: Fantastic Steel Plate
+            Scout-Contract State & Status: In Progress
+            Scout-Auto Renewal: 'no'
+            Scout-Start Date: null
+            Scout-Start Date FY: null
+            Scout-Start Date FQ: null
+            Scout-End Date: null
+            Scout-End Date FY: null
+            Scout-End Date FQ: null
+            Scout-Sourcing Owner: Sophie II
+            Scout-Category: null
+            Scout-Renewal Term: null
+            Custom field for project!: Custom field value
+        - id: '2'
+          type: contract_milestone_report_entries
+          attributes:
+            Scout-System ID: 2
+            Scout-Milestone Name: example 2
+            Scout-Milestone Date: '2020-04-16'
+            Scout-Milestone Date FY: 2020
+            Scout-Milestone Date FQ: 2
+            Scout-Milestone Status: Open
+            Scout-Milestone Complete Date: null
+            Scout-Milestone Complete Date FY: null
+            Scout-Milestone Complete Date FQ: null
+            Scout-Template Milestone: false
+            Scout-Milestone Created By: null
+            Scout-Milestone Create Date: '2020-04-14'
+            Scout-Milestone Create Date FY: 2020
+            Scout-Milestone Create Date FQ: 2
+            Scout-Milestone Assign Date: null
+            Scout-Milestone Assignee: null
+            Scout-Mark Completed By: null
+            Scout-# of Days Milestone is Open: null
+            Scout-Requestor Name: null
+            Scout-Request Submitted: null
+            Scout-Request Opened: null
+            'Scout-ID #': 1
+            Scout-Contract Type: 'Contract Type #11'
+            Scout-Contract Type Short Code: 11VD
+            Scout-Supplier: null
+            Scout-Contract Title: Fantastic Steel Plate
+            Scout-Contract State & Status: In Progress
+            Scout-Auto Renewal: 'no'
+            Scout-Start Date: null
+            Scout-Start Date FY: null
+            Scout-Start Date FQ: null
+            Scout-End Date: null
+            Scout-End Date FY: null
+            Scout-End Date FQ: null
+            Scout-Sourcing Owner: Sophie II
+            Scout-Category: null
+            Scout-Renewal Term: null
+            Custom field for project!: Custom field value
+        - id: '3'
+          type: contract_milestone_report_entries
+          attributes:
+            Scout-System ID: 3
+            Scout-Milestone Name: this will not show up
+            Scout-Milestone Date: '2020-04-16'
+            Scout-Milestone Date FY: 2020
+            Scout-Milestone Date FQ: 2
+            Scout-Milestone Status: Open
+            Scout-Milestone Complete Date: null
+            Scout-Milestone Complete Date FY: null
+            Scout-Milestone Complete Date FQ: null
+            Scout-Template Milestone: false
+            Scout-Milestone Created By: null
+            Scout-Milestone Create Date: '2020-04-14'
+            Scout-Milestone Create Date FY: 2020
+            Scout-Milestone Create Date FQ: 2
+            Scout-Milestone Assign Date: null
+            Scout-Milestone Assignee: null
+            Scout-Mark Completed By: null
+            Scout-# of Days Milestone is Open: null
+            Scout-Requestor Name: null
+            Scout-Request Submitted: null
+            Scout-Request Opened: null
+            'Scout-ID #': 1
+            Scout-Contract Type: 'Contract Type #11'
+            Scout-Contract Type Short Code: 11VD
+            Scout-Supplier: null
+            Scout-Contract Title: Fantastic Steel Plate
+            Scout-Contract State & Status: In Progress
+            Scout-Auto Renewal: 'no'
+            Scout-Start Date: null
+            Scout-Start Date FY: null
+            Scout-Start Date FQ: null
+            Scout-End Date: null
+            Scout-End Date FY: null
+            Scout-End Date FQ: null
+            Scout-Sourcing Owner: Sophie II
+            Scout-Category: null
+            Scout-Renewal Term: null
+            Custom field for project!: Custom field value
+        links:
+          prev: null
+          next: null
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

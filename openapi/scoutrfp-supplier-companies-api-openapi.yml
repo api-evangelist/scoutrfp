@@ -1,0 +1,3116 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments supplier_companies API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: supplier_companies
+  x-displayName: Supplier Companies
+  description: 'Use the supplier companies API to create, update, and query the suppliers in Workday Strategic Sourcing.
+
+
+    ## Supplier Company Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/SupplierCompany" exampleRef="#/components/examples/SupplierCompany" showReadOnly={true} showWriteOnly={true} />
+
+
+
+
+    ## Supplier Classification Value Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/SupplierClassificationValue" exampleRef="#/components/examples/SupplierClassificationValue" showReadOnly={true} showWriteOnly={true} />
+
+
+    ## Supplier Classification Field Value Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/SupplierClassificationFieldValue" exampleRef="#/components/examples/SupplierClassificationFieldValue" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /supplier_companies:
+    get:
+      tags:
+      - supplier_companies
+      description: Returns a list of supplier companies for the specified criteria.
+      operationId: List Supplier Companies
+      summary: List Supplier Companies
+      parameters:
+      - name: filter
+        in: query
+        description: 'Filter supplier companies by multiple criteria. Only one filter per attribute is supported.
+
+          For best performance, we recommend 5 or less filters.
+
+          '
+        schema:
+          $ref: '#/components/schemas/SupplierCompanyInputFilter'
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/SupplierCompanyRelatedResources'
+        description: 'To reduce the number of HTTP requests, related resources can be requested along with the
+
+          requested primary resources. Such responses are called "compound documents". In a compound
+
+          document, all included resources will be represented as an array of resource objects in a
+
+          top-level `included` member.
+
+
+          The value of the `include` parameter must be a comma-separated list of relationships from
+
+          the list of available relationships.
+
+
+
+
+          ```
+
+          /supplier_companies?include=payment_types,default_payment_type
+
+          ```
+
+
+          In the response, relationships will be represented as normal linkage objects (containing
+
+          `id` and `type`), and full related resource details will be presented in the `included`
+
+          section as resource objects (with `attributes`, `links`, and potentially `relationships`).
+
+          '
+      - name: page
+        in: query
+        description: 'Customize pagination results with `size`.
+
+          '
+        schema:
+          $ref: '#/components/schemas/PageInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SupplierCompany'
+                    included:
+                      $ref: '#/components/schemas/SupplierCompanyIncludedResources'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                default response:
+                  $ref: '#/components/examples/index_response'
+                compound document:
+                  $ref: '#/components/examples/index_compound_response'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              examples:
+                include_not_supported:
+                  summary: '''include'' parameter is not supported'
+                  description: 'Returns error due to unsupported [parameter `include`](https://jsonapi.org/format/#fetching-includes).
+
+                    '
+                  value:
+                    errors:
+                    - detail: '''include'' parameter does not support following values: ["comments"]'
+                sort_not_supported:
+                  summary: '''sort'' parameter is not supported'
+                  description: 'Returns error due to unsupported [parameter `sort`](https://jsonapi.org/format/#fetching-sorting).
+
+                    '
+                  value:
+                    errors:
+                    - detail: '''sort'' parameter is not supported'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies\"\n"
+    post:
+      tags:
+      - supplier_companies
+      description: "Create a supplier company with given attributes, relationships, and related complex resources.\n\nWhen creating a supplier company with relationships, keep in mind that there are two kinds of\nrelationships: linked resources and composite resources.\n\n## Linked Resources\n\nThese are normal relationship resources managed outside of primary resource (supplier company).\nFor example, payment currencies exist on their own, and can be assigned to one or many supplier\ncompanies, contracts, etc. These resources usually have their own API management endpoints.\n\nAll related objects should exist prior to being linked to the supplier company. They can be\nreferenced by Workday Strategic Sourcing identifier, or by external ID; in the latter case, the relationship\nname is used with prefix `external_`. For example, a payment currency with Workday Strategic Sourcing ID `\"1\"` and\nexternal ID `\"C$EUR\"` can be used to initialize `default_payment_currency`:\n\n```json\n{\n  \"default_payment_currency\": {\n    \"data\" {\n      \"id\": \"1\",\n      \"type\": \"payment_currencies\"\n    }\n  }\n}\n```\n\n```json\n{\n  \"external_default_payment_currency\": {\n    \"data\" {\n      \"id\": \"C$EUR\",\n      \"type\": \"payment_currencies\"\n    }\n  }\n}\n```\n\nWhen `external_` prefix is applied to a \"many\" relationship, like `external_payment_currencies`,\nall of the identifiers will be treated as external IDs.\n\n\n"
+      operationId: Create a Supplier Company
+      summary: Create a Supplier Company
+      parameters:
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/SupplierCompanyRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          (see "List Supplier Companies" for more details).
+
+          '
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/SupplierCompanyCreate'
+            examples:
+              simple request:
+                $ref: '#/components/examples/create_request'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SupplierCompany'
+              examples:
+                default response:
+                  $ref: '#/components/examples/create_response'
+                compound response:
+                  $ref: '#/components/examples/create_compound_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":{\"type\":\"supplier_companies\",\"attributes\":{\"name\":\"My Supplier\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies\"\n"
+  /supplier_companies/{id}:
+    get:
+      tags:
+      - supplier_companies
+      description: 'Retrieves the details of an existing supplier company. You need to supply the unique supplier
+
+        company identifier that was returned upon supplier company creation.
+
+        '
+      operationId: Get a Supplier Company
+      summary: Get a Supplier Company
+      parameters:
+      - name: id
+        in: path
+        description: Unique Supplier Company identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/SupplierCompanyRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          (see "List Supplier Companies" for more details).
+
+          '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SupplierCompany'
+              examples:
+                success:
+                  $ref: '#/components/examples/show_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1\"\n"
+    patch:
+      tags:
+      - supplier_companies
+      description: 'Updates the details of an existing supplier company. You need to supply the unique supplier
+
+        company identifier that was returned upon supplier company creation.
+
+
+        Please note, that request body must include an `id` attribute with the value of your supplier
+
+        unique identifier (the same one you passed in the URL).
+
+
+        ## Linked Resources
+
+
+        When updating relationships on a supplier company resource, keep in mind the whole relationship
+
+        will be replaced the new values. For example, if a supplier company has currencies with IDs
+
+        `"1"` and `"2"`, and in update request payload `payment_currencies` relationship is specified
+
+        with ID `"3"`, the only payment currency associated after the request succeeded will be `"3"`.
+
+
+
+        '
+      operationId: Update a Supplier Company
+      summary: Update a Supplier Company
+      parameters:
+      - name: id
+        in: path
+        description: Unique Supplier Company identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/SupplierCompanyRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          (see "List Supplier Companies" for more details).
+
+          '
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/SupplierCompanyUpdate'
+            examples:
+              simple request:
+                $ref: '#/components/examples/update_request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SupplierCompany'
+              examples:
+                default response:
+                  $ref: '#/components/examples/update_response'
+                compound response:
+                  $ref: '#/components/examples/update_compound_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              examples:
+                invalid_type:
+                  summary: Missing or invalid 'type' specified, expected 'supplier_companies'
+                  description: 'Returns error due to invalid `type` parameter.
+
+                    '
+                  value:
+                    errors:
+                    - detail: Missing or invalid 'type' specified, expected 'supplier_companies'
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"supplier_companies\",\"id\":\"1\",\"attributes\":{\"segmentation_status\": \"out_of_compliance\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1\"\n"
+    delete:
+      tags:
+      - supplier_companies
+      description: 'Deletes a supplier company. You need to supply the unique supplier
+
+        company identifier that was returned upon supplier company creation.
+
+        '
+      operationId: Delete a Supplier Company
+      summary: Delete a Supplier Company
+      parameters:
+      - name: id
+        in: path
+        description: Unique Supplier Company identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1\"\n"
+  /supplier_companies/{external_id}/external_id:
+    get:
+      tags:
+      - supplier_companies
+      description: 'Retrieves the details of an existing supplier company. You need to supply the unique supplier
+
+        company external identifier (the one you used when created the supplier company).
+
+        '
+      operationId: Get a Supplier Company by External ID
+      summary: Get a Supplier Company by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Supplier company external identifier.
+        required: true
+        schema:
+          type: string
+        example: 1234-5678-abcd-efgh
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/SupplierCompanyRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          (see "List Supplier Companies" for more details).
+
+          '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SupplierCompany'
+              examples:
+                success:
+                  $ref: '#/components/examples/external_show_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/SUP-1234/external_id\"\n"
+    patch:
+      tags:
+      - supplier_companies
+      description: 'Updates the details of an existing supplier company. You need to supply the unique supplier
+
+        company external identifier (the one you used when created the supplier company).
+
+
+        Please note, that request body must include an `id` attribute with the value of your supplier
+
+        external identifier (the same one you passed in the URL).
+
+        '
+      operationId: Update a Supplier Company by External ID
+      summary: Update a Supplier Company by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Supplier company external identifier.
+        required: true
+        schema:
+          type: string
+        example: 1234-5678-abcd-efgh
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/SupplierCompanyRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          (see "List Supplier Companies" for more details).
+
+          '
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/SupplierCompanyUpdate'
+            examples:
+              success:
+                $ref: '#/components/examples/external_update_request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SupplierCompany'
+              examples:
+                success:
+                  $ref: '#/components/examples/external_update_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"supplier_companies\",\"id\":\"SUP-1234\",attributes\":{\"segmentation_status\": \"out_of_compliance\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/SUP-1234/external_id\"\n"
+    delete:
+      tags:
+      - supplier_companies
+      description: 'Deletes a supplier company. You need to supply the unique supplier
+
+        company external identifier (the one you used when created the supplier company).
+
+        '
+      operationId: Delete a Supplier Company by External ID
+      summary: Delete a Supplier Company by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Supplier company external identifier.
+        required: true
+        schema:
+          type: string
+        example: 1234-5678-abcd-efgh
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/SUP-1234/external_id\"\n"
+  /supplier_companies/describe:
+    get:
+      tags:
+      - supplier_companies
+      description: Returns a list of fields for the supplier company object.
+      operationId: Describe Supplier Company object
+      summary: Describe Supplier Company object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SupplierCompanyFieldModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/describe_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/describe\"\n"
+components:
+  schemas:
+    SupplierGroupAttributes:
+      type: object
+      description: Supplier group attributes.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Supplier group name.
+        external_id:
+          type: string
+          maxLength: 255
+          description: Supplier group external identifier.
+    SupplierCategoryId:
+      type: integer
+      description: Supplier category identifier string.
+      example: 1
+    DescribeFieldBase:
+      title: DescribeFieldModel
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/DescribeFieldType'
+        id:
+          $ref: '#/components/schemas/DescribeFieldId'
+    OpenApiEnum:
+      type: string
+      enum:
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
+    CustomFieldDecimal:
+      title: Decimal
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            format: decimal
+            description: A decimal value represented as a number with floating point.
+    SupplierClassificationValueId:
+      type: string
+      description: A composite identifier for a virtual object created from the id of the supplier and the id of the classification in the response. Id or the external Id of a classification in the request.
+      example: 1
+    PaymentTermAttributes:
+      type: object
+      description: Payment term attributes.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Payment term name.
+        external_id:
+          type: string
+          maxLength: 255
+          description: Payment term external identifier.
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+          deprecated: true
+    SupplierClassificationValueType:
+      type: string
+      description: Object type, should always be `supplier_classification_values`.
+      example: supplier_classification_values
+    PaymentCurrencyType:
+      type: string
+      description: Object type, should always be `payment_currencies`.
+      example: payment_currencies
+    CustomFieldCheckbox:
+      title: Checkbox
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: boolean
+            example: true
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    DescribeFieldType:
+      type: string
+      description: Object type, should always be `describe_fields`.
+      example: describe_fields
+    CustomFieldShortText:
+      title: Short Text
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A short text (usually under 255 characters).
+    SupplierClassificationValueRelationship:
+      type: object
+      description: Supplier classification value relationships.
+      properties:
+        supplier_classification_field_values:
+          type: object
+          description: Supplier classification field values.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/SupplierClassificationFieldValueBase'
+    CustomFieldCurrency:
+      title: Currency
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            format: integer
+            description: A currency value represented as an integer. The maximum value is 9,007,199,254,740,991.
+    SupplierGroupId:
+      type: integer
+      description: Supplier group identifier string.
+      example: 1
+    PaymentTermType:
+      type: string
+      description: Object type, should always be `payment_terms`.
+      example: payment_terms
+    CustomFieldParagraph:
+      title: Paragraph
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A longer text paragraph.
+    SupplierCompanyAttributes:
+      type: object
+      description: Supplier company attributes.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Supplier company name.
+        description:
+          type: string
+          description: Supplier company description.
+        is_suggested:
+          type: boolean
+          description: The supplier was suggested by a team member, but not yet approved.
+          readOnly: true
+        public:
+          type: boolean
+          description: Identifies whether the supplier company is public.
+        risk:
+          type: string
+          description: Supplier risk must be one of the Supplier Company Risk Object's slug attribute value.
+        segmentation:
+          type: string
+          description: Supplier segmentation must be one of the Supplier Company Segmentation Object's slug attribute value.
+        segmentation_status:
+          type: string
+          description: Supplier segmentation status must be one of the Supplier Company Segmentation Status Object's slug attribute value.
+        segmentation_notes:
+          type: string
+          description: Segmentation notes.
+        preferred_supplier:
+          type: string
+          description: 'Supplier preferred supplier. Must be one of the slug values from the
+
+            Supplier Company Preferred Suppliers endpoint.
+
+
+            To retrieve valid options, call:
+
+            GET /api/services/suppliers/v1/supplier_company_preferred_suppliers
+
+
+            Example values: "tier_1", "tier_2", "preferred", "standard"
+
+            '
+          example: tier_1
+        tags:
+          type: array
+          items:
+            type: string
+          description: Supplier tags.
+        url:
+          type: string
+          description: Supplier website.
+        duns_number:
+          type: string
+          description: Supplier D-U-N-S® Number.
+        external_id:
+          type: string
+          description: Supplier ID in your internal database.
+        self_registered:
+          type: boolean
+          description: Indicates whether the supplier company is a self-registered supplier
+        onboarding_form_completion_status:
+          type: string
+          description: 'Provides details on the onboarding form completion status. The only available statuses are: null, ''not_started'', ''in_progress'' and ''completed''.'
+        accept_all_currencies:
+          type: boolean
+          description: Indicates whether the supplier company accepts all currencies.
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Last modification date.
+          example: '2019-10-29T21:28:46.790Z'
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+          description: 'Custom field values. Note: custom fields of type File can only be accessed through the user interface, they will be only exposed as `null` in the public API.'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    PageInput:
+      type: object
+      properties:
+        size:
+          type: number
+          format: integer
+          description: The number of results returned per page. Default is `10` and max is `100`.
+          example: '25'
+    CustomFieldDate:
+      title: Date
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            format: date
+            description: A date value.
+    PaymentCurrency:
+      allOf:
+      - $ref: '#/components/schemas/PaymentCurrencyBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/PaymentCurrencyAttributes'
+    Attachment:
+      allOf:
+      - $ref: '#/components/schemas/AttachmentBase'
+    CustomFieldSingleSelect:
+      title: Single Select
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A single value from a predefined list of possible options.
+    SupplierCategoryAttributes:
+      type: object
+      description: Supplier category attributes.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Supplier category name.
+        external_id:
+          type: string
+          maxLength: 255
+          description: Supplier category external identifier.
+    SupplierCompanyIncludedResources:
+      allOf:
+      - type: array
+        items:
+          anyOf:
+          - $ref: '#/components/schemas/Attachment'
+          - $ref: '#/components/schemas/SupplierCategory'
+          - $ref: '#/components/schemas/SupplierGroup'
+          - $ref: '#/components/schemas/PaymentTerm'
+          - $ref: '#/components/schemas/PaymentType'
+          - $ref: '#/components/schemas/PaymentCurrency'
+          - $ref: '#/components/schemas/SupplierClassificationValue'
+    CustomField:
+      oneOf:
+      - $ref: '#/components/schemas/CustomFieldCheckbox'
+      - $ref: '#/components/schemas/CustomFieldShortText'
+      - $ref: '#/components/schemas/CustomFieldParagraph'
+      - $ref: '#/components/schemas/CustomFieldDate'
+      - $ref: '#/components/schemas/CustomFieldInteger'
+      - $ref: '#/components/schemas/CustomFieldCurrency'
+      - $ref: '#/components/schemas/CustomFieldDecimal'
+      - $ref: '#/components/schemas/CustomFieldSingleSelect'
+      - $ref: '#/components/schemas/CustomFieldMultipleSelect'
+      - $ref: '#/components/schemas/CustomFieldURL'
+      - $ref: '#/components/schemas/CustomFieldLookup'
+      - $ref: '#/components/schemas/CustomFieldRelated'
+    CustomFieldLookup:
+      title: Lookup
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A value from a customer-provided lookup data source.
+    CustomFieldMultipleSelect:
+      title: Multiple Select
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: array
+            description: A list of values from a predefined list of possible options.
+            items:
+              type: string
+    SupplierClassificationValue:
+      allOf:
+      - $ref: '#/components/schemas/SupplierClassificationValueBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierClassificationValueAttributes'
+          relationships:
+            $ref: '#/components/schemas/SupplierClassificationValueRelationship'
+    PaymentTermBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentTermType'
+        id:
+          $ref: '#/components/schemas/PaymentTermId'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    SupplierGroupBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierGroupType'
+        id:
+          $ref: '#/components/schemas/SupplierGroupId'
+    CustomFieldEnum:
+      type: string
+      enum:
+      - Checkbox
+      - File
+      - Short Text
+      - Paragraph
+      - Date
+      - Integer
+      - Currency
+      - Decimal
+      - Single Select
+      - Multiple Select
+      - URL
+      - Lookup
+      - Related
+      description: Internal name and meaning of each field.
+      example: Short Text
+    SupplierClassificationValueAttributes:
+      type: object
+      description: SupplierClassificationValue attributes.
+      properties:
+        external_id:
+          type: string
+          maxLength: 255
+          description: External identifier of the Supplier Classification.
+          example: 1234-5678-abcd-efgh
+    AttachmentBase:
+      title: Attachment
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/AttachmentType'
+        id:
+          $ref: '#/components/schemas/AttachmentId'
+    SupplierClassificationFieldValueBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierClassificationFieldValueType'
+        id:
+          $ref: '#/components/schemas/SupplierClassificationFieldValueId'
+    PaymentTypeAttributes:
+      type: object
+      description: Payment type attributes.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Payment type name.
+        external_id:
+          type: string
+          maxLength: 255
+          description: Payment type external identifier.
+        payment_method:
+          type: string
+          description: Payment method.
+          enum:
+          - Direct Deposit
+          - Check
+          - EFT
+          - Cash
+          - Credit Card
+          - Wire
+          - Manual
+          - Direct Debit
+          - PayPal
+          - EFT with Reference
+          example: Cash
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    CustomFieldBase:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Custom field name.
+          example: My Custom Field
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    CustomFieldURL:
+      title: URL
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            format: url
+            description: URL string.
+    DescribeFieldModel:
+      allOf:
+      - $ref: '#/components/schemas/DescribeFieldBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/DescribeFieldAttributes'
+    AttachmentId:
+      type: integer
+      description: Attachment identifier string.
+      example: 1
+    PaymentTerm:
+      allOf:
+      - $ref: '#/components/schemas/PaymentTermBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/PaymentTermAttributes'
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    SupplierCompanyCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        attributes:
+          $ref: '#/components/schemas/SupplierCompanyAttributes'
+        relationships:
+          $ref: '#/components/schemas/SupplierCompanyMutationRelationship'
+    CustomFieldInteger:
+      title: Integer
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: integer
+            description: An integer value. The maximum value is 9,007,199,254,740,991.
+    SupplierCategory:
+      allOf:
+      - $ref: '#/components/schemas/SupplierCategoryBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierCategoryAttributes'
+    PaymentTypeId:
+      type: integer
+      description: Payment type identifier string.
+      example: 1
+    SupplierCompanyUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyId'
+        attributes:
+          $ref: '#/components/schemas/SupplierCompanyAttributes'
+        relationships:
+          $ref: '#/components/schemas/SupplierCompanyMutationRelationship'
+    CustomFieldRelated:
+      title: Related
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A value related to the lookup custom field value, retrieved from the same data source object.
+    SupplierCompanyFieldModel:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            description: Object type, should always be `supplier_company_fields`.
+            example: supplier_company_fields
+      - $ref: '#/components/schemas/DescribeFieldModel'
+    PaymentCurrencyId:
+      type: integer
+      description: Payment currency identifier string.
+      example: 1
+    SupplierGroupType:
+      type: string
+      description: Object type, should always be `supplier_groups`.
+      example: supplier_groups
+    SupplierCategoryBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCategoryType'
+        id:
+          $ref: '#/components/schemas/SupplierCategoryId'
+    SupplierCompanyRelationship:
+      type: object
+      description: Supplier company relationships.
+      properties:
+        supplier_category:
+          type: object
+          description: Supplier category assigned to the supplier company.
+          properties:
+            data:
+              $ref: '#/components/schemas/SupplierCategoryBase'
+        supplier_groups:
+          type: object
+          description: Supplier groups assigned to the supplier company.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/SupplierGroupBase'
+        default_payment_term:
+          type: object
+          description: Default payment term for the supplier company.
+          properties:
+            data:
+              $ref: '#/components/schemas/PaymentTermBase'
+        payment_types:
+          type: object
+          description: Payment types accepted by the supplier company.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentTypeBase'
+        default_payment_type:
+          type: object
+          description: Default payment type for the supplier company.
+          properties:
+            data:
+              $ref: '#/components/schemas/PaymentTypeBase'
+        payment_currencies:
+          type: object
+          description: Payment currencies accepted by the supplier company.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentCurrencyBase'
+        default_payment_currency:
+          type: object
+          description: Default payment currency for the supplier company.
+          properties:
+            data:
+              $ref: '#/components/schemas/PaymentCurrencyBase'
+        attachments:
+          type: array
+          description: Supplier company list of attachments.
+          items:
+            $ref: '#/components/schemas/AttachmentBase'
+        supplier_classification_values:
+          type: array
+          description: List of supplier classification values
+          items:
+            $ref: '#/components/schemas/SupplierClassificationValueBase'
+    PaymentTypeType:
+      type: string
+      description: Object type, should always be `payment_types`.
+      example: payment_types
+    SupplierCompanyMutationRelationship:
+      allOf:
+      - $ref: '#/components/schemas/SupplierCompanyRelationship'
+      - type: object
+        properties:
+          external_supplier_category:
+            type: object
+            description: Supplier category assigned to the supplier company, referenced by external ID.
+            properties:
+              data:
+                $ref: '#/components/schemas/SupplierCategoryBase'
+          external_supplier_groups:
+            type: object
+            description: Supplier groups assigned to the supplier company, referenced by external ID.
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SupplierGroupBase'
+          external_default_payment_term:
+            type: object
+            description: Default payment term for the supplier company, referenced by external ID.
+            properties:
+              data:
+                $ref: '#/components/schemas/PaymentTermBase'
+          external_payment_types:
+            type: object
+            description: Payment types accepted by the supplier company, referenced by external ID.
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentTypeBase'
+          external_default_payment_type:
+            type: object
+            description: Default payment type for the supplier company, referenced by external ID.
+            properties:
+              data:
+                $ref: '#/components/schemas/PaymentTypeBase'
+          external_payment_currencies:
+            type: object
+            description: Payment currencies accepted by the supplier company, referenced by external ID.
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentCurrencyBase'
+          external_default_payment_currency:
+            type: object
+            description: Default payment currency for the supplier company, referenced by external ID.
+            properties:
+              data:
+                $ref: '#/components/schemas/PaymentCurrencyBase'
+          external_supplier_classification_values:
+            type: object
+            description: Supplier classification values for the supplier company, referenced by external ID.
+            properties:
+              data:
+                $ref: '#/components/schemas/SupplierClassificationValueBase'
+    PaymentTermId:
+      type: integer
+      description: Payment term identifier string.
+      example: 1
+    SupplierClassificationFieldValueType:
+      type: string
+      description: Object type, should always be `supplier_classification_field_values`.
+      example: supplier_classification_field_values
+    SupplierCompany:
+      allOf:
+      - $ref: '#/components/schemas/SupplierCompanyBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierCompanyAttributes'
+          relationships:
+            $ref: '#/components/schemas/SupplierCompanyRelationship'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    SupplierClassificationValueBase:
+      title: SupplierClassificationField
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierClassificationValueType'
+        id:
+          $ref: '#/components/schemas/SupplierClassificationValueId'
+    SupplierSegmentationStatus:
+      type: string
+      enum:
+      - not_approved
+      - reviewing
+      - approved
+      - out_of_compliance
+      - blacklisted
+      description: Supplier segmentation status.
+    PaymentCurrencyAttributes:
+      type: object
+      description: Payment currency attributes.
+      required:
+      - alpha
+      - numeric
+      properties:
+        alpha:
+          type: string
+          minLength: 3
+          maxLength: 3
+          description: Payment currency three-letter alphabetic code.
+        numeric:
+          type: string
+          minLength: 0
+          maxLength: 255
+          description: Numeric code representing the payment currency. May be an empty string and may contain alphanumeric characters.
+        external_id:
+          type: string
+          maxLength: 255
+          description: Payment currency external identifier.
+    PaymentType:
+      allOf:
+      - $ref: '#/components/schemas/PaymentTypeBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/PaymentTypeAttributes'
+    DescribeFieldId:
+      type: string
+      description: Field identifier string.
+      example: field_name
+    SupplierCompanyId:
+      type: integer
+      description: Supplier company identifier string.
+      example: 1
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    SupplierCategoryType:
+      type: string
+      description: Object type, should always be `supplier_categories`.
+      example: supplier_categories
+    PaymentCurrencyBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentCurrencyType'
+        id:
+          $ref: '#/components/schemas/PaymentCurrencyId'
+    SupplierGroup:
+      allOf:
+      - $ref: '#/components/schemas/SupplierGroupBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierGroupAttributes'
+    SupplierCompanyInputFilter:
+      type: object
+      properties:
+        updated_at_from:
+          type: string
+          format: date-time
+          description: Return supplier companies updated on or after the specified timestamp.
+          example: '2019-10-29T21:28:46.790Z'
+        updated_at_to:
+          type: string
+          format: date-time
+          description: Return supplier companies updated on or before the specified timestamp.
+          example: '2019-10-29T21:28:46.790Z'
+        external_id_empty:
+          type: boolean
+          description: Return supplier companies with `external_id` blank.
+          example: true
+        external_id_not_empty:
+          type: boolean
+          description: Return supplier companies with non-blank `external_id`.
+          example: false
+        external_id_equals:
+          type: string
+          description: Find supplier companies by a specific external ID.
+          example: SUP-123
+        external_id_not_equals:
+          type: string
+          description: Find supplier companies excluding the one with the specified external ID.
+          example: SUP-123
+        segmentation_status_equals:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupplierSegmentationStatus'
+          description: Find supplier companies with specified segmentation statuses.
+          example:
+          - approved
+          - not_approved
+    SupplierCompanyBase:
+      title: SupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyId'
+    PaymentTypeBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentTypeType'
+        id:
+          $ref: '#/components/schemas/PaymentTypeId'
+    SupplierCompanyRelatedResources:
+      allOf:
+      - type: string
+        enum:
+        - attachments
+        - supplier_category
+        - supplier_groups
+        - default_payment_term
+        - payment_types
+        - default_payment_type
+        - payment_currencies
+        - default_payment_currency
+        - supplier_classification_values
+    AttachmentType:
+      type: string
+      description: Object type, should always be `attachments`.
+      example: attachments
+    DescribeFieldAttributes:
+      type: object
+      description: Describe field attributes.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Describe field name.
+          example: field_name
+        data_type:
+          $ref: '#/components/schemas/OpenApiEnum'
+        type_description:
+          $ref: '#/components/schemas/CustomFieldEnum'
+        custom_field:
+          type: boolean
+          description: Flag for determining if this is a user created custom field or an internal system field.
+          example: false
+    SupplierClassificationFieldValueId:
+      type: integer
+      description: Supplier classification field value identifier string.
+      example: 1
+  examples:
+    create_request:
+      value:
+        data:
+          type: supplier_companies
+          attributes:
+            name: Supplier Company Name
+            description: Suppler Company Description
+            is_suggested: false
+            public: true
+            risk: low
+            segmentation: tier_1
+            segmentation_status: approved
+            segmentation_notes: Segmentation Notes
+            tags:
+            - tag1
+            - tag2
+            url: http://example.com
+            external_id: 1234-5678-abcd-efgh
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            default_payment_currency:
+              data:
+                id: '172'
+                type: payment_currencies
+            default_payment_term:
+              data:
+                id: '38'
+                type: payment_terms
+            default_payment_type:
+              data:
+                id: '99'
+                type: payment_types
+            supplier_category:
+              data:
+                id: '83'
+                type: supplier_categories
+            payment_currencies:
+              data:
+              - id: '172'
+                type: payment_currencies
+            payment_types:
+              data:
+              - id: '99'
+                type: payment_types
+            supplier_groups:
+              data:
+              - id: '48'
+                type: supplier_groups
+            supplier_classification_values:
+              data:
+              - id: '21'
+    update_compound_response:
+      value:
+        data:
+          type: supplier_companies
+          id: '1'
+          attributes:
+            name: 'Supplier Company Name #1'
+            description: 'Suppler Company Description #1'
+            is_suggested: false
+            accept_all_currencies: false
+            public: true
+            risk: low
+            segmentation: tier_1
+            segmentation_status: approved
+            segmentation_notes: Segmentation Notes
+            tags:
+            - tag1
+            - tag2
+            url: http://example.com
+            external_id: 1234-5678-abcd-efgh
+            updated_at: '2019-10-29T21:28:46.790Z'
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            default_payment_currency:
+              data:
+                id: '172'
+                type: payment_currencies
+            default_payment_term:
+              data:
+                id: '38'
+                type: payment_terms
+            default_payment_type:
+              data:
+                id: '99'
+                type: payment_types
+            supplier_category:
+              data:
+                id: '83'
+                type: supplier_categories
+            payment_currencies:
+              data:
+              - id: '172'
+                type: payment_currencies
+              - id: '174'
+                type: payment_currencies
+            payment_types:
+              data:
+              - id: '99'
+                type: payment_types
+              - id: '96'
+                type: payment_types
+            supplier_groups:
+              data:
+              - id: '48'
+                type: supplier_groups
+              - id: '53'
+                type: supplier_groups
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+            supplier_classification_values:
+              data:
+              - id: 1-1
+                type: supplier_classification_values
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+        included:
+        - id: '1'
+          type: attachments
+          attributes:
+            title: Attachment Title
+            file_size: 123546
+            uploaded_at: '2019-11-03T21:28:46.790Z'
+            uploaded_by: user@example.com
+            download_url: https://us.workdayspend.com/Attachment.pdf
+            download_url_expires_at: '2019-11-03T22:28:46.790Z'
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/attachments/1
+        - id: '172'
+          type: payment_currencies
+          attributes:
+            external_id: EUR
+            alpha: EUR
+            numeric: '978'
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_currencies/172
+        - id: '38'
+          type: payment_terms
+          attributes:
+            name: Immediate
+            external_id: IMMEDIATE
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_terms/38
+        - id: '99'
+          type: payment_types
+          attributes:
+            name: Cash
+            external_id: CASH
+            payment_method: Cash
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_types/99
+        - id: '83'
+          type: supplier_categories
+          attributes:
+            name: Facilities
+            external_id: FACILITIES
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/83
+        - id: '174'
+          type: payment_currencies
+          attributes:
+            external_id: USD
+            alpha: USD
+            numeric: '840'
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_currencies/174
+        - id: '96'
+          type: payment_types
+          attributes:
+            name: Check
+            external_id: CHECK
+            payment_method: Check
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_types/96
+        - id: '48'
+          type: supplier_groups
+          attributes:
+            name: Africa
+            external_id: AFRICA
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/48
+        - id: '53'
+          type: supplier_groups
+          attributes:
+            name: Australia
+            external_id: AUSTRALIA
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/53
+        - id: 1-1
+          type: supplier_classification_values
+          attributes:
+            external_id: CLASSIFICATION-1
+          relationships:
+            supplier_classification_field_values:
+              data:
+              - id: '1'
+                type: supplier_classification_field_values
+              - id: '2'
+                type: supplier_classification_field_values
+              - id: '3'
+                type: supplier_classification_field_values
+              - id: '4'
+                type: supplier_classification_field_values
+              - id: '5'
+                type: supplier_classification_field_values
+              - id: '6'
+                type: supplier_classification_field_values
+              - id: '7'
+                type: supplier_classification_field_values
+              - id: '8'
+                type: supplier_classification_field_values
+        - id: '1'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-1
+            value: Text value
+        - id: '2'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-2
+            value: 1
+        - id: '3'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-3
+            value: '2023-01-10'
+        - id: '4'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-4
+            value: '2024-01-10'
+        - id: '5'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-5
+            value: '2025-01-10'
+        - id: '6'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-6
+            value: CLASSIFICAITON-OPTION-1
+        - id: '7'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-7
+            value:
+            - CLASSIFICAITON-OPTION-3
+            - CLASSIFICAITON-OPTION-4
+        - id: '8'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-8
+            value: []
+          relationships:
+            attachments:
+              data:
+              - id: '2'
+                type: attachments
+        - id: '2'
+          type: attachments
+          attributes:
+            external_id: null
+            title: Image
+            file_size: 70330
+            uploaded_at: '2022-01-10T12:18:50.614Z'
+            uploaded_by: user name
+            download_url: download_url
+            download_url_expires_at: '2023-01-10T12:19:54.908Z'
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/attachments/1
+    index_response:
+      value:
+        meta:
+          count: 2
+        data:
+        - type: supplier_companies
+          id: '1'
+          attributes:
+            name: 'Supplier Company Name #1'
+            description: 'Suppler Company Description #1'
+            is_suggested: false
+            accept_all_currencies: false
+            public: true
+            risk: low
+            segmentation: tier_1
+            segmentation_status: approved
+            segmentation_notes: Segmentation Notes
+            tags:
+            - tag1
+            - tag2
+            url: http://example.com
+            external_id: 1234-5678-abcd-efgh
+            updated_at: '2019-10-29T21:28:46.790Z'
+            self_registered: false
+            onboarding_form_completion_status: null
+            duns_number: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data:
+              - id: '2'
+                type: attachments
+            default_payment_currency:
+              data:
+                id: '172'
+                type: payment_currencies
+            default_payment_term:
+              data:
+                id: '38'
+                type: payment_terms
+            default_payment_type:
+              data:
+                id: '99'
+                type: payment_types
+            supplier_category:
+              data:
+                id: '83'
+                type: supplier_categories
+            payment_currencies:
+              data:
+              - id: '172'
+                type: payment_currencies
+              - id: '174'
+                type: payment_currencies
+            payment_types:
+              data:
+              - id: '99'
+                type: payment_types
+              - id: '96'
+                type: payment_types
+            supplier_groups:
+              data:
+              - id: '48'
+                type: supplier_groups
+              - id: '53'
+                type: supplier_groups
+            supplier_classification_values:
+              data:
+              - id: 1-21
+                type: supplier_classification_values
+              - id: 1-22
+                type: supplier_classification_values
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+        - type: supplier_companies
+          id: '2'
+          attributes:
+            name: 'Supplier Company Name #2'
+            description: 'Suppler Company Description #2'
+            is_suggested: false
+            accept_all_currencies: false
+            public: true
+            risk: low
+            segmentation: tier_1
+            segmentation_status: approved
+            segmentation_notes: Segmentation Notes
+            tags:
+            - tag1
+            - tag2
+            url: http://example.com
+            external_id: 5678-9012-ijkl-mnop
+            updated_at: '2019-10-29T21:28:46.790Z'
+            self_registered: false
+            onboarding_form_completion_status: null
+            duns_number: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+            default_payment_currency:
+              data:
+                id: '172'
+                type: payment_currencies
+            default_payment_term:
+              data:
+                id: '38'
+                type: payment_terms
+            default_payment_type:
+              data:
+                id: '99'
+                type: payment_types
+            supplier_category:
+              data:
+                id: '83'
+                type: supplier_categories
+            payment_currencies:
+              data:
+              - id: '172'
+                type: payment_currencies
+            payment_types:
+              data:
+              - id: '99'
+                type: payment_types
+            supplier_groups:
+              data:
+              - id: '48'
+                type: supplier_groups
+            supplier_classification_values:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/2
+        links:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies
+          next: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies?page[cursor]=WyJzdXBwbGllciBjb21wYW55IDA5IiwxMTRd&page[direction]=next&page[size]=10
+          prev: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies?page[cursor]=WyJzdXBwbGllciBjb21wYW55IDAwIiwxMDVd&page[direction]=prev&page[size]=10
+    external_update_response:
+      value:
+        data:
+          type: supplier_companies
+          id: '1'
+          attributes:
+            name: Supplier Company Name Updated
+            description: Suppler Company Description Updated
+            is_suggested: false
+            accept_all_currencies: false
+            public: false
+            risk: medium
+            segmentation: tier_2
+            segmentation_status: not_approved
+            segmentation_notes: Segmentation Notes Updated
+            tags:
+            - tag1
+            - tag2
+            - tag3
+            url: http://example.com/updated
+            external_id: 1234-5678-abcd-efgh
+            updated_at: '2019-10-29T21:28:46.790Z'
+            self_registered: false
+            onboarding_form_completion_status: null
+            duns_number: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data: []
+            default_payment_currency:
+              data: null
+            default_payment_term:
+              data: null
+            default_payment_type:
+              data: null
+            supplier_category:
+              data: null
+            payment_currencies:
+              data: []
+            payment_types:
+              data: []
+            supplier_groups:
+              data: []
+            supplier_classification_values:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+    show_response:
+      value:
+        data:
+          type: supplier_companies
+          id: '1'
+          attributes:
+            name: Supplier Company Name
+            description: Suppler Company Description
+            is_suggested: false
+            accept_all_currencies: false
+            public: true
+            risk: low
+            segmentation: tier_1
+            segmentation_status: approved
+            segmentation_notes: Segmentation Notes
+            tags:
+            - tag1
+            - tag2
+            url: http://example.com
+            external_id: 1234-5678-abcd-efgh
+            updated_at: '2019-10-29T21:28:46.790Z'
+            self_registered: false
+            onboarding_form_completion_status: null
+            duns_number: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+            default_payment_currency:
+              data:
+                id: '172'
+                type: payment_currencies
+            default_payment_term:
+              data:
+                id: '38'
+                type: payment_terms
+            default_payment_type:
+              data:
+                id: '99'
+                type: payment_types
+            supplier_category:
+              data:
+                id: '83'
+                type: supplier_categories
+            payment_currencies:
+              data:
+              - id: '172'
+                type: payment_currencies
+              - id: '174'
+                type: payment_currencies
+            payment_types:
+              data:
+              - id: '99'
+                type: payment_types
+              - id: '96'
+                type: payment_types
+            supplier_groups:
+              data:
+              - id: '48'
+                type: supplier_groups
+              - id: '53'
+                type: supplier_groups
+            supplier_classification_values:
+              data:
+              - id: 1-21
+                type: supplier_classification_values
+              - id: 1-22
+                type: supplier_classification_values
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+    describe_response:
+      value:
+        data:
+        - id: name
+          type: supplier_company_fields
+          attributes:
+            name: name
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: description
+          type: supplier_company_fields
+          attributes:
+            name: description
+            data_type: string
+            type_description: Paragraph
+            custom_field: false
+        - id: is_suggested
+          type: supplier_company_fields
+          attributes:
+            name: is_suggested
+            data_type: boolean
+            type_description: Checkbox
+            custom_field: false
+        - id: public
+          type: supplier_company_fields
+          attributes:
+            name: public
+            data_type: boolean
+            type_description: Checkbox
+            custom_field: false
+        - id: risk
+          type: supplier_company_fields
+          attributes:
+            name: risk
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: segmentation
+          type: supplier_company_fields
+          attributes:
+            name: segmentation
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: segmentation_notes
+          type: supplier_company_fields
+          attributes:
+            name: segmentation_notes
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: segmentation_status
+          type: supplier_company_fields
+          attributes:
+            name: segmentation_status
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: preferred_supplier
+          type: supplier_company_fields
+          attributes:
+            name: preferred_supplier
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: tags
+          type: supplier_company_fields
+          attributes:
+            name: tags
+            data_type: array
+            type_description: Multiple Select
+            custom_field: false
+        - id: url
+          type: supplier_company_fields
+          attributes:
+            name: url
+            data_type: string
+            type_description: URL
+            custom_field: false
+        - id: external_id
+          type: supplier_company_fields
+          attributes:
+            name: external_id
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: updated_at
+          type: supplier_company_fields
+          attributes:
+            name: updated_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: duns_number
+          type: supplier_company_fields
+          attributes:
+            name: duns_number
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: custom_field_1
+          type: supplier_company_fields
+          attributes:
+            name: 'Custom field #1'
+            data_type: string
+            type_description: Short Text
+            custom_field: true
+        links: {}
+        meta:
+          count: 15
+    update_response:
+      value:
+        data:
+          type: supplier_companies
+          id: '1'
+          attributes:
+            name: Supplier Company Name Updated
+            description: Suppler Company Description Updated
+            is_suggested: false
+            accept_all_currencies: false
+            public: false
+            risk: medium
+            segmentation: tier_2
+            segmentation_status: not_approved
+            segmentation_notes: Segmentation Notes Updated
+            tags:
+            - tag1
+            - tag2
+            - tag3
+            url: http://example.com/updated
+            external_id: 1234-5678-upda-tedd
+            updated_at: '2019-10-29T21:28:46.790Z'
+            self_registered: false
+            onboarding_form_completion_status: null
+            duns_number: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+            default_payment_currency:
+              data:
+                id: '172'
+                type: payment_currencies
+            default_payment_term:
+              data:
+                id: '38'
+                type: payment_terms
+            default_payment_type:
+              data:
+                id: '99'
+                type: payment_types
+            supplier_category:
+              data:
+                id: '83'
+                type: supplier_categories
+            payment_currencies:
+              data:
+              - id: '172'
+                type: payment_currencies
+            payment_types:
+              data:
+              - id: '99'
+                type: payment_types
+            supplier_groups:
+              data:
+              - id: '48'
+                type: supplier_groups
+            supplier_classification_values:
+              data:
+              - id: 1-123
+                type: supplier_classification_values
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+    external_show_response:
+      value:
+        data:
+          type: supplier_companies
+          id: '1'
+          attributes:
+            name: Supplier Company Name
+            description: Suppler Company Description
+            is_suggested: false
+            accept_all_currencies: false
+            public: true
+            risk: low
+            segmentation: tier_1
+            segmentation_status: approved
+            segmentation_notes: Segmentation Notes
+            tags:
+            - tag1
+            - tag2
+            url: http://example.com
+            external_id: 1234-5678-abcd-efgh
+            updated_at: '2019-10-29T21:28:46.790Z'
+            self_registered: false
+            onboarding_form_completion_status: null
+            duns_number: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data: []
+            default_payment_currency:
+              data: null
+            default_payment_term:
+              data: null
+            default_payment_type:
+              data: null
+            supplier_category:
+              data: null
+            payment_currencies:
+              data: []
+            payment_types:
+              data: []
+            supplier_groups:
+              data: []
+            supplier_classification_values:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+    external_update_request:
+      value:
+        data:
+          type: supplier_companies
+          id: 1234-5678-abcd-efgh
+          attributes:
+            name: Supplier Company Name Updated
+            description: Suppler Company Description Updated
+            is_suggested: false
+            accept_all_currencies: false
+            public: false
+            risk: medium
+            segmentation: tier_2
+            segmentation_status: not_approved
+            segmentation_notes: Segmentation Notes Updated
+            tags:
+            - tag1
+            - tag2
+            - tag3
+            url: http://example.com/updated
+            external_id: 1234-5678-abcd-efgh
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+    create_response:
+      value:
+        data:
+          type: supplier_companies
+          id: '1'
+          attributes:
+            name: Supplier Company Name
+            description: Suppler Company Description
+            is_suggested: false
+            accept_all_currencies: false
+            public: true
+            risk: low
+            segmentation: tier_1
+            segmentation_status: approved
+            segmentation_notes: Segmentation Notes
+            tags:
+            - tag1
+            - tag2
+            url: http://example.com
+            external_id: 1234-5678-abcd-efgh
+            updated_at: '2019-10-29T21:28:46.790Z'
+            self_registered: false
+            onboarding_form_completion_status: null
+            duns_number: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data: []
+            default_payment_currency:
+              data:
+                id: '172'
+                type: payment_currencies
+            default_payment_term:
+              data:
+                id: '38'
+                type: payment_terms
+            default_payment_type:
+              data:
+                id: '99'
+                type: payment_types
+            supplier_category:
+              data:
+                id: '83'
+                type: supplier_categories
+            payment_currencies:
+              data:
+              - id: '172'
+                type: payment_currencies
+            payment_types:
+              data:
+              - id: '99'
+                type: payment_types
+            supplier_groups:
+              data:
+              - id: '48'
+                type: supplier_groups
+            supplier_classification_values:
+              data:
+              - id: 1-21
+                type: supplier_classification_values
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+    update_request:
+      value:
+        data:
+          type: supplier_companies
+          id: '1'
+          attributes:
+            name: Supplier Company Name Updated
+            description: Suppler Company Description Updated
+            is_suggested: false
+            public: false
+            risk: medium
+            segmentation: tier_2
+            segmentation_status: not_approved
+            segmentation_notes: Segmentation Notes Updated
+            tags:
+            - tag1
+            - tag2
+            - tag3
+            url: http://example.com/updated
+            external_id: 1234-5678-upda-tedd
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            default_payment_currency:
+              data:
+                id: '172'
+                type: payment_currencies
+            default_payment_term:
+              data:
+                id: '38'
+                type: payment_terms
+            default_payment_type:
+              data:
+                id: '99'
+                type: payment_types
+            supplier_category:
+              data:
+                id: '83'
+                type: supplier_categories
+            payment_currencies:
+              data:
+              - id: '172'
+                type: payment_currencies
+            payment_types:
+              data:
+              - id: '99'
+                type: payment_types
+            supplier_groups:
+              data:
+              - id: '48'
+                type: supplier_groups
+            supplier_classification_values:
+              data:
+              - id: '123'
+                type: supplier_classification_values
+    index_compound_response:
+      value:
+        meta:
+          count: 1
+        data:
+        - type: supplier_companies
+          id: '1'
+          attributes:
+            name: 'Supplier Company Name #1'
+            description: 'Suppler Company Description #1'
+            is_suggested: false
+            accept_all_currencies: false
+            public: true
+            risk: low
+            segmentation: tier_1
+            segmentation_status: approved
+            segmentation_notes: Segmentation Notes
+            tags:
+            - tag1
+            - tag2
+            url: http://example.com
+            external_id: 1234-5678-abcd-efgh
+            updated_at: '2019-10-29T21:28:46.790Z'
+            self_registered: false
+            onboarding_form_completion_status: null
+            duns_number: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+            default_payment_currency:
+              data:
+                id: '172'
+                type: payment_currencies
+            default_payment_term:
+              data:
+                id: '38'
+                type: payment_terms
+            default_payment_type:
+              data:
+                id: '99'
+                type: payment_types
+            supplier_category:
+              data:
+                id: '83'
+                type: supplier_categories
+            payment_currencies:
+              data:
+              - id: '172'
+                type: payment_currencies
+              - id: '174'
+                type: payment_currencies
+            payment_types:
+              data:
+              - id: '99'
+                type: payment_types
+              - id: '96'
+                type: payment_types
+            supplier_groups:
+              data:
+              - id: '48'
+                type: supplier_groups
+              - id: '53'
+                type: supplier_groups
+            supplier_classification_values:
+              data:
+              - id: 1-1
+                type: supplier_classification_values
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+        included:
+        - id: '1'
+          type: attachments
+          attributes:
+            title: Attachment Title
+            file_size: 123546
+            uploaded_at: '2019-11-03T21:28:46.790Z'
+            uploaded_by: user@example.com
+            download_url: https://us.workdayspend.com/Attachment.pdf
+            download_url_expires_at: '2019-11-03T22:28:46.790Z'
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/attachments/1
+        - id: '172'
+          type: payment_currencies
+          attributes:
+            external_id: EUR
+            alpha: EUR
+            numeric: '978'
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_currencies/172
+        - id: '38'
+          type: payment_terms
+          attributes:
+            name: Immediate
+            external_id: IMMEDIATE
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_terms/38
+        - id: '99'
+          type: payment_types
+          attributes:
+            name: Cash
+            external_id: CASH
+            payment_method: Cash
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_types/99
+        - id: '83'
+          type: supplier_categories
+          attributes:
+            name: Facilities
+            external_id: FACILITIES
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/83
+        - id: '174'
+          type: payment_currencies
+          attributes:
+            external_id: USD
+            alpha: USD
+            numeric: '840'
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_currencies/174
+        - id: '96'
+          type: payment_types
+          attributes:
+            name: Check
+            external_id: CHECK
+            payment_method: Check
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_types/96
+        - id: '48'
+          type: supplier_groups
+          attributes:
+            name: Africa
+            external_id: AFRICA
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/48
+        - id: '53'
+          type: supplier_groups
+          attributes:
+            name: Australia
+            external_id: AUSTRALIA
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/53
+        - id: 1-1
+          type: supplier_classification_values
+          attributes:
+            external_id: CLASSIFICATION-1
+          relationships:
+            supplier_classification_field_values:
+              data:
+              - id: '1'
+                type: supplier_classification_field_values
+              - id: '2'
+                type: supplier_classification_field_values
+              - id: '3'
+                type: supplier_classification_field_values
+              - id: '4'
+                type: supplier_classification_field_values
+              - id: '5'
+                type: supplier_classification_field_values
+              - id: '6'
+                type: supplier_classification_field_values
+              - id: '7'
+                type: supplier_classification_field_values
+              - id: '8'
+                type: supplier_classification_field_values
+        - id: '1'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-1
+            value: text value
+        - id: '2'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-2
+            value: 1231
+        - id: '3'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-3
+            value: '2021-05-29T21:28:46.790Z'
+        - id: '4'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-4
+            value: '2021-05-29T21:28:46.790Z'
+        - id: '5'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-5
+            value: '2021-05-29T21:28:46.790Z'
+        - id: '6'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-6
+            value: 1
+          relationships:
+            selected_options:
+              data:
+              - id: '1'
+                type: supplier_classification_field_options
+        - id: '7'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-7
+            value:
+            - 3
+            - 4
+          relationships:
+            selected_options:
+              data:
+              - id: '3'
+                type: supplier_classification_field_options
+              - id: '4'
+                type: supplier_classification_field_options
+        - id: '8'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-8
+            value: []
+          relationships:
+            attachments:
+              data:
+              - id: '2'
+                type: attachments
+        - id: '2'
+          type: attachments
+          attributes:
+            title: Classification attachment
+            file_size: 123546
+            uploaded_at: '2019-11-03T21:28:46.790Z'
+            uploaded_by: user@example.com
+            download_url: https://us.workdayspend.com/Attachment.pdf
+            download_url_expires_at: '2019-11-03T22:28:46.790Z'
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/attachments/2
+        links:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies
+          next: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies?page[cursor]=WyJzdXBwbGllciBjb21wYW55IDA5IiwxMTRd&page[direction]=next&page[size]=10
+          prev: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies?page[cursor]=WyJzdXBwbGllciBjb21wYW55IDAwIiwxMDVd&page[direction]=prev&page[size]=10
+    create_compound_response:
+      value:
+        data:
+          type: supplier_companies
+          id: '1'
+          attributes:
+            name: 'Supplier Company Name #1'
+            description: 'Suppler Company Description #1'
+            is_suggested: false
+            accept_all_currencies: false
+            public: true
+            risk: low
+            segmentation: tier_1
+            segmentation_status: approved
+            segmentation_notes: Segmentation Notes
+            tags:
+            - tag1
+            - tag2
+            url: http://example.com
+            external_id: 1234-5678-abcd-efgh
+            updated_at: '2019-10-29T21:28:46.790Z'
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            default_payment_currency:
+              data:
+                id: '172'
+                type: payment_currencies
+            default_payment_term:
+              data:
+                id: '38'
+                type: payment_terms
+            default_payment_type:
+              data:
+                id: '99'
+                type: payment_types
+            supplier_category:
+              data:
+                id: '83'
+                type: supplier_categories
+            payment_currencies:
+              data:
+              - id: '172'
+                type: payment_currencies
+              - id: '174'
+                type: payment_currencies
+            payment_types:
+              data:
+              - id: '99'
+                type: payment_types
+              - id: '96'
+                type: payment_types
+            supplier_groups:
+              data:
+              - id: '48'
+                type: supplier_groups
+              - id: '53'
+                type: supplier_groups
+            supplier_classification_values:
+              data:
+              - id: 1-1
+                type: supplier_classification_values
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+        included:
+        - id: '172'
+          type: payment_currencies
+          attributes:
+            external_id: EUR
+            alpha: EUR
+            numeric: '978'
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_currencies/172
+        - id: '38'
+          type: payment_terms
+          attributes:
+            name: Immediate
+            external_id: IMMEDIATE
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_terms/38
+        - id: '99'
+          type: payment_types
+          attributes:
+            name: Cash
+            external_id: CASH
+            payment_method: Cash
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_types/99
+        - id: '83'
+          type: supplier_categories
+          attributes:
+            name: Facilities
+            external_id: FACILITIES
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/83
+        - id: '174'
+          type: payment_currencies
+          attributes:
+            external_id: USD
+            alpha: USD
+            numeric: '840'
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_currencies/174
+        - id: '96'
+          type: payment_types
+          attributes:
+            name: Check
+            external_id: CHECK
+            payment_method: Check
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/payment_types/96
+        - id: '48'
+          type: supplier_groups
+          attributes:
+            name: Africa
+            external_id: AFRICA
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/48
+        - id: '53'
+          type: supplier_groups
+          attributes:
+            name: Australia
+            external_id: AUSTRALIA
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/53
+        - id: 1-1
+          type: supplier_classification_values
+          attributes:
+            external_id: CLASSIFICATION-1
+          relationships:
+            supplier_classification_field_values:
+              data:
+              - id: '1'
+                type: supplier_classification_field_values
+              - id: '2'
+                type: supplier_classification_field_values
+              - id: '3'
+                type: supplier_classification_field_values
+              - id: '4'
+                type: supplier_classification_field_values
+              - id: '5'
+                type: supplier_classification_field_values
+              - id: '6'
+                type: supplier_classification_field_values
+              - id: '7'
+                type: supplier_classification_field_values
+              - id: '8'
+                type: supplier_classification_field_values
+        - id: '1'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-1
+            value: Text value
+        - id: '2'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-2
+            value: 1
+        - id: '3'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-3
+            value: '2023-01-10'
+        - id: '4'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-4
+            value: '2024-01-10'
+        - id: '5'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-5
+            value: '2025-01-10'
+        - id: '6'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-6
+            value: CLASSIFICAITON-OPTION-1
+        - id: '7'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-7
+            value:
+            - CLASSIFICAITON-OPTION-2
+            - CLASSIFICAITON-OPTION-3
+        - id: '8'
+          type: supplier_classification_field_values
+          attributes:
+            external_id: CLASSIFICATION-FIELD-VALUE-8
+            value: []
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+        - id: '1'
+          type: attachments
+          attributes:
+            external_id: null
+            title: Image
+            file_size: 70330
+            uploaded_at: '2022-01-10T12:18:50.614Z'
+            uploaded_by: user name
+            download_url: download_url
+            download_url_expires_at: '2023-01-10T12:19:54.908Z'
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/attachments/1
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

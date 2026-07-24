@@ -1,0 +1,447 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments award_line_items API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: award_line_items
+  x-displayName: Award Line Items
+  description: 'Use the Award Line Items API to query the Award Line Items in Workday Strategic Sourcing.
+
+
+    Award Line Items are used for procurement.
+
+
+    ## Award Line Item Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/AwardLineItem" exampleRef="#/components/examples/AwardLineItem" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /awards/{award_id}/award_line_items:
+    get:
+      tags:
+      - award_line_items
+      description: Returns a list of line items for a specific award.
+      operationId: List Award Line Items
+      summary: List Award Line Items
+      parameters:
+      - name: award_id
+        in: path
+        description: Award identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      - name: filter
+        in: query
+        description: 'Filter awards line items by multiple criteria.
+
+          '
+        schema:
+          $ref: '#/components/schemas/AwardLineItemInputFilter'
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/AwardLineItemRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/AwardLineItem'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-2'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/awards/v1/awards/1/award_line_items\"\n"
+  /award_line_items/{id}:
+    get:
+      tags:
+      - award_line_items
+      description: 'Retrieves the details of an existing award line items. You need to supply the unique award line items
+
+        identifier.
+
+        '
+      operationId: Get an Award Line Item
+      summary: Get an Award Line Item
+      parameters:
+      - name: id
+        in: path
+        description: Unique Award Line Items identifier.
+        required: true
+        schema:
+          type: string
+        example: 15
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/AwardLineItemRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AwardLineItem'
+              examples:
+                success:
+                  $ref: '#/components/examples/show_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/awards/v1/award_line_items/1_5\"\n"
+components:
+  schemas:
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+          deprecated: true
+    AwardLineItemRelatedResources:
+      type: string
+      enum:
+      - supplier_company
+      - worksheet
+    AwardLineItemId:
+      type: integer
+      description: Award line items identifier string.
+      example: 1
+    AwardLineItemType:
+      type: string
+      description: Object type, should always be `award_line_items`.
+      example: award_line_items
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    AwardLineItem:
+      allOf:
+      - $ref: '#/components/schemas/AwardLineItemBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/AwardLineItemAttributes'
+          relationships:
+            $ref: '#/components/schemas/AwardLineItemRelationship'
+    WorksheetType:
+      type: string
+      description: Object type, should always be `worksheets`.
+      example: worksheets
+    AwardLineItemTypeEnum:
+      type: string
+      enum:
+      - STANDARD
+      - GOODS
+      - SERVICES
+      description: Award line item type.
+      example: STANDARD
+    SupplierCompanyId:
+      type: integer
+      description: Supplier company identifier string.
+      example: 1
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    AwardLineItemRelationship:
+      type: object
+      description: Award line item relationships.
+      properties:
+        supplier_company:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/SupplierCompanyBase'
+        worksheet:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/WorksheetBase'
+    AwardLineItemInputFilter:
+      type: object
+      properties:
+        is_quoted_equals:
+          type: boolean
+          description: Return awards line items by their quoted state.
+          example: true
+        line_item_type_equals:
+          type: array
+          items:
+            $ref: '#/components/schemas/AwardLineItemTypeEnum'
+          description: Return awards line items with specified line item types.
+          example:
+          - GOODS
+          - SERVICES
+    WorksheetId:
+      type: integer
+      description: Worksheet identifier string.
+      example: 1
+    AwardLineItemAttributes:
+      type: object
+      description: Award line item attributes.
+      properties:
+        data:
+          type: object
+          properties:
+            data_identifier:
+              type: string
+              description: Worksheet column identifier string.
+          additionalProperties:
+            x-additionalPropertiesName: value
+            description: Worksheet line item cell value.
+          description: 'A hashmap where keys are data identifier strings for the columns in the worksheet,
+
+            and values are cell values.
+
+            '
+        allocated_quantity:
+          type: integer
+          description: Award line item allocated quantity.
+        sought_quantity:
+          type: integer
+          description: Award line item sought quantity.
+        price:
+          type: number
+          description: Award line item unit price.
+        total_spend:
+          type: number
+          description: Award line item total spend.
+        net_savings:
+          type: number
+          description: Award line item net savings.
+        net_savings_percentage:
+          type: number
+          description: Award line item net savings percentage.
+        line_item_type:
+          $ref: '#/components/schemas/AwardLineItemTypeEnum'
+        is_quoted:
+          type: boolean
+          description: Identifies whether the award line item is quoted.
+    SupplierCompanyBase:
+      title: SupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyId'
+    AwardLineItemBase:
+      title: Award line item
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/AwardLineItemType'
+        id:
+          $ref: '#/components/schemas/AwardLineItemId'
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    WorksheetBase:
+      title: Worksheet
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/WorksheetType'
+        id:
+          $ref: '#/components/schemas/WorksheetId'
+  examples:
+    show_response:
+      value:
+        data:
+          id: '1_5'
+          type: award_line_items
+          attributes:
+            data:
+              c263: Worksheet 1 line item 1
+              c264: 1
+              c265: 10
+              c266: 10
+              c268: 0
+            allocated_quantity: 1
+            sought_quantity: 1
+            price: 10
+            total_spend: 10
+            net_savings: -10
+            net_savings_percentage: null
+            line_item_type: STANDARD
+            is_quoted: true
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            worksheet:
+              data:
+                id: '2'
+                type: worksheets
+    index_response-2:
+      value:
+        data:
+        - id: '1_5'
+          type: award_line_items
+          attributes:
+            data:
+              c263: Worksheet 1 line item 1
+              c264: 1
+              c265: 10
+              c266: 10
+              c268: 0
+            allocated_quantity: 1
+            sought_quantity: 1
+            price: 10
+            total_spend: 10
+            net_savings: -10
+            net_savings_percentage: null
+            line_item_type: STANDARD
+            is_quoted: true
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            worksheet:
+              data:
+                id: '2'
+                type: worksheets
+        - id: '1_6'
+          type: award_line_items
+          attributes:
+            data:
+              c263: Worksheet 1 line item 2
+              c264: 2
+              c265: 20
+              c266: 40
+              c267: 30
+              c268: 60
+            allocated_quantity: 2
+            sought_quantity: 2
+            price: 20
+            total_spend: 40
+            net_savings: 20
+            net_savings_percentage: 33.33
+            line_item_type: STANDARD
+            is_quoted: true
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            worksheet:
+              data:
+                id: '2'
+                type: worksheets
+        links:
+          self: https://api.us.workdayspend.com/services/awards/v1/awards/1/award_line_items?page%5Bsize%5D=10
+          next: https://api.us.workdayspend.com/services/awards/v1/awards/1/award_line_items?page%5Bcursor%5D=WzE0MV0&page%5Bdirection%5D=next&page%5Bsize%5D=10
+          prev: null
+        meta:
+          count: 2
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

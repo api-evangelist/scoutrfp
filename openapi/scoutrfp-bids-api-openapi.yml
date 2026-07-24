@@ -1,0 +1,796 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments bids API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: bids
+  x-displayName: Bids
+  description: 'Use the bids API to query the bids in Workday Strategic Sourcing.
+
+    Only bids for events of type `RFP` are supported.
+
+
+    ## Bid Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/Bid" exampleRef="#/components/examples/Bid" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /events/{event_id}/bids:
+    get:
+      tags:
+      - bids
+      description: 'Returns a list of all bids.
+
+        Only bids for events of type `RFP` are returned.
+
+        '
+      operationId: List Bids
+      summary: List Bids
+      parameters:
+      - name: event_id
+        in: path
+        description: Event identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      - name: filter
+        in: query
+        description: 'Filter bids by multiple criteria. Only one filter per attribute is supported.
+
+          For best performance, we recommend 5 or less filters.
+
+          '
+        schema:
+          $ref: '#/components/schemas/BidInputFilter'
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/BidRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          '
+      - name: page
+        in: query
+        description: 'Customize pagination results with `size`.
+
+          '
+        schema:
+          $ref: '#/components/schemas/PageInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/BidModel'
+                    included:
+                      $ref: '#/components/schemas/BidIncludedResources'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                simple_request:
+                  summary: Simple request
+                  $ref: '#/components/examples/index_response-5'
+                compound_request:
+                  summary: Compound request
+                  $ref: '#/components/examples/index_compound_response'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/bids\"\n"
+  /bids/{id}:
+    get:
+      tags:
+      - bids
+      description: 'Retrieves the details of an existing bid. You need to supply the unique bid
+
+        identifier that was returned upon bid creation.
+
+        '
+      operationId: Get a Bid
+      summary: Get a Bid
+      parameters:
+      - name: id
+        in: path
+        description: Unique Bid identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      - name: include
+        in: query
+        schema:
+          $ref: '#/components/schemas/BidRelatedResources'
+        description: 'Use the `include` parameter to request related resources along with the primary resource.
+
+          '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BidModel'
+                  included:
+                    $ref: '#/components/schemas/BidIncludedResources'
+              examples:
+                simple_request:
+                  summary: Simple Request
+                  $ref: '#/components/examples/show_response-5'
+                compound_request:
+                  summary: Compound request
+                  $ref: '#/components/examples/show_compound_response'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/bids/1\"\n"
+  /bids/describe:
+    get:
+      tags:
+      - bids
+      description: Returns a list of fields for the bid object.
+      operationId: Describe Bid object
+      summary: Describe Bid object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/BidFieldModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/describe_response-3'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/bids/describe\"\n"
+components:
+  schemas:
+    EventBase:
+      title: Event
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/EventType'
+        id:
+          $ref: '#/components/schemas/EventId'
+    DescribeFieldModel:
+      allOf:
+      - $ref: '#/components/schemas/DescribeFieldBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/DescribeFieldAttributes'
+    EventType:
+      type: string
+      description: Object type, should always be `events`.
+      example: events
+    DescribeFieldBase:
+      title: DescribeFieldModel
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/DescribeFieldType'
+        id:
+          $ref: '#/components/schemas/DescribeFieldId'
+    OpenApiEnum:
+      type: string
+      enum:
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
+    BidInputFilter:
+      type: object
+      properties:
+        id_equals:
+          type: integer
+          description: Find bids by specific IDs.
+          example:
+          - 1
+          - 2
+        intend_to_bid_equals:
+          type: boolean
+          description: Return bids with the specified "intent to bid" status.
+        intend_to_bid_not_equals:
+          type: boolean
+          description: Return bids with the specified "intent to bid" status not equal to the specified one.
+        intend_to_bid_answered_at_from:
+          type: string
+          format: date-time
+          description: Return bids with `intend_to_bid` updated on or after the specified timestamp.
+          example: '2019-10-29T21:28:46.790Z'
+        intend_to_bid_answered_at_to:
+          type: string
+          format: date-time
+          description: Return bids with `intend_to_bid` updated on or before the specified timestamp.
+          example: '2019-10-29T21:28:46.790Z'
+        submitted_at_from:
+          type: string
+          format: date-time
+          description: Return bids with `submitted_at` updated on or after the specified timestamp.
+          example: '2019-10-29T21:28:46.790Z'
+        submitted_at_to:
+          type: string
+          format: date-time
+          description: Return bids with `submitted_at` updated on or before the specified timestamp.
+          example: '2019-10-29T21:28:46.790Z'
+        resubmitted_at_from:
+          type: string
+          format: date-time
+          description: Return bids with `resubmitted_at` updated on or after the specified timestamp.
+          example: '2019-10-29T21:28:46.790Z'
+        resubmitted_at_to:
+          type: string
+          format: date-time
+          description: Return bids with `resubmitted_at` updated on or before the specified timestamp.
+          example: '2019-10-29T21:28:46.790Z'
+        status_equals:
+          type: array
+          items:
+            $ref: '#/components/schemas/BidStatusEnum'
+          description: Find bids with specified statuses.
+          example:
+          - awarded
+          - award_retracted
+        supplier_company_id_equals:
+          type: integer
+          description: Find bids by specific Supplier Company IDs.
+          example: 1
+        supplier_company_external_id_equals:
+          type: string
+          description: Find bids by specific Supplier Company External IDs.
+          example: SUP-123
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    BidId:
+      type: integer
+      description: Bid identifier string.
+      example: 1
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+          deprecated: true
+    EventExternalAttributes:
+      type: object
+      description: Event attributes.
+      properties:
+        external_id:
+          type: string
+          description: Event ID in your internal database.
+          example: 1234-5678-abcd-efgh
+    BidStatusEnum:
+      type: string
+      enum:
+      - award_retracted
+      - awarded
+      - draft
+      - rejected
+      - rejection_retracted
+      - resubmitted
+      - revising
+      - submitted
+      - unclaimed
+      - update_requested
+      description: Current bid status.
+      example: unclaimed
+    BidAttributes:
+      type: object
+      description: Bid attributes.
+      properties:
+        intend_to_bid:
+          type: boolean
+          description: Identifies whether the supplier intends to bid on the event
+          readOnly: true
+          example: true
+        intend_to_bid_answered_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Identifies the most recent time the supplier updated `intend_to_bid`.
+          example: '2021-02-24T09:12:31.000Z'
+        status:
+          $ref: '#/components/schemas/BidStatusEnum'
+        submitted_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Identifies the first time the supplier submitted their bid.
+          example: '2021-02-25T09:12:31.000Z'
+        resubmitted_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Identifies the most recent time the supplier submitted their bid.
+          example: '2021-02-26T09:12:31.000Z'
+    BidIncludedResources:
+      type: array
+      items:
+        anyOf:
+        - type: object
+          title: Event
+          allOf:
+          - $ref: '#/components/schemas/EventExternal'
+        - type: object
+          title: Supplier Company
+          allOf:
+          - $ref: '#/components/schemas/SupplierCompanyExternal'
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SupplierCompanyExternalAttributes:
+      type: object
+      description: Supplier company attributes.
+      properties:
+        external_id:
+          type: string
+          description: Supplier ID in your internal database.
+    DescribeFieldType:
+      type: string
+      description: Object type, should always be `describe_fields`.
+      example: describe_fields
+    SupplierCompanyId:
+      type: integer
+      description: Supplier company identifier string.
+      example: 1
+    BidModel:
+      allOf:
+      - $ref: '#/components/schemas/BidBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/BidAttributes'
+    DescribeFieldId:
+      type: string
+      description: Field identifier string.
+      example: field_name
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    CustomFieldEnum:
+      type: string
+      enum:
+      - Checkbox
+      - File
+      - Short Text
+      - Paragraph
+      - Date
+      - Integer
+      - Currency
+      - Decimal
+      - Single Select
+      - Multiple Select
+      - URL
+      - Lookup
+      - Related
+      description: Internal name and meaning of each field.
+      example: Short Text
+    SupplierCompanyExternal:
+      allOf:
+      - $ref: '#/components/schemas/SupplierCompanyBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierCompanyExternalAttributes'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    BidType:
+      type: string
+      description: Object type, should always be `bids`.
+      example: bids
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    BidFieldModel:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            description: Object type, should always be `bid_fields`.
+            example: bid_fields
+      - $ref: '#/components/schemas/DescribeFieldModel'
+    SupplierCompanyBase:
+      title: SupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyId'
+    BidRelatedResources:
+      type: string
+      enum:
+      - event
+      - supplier_company
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    EventExternal:
+      allOf:
+      - $ref: '#/components/schemas/EventBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/EventExternalAttributes'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    BidBase:
+      title: Bid
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/BidType'
+        id:
+          $ref: '#/components/schemas/BidId'
+    EventId:
+      type: integer
+      description: Event identifier string.
+      example: 1
+    DescribeFieldAttributes:
+      type: object
+      description: Describe field attributes.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Describe field name.
+          example: field_name
+        data_type:
+          $ref: '#/components/schemas/OpenApiEnum'
+        type_description:
+          $ref: '#/components/schemas/CustomFieldEnum'
+        custom_field:
+          type: boolean
+          description: Flag for determining if this is a user created custom field or an internal system field.
+          example: false
+    PageInput:
+      type: object
+      properties:
+        size:
+          type: number
+          format: integer
+          description: The number of results returned per page. Default is `10` and max is `100`.
+          example: '25'
+  examples:
+    describe_response-3:
+      value:
+        meta:
+          count: 7
+        data:
+        - id: intend_to_bid
+          type: bid_fields
+          attributes:
+            name: intend_to_bid
+            data_type: boolean
+            type_description: Checkbox
+            custom_field: false
+        - id: intend_to_bid_answered_at
+          type: bid_fields
+          attributes:
+            name: intend_to_bid_answered_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: status
+          type: bid_fields
+          attributes:
+            name: status
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: submitted_at
+          type: bid_fields
+          attributes:
+            name: submitted_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: resubmitted_at
+          type: bid_fields
+          attributes:
+            name: resubmitted_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: event
+          type: bid_fields
+          attributes:
+            name: event
+            data_type: object
+            type_description: Single Relationship
+            custom_field: false
+        - id: supplier_company
+          type: bid_fields
+          attributes:
+            name: supplier_company
+            data_type: object
+            type_description: Single Relationship
+            custom_field: false
+        links: {}
+    index_compound_response:
+      value:
+        meta:
+          count: 2
+        data:
+        - id: '1'
+          type: bids
+          attributes:
+            intend_to_bid: true
+            intend_to_bid_answered_at: '2020-01-02T03:04:05.000Z'
+            status: resubmitted
+            submitted_at: '2020-01-02T03:04:05.000Z'
+            resubmitted_at: '2020-01-02T03:04:05.000Z'
+          relationships:
+            event:
+              data:
+                id: '1'
+                type: events
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/bids/1
+        - id: '2'
+          type: bids
+          attributes:
+            intend_to_bid: false
+            intend_to_bid_answered_at: '2020-01-02T03:04:05.000Z'
+            status: award_retracted
+            submitted_at: '2020-01-02T03:04:05.000Z'
+            resubmitted_at: '2020-01-02T03:04:05.000Z'
+          relationships:
+            event:
+              data:
+                id: '1'
+                type: events
+            supplier_company:
+              data:
+                id: '2'
+                type: supplier_companies
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/bids/1
+        included:
+        - id: '1'
+          type: events
+          attributes:
+            external_id: EVENT1
+          links:
+            self: ' https://api.us.workdayspend.com/services/events/v1/events/1'
+        - id: '1'
+          type: supplier_companies
+          attributes:
+            external_id: SUPPLIER1
+          links:
+            self: ' https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1'
+        - id: '2'
+          type: supplier_companies
+          attributes:
+            external_id: SUPPLIER2
+          links:
+            self: ' https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/2'
+        links:
+          self: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bsize%5D=10
+          next: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzRd&page%5Bdirection%5D=next&page%5Bsize%5D=10
+          prev: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzFd&page%5Bdirection%5D=prev&page%5Bsize%5D=10
+    index_response-5:
+      value:
+        meta:
+          count: 2
+        data:
+        - id: '1'
+          type: bids
+          attributes:
+            intend_to_bid: true
+            intend_to_bid_answered_at: '2020-01-02T03:04:05.000Z'
+            status: resubmitted
+            submitted_at: '2020-01-02T03:04:05.000Z'
+            resubmitted_at: '2020-01-02T03:04:05.000Z'
+          relationships:
+            event:
+              data:
+                id: '1'
+                type: events
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/bids/1
+        - id: '2'
+          type: bids
+          attributes:
+            intend_to_bid: false
+            intend_to_bid_answered_at: '2020-01-02T03:04:05.000Z'
+            status: awarded
+            submitted_at: '2020-01-02T03:04:05.000Z'
+            resubmitted_at: '2020-01-02T03:04:05.000Z'
+          relationships:
+            event:
+              data:
+                id: '1'
+                type: events
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/bids/2
+        links:
+          self: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bsize%5D=10
+          next: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzRd&page%5Bdirection%5D=next&page%5Bsize%5D=10
+          prev: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzFd&page%5Bdirection%5D=prev&page%5Bsize%5D=10
+    show_compound_response:
+      value:
+        data:
+          type: bids
+          id: '1'
+          attributes:
+            intend_to_bid: true
+            intend_to_bid_answered_at: '2019-10-29T21:28:46.790Z'
+            status: resubmitted
+            submitted_at: '2019-10-29T21:28:46.790Z'
+            resubmitted_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            event:
+              data:
+                id: '1'
+                type: events
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+          included:
+          - id: '1'
+            type: events
+            attributes:
+              external_id: EVENT1
+            links:
+              self: ' https://api.us.workdayspend.com/services/events/v1/events/1'
+          - id: '1'
+            type: supplier_companies
+            attributes:
+              external_id: SUPPLIER1
+            links:
+              self: ' https://api.us.workdayspend.com/services/events/v1/supplier_companies/1'
+    show_response-5:
+      value:
+        data:
+          type: bids
+          id: '1'
+          attributes:
+            intend_to_bid: true
+            intend_to_bid_answered_at: '2020-01-02T03:04:05.000Z'
+            status: resubmitted
+            submitted_at: '2020-01-02T03:04:05.000Z'
+            resubmitted_at: '2020-01-02T03:04:05.000Z'
+          relationships:
+            event:
+              data:
+                id: '1'
+                type: events
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/bids/1
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

@@ -1,0 +1,498 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments worksheets API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: worksheets
+  x-displayName: Worksheets
+  description: 'Use the worksheets API to create, update, and query the worksheets in Workday Strategic Sourcing.
+
+
+    ## Worksheet Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/WorksheetModel" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /events/{event_id}/worksheets:
+    get:
+      tags:
+      - worksheets
+      description: Returns a list of all worksheets.
+      operationId: List Worksheets
+      summary: List Worksheets
+      parameters:
+      - name: event_id
+        in: path
+        description: Event identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/WorksheetModel'
+                    meta:
+                      type: object
+                      description: Result set metadata.
+                      properties:
+                        count:
+                          type: integer
+                          description: Number of pages in the result set.
+                    links:
+                      $ref: '#/components/schemas/SelfLink'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-3'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets\"\n"
+  /events/{event_id}/worksheets/{id}:
+    get:
+      tags:
+      - worksheets
+      description: 'Retrieves the details of an existing worksheet. You need to supply the unique worksheet
+
+        identifier that was returned upon worksheet creation.
+
+        '
+      operationId: Get a Worksheet
+      summary: Get a Worksheet
+      parameters:
+      - name: event_id
+        in: path
+        description: Event identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      - name: id
+        in: path
+        description: Unique Worksheet identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WorksheetModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/show_response-3'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1\"\n"
+  /worksheets/describe:
+    get:
+      tags:
+      - worksheets
+      description: Returns a list of fields for the worksheet object.
+      operationId: Describe Worksheet object
+      summary: Describe Worksheet object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/WorksheetFieldModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/describe_response-2'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/worksheets/describe\"\n"
+components:
+  schemas:
+    DescribeFieldModel:
+      allOf:
+      - $ref: '#/components/schemas/DescribeFieldBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/DescribeFieldAttributes'
+    DescribeFieldBase:
+      title: DescribeFieldModel
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/DescribeFieldType'
+        id:
+          $ref: '#/components/schemas/DescribeFieldId'
+    OpenApiEnum:
+      type: string
+      enum:
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
+    WorksheetColumnModel:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/WorksheetColumnId'
+        name:
+          type: string
+          description: Column field name.
+          example: My Worksheet Column Field
+        data_identifier:
+          type: string
+          description: Data identifier to be used when operating on line items.
+          example: c1234
+        mapping_key:
+          type: string
+          description: Column field mapping key.
+          example: TITLE
+    WorksheetColumnId:
+      type: string
+      description: Column identifier string.
+      example: 1
+    WorksheetModel:
+      allOf:
+      - $ref: '#/components/schemas/WorksheetBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/WorksheetAttributes'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    WorksheetFieldModel:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            description: Object type, should always be `worksheet_fields`.
+            example: worksheet_fields
+      - $ref: '#/components/schemas/DescribeFieldModel'
+    WorksheetAttributes:
+      type: object
+      description: Worksheet attributes.
+      required:
+      - title
+      properties:
+        title:
+          type: string
+          maxLength: 255
+          description: Worksheet title.
+        budget:
+          type: number
+          format: double
+          description: Budget for worksheet.
+          example: 11.11
+        notes:
+          type: string
+          description: Notes specific to worksheet.
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Last modification date.
+          example: '2019-10-29T21:28:46.790Z'
+        worksheet_type:
+          type: string
+          description: Worksheet type.
+          enum:
+          - standard
+          - goods
+          - services
+        columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorksheetColumnModel'
+          description: Column field values.
+    WorksheetType:
+      type: string
+      description: Object type, should always be `worksheets`.
+      example: worksheets
+    DescribeFieldType:
+      type: string
+      description: Object type, should always be `describe_fields`.
+      example: describe_fields
+    DescribeFieldId:
+      type: string
+      description: Field identifier string.
+      example: field_name
+    CustomFieldEnum:
+      type: string
+      enum:
+      - Checkbox
+      - File
+      - Short Text
+      - Paragraph
+      - Date
+      - Integer
+      - Currency
+      - Decimal
+      - Single Select
+      - Multiple Select
+      - URL
+      - Lookup
+      - Related
+      description: Internal name and meaning of each field.
+      example: Short Text
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    WorksheetBase:
+      title: Worksheet
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/WorksheetType'
+        id:
+          $ref: '#/components/schemas/WorksheetId'
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    WorksheetId:
+      type: integer
+      description: Worksheet identifier string.
+      example: 1
+    DescribeFieldAttributes:
+      type: object
+      description: Describe field attributes.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Describe field name.
+          example: field_name
+        data_type:
+          $ref: '#/components/schemas/OpenApiEnum'
+        type_description:
+          $ref: '#/components/schemas/CustomFieldEnum'
+        custom_field:
+          type: boolean
+          description: Flag for determining if this is a user created custom field or an internal system field.
+          example: false
+  examples:
+    describe_response-2:
+      value:
+        meta:
+          count: 4
+        data:
+        - id: title
+          type: worksheet_fields
+          attributes:
+            name: title
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: budget
+          type: worksheet_fields
+          attributes:
+            name: budget
+            data_type: number
+            type_description: Decimal
+            custom_field: false
+        - id: notes
+          type: worksheet_fields
+          attributes:
+            name: notes
+            data_type: string
+            type_description: Paragraph
+            custom_field: false
+        - id: updated_at
+          type: worksheet_fields
+          attributes:
+            name: updated_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        links: {}
+    show_response-3:
+      value:
+        data:
+          type: worksheets
+          id: '1'
+          attributes:
+            title: 'Worksheet title #1'
+            budget: null
+            notes: null
+            updated_at: '2019-10-29T21:28:46.790Z'
+            worksheet_type: standard
+            columns:
+            - id: '111'
+              name: Title
+              data_identifier: c11
+              mapping_key: TITLE
+            - id: '113'
+              name: Unit of Measure
+              data_identifier: c13
+              mapping_key: UNIT_OF_MEASURE
+            - id: '112'
+              name: Quantity
+              data_identifier: c12
+              mapping_key: QUANTITY
+            - id: '115'
+              name: Price
+              data_identifier: c15
+              mapping_key: PRICE
+            - id: '114'
+              name: Extended Price
+              data_identifier: c14
+              mapping_key: EXTENDED_PRICE
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/events/3/worksheets/1
+    index_response-3:
+      value:
+        meta:
+          count: 2
+        data:
+        - type: worksheets
+          id: '1'
+          attributes:
+            title: 'Worksheet title #1'
+            budget: 120.32
+            notes: Worksheet related notes
+            updated_at: '2019-10-29T21:28:46.790Z'
+            worksheet_type: standard
+            columns:
+            - id: '141'
+              name: Title
+              data_identifier: c1
+              mapping_key: TITLE
+            - id: '143'
+              name: Unit of Measure
+              data_identifier: c3
+              mapping_key: UNIT_OF_MEASURE
+            - id: '142'
+              name: Quantity
+              data_identifier: c2
+              mapping_key: QUANTITY
+            - id: '145'
+              name: Price
+              data_identifier: c5
+              mapping_key: PRICE
+            - id: '144'
+              name: Extended Price
+              data_identifier: c4
+              mapping_key: EXTENDED_PRICE
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1
+        - type: worksheets
+          id: '2'
+          attributes:
+            title: 'Worksheet title #2'
+            budget: null
+            notes: null
+            updated_at: '2019-10-29T21:28:46.790Z'
+            worksheet_type: standard
+            columns:
+            - id: '146'
+              name: Title
+              data_identifier: c6
+              mapping_key: TITLE
+            - id: '148'
+              name: Unit of Measure
+              data_identifier: c8
+              mapping_key: UNIT_OF_MEASURE
+            - id: '147'
+              name: Quantity
+              data_identifier: c7
+              mapping_key: QUANTITY
+            - id: '150'
+              name: Price
+              data_identifier: c10
+              mapping_key: PRICE
+            - id: '149'
+              name: Extended Price
+              data_identifier: c9
+              mapping_key: EXTENDED_PRICE
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/2
+        links:
+          self: https://api.us.workdayspend.com/services/events/v1/events/1/worksheets
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

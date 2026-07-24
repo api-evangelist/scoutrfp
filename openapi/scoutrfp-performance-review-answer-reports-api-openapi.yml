@@ -1,0 +1,359 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments performance_review_answer_reports API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: performance_review_answer_reports
+  x-displayName: Performance Review Answer Reports
+  description: 'This report returns a list of Performance Review Answer report entries.
+
+    '
+paths:
+  /performance_review_answer_reports/entries:
+    get:
+      tags:
+      - performance_review_answer_reports
+      description: Returns a list of performance review answer entries.
+      operationId: Performance Review Answer Report Entries
+      summary: Performance Review Answer Report Entries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/PerformanceReviewAnswerReportEntry'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-3'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/performance_review_answer_reports/entries\"\n"
+  /performance_review_answer_reports/schema:
+    get:
+      tags:
+      - performance_review_answer_reports
+      description: Returns the performance review answer report schema.
+      operationId: Performance Review Answer Schema
+      summary: Performance Review Answer Schema
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryFieldModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/schema_response-4'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/performance_review_answer_reports/schema\"\n"
+components:
+  schemas:
+    PerformanceReviewAnswerReportEntryId:
+      description: Performance Review Answer Report identifier string.
+      example: 1
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    PerformanceReviewAnswerReportEntryAttributes:
+      description: Performance Review Answer Report Entry attributes. See example response and schema.
+      properties: {}
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    PerformanceReviewAnswerReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `performance_review_answer_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `performance_review_answer_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    PerformanceReviewAnswerReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryType'
+        id:
+          $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryAttributes'
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+    PerformanceReviewAnswerReportEntryType:
+      description: Object type, should always be `performance_review_answer_report_entries`.
+      example: performance_review_answer_report_entries
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+  examples:
+    schema_response-4:
+      value:
+        data:
+          id: performance_review_answer_schemas
+          type: performance_review_answer_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-Supplier Name
+            - type: text
+              name: Scout-Supplier Description
+            - type: select
+              name: Scout-Supplier Segmentation Status
+            - type: select
+              name: Scout-Supplier Risk
+            - type: select
+              name: Scout-Supplier Segmentation
+            - type: select
+              name: Scout-Supplier Tags
+            - type: text
+              name: Scout-Supplier Website
+            - type: text
+              name: Scout-System ID
+            - type: text
+              name: Scout-Project ID
+            - type: text
+              name: Scout-Performance Review Title
+            - type: text
+              name: Scout-Project Number
+            - type: text
+              name: Scout-Event ID
+            - type: text
+              name: Scout-Event Title
+            - type: text
+              name: Scout-Section Title
+            - type: integer
+              name: Scout-Section Order
+            - type: decimal
+              name: Scout-Section Weight
+            - type: select
+              name: Scout-Question Type
+            - type: text
+              name: Scout-Question Content
+            - type: decimal
+              name: Scout-Question Weight
+            - type: text
+              name: Scout-Answer Content
+            - type: decimal
+              name: Scout-Answer Score
+            - type: text
+              name: Scout-Answer Selected Options
+            - type: decimal
+              name: Scout-Answer Weighted Score
+            - type: select
+              name: Scout-Answer Not Applicable
+            - type: text
+              name: Scout-Stakeholder Email
+            - type: text
+              name: Scout-Stakeholder Name
+            - type: text
+              name: Scout-Supplier Company ID
+            - type: text
+              name: Scout-Has Attachments
+    index_response-3:
+      value:
+        data:
+        - id: '1'
+          type: performance_review_answer_report_entries
+          attributes:
+            Scout-Supplier Name: Mr. Dannielle Von's General Store
+            Scout-Supplier Description: null
+            Scout-Supplier Segmentation Status: null
+            Scout-Supplier Risk: null
+            Scout-Supplier Segmentation: null
+            Scout-Supplier Tags: null
+            Scout-Supplier Website: null
+            Scout-System ID: 100
+            Scout-Project ID: 1
+            Scout-Performance Review Title: Ergonomic Wooden Table
+            Scout-Project Number: 1000
+            Scout-Event ID: 111
+            Scout-Event Title: Event
+            Scout-Section Title: Section A
+            Scout-Section Order: null
+            Scout-Section Weight: 100
+            Scout-Question Type: file
+            Scout-Question Content: Question 1
+            Scout-Question Weight: 25
+            Scout-Answer Content: Answer 1
+            Scout-Answer Score: null
+            Scout-Answer Selected Options: null
+            Scout-Answer Weighted Score: null
+            Scout-Answer Not Applicable: false
+            Scout-Stakeholder Email: gabriel.keebler@test.com
+            Scout-Stakeholder Name: Gabriel Keebler
+            Scout-Supplier Company ID: 1111
+            Scout-Has Attachments: false
+        - id: '2'
+          type: performance_review_answer_report_entries
+          attributes:
+            Scout-Supplier Name: Mr. Dannielle Von's General Store
+            Scout-Supplier Description: null
+            Scout-Supplier Segmentation Status: null
+            Scout-Supplier Risk: null
+            Scout-Supplier Segmentation: null
+            Scout-Supplier Tags: null
+            Scout-Supplier Website: null
+            Scout-System ID: 100
+            Scout-Project ID: 1
+            Scout-Performance Review Title: Ergonomic Wooden Table
+            Scout-Project Number: 1000
+            Scout-Event ID: 111
+            Scout-Event Title: Event
+            Scout-Section Title: Section A
+            Scout-Section Order: null
+            Scout-Section Weight: 100
+            Scout-Question Type: short
+            Scout-Question Content: Question 2
+            Scout-Question Weight: 25
+            Scout-Answer Content: Answer 2
+            Scout-Answer Score: null
+            Scout-Answer Selected Options: null
+            Scout-Answer Weighted Score: null
+            Scout-Answer Not Applicable: false
+            Scout-Stakeholder Email: gabriel.keebler@test.com
+            Scout-Stakeholder Name: Gabriel Keebler
+            Scout-Supplier Company ID: 1111
+            Scout-Has Attachments: false
+        - id: '3'
+          type: performance_review_answer_report_entries
+          attributes:
+            Scout-Supplier Name: Mr. Dannielle Von's General Store
+            Scout-Supplier Description: null
+            Scout-Supplier Segmentation Status: null
+            Scout-Supplier Risk: null
+            Scout-Supplier Segmentation: null
+            Scout-Supplier Tags: null
+            Scout-Supplier Website: null
+            Scout-System ID: 100
+            Scout-Project ID: 1
+            Scout-Performance Review Title: Ergonomic Wooden Table
+            Scout-Project Number: 1000
+            Scout-Event ID: 111
+            Scout-Event Title: Event
+            Scout-Section Title: Section A
+            Scout-Section Order: null
+            Scout-Section Weight: 100
+            Scout-Question Type: short
+            Scout-Question Content: Question 3
+            Scout-Question Weight: 50
+            Scout-Answer Content: Answer 3
+            Scout-Answer Score: null
+            Scout-Answer Selected Options: null
+            Scout-Answer Weighted Score: null
+            Scout-Answer Not Applicable: false
+            Scout-Stakeholder Email: gabriel.keebler@test.com
+            Scout-Stakeholder Name: Gabriel Keebler
+            Scout-Supplier Company ID: 1111
+            Scout-Has Attachments: false
+        links:
+          prev: null
+          next: null
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

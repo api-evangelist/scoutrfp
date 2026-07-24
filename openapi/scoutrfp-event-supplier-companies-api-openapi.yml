@@ -1,0 +1,316 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments event_supplier_companies API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: event_supplier_companies
+  x-displayName: Event Supplier Companies
+  description: 'Use the event supplier companies API to manage event suppliers.
+
+    '
+paths:
+  /events/{event_id}/relationships/supplier_companies:
+    post:
+      tags:
+      - event_supplier_companies
+      description: 'Add suppliers to an event. Only events of type `RFP` are supported.
+
+
+        The operation will be rolled back upon any failure, and invitations won''t be sent.
+
+
+        For best performance, we recommend inviting 10 or less suppliers in a single request.
+
+        '
+      operationId: Add Suppliers
+      summary: Add Suppliers
+      parameters:
+      - name: event_id
+        in: path
+        description: Event identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/SupplierCompanyBase'
+            examples:
+              success:
+                $ref: '#/components/examples/create_request-3'
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":[{ \"type\": \"supplier_companies\", \"id\": \"5\" },{ \"type\": \"supplier_companies\", \"id\": \"11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/relationships/supplier_companies\"\n"
+    delete:
+      tags:
+      - event_supplier_companies
+      description: 'Remove suppliers from an event. Only events of type `RFP` are supported.
+
+
+        The operation will be rolled back upon any failure, and invitations won''t be removed.
+
+
+        For best performance, we recommend removing 10 or less suppliers in a single request.
+
+        '
+      operationId: Remove Suppliers
+      summary: Remove Suppliers
+      parameters:
+      - name: event_id
+        in: path
+        description: Event identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  $ref: '#/components/schemas/SupplierCompanyBase'
+            examples:
+              success:
+                $ref: '#/components/examples/delete_request'
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     -d '{\"data\":[{ \"type\": \"supplier_companies\", \"id\": \"5\" },{ \"type\": \"supplier_companies\", \"id\": \"11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/relationships/supplier_companies\"\n"
+  /events/{event_external_id}/relationships/supplier_companies/external_id:
+    post:
+      tags:
+      - event_supplier_companies
+      description: 'Add suppliers to an event. Only events of type `RFP` are supported.
+
+
+        You must supply the unique event external identifier (the one you used when created the event).
+
+
+        You must supply the external identifiers of the supplier companies too.
+
+
+        The operation will be rolled back upon any failure, and invitations won''t be sent.
+
+
+        For best performance, we recommend inviting 10 or less suppliers in a single request.
+
+        '
+      operationId: Add Suppliers using External IDs
+      summary: Add Suppliers using External IDs
+      parameters:
+      - name: event_external_id
+        in: path
+        description: Event external identifier.
+        required: true
+        schema:
+          type: string
+        example: EVENT1
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ExternalSupplierCompanyBase'
+            examples:
+              success:
+                $ref: '#/components/examples/external_create_request'
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":[{ \"type\": \"supplier_companies\", \"id\": \"SUP5\" },{ \"type\": \"supplier_companies\", \"id\": \"SUP11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/EVENT1/relationships/supplier_companies/external_id\"\n"
+    delete:
+      tags:
+      - event_supplier_companies
+      description: 'Remove suppliers from an event. Only events of type `RFP` are supported.
+
+
+        You must supply the unique event external identifier (the one you used when created the event).
+
+
+        You must supply the external identifiers of the supplier companies too.
+
+
+        The operation will be rolled back upon any failure, and invitations won''t be removed.
+
+
+        For best performance, we recommend removing 10 or less suppliers in a single request.
+
+        '
+      operationId: Remove Suppliers using External IDs
+      summary: Remove Suppliers using External IDs
+      parameters:
+      - name: event_external_id
+        in: path
+        description: Event external identifier.
+        required: true
+        schema:
+          type: string
+        example: EVENT1
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ExternalSupplierCompanyBase'
+            examples:
+              success:
+                $ref: '#/components/examples/external_delete_request'
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     -d '{\"data\":[{ \"type\": \"supplier_companies\", \"id\": \"SUP5\" },{ \"type\": \"supplier_companies\", \"id\": \"SUP11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/EVENT1/relationships/supplier_companies/external_id\"\n"
+components:
+  schemas:
+    ExternalSupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    SupplierCompanyBase:
+      title: SupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyId'
+    ExternalSupplierCompanyId:
+      type: integer
+      description: Supplier company external identifier string.
+      example: 1
+    SupplierCompanyId:
+      type: integer
+      description: Supplier company identifier string.
+      example: 1
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    ExternalSupplierCompanyBase:
+      title: ExternalSupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ExternalSupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/ExternalSupplierCompanyId'
+  examples:
+    delete_request:
+      value:
+        data:
+        - type: supplier_companies
+          id: '5'
+        - type: supplier_companies
+          id: '11'
+    create_request-3:
+      value:
+        data:
+        - type: supplier_companies
+          id: '5'
+        - type: supplier_companies
+          id: '11'
+    external_create_request:
+      value:
+        data:
+        - type: supplier_companies
+          id: SUP5
+        - type: supplier_companies
+          id: SUP11
+    external_delete_request:
+      value:
+        data:
+        - type: supplier_companies
+          id: SUP5
+        - type: supplier_companies
+          id: SUP11
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

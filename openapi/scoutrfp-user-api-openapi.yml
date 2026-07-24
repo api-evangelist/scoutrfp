@@ -1,0 +1,848 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments user API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: user
+  x-displayName: User
+  description: 'Use the users API to create, update, and query the users in Workday Strategic Sourcing.
+
+
+    ## User Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/UserResource" exampleRef="#/components/examples/User" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /Users:
+    get:
+      tags:
+      - user
+      operationId: List Users
+      summary: List Users
+      description: Returns a list of users for the specified criteria. The pagination size is 100 results per request.
+      parameters:
+      - name: attributes
+        in: query
+        description: A comma-separated list of attribute names to return in the response
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: An expression specifying the search criteria. See [section 3.4.2.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2) of RFC 7644
+        example: userName eq "jhon.doe@example.com" and meta.lastModified gt "2011-05-13T04:42:34Z"
+        schema:
+          $ref: '#/components/schemas/UserListInputFilter'
+      - name: startIndex
+        in: query
+        description: The 1-based index of the first query result
+        schema:
+          type: integer
+      - name: count
+        in: query
+        description: Specifies the desired maximum number of query results per page
+        schema:
+          type: integer
+      - name: sortBy
+        in: query
+        description: The attribute whose value will be used to order the returned responses. Allowed values are `id` and `externalId`
+        schema:
+          type: string
+      - name: sortOrder
+        in: query
+        description: Order in which the `sortBy` param is applied. Allowed values are `ascending` and `descending`
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response'
+        '400':
+          description: Parameter count exceeds the maximum allowed value or the filter supplied was unparsable
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '400'
+                  scimType: invalidValue
+                  detail: 'Invalid resource: Name is missing'
+    post:
+      tags:
+      - user
+      operationId: Create a User
+      summary: Create a User
+      description: Create a user with given attributes
+      parameters:
+      - name: attributes
+        in: query
+        description: A comma-separated list of attribute names to return in the response
+        schema:
+          type: string
+      requestBody:
+        description: Payload that represents the user to create
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/UserBase'
+            examples:
+              success:
+                $ref: '#/components/examples/create_request'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/UserResource'
+              examples:
+                success:
+                  $ref: '#/components/examples/create_response'
+        '400':
+          description: An invalid value was passed in the payload
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '400'
+                  scimType: invalidValue
+                  detail: 'Invalid resource: Name is missing'
+        '409':
+          description: There is a conflict with an already existing user. Uniqueness is assumed over userName
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '409'
+                  scimType: uniqueness
+                  detail: joined_errors
+      x-codegen-request-body-name: user
+  /Users/{id}:
+    get:
+      tags:
+      - user
+      operationId: Get a user
+      summary: Get a user
+      description: Retrieves a User resource by Id (see [section 3.4.1](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.1) of RFC 7644)
+      parameters:
+      - name: attributes
+        in: query
+        description: A comma-separated list of attribute names to return in the response
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: An expression specifying the search criteria. See [section 3.4.2.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2) of RFC 7644
+        example: userName eq "jhon.doe@example.com" and meta.lastModified gt "2011-05-13T04:42:34Z"
+        schema:
+          $ref: '#/components/schemas/UserListInputFilter'
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/UserResource'
+              examples:
+                success:
+                  $ref: '#/components/examples/show_response'
+        '404':
+          description: Not Found
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '404'
+                  detail: Resource "User" not found
+    patch:
+      tags:
+      - user
+      operationId: Patch a User
+      summary: Patch a User
+      description: 'Updates one or more attributes of a User resource using a sequence of additions, removals,
+
+        and replacements operations. See [section 3.5.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.5.2) of RFC 7644.
+
+
+        If the user tries to deactivate themselves, they will get a `403 Access forbidden` response.
+
+
+        Operations on the `userName` field will only be processed if both original and target email addresses match the domains list set for the Company''s SSO connections.
+
+
+        If not, the response returned  will be a `403 Access forbidden`.
+
+        '
+      parameters:
+      - name: attributes
+        in: query
+        description: A comma-separated list of attribute names to return in the response
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Payload describing the patch operations to apply upon the resource identified by param id
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/PatchRequest'
+            examples:
+              success:
+                $ref: '#/components/examples/patch_request'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/UserResource'
+              examples:
+                success:
+                  $ref: '#/components/examples/patch_response'
+        '400':
+          description: 'One or more operations supplied in the request are specified incorrectly, there were attempts to
+
+            modify immutable attributes, or the resulting resource cannot pass intrinsic validations
+
+            '
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '400'
+                  scimType: invalidValue
+                  detail: 'Invalid resource: Name is missing'
+        '403':
+          description: Access Forbidden
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '403'
+                  detail: Access forbidden - Email cannot be updated as new email is not scoped by company's SSO domains
+        '404':
+          description: Not Found
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '404'
+                  detail: Resource "User" not found
+      x-codegen-request-body-name: request
+    put:
+      tags:
+      - user
+      operationId: Replace a User
+      summary: Replace a User
+      description: 'Updates a User resource (see [section 3.5.1](https://datatracker.ietf.org/doc/html/rfc7644#section-3.5.1) of RFC 7644). Update works in a replacement fashion;
+
+        every attribute value found in the payload sent will replace the one in the existing resource representation.
+
+        Attributes not passed in the payload will be left intact.
+
+
+        If the user tries to deactivate themselves, they will get a `403 Access forbidden` response.
+
+
+        Operations on the `userName` field will only be processed if both original and target email addresses match the domains list set for the Company''s SSO connections.
+
+
+        If not, the response returned  will be a `403 Access forbidden`.
+
+        '
+      parameters:
+      - name: attributes
+        in: query
+        description: A comma-separated list of attribute names to return in the response
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Payload with the data to replace in the existing user identified by the id param
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/UserBase'
+            examples:
+              success:
+                $ref: '#/components/examples/replace_request'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/UserResource'
+              examples:
+                success:
+                  $ref: '#/components/examples/replace_response'
+        '400':
+          description: 'An invalid value was passed in the payload or there was an attempt to update an immutable attribute
+
+            '
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '400'
+                  scimType: invalidValue
+                  detail: 'Invalid resource: Name is missing'
+        '403':
+          description: Access Forbidden
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '403'
+                  detail: Access forbidden - Email cannot be updated as new email is not scoped by company's SSO domains
+        '404':
+          description: Not Found
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '404'
+                  detail: Resource "User" not found
+        '409':
+          description: There is a conflict with an already existing user.
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '409'
+                  scimType: uniqueness
+                  detail: joined_errors
+      x-codegen-request-body-name: user
+    delete:
+      tags:
+      - user
+      operationId: Deactivate a user
+      summary: Deactivate a user
+      description: 'Deactivates a user. You need to supply the unique user
+
+        identifier that was returned upon user creation.
+
+
+        If the user tries to deactivate themselves, they will get a `403 Access forbidden` response.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of the resource to deactivate
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: OK
+          content: {}
+        '403':
+          description: Access Forbidden
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '403'
+                  detail: Access forbidden
+        '404':
+          description: Not Found
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                value:
+                  schemas:
+                  - urn:ietf:params:scim:api:messages:2.0:Error
+                  status: '404'
+                  detail: Resource "User" not found
+components:
+  examples:
+    patch_request:
+      value:
+        schemas:
+        - urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+        - op: replace
+          value:
+            externalId: EXT701984
+            name:
+              familyName: Johnson
+    index_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults: 2
+        startIndex: 1
+        itemsPerPage: 100
+        Resources:
+        - userName: john.doe@example.com
+          name:
+            givenName: John
+            familyName: Doe
+          active: true
+          roles:
+          - value: company_user
+            display: Stakeholder
+            primary: true
+            type: primary
+          id: '552232'
+          externalId: EXT1234
+          meta:
+            resourceType: User
+            created: '2021-05-11T14:51:17Z'
+            lastModified: '2021-05-31T17:34:20Z'
+            location: https://api.us.workdayspend.com/scim/v2/Users/552232
+          schemas:
+          - urn:ietf:params:scim:schemas:core:2.0:User
+        - userName: bjensen@example.com
+          name:
+            givenName: Barbara
+            familyName: Johnson
+          active: true
+          roles:
+          - value: company_admin
+            display: Company Admin
+            primary: true
+            type: primary
+          id: '552245'
+          externalId: EXT789
+          meta:
+            resourceType: User
+            created: '2021-06-16T15:56:19Z'
+            lastModified: '2021-07-26T13:34:25Z'
+            location: https://api.us.workdayspend.com/scim/v2/Users/552245
+          schemas:
+          - urn:ietf:params:scim:schemas:core:2.0:User
+    show_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        id: 2819c223-7f76-453a-919d-413861904646
+        externalId: '701984'
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Jensen
+        active: true
+        roles:
+        - value: company_admin
+          display: Company Admin
+          primary: true
+          type: primary
+        meta:
+          resourceType: User
+          created: '2010-01-23T04:56:22Z'
+          lastModified: '2011-05-13T04:42:34Z'
+          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
+    create_request:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        externalId: '701984'
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Jensen
+        active: true
+    replace_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        id: 2819c223-7f76-453a-919d-413861904646
+        externalId: EXT701984
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Johnson
+        active: true
+        roles:
+        - value: company_admin
+          display: Company Admin
+          primary: true
+          type: primary
+        meta:
+          resourceType: User
+          created: '2010-01-23T04:56:22Z'
+          lastModified: '2011-06-13T04:42:34Z'
+          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
+    patch_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        id: 2819c223-7f76-453a-919d-413861904646
+        externalId: EXT701984
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Johnson
+        active: true
+        roles:
+        - value: company_admin
+          display: Company Admin
+          primary: true
+          type: primary
+        meta:
+          resourceType: User
+          created: '2010-01-23T04:56:22Z'
+          lastModified: '2011-06-13T04:42:34Z'
+          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
+    create_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        id: 2819c223-7f76-453a-919d-413861904646
+        externalId: '701984'
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Jensen
+        active: true
+        roles:
+        - value: company_admin
+          display: Company Admin
+          primary: true
+          type: primary
+        meta:
+          resourceType: User
+          created: '2010-01-23T04:56:22Z'
+          lastModified: '2011-05-13T04:42:34Z'
+          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
+    replace_request:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        externalId: EXT701984
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Johnson
+        active: true
+  schemas:
+    PatchRequest:
+      description: Stores one or more patch operations
+      required:
+      - Operations
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatchOperation'
+    Meta:
+      type: object
+      properties:
+        resourceType:
+          type: string
+        created:
+          type: string
+        lastModified:
+          type: string
+        location:
+          type: string
+      description: Descriptive information about a resource.
+    BasicListResponse:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
+        startIndex:
+          type: integer
+          description: The 1-based index of the first result in the current set of search results
+        itemsPerPage:
+          type: integer
+          description: The number of resources returned in a results page
+    Role:
+      type: object
+      properties:
+        value:
+          type: string
+        display:
+          type: string
+        type:
+          type: string
+        primary:
+          type: boolean
+      description: Role. See section 4.1 of RFC 7643
+    Name:
+      type: object
+      required:
+      - familyName
+      - givenName
+      properties:
+        familyName:
+          type: string
+        givenName:
+          type: string
+      description: Name compound object
+    UserListInputFilter:
+      type: object
+      properties:
+        attributes:
+          type: string
+          enum:
+          - userName
+          - name.familyName
+          - name.givenName
+          - roles
+          - roles.value
+          - externalId
+          - active
+          - meta.lastModified
+          - meta.created
+          description: Attributes to be filtered.
+        operators:
+          type: object
+          properties:
+            eq:
+              type: string
+              description: Equal to
+            ne:
+              type: string
+              description: Not equal to
+            lt:
+              type: string
+              description: Less than
+            le:
+              type: string
+              description: Less than or equal to
+            gt:
+              type: string
+              description: Greater than
+            ge:
+              type: string
+              description: Greater than or equal to
+            pr:
+              type: string
+              description: Present
+            co:
+              type: string
+              description: Contains
+            and:
+              type: string
+              description: Logical "and"
+            or:
+              type: string
+              description: Logical "or"
+            not:
+              type: string
+              description: Logical "not"
+          description: Operators to filter with.
+    UserResource:
+      description: Represents a user resource. See section 4.1 of RFC 7643
+      allOf:
+      - $ref: '#/components/schemas/BaseResource'
+      - $ref: '#/components/schemas/UserBase'
+    UserListResponse:
+      description: Results for users search. See section 3.4.2.4 of RFC 7644
+      allOf:
+      - $ref: '#/components/schemas/BasicListResponse'
+      - type: object
+        properties:
+          Resources:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserResource'
+    PatchOperation:
+      required:
+      - op
+      type: object
+      properties:
+        op:
+          type: string
+          description: The kind of operation to perform
+          enum:
+          - add
+          - remove
+          - replace
+        path:
+          type: string
+          description: Required when op is remove, optional otherwise
+        value:
+          $ref: '#/components/schemas/AnyValue'
+          description: Only required when op is add or replace
+      description: See section 3.5.2 of RFC 7644
+    BaseResource:
+      type: object
+      properties:
+        schemas:
+          type: array
+          description: URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present in the current structure
+          items:
+            type: string
+        id:
+          type: string
+          description: A unique identifier for a SCIM resource. It should be treated as a non-sequential opaque string of varying length.
+        meta:
+          $ref: '#/components/schemas/Meta'
+    ErrorResponse:
+      required:
+      - status
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:Error
+        status:
+          type: string
+          description: HTTP status code as string
+        scimType:
+          type: string
+          description: 'A detail error keyword. See [table 9](https://datatracker.ietf.org/doc/html/rfc7644#section-3.12) of RFC 7644
+
+            '
+        detail:
+          type: string
+          description: A detailed human-readable message of the error
+      description: See section 3.12 of RFC 7644
+    UserBase:
+      type: object
+      required:
+      - userName
+      - name
+      properties:
+        externalId:
+          type: string
+          description: Identifier of the resource useful from the perspective of the provisioning client.
+        userName:
+          type: string
+          description: Email for the user
+        name:
+          $ref: '#/components/schemas/Name'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+          description: Roles assigned to User (read-only). See section 4.1 of RFC 7643
+          readOnly: true
+        active:
+          type: boolean
+    AnyValue:
+      description: Can be any value - string, number, boolean, array or object
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

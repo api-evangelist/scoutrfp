@@ -1,0 +1,458 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments contact_types API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: contact_types
+  x-displayName: Contact Types
+  description: 'Use the contact types API to create, update, and query the contact types in Workday Strategic Sourcing.
+
+
+    ## ContactType Object
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/ContactType" showReadOnly={true} showWriteOnly={true} />
+
+    '
+paths:
+  /contact_types:
+    get:
+      tags:
+      - contact_types
+      description: Returns a list of contact types.
+      operationId: List Contact Types
+      summary: List Contact Types
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ContactType'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-3'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types\"\n"
+    post:
+      tags:
+      - contact_types
+      description: 'Create a contact type with given parameters.
+
+        '
+      operationId: Create a Contact Type
+      summary: Create a Contact Type
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/ContactTypeCreate'
+            examples:
+              success:
+                $ref: '#/components/examples/create_request-2'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContactType'
+              examples:
+                success:
+                  $ref: '#/components/examples/create_response-3'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":{\"type\":\"contact_types\",\"attributes\":{\"name\":\"Contact Type\"}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types\"\n"
+  /contact_types/{id}:
+    patch:
+      tags:
+      - contact_types
+      description: 'Updates the details of an existing contact type. You need to supply the unique
+
+        identifier that was returned upon contact type creation.
+
+
+        Please note, that request body must include an `id` attribute with the value of your contact type
+
+        unique identifier (the same one you passed in the URL).
+
+        '
+      operationId: Update a Contact Type
+      summary: Update a Contact Type
+      parameters:
+      - name: id
+        in: path
+        description: Unique contact type identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/ContactTypeUpdate'
+            examples:
+              success:
+                $ref: '#/components/examples/update_request-3'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContactType'
+              examples:
+                success:
+                  $ref: '#/components/examples/update_response-3'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              examples:
+                invalid_type:
+                  summary: Missing or invalid 'type' specified, expected 'contact_types'
+                  description: 'Returns error due to invalid `type` parameter.
+
+                    '
+                  value:
+                    errors:
+                    - detail: Missing or invalid 'type' specified, expected 'contact_types'
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"contact_types\",\"id\":\"2\",\"attributes\":{\"name\":\"Updated Field Contact Type\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types/2\"\n"
+    delete:
+      tags:
+      - contact_types
+      description: 'Deletes a contact type. You need to supply the unique contact type
+
+        identifier that was returned upon contact type creation.
+
+        '
+      operationId: Delete a Contact Type
+      summary: Delete a Contact Type
+      parameters:
+      - name: id
+        in: path
+        description: Unique contact type identifier.
+        required: true
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1\"\n"
+  /contact_types/{external_id}/external_id:
+    patch:
+      tags:
+      - contact_types
+      description: 'Updates the details of an existing contact type. You need to supply the unique
+
+        external identifier assigned to the contact type on creation.
+
+
+        Please note, that request body must include an `id` attribute with the value of your contact type
+
+        unique identifier (the same one you passed in the URL).
+
+        '
+      operationId: Update a Contact Type by External ID
+      summary: Update a Contact Type by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Unique contact type external identifier.
+        required: true
+        schema:
+          type: string
+        example: CTYPE
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/ContactTypeUpdate'
+            examples:
+              success:
+                $ref: '#/components/examples/external_update_request-3'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContactType'
+              examples:
+                success:
+                  $ref: '#/components/examples/external_update_response-3'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"contact_types\",\"id\":\"CTYPE\",\"attributes\":{\"name\":\"Updated Field Contact Type\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types/CTYPE/external_id\"\n"
+    delete:
+      tags:
+      - contact_types
+      description: 'Deletes a contact type. You need to supply the unique contact type
+
+        external identifier assigned to the contact type on creation.
+
+        '
+      operationId: Delete a Contact Type by External ID
+      summary: Delete a Contact Type by External ID
+      parameters:
+      - name: external_id
+        in: path
+        description: Unique contact type external identifier.
+        required: true
+        schema:
+          type: string
+        example: CTYPE
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types/CTYPE/external_id\"\n"
+components:
+  schemas:
+    ContactTypeAttributes:
+      type: object
+      description: Contact type attributes.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Contact type name.
+          example: Financials
+        external_id:
+          type: string
+          maxLength: 255
+          description: Contact type external identifier.
+    ContactTypeType:
+      type: string
+      description: Object type, should always be `contact_types`.
+      example: contact_types
+    ContactTypeId:
+      type: integer
+      description: Contact type identifier string.
+      example: 1
+    ContactTypeUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContactTypeType'
+        id:
+          $ref: '#/components/schemas/ContactTypeId'
+        attributes:
+          $ref: '#/components/schemas/ContactTypeAttributes'
+    ContactType:
+      allOf:
+      - $ref: '#/components/schemas/ContactTypeBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/ContactTypeAttributes'
+    ContactTypeCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/ContactTypeType'
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContactTypeAttributes'
+          - type: object
+            required:
+            - name
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    ContactTypeBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContactTypeType'
+        id:
+          $ref: '#/components/schemas/ContactTypeId'
+  examples:
+    external_update_response-3:
+      value:
+        data:
+          id: '1'
+          type: contact_types
+          attributes:
+            name: Contact Type Updated
+            external_id: CTYPE
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
+    create_request-2:
+      value:
+        data:
+          type: contact_types
+          attributes:
+            name: 'Contact Type #1'
+            external_id: CTYPE-1
+    external_update_request-3:
+      value:
+        data:
+          type: contact_types
+          id: CTYPE
+          attributes:
+            name: Contact Type Updated
+    create_response-3:
+      value:
+        data:
+          id: '1'
+          type: contact_types
+          attributes:
+            name: 'Contact Type #1'
+            external_id: CTYPE-1
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
+    update_request-3:
+      value:
+        data:
+          type: contact_types
+          id: '1'
+          attributes:
+            name: Contact Type Updated
+            external_id: CTYPE-UPD
+    update_response-3:
+      value:
+        data:
+          id: '1'
+          type: contact_types
+          attributes:
+            name: Contact Type Updated
+            external_id: CTYPE-UPD
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
+    index_response-3:
+      value:
+        data:
+        - id: '1'
+          type: contact_types
+          attributes:
+            name: 'Contact Type #1'
+            external_id: CTYPE-1
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
+        - id: '2'
+          type: contact_types
+          attributes:
+            name: 'Contact Type #2'
+            external_id: CTYPE-2
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/2
+        links:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

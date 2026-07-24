@@ -1,0 +1,329 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments supplier_review_reports API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: supplier_review_reports
+  x-displayName: Supplier Review Reports
+  description: 'This report returns a list of Supplier Review report entries.
+
+    '
+paths:
+  /supplier_review_reports/entries:
+    get:
+      tags:
+      - supplier_review_reports
+      description: Returns a list of supplier review entries.
+      operationId: Supplier Review Report Entries
+      summary: Supplier Review Report Entries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SupplierReviewReportEntry'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                success:
+                  $ref: '#/components/examples/index_response-9'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/supplier_review_reports/entries\"\n"
+  /supplier_review_reports/schema:
+    get:
+      tags:
+      - supplier_review_reports
+      description: Returns the supplier review report schema.
+      operationId: Supplier Review Report Schema
+      summary: Supplier Review Report Schema
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SupplierReviewReportEntryFieldModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/schema_response-10'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/supplier_review_reports/schema\"\n"
+components:
+  schemas:
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    SupplierReviewReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierReviewReportEntryType'
+        id:
+          $ref: '#/components/schemas/SupplierReviewReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/SupplierReviewReportEntryAttributes'
+    SupplierReviewReportEntryAttributes:
+      description: Supplier Review Report Entry attributes. See example response and schema.
+      properties: {}
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    SupplierReviewReportEntryId:
+      description: Supplier Review Report identifier string.
+      example: 1
+    SupplierReviewReportEntryType:
+      description: Object type, should always be `supplier_review_report_entries`.
+      example: supplier_review_report_entries
+    SupplierReviewReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `supplier_review_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `supplier_review_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+  examples:
+    index_response-9:
+      value:
+        data:
+        - id: '1'
+          type: supplier_review_report_entries
+          attributes:
+            Scout-Supplier ID: 1
+            Scout-Supplier Name: Beula Hirthe's General Store
+            Scout-Category: null
+            Scout-Sourcing Owner: null
+            Scout-Review Form Title: Performance review event
+            Scout-Review Status: null
+            Scout-Decision: null
+            Scout-Risk Score: null
+            Scout-Reviewers: null
+            Scout-Reviewed On Date: null
+            'Scout-Avg. # of Days per Reviewer': null
+            Scout-# Of Days To Review: null
+            Scout-Valid Until Date: null
+            Scout-Remind Before Date: null
+            Scout-Remind: null
+            Scout-Published Date: null
+            Scout-Response Submitted Date: null
+            Scout-# of Days for Supplier to Respond: null
+            Scout-Supplier Response Status: null
+            Scout-Supplier Contact Email: null
+            Scout-Executive Summary: Executive summary 1
+            Custom string field name: null
+        - id: '2'
+          type: supplier_review_report_entries
+          attributes:
+            Scout-Supplier ID: 2
+            Scout-Supplier Name: Dong Ortiz's General Store
+            Scout-Category: null
+            Scout-Sourcing Owner: null
+            Scout-Review Form Title: Performance review event
+            Scout-Review Status: null
+            Scout-Decision: null
+            Scout-Risk Score: null
+            Scout-Reviewers: null
+            Scout-Reviewed On Date: null
+            'Scout-Avg. # of Days per Reviewer': null
+            Scout-# Of Days To Review: null
+            Scout-Valid Until Date: null
+            Scout-Remind Before Date: null
+            Scout-Remind: null
+            Scout-Published Date: null
+            Scout-Response Submitted Date: null
+            Scout-# of Days for Supplier to Respond: null
+            Scout-Supplier Response Status: null
+            Scout-Supplier Contact Email: null
+            Scout-Executive Summary: Executive summary 2
+            Custom string field name: Custom string field value
+        - id: '3'
+          type: supplier_review_report_entries
+          attributes:
+            Scout-Supplier ID: 3
+            Scout-Supplier Name: Nicki Cremin's General Store
+            Scout-Category: null
+            Scout-Sourcing Owner: null
+            Scout-Review Form Title: Performance review event
+            Scout-Review Status: null
+            Scout-Decision: null
+            Scout-Risk Score: null
+            Scout-Reviewers: null
+            Scout-Reviewed On Date: null
+            'Scout-Avg. # of Days per Reviewer': null
+            Scout-# Of Days To Review: null
+            Scout-Valid Until Date: null
+            Scout-Remind Before Date: null
+            Scout-Remind: null
+            Scout-Published Date: null
+            Scout-Response Submitted Date: null
+            Scout-# of Days for Supplier to Respond: null
+            Scout-Supplier Response Status: null
+            Scout-Supplier Contact Email: null
+            Scout-Executive Summary: Executive summary 3
+            Custom string field name: null
+        links:
+          prev: null
+          next: null
+    schema_response-10:
+      value:
+        data:
+          id: supplier_review_schemas
+          type: supplier_review_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-Supplier ID
+            - type: text
+              name: Scout-Supplier Name
+            - type: select
+              name: Scout-Category
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: select
+              name: Scout-Review Form Title
+            - type: select
+              name: Scout-Review Status
+            - type: select
+              name: Scout-Decision
+            - type: select
+              name: Scout-Risk Score
+            - type: select
+              name: Scout-Reviewers
+            - type: date
+              name: Scout-Reviewed On Date
+            - type: integer
+              name: 'Scout-Avg. # of Days per Reviewer'
+            - type: integer
+              name: Scout-# Of Days To Review
+            - type: date
+              name: Scout-Valid Until Date
+            - type: date
+              name: Scout-Remind Before Date
+            - type: select
+              name: Scout-Remind
+            - type: date
+              name: Scout-Published Date
+            - type: date
+              name: Scout-Response Submitted Date
+            - type: integer
+              name: Scout-# of Days for Supplier to Respond
+            - type: select
+              name: Scout-Supplier Response Status
+            - type: text
+              name: Scout-Supplier Contact Email
+            - type: text
+              name: Scout-Executive Summary
+            - type: string
+              name: 'Field #25'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

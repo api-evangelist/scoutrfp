@@ -1,0 +1,1557 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments discovery API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: discovery
+  x-displayName: Discovery
+  description: Endpoints to facilitate discovery of SCIM service provider features
+paths:
+  /Schemas:
+    get:
+      tags:
+      - discovery
+      operationId: List Schemas
+      summary: List Schemas
+      description: 'Endpoint used to retrieve information about schemas supported. See [section 3.4](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4) of RFC 7644
+
+        '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/SchemaListResponse'
+              examples:
+                success:
+                  $ref: '#/components/examples/schemas_response'
+  /Schemas/{uri}:
+    get:
+      tags:
+      - discovery
+      operationId: Get a Schema
+      summary: Get a Schema
+      description: Retrieves information about a specific resource
+      parameters:
+      - name: uri
+        in: path
+        description: Schema URI of a particular resource type
+        required: true
+        schema:
+          type: string
+          enum:
+          - urn:ietf:params:scim:schemas:core:2.0:User
+      responses:
+        '200':
+          description: OK
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/SchemaResource'
+              examples:
+                success:
+                  $ref: '#/components/examples/schema_response'
+        '404':
+          description: Not Found
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                error:
+                  $ref: '#/components/examples/404'
+  /ResourceTypes:
+    get:
+      tags:
+      - discovery
+      operationId: List Resource Types
+      summary: List Resource Types
+      description: 'This endpoint is used to discover the types of resources available (see [section 4](https://datatracker.ietf.org/doc/html/rfc7644#section-4) of RFC 7644)
+
+        '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ResourceTypeListResponse'
+              examples:
+                success:
+                  $ref: '#/components/examples/resource_types_response'
+  /ResourceTypes/{resource}:
+    get:
+      tags:
+      - discovery
+      operationId: Get a Resource Type
+      summary: Get a Resource Type
+      description: "Describes the endpoint, schemas and extensions supported by a specific kind of resource.\nIt returns a specific portion of the ouput of the more general /Resources endpoint  \n"
+      parameters:
+      - name: resource
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - User
+      responses:
+        '200':
+          description: OK
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ResourceType'
+              examples:
+                success:
+                  $ref: '#/components/examples/resource_type_response'
+  /ServiceProviderConfig:
+    get:
+      tags:
+      - discovery
+      operationId: List Service Provider Configs
+      summary: List Service Provider Configs
+      description: Describes the SCIM specification features available (see [section 5](https://datatracker.ietf.org/doc/html/rfc7643#section-5) of RFC 7643)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ServiceProviderConfigResponse'
+              examples:
+                success:
+                  $ref: '#/components/examples/service_provider_configuration_response'
+components:
+  schemas:
+    SchemaResource:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:schemas:core:2.0:Schema
+        id:
+          type: string
+        meta:
+          type: object
+          properties:
+            resourceType:
+              type: string
+            location:
+              type: string
+        name:
+          type: string
+        description:
+          type: string
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SchemaAttribute'
+    ResourceTypeListResponse:
+      allOf:
+      - $ref: '#/components/schemas/BasicListResponse'
+      - type: object
+        properties:
+          Resources:
+            type: array
+            items:
+              $ref: '#/components/schemas/ResourceType'
+    SchemaAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        subAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SchemaAttribute'
+        multiValued:
+          type: boolean
+        description:
+          type: string
+        required:
+          type: string
+        canonicalValues:
+          type: array
+          items:
+            type: string
+        caseExact:
+          type: boolean
+        mutability:
+          type: string
+        returned:
+          type: string
+        uniqueness:
+          type: string
+        referenceTypes:
+          type: array
+          items:
+            type: string
+      description: A recursive definition. Note how property subAttributes reuses SchemaAttribute for its definition
+    SchemaListResponse:
+      allOf:
+      - $ref: '#/components/schemas/BasicListResponse'
+      - type: object
+        properties:
+          Resources:
+            type: array
+            items:
+              $ref: '#/components/schemas/SchemaResource'
+    ResourceType:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:schemas:core:2.0:ResourceType
+        id:
+          type: string
+        meta:
+          type: object
+          properties:
+            resourceType:
+              type: string
+            location:
+              type: string
+        name:
+          type: string
+        description:
+          type: string
+        endpoint:
+          type: string
+        schema:
+          type: string
+        schemaExtensions:
+          type: object
+          properties:
+            schema:
+              type: string
+            required:
+              type: boolean
+      description: See section 6 of RFC 7643
+    ServiceProviderConfigResponse:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig
+        meta:
+          type: object
+          properties:
+            resourceType:
+              type: string
+              example: ServiceProviderConfig
+            created:
+              type: string
+              format: date-time
+              example: 2021-07-27T13:24:01.182+01:00,
+            lastModified:
+              type: string
+              format: date-time
+              example: 2021-07-27T13:24:01.182+01:00,
+            version:
+              type: string
+              example: '1'
+            location:
+              type: string
+              example: https://api.us.workdayspend.com/scim/v2/ServiceProviderConfig
+        documentationUri:
+          type: string
+        patch:
+          type: object
+          properties:
+            supported:
+              type: boolean
+        bulk:
+          type: object
+          properties:
+            supported:
+              type: boolean
+        filter:
+          type: object
+          properties:
+            supported:
+              type: boolean
+            maxResults:
+              type: integer
+        changePassword:
+          type: object
+          properties:
+            supported:
+              type: boolean
+        sort:
+          type: object
+          properties:
+            supported:
+              type: boolean
+        etag:
+          type: object
+          properties:
+            supported:
+              type: boolean
+        authenticationSchemes:
+          type: object
+          properties:
+            type:
+              type: string
+              example: httpbasic
+            name:
+              type: string
+              example: HTTP Basic
+            description:
+              type: string
+              example: Authentication scheme using the HTTP Basic Standard
+            primary:
+              type: boolean
+      description: See section 5 of RFC 7643
+    ErrorResponse:
+      required:
+      - status
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:Error
+        status:
+          type: string
+          description: HTTP status code as string
+        scimType:
+          type: string
+          description: 'A detail error keyword. See [table 9](https://datatracker.ietf.org/doc/html/rfc7644#section-3.12) of RFC 7644
+
+            '
+        detail:
+          type: string
+          description: A detailed human-readable message of the error
+      description: See section 3.12 of RFC 7644
+    BasicListResponse:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
+        startIndex:
+          type: integer
+          description: The 1-based index of the first result in the current set of search results
+        itemsPerPage:
+          type: integer
+          description: The number of resources returned in a results page
+  examples:
+    resource_type_response:
+      value:
+        meta:
+          resourceType: ResourceType
+          location: https://api.us.workdayspend.com/scim/v2/ResourceTypes/User
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:ResourceType
+        endpoint: /Users
+        schema: urn:ietf:params:scim:schemas:core:2.0:User
+        id: User
+        name: User
+    schema_response:
+      value:
+        name: User
+        id: urn:ietf:params:scim:schemas:core:2.0:User
+        description: Represents a User
+        meta:
+          resourceType: Schema
+          location: /scim/v2/Schemas?name=urn%3Aietf%3Aparams%3Ascim%3Aschemas%3Acore%3A2.0%3AUser
+        attributes:
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readOnly
+          uniqueness: server
+          returned: always
+          name: id
+          type: string
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: externalId
+          type: string
+        - multiValued: false
+          required: true
+          caseExact: false
+          mutability: readWrite
+          uniqueness: server
+          returned: default
+          name: userName
+          type: string
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: name
+          type: complex
+          subAttributes:
+          - multiValued: false
+            required: true
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: familyName
+            type: string
+          - multiValued: false
+            required: true
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: givenName
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: middleName
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: formatted
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: honorificPrefix
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: honorificSuffix
+            type: string
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: displayName
+          type: string
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: nickName
+          type: string
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: profileUrl
+          type: string
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: title
+          type: string
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: userType
+          type: string
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: preferredLanguage
+          type: string
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: locale
+          type: string
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: timezone
+          type: string
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: active
+          type: boolean
+        - multiValued: false
+          required: false
+          caseExact: false
+          mutability: writeOnly
+          uniqueness: none
+          returned: never
+          name: password
+          type: string
+        - multiValued: true
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: emails
+          type: complex
+          subAttributes:
+          - multiValued: false
+            required: true
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: value
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readOnly
+            uniqueness: none
+            returned: default
+            name: display
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: type
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: primary
+            type: boolean
+        - multiValued: true
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: phoneNumbers
+          type: complex
+          subAttributes:
+          - multiValued: false
+            required: true
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: value
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readOnly
+            uniqueness: none
+            returned: default
+            name: display
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: type
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: primary
+            type: boolean
+        - multiValued: true
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: ims
+          type: complex
+          subAttributes:
+          - multiValued: false
+            required: true
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: value
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readOnly
+            uniqueness: none
+            returned: default
+            name: display
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: type
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: primary
+            type: boolean
+        - multiValued: true
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: photos
+          type: complex
+          subAttributes:
+          - multiValued: false
+            required: true
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: value
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readOnly
+            uniqueness: none
+            returned: default
+            name: display
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: type
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: primary
+            type: boolean
+        - multiValued: true
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: addresses
+          type: complex
+          subAttributes:
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: type
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: formatted
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: streetAddress
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: locality
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: region
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: postalCode
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: country
+            type: string
+        - multiValued: true
+          required: false
+          caseExact: false
+          mutability: readOnly
+          uniqueness: none
+          returned: default
+          name: groups
+          type: complex
+          subAttributes:
+          - multiValued: false
+            required: true
+            caseExact: false
+            mutability: readOnly
+            uniqueness: none
+            returned: default
+            name: value
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readOnly
+            uniqueness: none
+            returned: default
+            name: display
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readOnly
+            uniqueness: none
+            returned: default
+            name: type
+            type: string
+        - multiValued: true
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: entitlements
+          type: complex
+          subAttributes:
+          - multiValued: false
+            required: true
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: value
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readOnly
+            uniqueness: none
+            returned: default
+            name: display
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: type
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: primary
+            type: boolean
+        - multiValued: true
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: roles
+          type: complex
+          subAttributes:
+          - multiValued: false
+            required: true
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: value
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readOnly
+            uniqueness: none
+            returned: default
+            name: display
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: type
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: primary
+            type: boolean
+        - multiValued: true
+          required: false
+          caseExact: false
+          mutability: readWrite
+          uniqueness: none
+          returned: default
+          name: x509Certificates
+          type: complex
+          subAttributes:
+          - multiValued: false
+            required: true
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: value
+            type: binary
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readOnly
+            uniqueness: none
+            returned: default
+            name: display
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: type
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: primary
+            type: boolean
+    '404':
+      value:
+        schemas:
+        - urn:ietf:params:scim:api:messages:2.0:Error
+        status: '404'
+        detail: Resource "User" not found
+    service_provider_configuration_response:
+      value:
+        bulk:
+          supported: false
+        changePassword:
+          supported: false
+        sort:
+          supported: true
+        etag:
+          supported: false
+        patch:
+          supported: true
+        filter:
+          supported: true
+          maxResults: 100
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig
+        meta:
+          resourceType: ServiceProviderConfig
+          created: '2021-07-27T13:24:01.182+01:00'
+          lastModified: '2021-07-27T13:24:01.182+01:00'
+          version: '1'
+          location: https://api.us.workdayspend.com/scim/v2/ServiceProviderConfig
+        authenticationSchemes:
+        - type: httpbasic
+          name: HTTP Basic
+          description: Authentication scheme using the HTTP Basic Standard
+    schemas_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults: 1
+        startIndex: 0
+        itemsPerPage: 100
+        Resources:
+        - name: User
+          id: urn:ietf:params:scim:schemas:core:2.0:User
+          description: Represents a User
+          meta:
+            resourceType: Schema
+            location: /scim/v2/Schemas
+          attributes:
+          - multiValued: false
+            required: true
+            caseExact: false
+            mutability: readWrite
+            uniqueness: server
+            returned: default
+            name: userName
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: name
+            type: complex
+            subAttributes:
+            - multiValued: false
+              required: true
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: familyName
+              type: string
+            - multiValued: false
+              required: true
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: givenName
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: middleName
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: formatted
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: honorificPrefix
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: honorificSuffix
+              type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: displayName
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: nickName
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: profileUrl
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: title
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: userType
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: preferredLanguage
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: locale
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: timezone
+            type: string
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: active
+            type: boolean
+          - multiValued: false
+            required: false
+            caseExact: false
+            mutability: writeOnly
+            uniqueness: none
+            returned: never
+            name: password
+            type: string
+          - multiValued: true
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: emails
+            type: complex
+            subAttributes:
+            - multiValued: false
+              required: true
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: value
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readOnly
+              uniqueness: none
+              returned: default
+              name: display
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: type
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: primary
+              type: boolean
+          - multiValued: true
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: phoneNumbers
+            type: complex
+            subAttributes:
+            - multiValued: false
+              required: true
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: value
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readOnly
+              uniqueness: none
+              returned: default
+              name: display
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: type
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: primary
+              type: boolean
+          - multiValued: true
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: ims
+            type: complex
+            subAttributes:
+            - multiValued: false
+              required: true
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: value
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readOnly
+              uniqueness: none
+              returned: default
+              name: display
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: type
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: primary
+              type: boolean
+          - multiValued: true
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: photos
+            type: complex
+            subAttributes:
+            - multiValued: false
+              required: true
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: value
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readOnly
+              uniqueness: none
+              returned: default
+              name: display
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: type
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: primary
+              type: boolean
+          - multiValued: true
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: addresses
+            type: complex
+            subAttributes:
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: type
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: formatted
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: streetAddress
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: locality
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: region
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: postalCode
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: country
+              type: string
+          - multiValued: true
+            required: false
+            caseExact: false
+            mutability: readOnly
+            uniqueness: none
+            returned: default
+            name: groups
+            type: complex
+            subAttributes:
+            - multiValued: false
+              required: true
+              caseExact: false
+              mutability: readOnly
+              uniqueness: none
+              returned: default
+              name: value
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readOnly
+              uniqueness: none
+              returned: default
+              name: display
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readOnly
+              uniqueness: none
+              returned: default
+              name: type
+              type: string
+          - multiValued: true
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: entitlements
+            type: complex
+            subAttributes:
+            - multiValued: false
+              required: true
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: value
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readOnly
+              uniqueness: none
+              returned: default
+              name: display
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: type
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: primary
+              type: boolean
+          - multiValued: true
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: roles
+            type: complex
+            subAttributes:
+            - multiValued: false
+              required: true
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: value
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readOnly
+              uniqueness: none
+              returned: default
+              name: display
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: type
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: primary
+              type: boolean
+          - multiValued: true
+            required: false
+            caseExact: false
+            mutability: readWrite
+            uniqueness: none
+            returned: default
+            name: x509Certificates
+            type: complex
+            subAttributes:
+            - multiValued: false
+              required: true
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: value
+              type: binary
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readOnly
+              uniqueness: none
+              returned: default
+              name: display
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: type
+              type: string
+            - multiValued: false
+              required: false
+              caseExact: false
+              mutability: readWrite
+              uniqueness: none
+              returned: default
+              name: primary
+              type: boolean
+    resource_types_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults: 1
+        startIndex: 0
+        itemsPerPage: 100
+        Resources:
+        - meta:
+            resourceType: ResourceType
+            location: /scim/v2/ResourceTypes/User
+          schemas:
+          - urn:ietf:params:scim:schemas:core:2.0:ResourceType
+          endpoint: /Users
+          schema: urn:ietf:params:scim:schemas:core:2.0:User
+          id: User
+          name: User
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments

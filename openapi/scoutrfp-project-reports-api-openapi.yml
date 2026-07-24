@@ -1,0 +1,623 @@
+openapi: 3.0.2
+info:
+  title: Workday Strategic Sourcing attachments project_reports API
+  version: '1.0'
+  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
+
+    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
+
+    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
+
+    '
+servers:
+- url: https://api.us.workdayspend.com/services/attachments/v1
+  description: Production Server
+- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+  description: Sandbox Server
+security:
+- api_key: []
+  user_token: []
+  user_email: []
+tags:
+- name: project_reports
+  x-displayName: Project Reports
+  description: 'This report returns a list of Project report entries.
+
+    '
+paths:
+  /project_reports/entries:
+    get:
+      tags:
+      - project_reports
+      description: 'Returns a list of project report entries.
+
+
+        **Does not support `project_report_id` parameter for the 2019-01-01 version.**
+
+        '
+      operationId: Project Report Entries
+      summary: Project Report Entries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                allOf:
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/ProjectReportEntry'
+                - $ref: '#/components/schemas/Pagination'
+              examples:
+                success:
+                  description: Requesting 2019-01-01 version.
+                  $ref: '#/components/examples/index_response-6'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/project_reports/entries\"\n"
+  /project_reports/schema:
+    get:
+      tags:
+      - project_reports
+      description: Returns the project report schema.
+      operationId: Project Report Schema
+      summary: Project Report Schema
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ProjectReportEntryFieldModel'
+              examples:
+                success:
+                  $ref: '#/components/examples/schema_response-7'
+        '401':
+          description: Unauthorized
+      x-codeSamples:
+      - label: Curl
+        source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/project_reports/schema\"\n"
+components:
+  schemas:
+    ProjectReportEntryId:
+      description: Project Report identifier string.
+      example: 1
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type: string
+          format: url
+          description: Link to the next results page.
+          nullable: true
+    ProjectReportEntryType:
+      description: Object type, should always be `project_report_entries`.
+      example: project_report_entries
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type: string
+          format: url
+          description: Link to the previous results page.
+          nullable: true
+    ProjectReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `project_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `project_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ProjectReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ProjectReportEntryType'
+        id:
+          $ref: '#/components/schemas/ProjectReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/ProjectReportEntryAttributes'
+    ProjectReportEntryAttributes:
+      description: Project Report Entry attributes. See example response and schema.
+      properties: {}
+  examples:
+    schema_response-7:
+      value:
+        data:
+          id: project_schemas
+          type: project_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-System ID
+            - type: text
+              name: 'Scout-ID #'
+            - type: text
+              name: Scout-Project Title
+            - type: select
+              name: Scout-Project Type
+            - type: select
+              name: Scout-Project Type Short Code
+            - type: text
+              name: Scout-Project Needs Attention
+            - type: select
+              name: Scout-Project State & Status
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: select
+              name: Scout-Project Requester
+            - type: select
+              name: Scout-Category
+            - type: text
+              name: Scout-Project Description
+            - type: integer
+              name: Scout-# of Suppliers on Project
+            - type: select
+              name: Scout-Suppliers on Project
+            - type: date
+              name: Scout-Estimated Start Date
+            - type: integer
+              name: Scout-Estimated Start Date FY
+            - type: integer
+              name: Scout-Estimated Start Date FQ
+            - type: date
+              name: Scout-Estimated End Date
+            - type: integer
+              name: Scout-Estimated End Date FY
+            - type: integer
+              name: Scout-Estimated End Date FQ
+            - type: date
+              name: Scout-Actual Start Date
+            - type: integer
+              name: Scout-Actual Start Date FY
+            - type: integer
+              name: Scout-Actual Start Date FQ
+            - type: date
+              name: Scout-Actual End Date
+            - type: integer
+              name: Scout-Actual End Date FY
+            - type: integer
+              name: Scout-Actual End Date FQ
+            - type: date
+              name: Scout-Request Submitted
+            - type: date
+              name: Scout-Request Opened
+            - type: currency
+              name: Scout-Estimated Spend
+            - type: currency
+              name: Scout-Estimated Savings
+            - type: currency
+              name: Scout-Final Spend
+            - type: select
+              name: Scout-Savings Type
+            - type: currency
+              name: Scout-Recognized Savings
+            - type: currency
+              name: Scout-Projected Recognized Savings
+            - type: currency
+              name: Scout-Unrecognized Savings
+            - type: currency
+              name: Scout-Projected Unrecognized Savings
+            - type: currency
+              name: Scout-Total Savings
+            - type: integer
+              name: Scout-# of Stakeholders
+            - type: select
+              name: Scout-Stakeholders List
+            - type: text
+              name: Scout-Event Names
+            - type: select
+              name: Scout-Event Status
+            - type: integer
+              name: Scout-# of Suppliers Invited to Event(s)
+            - type: select
+              name: Scout-Suppliers Invited to Event(s)
+            - type: text
+              name: Scout-External ID
+            - type: text
+              name: Scout-Canceled Reason
+            - type: date
+              name: Scout-Original Approval Request Date
+            - type: integer
+              name: Scout-Original Approval Request Date FY
+            - type: integer
+              name: Scout-Original Approval Request Date FQ
+            - type: date
+              name: Scout-Approved Date
+            - type: integer
+              name: Scout-Approved FY
+            - type: integer
+              name: Scout-Approved FQ
+            - type: date
+              name: Scout-Sent for Approval
+            - type: integer
+              name: Scout-Sent for Approval FY
+            - type: integer
+              name: Scout-Sent for Approval FQ
+            - type: select
+              name: Scout-Needs Attention Reason
+            - type: date
+              name: Scout-Last Updated Date
+            - type: text
+              name: Scout-Has Attachments
+            - type: text
+              name: 'Scout-Related Project ID #'
+            - type: date
+              name: Scout-First Milestone Assign Date
+            - type: integer
+              name: Scout-Days Requested
+            - type: integer
+              name: Scout-Days Planned
+            - type: integer
+              name: Scout-Days Active
+            - type: integer
+              name: Scout-Days On hold
+            - type: text
+              name: Scout-Milestone Name
+            - type: date
+              name: Scout-Milestone Date
+            - type: select
+              name: Scout-Milestone Status
+            - type: date
+              name: Scout-Milestone Complete Date
+            - type: select
+              name: Scout-Template Milestone
+            - type: select
+              name: Scout-Milestone Created By
+            - type: date
+              name: Scout-Milestone Create Date
+            - type: select
+              name: Scout-Milestone Assignee
+            - type: select
+              name: Scout-Mark Completed By
+            - type: integer
+              name: Scout-# of Days Milestone is Open
+            - type: string
+              name: 'Field #21'
+    index_response-6:
+      value:
+        data:
+        - id: '1'
+          type: project_report_entries
+          attributes:
+            Scout-System ID: 100
+            'Scout-ID #': 1
+            Scout-Project Title: Project 1
+            Scout-Project Type: General Project
+            Scout-Project Type Short Code: GENR
+            Scout-Project Needs Attention: false
+            Scout-Project State & Status: Planned
+            Scout-Sourcing Owner: Gabriel Keebler
+            Scout-Project Requester: Gabriel Keebler
+            Scout-Category: null
+            Scout-Project Description: null
+            Scout-# of Suppliers on Project: 0
+            Scout-Suppliers on Project: null
+            Scout-Estimated Start Date: '2018-08-30'
+            Scout-Estimated Start Date FY: 2018
+            Scout-Estimated Start Date FQ: 3
+            Scout-Estimated End Date: '2018-08-31'
+            Scout-Estimated End Date FY: 2018
+            Scout-Estimated End Date FQ: 3
+            Scout-Actual Start Date: '2018-08-30'
+            Scout-Actual Start Date FY: 2018
+            Scout-Actual Start Date FQ: 3
+            Scout-Actual End Date: '2018-08-31'
+            Scout-Actual End Date FY: 2018
+            Scout-Actual End Date FQ: 3
+            Scout-Request Submitted: '2018-08-01'
+            Scout-Request Opened: '2018-08-01'
+            Scout-Estimated Spend: null
+            Scout-Estimated Savings: null
+            Scout-Final Spend: null
+            Scout-Savings Type: null
+            Scout-Recognized Savings: null
+            Scout-Projected Recognized Savings: null
+            Scout-Unrecognized Savings: null
+            Scout-Projected Unrecognized Savings: null
+            Scout-Total Savings: null
+            Scout-# of Stakeholders: 1
+            Scout-Stakeholders List: Gabriel Keebler
+            Scout-Event Names: null
+            Scout-Event Status: null
+            Scout-# of Suppliers Invited to Event(s): 0
+            Scout-Suppliers Invited to Event(s): null
+            Scout-External ID: null
+            Scout-Canceled Reason: null
+            Scout-Original Approval Request Date: null
+            Scout-Original Approval Request Date FY: null
+            Scout-Original Approval Request Date FQ: null
+            Scout-Approved Date: null
+            Scout-Approved FY: null
+            Scout-Approved FQ: null
+            Scout-Sent for Approval: null
+            Scout-Sent for Approval FY: null
+            Scout-Sent for Approval FQ: null
+            Scout-Needs Attention Reason: null
+            Scout-Last Updated Date: '2018-08-31'
+            Scout-Has Attachments: false
+            'Scout-Related Project ID #': '1000'
+            Scout-First Milestone Assign Date: null
+            Scout-Milestone Name: null
+            Scout-Milestone Date: null
+            Scout-Milestone Status: null
+            Scout-Milestone Complete Date: null
+            Scout-Template Milestone: null
+            Scout-Milestone Created By: null
+            Scout-Milestone Create Date: null
+            Scout-Milestone Assignee: null
+            Scout-Mark Completed By: null
+            Scout-# of Days Milestone is Open: null
+            Scout-Days Requested: '0.0'
+            Scout-Days Planned: '0.0'
+            Scout-Days Active - Discovery: '0.0'
+            Scout-Days Active - Planning Performance Review: '0.0'
+            Scout-Days Active - Sourcing: '0.0'
+            Scout-Days Active - Published Stakeholder & Supplier Review: '0.0'
+            Scout-Days Active - Negotiation: '0.0'
+            Scout-Days Active - Evaluating Responses: '0.0'
+            Scout-Days Active - Contract: '0.0'
+            Scout-Days Active - Supplier Meeting: '0.0'
+            Scout-Days Active - Develop Action Item Plan: '0.0'
+            Scout-Days Out For Approval: '0.0'
+            Scout-Days Approved: '0.0'
+            Scout-Days On hold: '0.0'
+            Custom field for project!: null
+            Custom date field: null
+        - id: '2'
+          type: project_report_entries
+          attributes:
+            Scout-System ID: 200
+            'Scout-ID #': 2
+            Scout-Project Title: Project 2
+            Scout-Project Type: General Project
+            Scout-Project Type Short Code: GENR
+            Scout-Project Needs Attention: false
+            Scout-Project State & Status: Planned
+            Scout-Sourcing Owner: Gabriel Keebler
+            Scout-Project Requester: Gabriel Keebler
+            Scout-Category: null
+            Scout-Project Description: null
+            Scout-# of Suppliers on Project: 0
+            Scout-Suppliers on Project: null
+            Scout-Estimated Start Date: '2018-08-30'
+            Scout-Estimated Start Date FY: 2018
+            Scout-Estimated Start Date FQ: 3
+            Scout-Estimated End Date: '2018-08-31'
+            Scout-Estimated End Date FY: 2018
+            Scout-Estimated End Date FQ: 3
+            Scout-Actual Start Date: '2018-08-30'
+            Scout-Actual Start Date FY: 2018
+            Scout-Actual Start Date FQ: 3
+            Scout-Actual End Date: '2018-08-31'
+            Scout-Actual End Date FY: 2018
+            Scout-Actual End Date FQ: 3
+            Scout-Request Submitted: '2018-08-01'
+            Scout-Request Opened: '2018-08-01'
+            Scout-Estimated Spend: null
+            Scout-Estimated Savings: null
+            Scout-Final Spend: null
+            Scout-Savings Type: null
+            Scout-Recognized Savings: null
+            Scout-Projected Recognized Savings: null
+            Scout-Unrecognized Savings: null
+            Scout-Projected Unrecognized Savings: null
+            Scout-Total Savings: null
+            Scout-# of Stakeholders: 1
+            Scout-Stakeholders List: Gabriel Keebler
+            Scout-Event Names: null
+            Scout-Event Status: null
+            Scout-# of Suppliers Invited to Event(s): 0
+            Scout-Suppliers Invited to Event(s): null
+            Scout-External ID: null
+            Scout-Canceled Reason: null
+            Scout-Original Approval Request Date: null
+            Scout-Original Approval Request Date FY: null
+            Scout-Original Approval Request Date FQ: null
+            Scout-Approved Date: null
+            Scout-Approved FY: null
+            Scout-Approved FQ: null
+            Scout-Sent for Approval: null
+            Scout-Sent for Approval FY: null
+            Scout-Sent for Approval FQ: null
+            Scout-Needs Attention Reason: null
+            Scout-Last Updated Date: '2018-08-31'
+            Scout-Has Attachments: false
+            'Scout-Related Project ID #': '2000'
+            Scout-First Milestone Assign Date: null
+            Scout-Milestone Name: null
+            Scout-Milestone Date: null
+            Scout-Milestone Status: null
+            Scout-Milestone Complete Date: null
+            Scout-Template Milestone: null
+            Scout-Milestone Created By: null
+            Scout-Milestone Create Date: null
+            Scout-Milestone Assignee: null
+            Scout-Mark Completed By: null
+            Scout-# of Days Milestone is Open: null
+            Scout-Days Requested: '0.0'
+            Scout-Days Planned: '0.0'
+            Scout-Days Active - Discovery: '0.0'
+            Scout-Days Active - Planning Performance Review: '0.0'
+            Scout-Days Active - Sourcing: '0.0'
+            Scout-Days Active - Published Stakeholder & Supplier Review: '0.0'
+            Scout-Days Active - Negotiation: '0.0'
+            Scout-Days Active - Evaluating Responses: '0.0'
+            Scout-Days Active - Contract: '0.0'
+            Scout-Days Active - Supplier Meeting: '0.0'
+            Scout-Days Active - Develop Action Item Plan: '0.0'
+            Scout-Days Out For Approval: '0.0'
+            Scout-Days Approved: '0.0'
+            Scout-Days On hold: '0.0'
+            Custom field for project!: Custom string field value
+            Custom date field: '2018-01-01'
+        - id: '3'
+          type: project_report_entries
+          attributes:
+            Scout-System ID: 300
+            'Scout-ID #': 3
+            Scout-Project Title: Project 3
+            Scout-Project Type: General Project
+            Scout-Project Type Short Code: GENR
+            Scout-Project Needs Attention: false
+            Scout-Project State & Status: Planned
+            Scout-Sourcing Owner: Gabriel Keebler
+            Scout-Project Requester: Gabriel Keebler
+            Scout-Category: null
+            Scout-Project Description: null
+            Scout-# of Suppliers on Project: 0
+            Scout-Suppliers on Project: null
+            Scout-Estimated Start Date: '2018-08-30'
+            Scout-Estimated Start Date FY: 2018
+            Scout-Estimated Start Date FQ: 3
+            Scout-Estimated End Date: '2018-08-31'
+            Scout-Estimated End Date FY: 2018
+            Scout-Estimated End Date FQ: 3
+            Scout-Actual Start Date: '2018-08-30'
+            Scout-Actual Start Date FY: 2018
+            Scout-Actual Start Date FQ: 3
+            Scout-Actual End Date: '2018-08-31'
+            Scout-Actual End Date FY: 2018
+            Scout-Actual End Date FQ: 3
+            Scout-Request Submitted: '2018-08-01'
+            Scout-Request Opened: '2018-08-01'
+            Scout-Estimated Spend: null
+            Scout-Estimated Savings: null
+            Scout-Final Spend: null
+            Scout-Savings Type: null
+            Scout-Recognized Savings: null
+            Scout-Projected Recognized Savings: null
+            Scout-Unrecognized Savings: null
+            Scout-Projected Unrecognized Savings: null
+            Scout-Total Savings: null
+            Scout-# of Stakeholders: 1
+            Scout-Stakeholders List: Gabriel Keebler
+            Scout-Event Names: null
+            Scout-Event Status: null
+            Scout-# of Suppliers Invited to Event(s): 0
+            Scout-Suppliers Invited to Event(s): null
+            Scout-External ID: null
+            Scout-Canceled Reason: null
+            Scout-Original Approval Request Date: null
+            Scout-Original Approval Request Date FY: null
+            Scout-Original Approval Request Date FQ: null
+            Scout-Approved Date: null
+            Scout-Approved FY: null
+            Scout-Approved FQ: null
+            Scout-Sent for Approval: null
+            Scout-Sent for Approval FY: null
+            Scout-Sent for Approval FQ: null
+            Scout-Needs Attention Reason: null
+            Scout-Last Updated Date: '2018-08-31'
+            Scout-Has Attachments: false
+            'Scout-Related Project ID #': '3000'
+            Scout-First Milestone Assign Date: null
+            Scout-Milestone Name: null
+            Scout-Milestone Date: null
+            Scout-Milestone Status: null
+            Scout-Milestone Complete Date: null
+            Scout-Template Milestone: null
+            Scout-Milestone Created By: null
+            Scout-Milestone Create Date: null
+            Scout-Milestone Assignee: null
+            Scout-Mark Completed By: null
+            Scout-# of Days Milestone is Open: null
+            Scout-Days Requested: '0.0'
+            Scout-Days Planned: '0.0'
+            Scout-Days Active - Discovery: '0.0'
+            Scout-Days Active - Planning Performance Review: '0.0'
+            Scout-Days Active - Sourcing: '0.0'
+            Scout-Days Active - Published Stakeholder & Supplier Review: '0.0'
+            Scout-Days Active - Negotiation: '0.0'
+            Scout-Days Active - Evaluating Responses: '0.0'
+            Scout-Days Active - Contract: '0.0'
+            Scout-Days Active - Supplier Meeting: '0.0'
+            Scout-Days Active - Develop Action Item Plan: '0.0'
+            Scout-Days Out For Approval: '0.0'
+            Scout-Days Approved: '0.0'
+            Scout-Days On hold: '0.0'
+            Custom field for project!: null
+            Custom date field: null
+        links:
+          prev: null
+          next: null
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Api-Key
+      in: header
+      description: Company API key.
+    user_token:
+      type: apiKey
+      name: X-User-Token
+      in: header
+      description: User token.
+    user_email:
+      type: apiKey
+      name: X-User-Email
+      in: header
+      description: User email.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - support
+  - servers
+  - api_specification
+  - authentication
+  - rate_limiting
+- name: Attachments
+  tags:
+  - attachments
