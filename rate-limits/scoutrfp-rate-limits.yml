@@ -1,0 +1,10 @@
+generated: '2026-07-21'
+method: searched
+source: https://apidocs.workdayspend.com/
+rate_limits:
+- scope: global
+  limit_count: 5
+  window: 1s
+  description: 5 requests per second across the Strategic Sourcing API; excess returns 429 Too Many Requests.
+  exceeded_status: 429
+  retry_guidance: Sleep ~1 second and retry.

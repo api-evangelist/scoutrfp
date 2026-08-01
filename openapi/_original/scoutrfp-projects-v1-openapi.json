@@ -1,0 +1,4717 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Workday Strategic Sourcing Projects API",
+    "version": "1.0",
+    "description": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n"
+  },
+  "servers": [
+    {
+      "url": "https://api.us.workdayspend.com/services/projects/v1",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://api.sandbox.us.workdayspend.com/services/projects/v1",
+      "description": "Sandbox Server"
+    }
+  ],
+  "security": [
+    {
+      "api_key": [],
+      "user_token": [],
+      "user_email": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "support",
+      "x-displayName": "Customer Support",
+      "description": "We've provided detailed documentation below to guide you. However, if you need additional assistance, here's how you can get the support you need:\n\n* __Community Discussions:__ Join the conversation on our Workday Community Discussion Boards (found under the \"Collaborate\" section in community). Connect with other users, share best practices, and get answers to your configuration questions.\n* __Expert Configuration Assistance (Professional Services):__ For tailored, hands-on support with your specific project, our Professional Services team is available.\n  * Looking for personalized guidance? Workday Success Plan customers can submit an \"Ask\" for expert insights on configuration and best practices.\n  * Need custom solutions? Consider Expert Assist, our consulting service for detailed changes and project support.\n* __Reporting System Issues:__ If you suspect a problem with the Workday system itself, please connect with our dedicated support team. Your company's Named Support Contact (NSC) can log a Product Support Defect case. We'll review the issue based on its impact and Workday's service level agreement (SLA).\n"
+    },
+    {
+      "name": "servers",
+      "x-displayName": "Servers",
+      "description": "### US Region\n| Environment       | US region Base URI                                           |\n|-------------------|--------------------------------------------------------------|\n| **Production**    | https://api.us.workdayspend.com/services/projects/v1         |\n| **Sandbox**       | https://api.sandbox.us.workdayspend.com/services/projects/v1 |\n\n### EU Region\n| Environment       | EU region Base URI                                                |\n|-------------------|-------------------------------------------------------------------|\n| **Production**    | https://api.eu.workdayspend.com/services/projects/v1          |\n| **Sandbox**       | https://api.sandbox.eu.workdayspend.com/services/projects/v1  |\n\n### CA Region\n| Environment       | CA region Base URI                                                |\n|-------------------|-------------------------------------------------------------------|\n| **Production**    | https://api.ca.workdayspend.com/services/projects/v1          |\n| **Sandbox**       | https://api.sandbox.ca.workdayspend.com/services/projects/v1  |\n"
+    },
+    {
+      "name": "api_specification",
+      "x-displayName": "API Specification",
+      "description": "The API conforms to the [JSON API Specification](https://jsonapi.org).\n\nThe current version of this service is indicated by the `X-Api-Version` header.\n\nSample version header: `X-Api-Version: 1.0`.\n"
+    },
+    {
+      "name": "date_and_time_fields",
+      "x-displayName": "Date and Time Fields",
+      "description": "Our API adheres to the ISO 8601 standard when accepting and formatting Date and Time fields. All Date and Time fields returned by this API will be in the **UTC** timezone.\n\nDate and Time fields sent to this API can be in any timezone, provided they adhere to the ISO 8601 standard.\n"
+    },
+    {
+      "name": "authentication",
+      "x-displayName": "Authentication",
+      "description": "The Workday Strategic Sourcing API uses API keys to authenticate requests. Every request\nwill require all 3 HTTP headers:\n\n| HTTP Header       | Description               |\n|-------------------|---------------------------|\n| **X-Api-Key**     | a company-wide API key    |\n| **X-User-Token**  | a user-specific API token |\n| **X-User-Email**  | user email                |\n\nYou can generate all of those from the _API tokens_ section of your _Profile_ page.\n\nYour API keys carry many privileges, so be sure to keep them secure! Do not share your secret API\nkeys in publicly accessible areas such as GitHub, client-side code, and so forth.\n\nAll API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made\nover plain HTTP will fail. API requests without authentication will also fail.\n"
+    },
+    {
+      "name": "rate_limiting",
+      "x-displayName": "Rate Limiting",
+      "description": "Rate limit windows are per second and are shared by all API Keys for a company.\n\nThe rate limit is 5 requests per second.\n\nWhen request submissions exceed the limits, the limit-exceeding requests return `429 Too Many Requests` error responses to the client.\n\nUpon receiving a `429` response, it is recommended to retry the request in compliance with the rate limit. One example would be to add a sleep function for 1 second and retry.\n"
+    },
+    {
+      "name": "filters",
+      "x-displayName": "Filters",
+      "description": "The results can be filtered to a subset of the total set of results using `filter` query parameters.\n\nEndpoints that support filtering will include usage details in the Query Parameters section for the resource.\n\nMost filters that end in `equals` support a Query Parameter array format to filter by multiple values.\n\nExample:\n```\n?filter[status_equals][]=submitted&filter[status_equals][]=resubmitted\n```\n"
+    },
+    {
+      "name": "pagination",
+      "x-displayName": "Pagination",
+      "description": "Paginated endpoints may return a subset of the total results for a `GET` request that returns multiple resources. Endpoints that support pagination will include usage details in the Query Parameters section for the resource.\n\nThe paginated results can be configured using the `page` query parameter to configure the number of returned results. The default pagination size is 10 results and the maximum pagination size is 100 results per request.\n\nEndpoints that support pagination may return \"self\" and \"next\" sections within the \"links\" section that navigate to the current and next pages respectively.\n\n\n### Example Paginated Request\n\n#### Request Query Parameter Format\n```\n/projects?page[size]=25\n```\n\n#### Response Schema\nThe paginated response will also include the following schema\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Pagination\" exampleRef=\"#/components/examples/Pagination\" />\n"
+    },
+    {
+      "name": "external_ids",
+      "x-displayName": "External Identifiers (IDs)",
+      "description": "The `external_id` field exists on many of the Workday Strategic Sourcing resources. This optional and mutable extension is intended to store foreign keys of the corresponding resource from a third party system. **These IDs are not considered Sourcing Data and may be logged in external systems. Do not include any sensitive or personal data in IDs.**\n\nThe purpose of external IDs is to:\n\n* Prevent duplicate record creation\n* Allow resources in Workday Strategic Sourcing and a third party system to share the same identifier\n* Allow for records to be queried or updated without requiring knowledge of the Workday Strategic Sourcing generated IDs\n"
+    },
+    {
+      "name": "projects",
+      "x-displayName": "Projects",
+      "description": "Use the projects API to create, update, and query the projects in Workday Strategic Sourcing.\n\n## Project Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Project\" exampleRef=\"#/components/examples/Project\" showReadOnly={true} showWriteOnly={true} />\n"
+    },
+    {
+      "name": "project_supplier_companies",
+      "x-displayName": "Project Supplier Companies",
+      "description": "Use the project supplier companies API to manage project suppliers.\n"
+    },
+    {
+      "name": "project_supplier_contacts",
+      "x-displayName": "Project Supplier Contacts",
+      "description": "Use the project supplier contacts API to manage project suppliers. This API provides 2 advantages over the project supplier companies APIs:\n- It allows specifying the supplier contact to be associated/removed from a project.\n- It allows specifying multiple contacts for a given supplier.\n"
+    },
+    {
+      "name": "project_types",
+      "x-displayName": "Project Types",
+      "description": "Use the project types API to query the project types in Workday Strategic Sourcing.\n\nProject Types are used in the project resource. On POST and PATCH related endpoints for this resource a project_type_id can be added to set the project type. The project_type_id is a foreign key for the project_types resource's id.\n\n## Project Type Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/ProjectTypeModel\" showReadOnly={true} showWriteOnly={true} />\n"
+    }
+  ],
+  "paths": {
+    "/projects": {
+      "get": {
+        "tags": [
+          "projects"
+        ],
+        "description": "Returns a list of projects for the specified criteria.",
+        "operationId": "List Projects",
+        "summary": "List Projects",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter projects by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n",
+            "schema": {
+              "$ref": "#/components/schemas/ProjectInputFilter"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Customize pagination results with `size`.\n",
+            "schema": {
+              "$ref": "#/components/schemas/PageInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Project"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  ]
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/index_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects\"\n"
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "description": "Create a project with given attributes.\n",
+        "operationId": "Create a Project",
+        "summary": "Create a Project",
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ProjectCreate"
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/create_request"
+                },
+                "compound document": {
+                  "$ref": "#/components/examples/create_compound_request"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Project"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/create_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":{\"type\":\"projects\",\"attributes\":{\"title\":\"My Project\"}}}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects\"\n"
+          }
+        ]
+      }
+    },
+    "/projects/{id}": {
+      "get": {
+        "tags": [
+          "projects"
+        ],
+        "description": "Retrieves the details of an existing project. You need to supply the unique project\nidentifier that was returned upon project creation.\n",
+        "operationId": "Get a Project",
+        "summary": "Get a Project",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique Project identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Project"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/show_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/1\"\n"
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "projects"
+        ],
+        "description": "Updates the details of an existing project. You need to supply the unique supplier\nproject that was returned upon project creation.\n\nPlease note, that request body must include an `id` attribute with the value of your project\nunique identifier (the same one you passed in the URL).\n",
+        "operationId": "Update a Project",
+        "summary": "Update a Project",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique Project identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ProjectUpdate"
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/update_request"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Project"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/update_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                },
+                "examples": {
+                  "invalid_type": {
+                    "summary": "Missing or invalid 'type' specified, expected 'projects'",
+                    "description": "Returns error due to invalid `type` parameter.\n",
+                    "value": {
+                      "errors": [
+                        {
+                          "detail": "Missing or invalid 'type' specified, expected 'projects'"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"projects\",\"id\":\"1\",\"attributes\":{\"segmentation_status\": \"out_of_compliance\"}}}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/1\"\n"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "projects"
+        ],
+        "description": "Deletes a project. You need to supply the unique project\nidentifier that was returned upon project creation.\n",
+        "operationId": "Delete a Project",
+        "summary": "Delete a Project",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique Project identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/1\"\n"
+          }
+        ]
+      }
+    },
+    "/projects/{external_id}/external_id": {
+      "get": {
+        "tags": [
+          "projects"
+        ],
+        "description": "Retrieves the details of an existing project. You need to supply the unique\nproject external identifier (the one you used when created the project).\n",
+        "operationId": "Get a Project by External ID",
+        "summary": "Get a Project by External ID",
+        "parameters": [
+          {
+            "name": "external_id",
+            "in": "path",
+            "description": "Project external identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "1234-5678-abcd-efgh"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Project"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/external_show_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/SUP-1234/external_id\"\n"
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "projects"
+        ],
+        "description": "Updates the details of an existing project. You need to supply the unique project\nexternal identifier (the one you used when created the project).\n\nPlease note, that request body must include an `id` attribute with the value of your project\nexternal identifier (the same one you passed in the URL).\n",
+        "operationId": "Update a Project by External ID",
+        "summary": "Update a Project by External ID",
+        "parameters": [
+          {
+            "name": "external_id",
+            "in": "path",
+            "description": "Project external identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "1234-5678-abcd-efgh"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ProjectUpdate"
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/external_update_request"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Project"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/external_update_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"projects\",\"id\":\"SUP-1234\",attributes\":{\"segmentation_status\": \"out_of_compliance\"}}}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/SUP-1234/external_id\"\n"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "projects"
+        ],
+        "description": "Deletes a project. You need to supply the unique project\nexternal identifier (the one you used when created the project).\n",
+        "operationId": "Delete a Project by External ID",
+        "summary": "Delete a Project by External ID",
+        "parameters": [
+          {
+            "name": "external_id",
+            "in": "path",
+            "description": "Project external identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "1234-5678-abcd-efgh"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/SUP-1234/external_id\"\n"
+          }
+        ]
+      }
+    },
+    "/projects/describe": {
+      "get": {
+        "tags": [
+          "projects"
+        ],
+        "description": "Returns a list of fields for the project object.",
+        "operationId": "Describe Project object",
+        "summary": "Describe Project object",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProjectFieldModel"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/describe_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/describe\"\n"
+          }
+        ]
+      }
+    },
+    "/projects/{project_id}/relationships/supplier_companies": {
+      "post": {
+        "tags": [
+          "project_supplier_companies"
+        ],
+        "description": "Add suppliers to a project.\n\nFor best performance, we recommend inviting 10 or less suppliers in a single request.\n",
+        "operationId": "Add Suppliers",
+        "summary": "Add Suppliers",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/SupplierCompanyBase"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/create_request-2"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":[{ \"type\": \"supplier_companies\", \"id\": \"5\" },{ \"type\": \"supplier_companies\", \"id\": \"11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/1/relationships/supplier_companies\"\n"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "project_supplier_companies"
+        ],
+        "description": "Remove suppliers from a project.\n\nFor best performance, we recommend removing 10 or less suppliers in a single request.\n",
+        "operationId": "Remove Suppliers",
+        "summary": "Remove Suppliers",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "$ref": "#/components/schemas/SupplierCompanyBase"
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/delete_request"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     -d '{\"data\":[{ \"type\": \"supplier_companies\", \"id\": \"5\" },{ \"type\": \"supplier_companies\", \"id\": \"11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/1/relationships/supplier_companies\"\n"
+          }
+        ]
+      }
+    },
+    "/projects/{project_external_id}/relationships/supplier_companies/external_id": {
+      "post": {
+        "tags": [
+          "project_supplier_companies"
+        ],
+        "description": "Add suppliers to a project.\n\nYou must supply the unique project external identifier (the one you used when created the project).\n\nYou must supply the external identifiers of the supplier companies too.\n\nFor best performance, we recommend inviting 10 or less suppliers in a single request.\n",
+        "operationId": "Add Suppliers using External IDs",
+        "summary": "Add Suppliers using External IDs",
+        "parameters": [
+          {
+            "name": "project_external_id",
+            "in": "path",
+            "description": "Project external identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "PRJ1"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ExternalSupplierCompanyBase"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/external_create_request"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":[{ \"type\": \"supplier_companies\", \"id\": \"SUP5\" },{ \"type\": \"supplier_companies\", \"id\": \"SUP11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/PRJ1/relationships/supplier_companies/external_id\"\n"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "project_supplier_companies"
+        ],
+        "description": "Remove suppliers from a project.\n\nYou must supply the unique project external identifier (the one you used when created the project).\n\nYou must supply the external identifiers of the supplier companies too.\n\nFor best performance, we recommend removing 10 or less suppliers in a single request.\n",
+        "operationId": "Remove Suppliers using External IDs",
+        "summary": "Remove Suppliers using External IDs",
+        "parameters": [
+          {
+            "name": "project_external_id",
+            "in": "path",
+            "description": "Project external identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "PRJ1"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ExternalSupplierCompanyBase"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/external_delete_request"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     -d '{\"data\":[{ \"type\": \"supplier_companies\", \"id\": \"SUP5\" },{ \"type\": \"supplier_companies\", \"id\": \"SUP11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/PRJ1/relationships/supplier_companies/external_id\"\n"
+          }
+        ]
+      }
+    },
+    "/projects/{project_id}/relationships/supplier_contacts": {
+      "post": {
+        "tags": [
+          "project_supplier_contacts"
+        ],
+        "description": "Add suppliers to a project using supplier contacts.\n\nFor best performance, we recommend inviting 10 or less supplier contacts in a single request.\n",
+        "operationId": "Add Suppliers using Contacts",
+        "summary": "Add Suppliers using Contacts",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/SupplierContactBase"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/create_request-3"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":[{ \"type\": \"supplier_contacts\", \"id\": \"5\" },{ \"type\": \"supplier_contacts\", \"id\": \"11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/1/relationships/supplier_contacts\"\n"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "project_supplier_contacts"
+        ],
+        "description": "Remove suppliers from a project using supplier contacts.\n\nFor best performance, we recommend removing 10 or less supplier contacts in a single request.\n",
+        "operationId": "Remove Suppliers using Contacts",
+        "summary": "Remove Suppliers using Contacts",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "Project identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/SupplierContactBase"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/delete_request-2"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     -d '{\"data\":[{ \"type\": \"supplier_contacts\", \"id\": \"5\" },{ \"type\": \"supplier_contacts\", \"id\": \"11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/1/relationships/supplier_contacts\"\n"
+          }
+        ]
+      }
+    },
+    "/projects/{project_external_id}/relationships/supplier_contacts/external_id": {
+      "post": {
+        "tags": [
+          "project_supplier_contacts"
+        ],
+        "description": "Add suppliers to a project using supplier contacts.\n\nYou must supply the unique project external identifier (the one you used when created the project).\n\nYou must supply the external identifiers of the supplier contacts too.\n\nFor best performance, we recommend inviting 10 or less supplier contacts in a single request.\n",
+        "operationId": "Add Suppliers using Contacts External IDs",
+        "summary": "Add Suppliers using Contacts External IDs",
+        "parameters": [
+          {
+            "name": "project_external_id",
+            "in": "path",
+            "description": "Project external identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "PRJ1"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ExternalSupplierContactBase"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/external_create_request-2"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":[{ \"type\": \"supplier_contacts\", \"id\": \"SUP5\" },{ \"type\": \"supplier_contacts\", \"id\": \"SUP11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/PRJ1/relationships/supplier_contacts/external_id\"\n"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "project_supplier_contacts"
+        ],
+        "description": "Remove suppliers from a project using supplier contacts.\n\nYou must supply the unique project external identifier (the one you used when created the project).\n\nYou must supply the external identifiers of the supplier contacts too.\n\nFor best performance, we recommend removing 10 or less supplier contacts in a single request.\n",
+        "operationId": "Remove Suppliers using Contacts External IDs",
+        "summary": "Remove Suppliers using Contacts External IDs",
+        "parameters": [
+          {
+            "name": "project_external_id",
+            "in": "path",
+            "description": "Project external identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "PRJ1"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ExternalSupplierContactBase"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/external_delete_request-2"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     -d '{\"data\":[{ \"type\": \"supplier_contacts\", \"id\": \"SUP5\" },{ \"type\": \"supplier_contacts\", \"id\": \"SUP11\" }]}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/PRJ1/relationships/supplier_contacts/external_id\"\n"
+          }
+        ]
+      }
+    },
+    "/project_types": {
+      "get": {
+        "tags": [
+          "project_types"
+        ],
+        "description": "Returns a list of all project types.",
+        "operationId": "List Project Types",
+        "summary": "List Project Types",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/ProjectTypeModel"
+                          }
+                        },
+                        "meta": {
+                          "type": "object",
+                          "description": "Result set metadata.",
+                          "properties": {
+                            "count": {
+                              "type": "integer",
+                              "description": "Number of pages in the result set."
+                            }
+                          }
+                        },
+                        "links": {
+                          "$ref": "#/components/schemas/SelfLink"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/index_response-2"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/project_types\"\n"
+          }
+        ]
+      }
+    },
+    "/project_types/{id}": {
+      "get": {
+        "tags": [
+          "project_types"
+        ],
+        "description": "Retrieves the details of an existing project type.\n",
+        "operationId": "Get a Project Type",
+        "summary": "Get a Project Type",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique project type identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/ProjectTypeModel"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/show_response-2"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/project_types/1\"\n"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProjectState": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "requested",
+          "planned",
+          "active",
+          "completed",
+          "canceled",
+          "on_hold"
+        ],
+        "description": "Current project state."
+      },
+      "ProjectInputFilter": {
+        "type": "object",
+        "properties": {
+          "updated_at_from": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Return projects updated on or after the specified timestamp.",
+            "example": "2019-10-29T21:28:46.790Z"
+          },
+          "updated_at_to": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Return projects updated on or before the specified timestamp.",
+            "example": "2019-10-29T21:28:46.790Z"
+          },
+          "number_from": {
+            "type": "string",
+            "format": "integer",
+            "description": "Find projects with the number equal or greater than the specified one."
+          },
+          "number_to": {
+            "type": "string",
+            "format": "integer",
+            "description": "Find projects with the number equal or smaller than the specified one."
+          },
+          "title_contains": {
+            "type": "string",
+            "description": "Return projects with title containing the specified string."
+          },
+          "title_not_contains": {
+            "type": "string",
+            "description": "Return projects with title not containing the specified string."
+          },
+          "description_contains": {
+            "type": "string",
+            "description": "Return projects with description containing the specified string."
+          },
+          "description_not_contains": {
+            "type": "string",
+            "description": "Return projects with description not containing the specified string."
+          },
+          "external_id_empty": {
+            "type": "boolean",
+            "description": "Return projects with `external_id` blank.",
+            "example": true
+          },
+          "external_id_not_empty": {
+            "type": "boolean",
+            "description": "Return projects with non-blank `external_id`.",
+            "example": false
+          },
+          "external_id_equals": {
+            "type": "string",
+            "description": "Find projects by a specific external ID.",
+            "example": "SUP-123"
+          },
+          "external_id_not_equals": {
+            "type": "string",
+            "description": "Find projects excluding the one with the specified external ID.",
+            "example": "SUP-123"
+          },
+          "actual_start_date_from": {
+            "type": "string",
+            "format": "date",
+            "description": "Return projects started on or after the specified date."
+          },
+          "actual_start_date_to": {
+            "type": "string",
+            "format": "date",
+            "description": "Return projects started on or before the specified date."
+          },
+          "actual_end_date_from": {
+            "type": "string",
+            "format": "date",
+            "description": "Return projects ended on or after the specified date."
+          },
+          "actual_end_date_to": {
+            "type": "string",
+            "format": "date",
+            "description": "Return projects ended on or before the specified date."
+          },
+          "target_start_date_from": {
+            "type": "string",
+            "format": "date",
+            "description": "Return projects targeted to start on or after the specified date."
+          },
+          "target_start_date_to": {
+            "type": "string",
+            "format": "date",
+            "description": "Return projects targeted to start on or before the specified date."
+          },
+          "target_end_date_from": {
+            "type": "string",
+            "format": "date",
+            "description": "Return projects targeted to end on or after the specified date."
+          },
+          "target_end_date_to": {
+            "type": "string",
+            "format": "date",
+            "description": "Return projects targeted to end on or before the specified date."
+          },
+          "actual_spend_amount_from": {
+            "type": "number",
+            "format": "double",
+            "description": "Return projects with actual spend amount equal or greater than the specified amount."
+          },
+          "actual_spend_amount_to": {
+            "type": "number",
+            "format": "double",
+            "description": "Return projects with actual spend amount equal or smaller than the specified amount."
+          },
+          "approved_spend_amount_from": {
+            "type": "number",
+            "format": "double",
+            "description": "Return projects with approved spend amount equal or greater than the specified amount."
+          },
+          "approved_spend_amount_to": {
+            "type": "number",
+            "format": "double",
+            "description": "Return projects with approved spend amount equal or smaller than the specified amount."
+          },
+          "estimated_savings_amount_from": {
+            "type": "number",
+            "format": "double",
+            "description": "Return projects with estimated savings amount equal or greater than the specified amount."
+          },
+          "estimated_savings_amount_to": {
+            "type": "number",
+            "format": "double",
+            "description": "Return projects with estimated savings amount equal or smaller than the specified amount."
+          },
+          "estimated_spend_amount_from": {
+            "type": "number",
+            "format": "double",
+            "description": "Return projects with estimated spend amount equal or greater than the specified amount."
+          },
+          "estimated_spend_amount_to": {
+            "type": "number",
+            "format": "double",
+            "description": "Return projects with estimated spend amount equal or smaller than the specified amount."
+          },
+          "canceled_note_contains": {
+            "type": "string",
+            "description": "Return projects with cancelation note containing the specified string."
+          },
+          "canceled_note_not_contains": {
+            "type": "string",
+            "description": "Return projects with cancelation note not containing the specified string."
+          },
+          "canceled_note_empty": {
+            "type": "string",
+            "description": "Return projects with an empty cancelation note."
+          },
+          "canceled_note_not_empty": {
+            "type": "string",
+            "description": "Return projects with a non-empty cancelation note."
+          },
+          "canceled_reason_contains": {
+            "type": "string",
+            "description": "Return projects with cancelation reason containing the specified string."
+          },
+          "canceled_reason_not_contains": {
+            "type": "string",
+            "description": "Return projects with cancelation reason not containing the specified string."
+          },
+          "canceled_reason_empty": {
+            "type": "string",
+            "description": "Return projects with an empty cancelation reason."
+          },
+          "canceled_reason_not_empty": {
+            "type": "string",
+            "description": "Return projects with a non-empty cancelation reason."
+          },
+          "on_hold_note_contains": {
+            "type": "string",
+            "description": "Return projects with on-hold note containing the specified string."
+          },
+          "on_hold_note_not_contains": {
+            "type": "string",
+            "description": "Return projects with on-hold note not containing the specified string."
+          },
+          "on_hold_note_empty": {
+            "type": "string",
+            "description": "Return projects with an empty on-hold note."
+          },
+          "on_hold_note_not_empty": {
+            "type": "string",
+            "description": "Return projects with a non-empty on-hold note."
+          },
+          "on_hold_reason_contains": {
+            "type": "string",
+            "description": "Return projects with on-hold reason containing the specified string."
+          },
+          "on_hold_reason_not_contains": {
+            "type": "string",
+            "description": "Return projects with on-hold reason not containing the specified string."
+          },
+          "on_hold_reason_empty": {
+            "type": "string",
+            "description": "Return projects with an empty on-hold reason."
+          },
+          "on_hold_reason_not_empty": {
+            "type": "string",
+            "description": "Return projects with a non-empty on-hold reason."
+          },
+          "needs_attention_equals": {
+            "type": "boolean",
+            "description": "Return projects with the specified \"needs attention\" status."
+          },
+          "needs_attention_not_equals": {
+            "type": "boolean",
+            "description": "Return projects with the \"needs attention\" status not equal to the specified one."
+          },
+          "state_equals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectState"
+            },
+            "description": "Find projects with specified statuses.",
+            "example": [
+              "requested",
+              "planned"
+            ]
+          },
+          "marked_as_needs_attention_at_from": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Find projects marked as \"needs attention\" after or on the specified date."
+          },
+          "marked_as_needs_attention_at_to": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Find projects marked as \"needs attention\" before or on the specified date."
+          },
+          "needs_attention_note_contains": {
+            "type": "string",
+            "description": "Return projects with \"needs attention\" note containing the specified string."
+          },
+          "needs_attention_note_not_contains": {
+            "type": "string",
+            "description": "Return projects with \"needs attention\" note not containing the specified string."
+          },
+          "needs_attention_note_empty": {
+            "type": "string",
+            "description": "Return projects with an empty \"needs attention\" note."
+          },
+          "needs_attention_note_not_empty": {
+            "type": "string",
+            "description": "Return projects with a non-empty \"needs attention\" note."
+          },
+          "needs_attention_reason_contains": {
+            "type": "string",
+            "description": "Return projects with \"needs attention\" reason containing the specified string."
+          },
+          "needs_attention_reason_not_contains": {
+            "type": "string",
+            "description": "Return projects with \"needs attention\" reason not containing the specified string."
+          },
+          "needs_attention_reason_empty": {
+            "type": "string",
+            "description": "Return projects with an empty \"needs attention\" reason."
+          },
+          "needs_attention_reason_not_empty": {
+            "type": "string",
+            "description": "Return projects with a non-empty \"needs attention\" reason."
+          }
+        }
+      },
+      "PageInput": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "number",
+            "format": "integer",
+            "description": "The number of results returned per page. Default is `10` and max is `100`.",
+            "example": "25"
+          }
+        }
+      },
+      "ProjectType": {
+        "type": "string",
+        "description": "Object type, should always be `projects`.",
+        "example": "projects"
+      },
+      "ProjectId": {
+        "type": "integer",
+        "description": "Project identifier string.",
+        "example": 1
+      },
+      "ProjectBase": {
+        "title": "Project",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ProjectType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/ProjectId"
+          }
+        }
+      },
+      "CustomFieldBase": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Custom field name.",
+            "example": "My Custom Field"
+          }
+        }
+      },
+      "CustomFieldCheckbox": {
+        "title": "Checkbox",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        ]
+      },
+      "CustomFieldShortText": {
+        "title": "Short Text",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "A short text (usually under 255 characters)."
+              }
+            }
+          }
+        ]
+      },
+      "CustomFieldParagraph": {
+        "title": "Paragraph",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "A longer text paragraph."
+              }
+            }
+          }
+        ]
+      },
+      "CustomFieldDate": {
+        "title": "Date",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "format": "date",
+                "description": "A date value."
+              }
+            }
+          }
+        ]
+      },
+      "CustomFieldInteger": {
+        "title": "Integer",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "integer",
+                "description": "An integer value. The maximum value is 9,007,199,254,740,991."
+              }
+            }
+          }
+        ]
+      },
+      "CustomFieldCurrency": {
+        "title": "Currency",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "format": "integer",
+                "description": "A currency value represented as an integer. The maximum value is 9,007,199,254,740,991."
+              }
+            }
+          }
+        ]
+      },
+      "CustomFieldDecimal": {
+        "title": "Decimal",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "format": "decimal",
+                "description": "A decimal value represented as a number with floating point."
+              }
+            }
+          }
+        ]
+      },
+      "CustomFieldSingleSelect": {
+        "title": "Single Select",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "A single value from a predefined list of possible options."
+              }
+            }
+          }
+        ]
+      },
+      "CustomFieldMultipleSelect": {
+        "title": "Multiple Select",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "description": "A list of values from a predefined list of possible options.",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CustomFieldURL": {
+        "title": "URL",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "format": "url",
+                "description": "URL string."
+              }
+            }
+          }
+        ]
+      },
+      "CustomFieldLookup": {
+        "title": "Lookup",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "A value from a customer-provided lookup data source."
+              }
+            }
+          }
+        ]
+      },
+      "CustomFieldRelated": {
+        "title": "Related",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "A value related to the lookup custom field value, retrieved from the same data source object."
+              }
+            }
+          }
+        ]
+      },
+      "CustomField": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CustomFieldCheckbox"
+          },
+          {
+            "$ref": "#/components/schemas/CustomFieldShortText"
+          },
+          {
+            "$ref": "#/components/schemas/CustomFieldParagraph"
+          },
+          {
+            "$ref": "#/components/schemas/CustomFieldDate"
+          },
+          {
+            "$ref": "#/components/schemas/CustomFieldInteger"
+          },
+          {
+            "$ref": "#/components/schemas/CustomFieldCurrency"
+          },
+          {
+            "$ref": "#/components/schemas/CustomFieldDecimal"
+          },
+          {
+            "$ref": "#/components/schemas/CustomFieldSingleSelect"
+          },
+          {
+            "$ref": "#/components/schemas/CustomFieldMultipleSelect"
+          },
+          {
+            "$ref": "#/components/schemas/CustomFieldURL"
+          },
+          {
+            "$ref": "#/components/schemas/CustomFieldLookup"
+          },
+          {
+            "$ref": "#/components/schemas/CustomFieldRelated"
+          }
+        ]
+      },
+      "ProjectAttributes": {
+        "type": "object",
+        "description": "Project attributes.",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "description": "Project title."
+          },
+          "description": {
+            "type": "string",
+            "description": "Project description."
+          },
+          "state": {
+            "$ref": "#/components/schemas/ProjectState"
+          },
+          "state_label": {
+            "type": "string",
+            "description": "Customer-specific project state label."
+          },
+          "number": {
+            "type": "integer",
+            "readOnly": true,
+            "description": "Project number, generated sequentially."
+          },
+          "external_id": {
+            "type": "string",
+            "description": "Customer provided unique project identifier."
+          },
+          "target_start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Target start date."
+          },
+          "target_end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Target end date."
+          },
+          "actual_start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Project start date."
+          },
+          "actual_end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Project end date."
+          },
+          "estimated_savings_amount": {
+            "type": "number",
+            "format": "double",
+            "description": "Estimated savings amount."
+          },
+          "estimated_spend_amount": {
+            "type": "number",
+            "format": "double",
+            "description": "Estimated spend amount."
+          },
+          "actual_spend_amount": {
+            "type": "number",
+            "format": "double",
+            "description": "Actual spend amount."
+          },
+          "approved_spend_amount": {
+            "type": "number",
+            "format": "double",
+            "description": "Approved spend amount."
+          },
+          "canceled_note": {
+            "type": "string",
+            "description": "Cancelation note."
+          },
+          "canceled_reason": {
+            "type": "string",
+            "description": "Cancelation reason."
+          },
+          "marked_as_needs_attention_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the project was flagged as needs attention."
+          },
+          "needs_attention": {
+            "type": "boolean",
+            "description": "Identifies whether the project needs attention."
+          },
+          "needs_attention_note": {
+            "type": "string",
+            "description": "Additional notes on why the project needs attention."
+          },
+          "needs_attention_reason": {
+            "type": "string",
+            "description": "The reason why the project needs attention."
+          },
+          "on_hold_note": {
+            "type": "string",
+            "description": "Notes for the on-hold status."
+          },
+          "on_hold_reason": {
+            "type": "string",
+            "description": "Reasons for the project moved to on-hold."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "Last modification date.",
+            "example": "2019-10-29T21:28:46.790Z"
+          },
+          "custom_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomField"
+            },
+            "description": "Custom field values. Note: custom fields of type File can only be accessed through the user interface, they will be only exposed as `null` in the public API."
+          },
+          "approved_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the project was approved.",
+            "readOnly": true
+          },
+          "approval_rounds": {
+            "type": "integer",
+            "description": "Times project has been sent for approval.",
+            "example": 1
+          },
+          "first_sent_for_approval_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when project was sent for approval for first time.",
+            "readOnly": true
+          },
+          "sent_for_approval_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the project was sent for approval."
+          }
+        }
+      },
+      "AttachmentType": {
+        "type": "string",
+        "description": "Object type, should always be `attachments`.",
+        "example": "attachments"
+      },
+      "AttachmentId": {
+        "type": "integer",
+        "description": "Attachment identifier string.",
+        "example": 1
+      },
+      "AttachmentBase": {
+        "title": "Attachment",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/AttachmentType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/AttachmentId"
+          }
+        }
+      },
+      "StakeholderType": {
+        "type": "string",
+        "description": "Object type, should always be `stakeholders`.",
+        "example": "stakeholders"
+      },
+      "StakeholderId": {
+        "type": "integer",
+        "description": "Stakeholder identifier string.",
+        "example": 1
+      },
+      "StakeholderBase": {
+        "title": "Stakeholder",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/StakeholderType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/StakeholderId"
+          }
+        }
+      },
+      "PaymentCurrencyType": {
+        "type": "string",
+        "description": "Object type, should always be `payment_currencies`.",
+        "example": "payment_currencies"
+      },
+      "PaymentCurrencyId": {
+        "type": "integer",
+        "description": "Payment currency identifier string.",
+        "example": 1
+      },
+      "PaymentCurrencyBase": {
+        "title": "Field",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/PaymentCurrencyType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/PaymentCurrencyId"
+          }
+        }
+      },
+      "ProjectTypeType": {
+        "type": "string",
+        "description": "Object type, should always be `project_types`.",
+        "example": "project_types"
+      },
+      "ProjectTypeId": {
+        "type": "integer",
+        "description": "Project type identifier string.",
+        "example": 1
+      },
+      "ProjectTypeBase": {
+        "title": "ProjectType",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ProjectTypeType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/ProjectTypeId"
+          }
+        }
+      },
+      "RequisitionCurrencyType": {
+        "type": "string",
+        "description": "Object type, should always be `requisition_currencies`.",
+        "example": "requisition_currencies"
+      },
+      "RequisitionCurrencyId": {
+        "type": "string",
+        "description": "Requisition currency identifier string.",
+        "example": "USD"
+      },
+      "RequisitionCurrencyBase": {
+        "title": "Field",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/RequisitionCurrencyType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/RequisitionCurrencyId"
+          }
+        }
+      },
+      "ProjectRelationship": {
+        "type": "object",
+        "description": "Project relationships.",
+        "properties": {
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttachmentBase"
+            }
+          },
+          "creator": {
+            "type": "object",
+            "description": "Project creator is set based on API keys.",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/StakeholderBase"
+              }
+            }
+          },
+          "requester": {
+            "type": "object",
+            "description": "Project requester.",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/StakeholderBase"
+              }
+            }
+          },
+          "owner": {
+            "type": "object",
+            "description": "Project owner.",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/StakeholderBase"
+              }
+            }
+          },
+          "project_type": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ProjectTypeBase"
+              }
+            }
+          }
+        }
+      },
+      "SelfLink": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "type": "string",
+            "format": "url",
+            "description": "Normalized link to the resource."
+          }
+        }
+      },
+      "ResourceLinks": {
+        "type": "object",
+        "description": "List of related links.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SelfLink"
+          }
+        ]
+      },
+      "Project": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ProjectBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "$ref": "#/components/schemas/ProjectAttributes"
+              },
+              "relationships": {
+                "$ref": "#/components/schemas/ProjectRelationship"
+              },
+              "links": {
+                "$ref": "#/components/schemas/ResourceLinks"
+              }
+            }
+          }
+        ]
+      },
+      "NextPageLink": {
+        "type": "object",
+        "properties": {
+          "next": {
+            "type": "string",
+            "format": "url",
+            "description": "Link to the next results page.",
+            "nullable": true
+          }
+        }
+      },
+      "PrevPageLink": {
+        "type": "object",
+        "properties": {
+          "prev": {
+            "type": "string",
+            "format": "url",
+            "description": "Link to the previous results page.",
+            "nullable": true,
+            "deprecated": true
+          }
+        }
+      },
+      "PaginationLinks": {
+        "type": "object",
+        "description": "List of related links.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SelfLink"
+          },
+          {
+            "$ref": "#/components/schemas/NextPageLink"
+          },
+          {
+            "$ref": "#/components/schemas/PrevPageLink"
+          }
+        ]
+      },
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "meta": {
+            "type": "object",
+            "description": "Result set metadata.",
+            "properties": {
+              "count": {
+                "type": "integer",
+                "description": "Number of pages in the result set."
+              }
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          }
+        }
+      },
+      "StakeholderBaseData": {
+        "title": "Stakeholder Data",
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/StakeholderBase"
+          }
+        }
+      },
+      "StakeholderMetaIdLookup": {
+        "title": "Stakeholder Meta by ID",
+        "type": "object",
+        "required": [
+          "meta"
+        ],
+        "properties": {
+          "meta": {
+            "type": "object",
+            "description": "Search for a stakeholder by ID.",
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/StakeholderId"
+              }
+            }
+          }
+        }
+      },
+      "StakeholderEmail": {
+        "type": "string",
+        "format": "email",
+        "description": "Stakeholder's email.",
+        "example": "stakeholder.email@example.com"
+      },
+      "StakeholderMetaEmailLookup": {
+        "title": "Stakeholder Meta by Email",
+        "type": "object",
+        "required": [
+          "meta"
+        ],
+        "properties": {
+          "meta": {
+            "type": "object",
+            "description": "Search for a stakeholder by email.",
+            "required": [
+              "email"
+            ],
+            "properties": {
+              "email": {
+                "$ref": "#/components/schemas/StakeholderEmail"
+              }
+            }
+          }
+        }
+      },
+      "StakeholderLookup": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/StakeholderBaseData"
+          },
+          {
+            "$ref": "#/components/schemas/StakeholderMetaIdLookup"
+          },
+          {
+            "$ref": "#/components/schemas/StakeholderMetaEmailLookup"
+          }
+        ]
+      },
+      "ProjectRequestRelationship": {
+        "type": "object",
+        "description": "Project relationship.",
+        "properties": {
+          "owner": {
+            "$ref": "#/components/schemas/StakeholderLookup"
+          },
+          "requester": {
+            "$ref": "#/components/schemas/StakeholderLookup"
+          }
+        }
+      },
+      "ProjectCreate": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ProjectType"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/ProjectAttributes"
+          },
+          "relationships": {
+            "$ref": "#/components/schemas/ProjectRequestRelationship"
+          }
+        }
+      },
+      "ProjectUpdate": {
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ProjectType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/ProjectId"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/ProjectAttributes"
+          },
+          "relationships": {
+            "$ref": "#/components/schemas/ProjectRequestRelationship"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "detail": {
+            "type": "string",
+            "description": "A human-readable explanation specific to this occurrence of the problem."
+          }
+        }
+      },
+      "Errors": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "DescribeFieldType": {
+        "type": "string",
+        "description": "Object type, should always be `describe_fields`.",
+        "example": "describe_fields"
+      },
+      "DescribeFieldId": {
+        "type": "string",
+        "description": "Field identifier string.",
+        "example": "field_name"
+      },
+      "DescribeFieldBase": {
+        "title": "DescribeFieldModel",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/DescribeFieldType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/DescribeFieldId"
+          }
+        }
+      },
+      "OpenApiEnum": {
+        "type": "string",
+        "enum": [
+          "string",
+          "number",
+          "integer",
+          "boolean",
+          "array",
+          "object"
+        ],
+        "description": "OpenAPI data type.",
+        "example": "string"
+      },
+      "CustomFieldEnum": {
+        "type": "string",
+        "enum": [
+          "Checkbox",
+          "File",
+          "Short Text",
+          "Paragraph",
+          "Date",
+          "Integer",
+          "Currency",
+          "Decimal",
+          "Single Select",
+          "Multiple Select",
+          "URL",
+          "Lookup",
+          "Related"
+        ],
+        "description": "Internal name and meaning of each field.",
+        "example": "Short Text"
+      },
+      "DescribeFieldAttributes": {
+        "type": "object",
+        "description": "Describe field attributes.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "description": "Describe field name.",
+            "example": "field_name"
+          },
+          "data_type": {
+            "$ref": "#/components/schemas/OpenApiEnum"
+          },
+          "type_description": {
+            "$ref": "#/components/schemas/CustomFieldEnum"
+          },
+          "custom_field": {
+            "type": "boolean",
+            "description": "Flag for determining if this is a user created custom field or an internal system field.",
+            "example": false
+          }
+        }
+      },
+      "DescribeFieldModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DescribeFieldBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "$ref": "#/components/schemas/DescribeFieldAttributes"
+              }
+            }
+          }
+        ]
+      },
+      "ProjectFieldModel": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Object type, should always be `project_fields`.",
+                "example": "project_fields"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/DescribeFieldModel"
+          }
+        ]
+      },
+      "SupplierCompanyType": {
+        "type": "string",
+        "description": "Object type, should always be `supplier_companies`.",
+        "example": "supplier_companies"
+      },
+      "SupplierCompanyId": {
+        "type": "integer",
+        "description": "Supplier company identifier string.",
+        "example": 1
+      },
+      "SupplierCompanyBase": {
+        "title": "SupplierCompany",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SupplierCompanyType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/SupplierCompanyId"
+          }
+        }
+      },
+      "ExternalSupplierCompanyType": {
+        "type": "string",
+        "description": "Object type, should always be `supplier_companies`.",
+        "example": "supplier_companies"
+      },
+      "ExternalSupplierCompanyId": {
+        "type": "integer",
+        "description": "Supplier company external identifier string.",
+        "example": 1
+      },
+      "ExternalSupplierCompanyBase": {
+        "title": "ExternalSupplierCompany",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ExternalSupplierCompanyType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/ExternalSupplierCompanyId"
+          }
+        }
+      },
+      "SupplierContactType": {
+        "type": "string",
+        "description": "Object type, should always be `supplier_contacts`.",
+        "example": "supplier_contacts"
+      },
+      "SupplierContactId": {
+        "type": "integer",
+        "description": "Supplier contact identifier string.",
+        "example": 1
+      },
+      "SupplierContactBase": {
+        "title": "SupplierContact",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SupplierContactType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/SupplierContactId"
+          }
+        }
+      },
+      "SupplierContactExternalId": {
+        "type": "string",
+        "description": "Supplier contact external identifier.",
+        "example": "1234-5678-abcd-efgh"
+      },
+      "ExternalSupplierContactBase": {
+        "title": "ExternalSupplierContact",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SupplierContactType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/SupplierContactExternalId"
+          }
+        }
+      },
+      "ProjectTypeAttributes": {
+        "type": "object",
+        "description": "Project type attributes.",
+        "required": [
+          "name",
+          "shortcode"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "description": "Project type name.",
+            "example": "My Project Type"
+          },
+          "shortcode": {
+            "type": "string",
+            "maxLength": 4,
+            "description": "Contract type short code.",
+            "example": "PRJA"
+          }
+        }
+      },
+      "ProjectTypeModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ProjectTypeBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "$ref": "#/components/schemas/ProjectTypeAttributes"
+              },
+              "links": {
+                "$ref": "#/components/schemas/ResourceLinks"
+              }
+            }
+          }
+        ]
+      },
+      "Attachment": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AttachmentBase"
+          }
+        ]
+      },
+      "SupplierContact": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SupplierContactBase"
+          }
+        ]
+      },
+      "SupplierCompany": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SupplierCompanyBase"
+          }
+        ]
+      },
+      "CustomFieldEnumExtended": {
+        "type": "string",
+        "enum": [
+          "Checkbox",
+          "File",
+          "Short Text",
+          "Paragraph",
+          "Date",
+          "Integer",
+          "Currency",
+          "Decimal",
+          "Single Select",
+          "Multiple Select",
+          "URL",
+          "Lookup",
+          "Related",
+          "Single Relationship",
+          "Multiple Relationship"
+        ],
+        "description": "Internal name and meaning of each field.",
+        "example": "Short Text"
+      },
+      "PaymentCurrency": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentCurrencyBase"
+          }
+        ]
+      },
+      "SpendCategoryId": {
+        "type": "integer",
+        "description": "Spend category identifier string.",
+        "example": 1
+      },
+      "SpendCategoryName": {
+        "type": "string",
+        "maxLength": 255,
+        "description": "Spend category name."
+      },
+      "SpendCategoryExternalId": {
+        "type": "string",
+        "maxLength": 255,
+        "description": "Spend category external identifier string."
+      },
+      "SpendCategoryUsages": {
+        "type": "array",
+        "description": "Spend category usages. Only spend categories with `procurement` usage can be used for requisitions.",
+        "items": {
+          "type": "string",
+          "enum": [
+            "procurement",
+            "expense",
+            "ad_hoc_payment",
+            "supplier_invoice"
+          ]
+        }
+      },
+      "SpendCategoryType": {
+        "type": "string",
+        "description": "Object type, should always be `spend_categories`.",
+        "example": "spend_categories"
+      },
+      "SpendCategoryBase": {
+        "title": "SpendCategory",
+        "type": "object",
+        "required": [
+          "name",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SpendCategoryType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/SpendCategoryId"
+          }
+        }
+      },
+      "SpendCategoryAttributes": {
+        "type": "object",
+        "description": "Spend category attributes.",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/SpendCategoryName"
+          },
+          "external_id": {
+            "$ref": "#/components/schemas/SpendCategoryExternalId"
+          },
+          "usages": {
+            "$ref": "#/components/schemas/SpendCategoryUsages"
+          }
+        }
+      },
+      "SpendCategory": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SpendCategoryBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "$ref": "#/components/schemas/SpendCategoryAttributes"
+              }
+            }
+          }
+        ]
+      },
+      "SpendCategoryUpdateAttributes": {
+        "type": "object",
+        "description": "Spend category update attributes.",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/SpendCategoryName"
+          },
+          "external_id": {
+            "$ref": "#/components/schemas/SpendCategoryExternalId"
+          },
+          "usages": {
+            "$ref": "#/components/schemas/SpendCategoryUsages"
+          }
+        }
+      }
+    },
+    "examples": {
+      "index_response": {
+        "value": {
+          "meta": {
+            "count": 2
+          },
+          "data": [
+            {
+              "type": "projects",
+              "id": "1",
+              "attributes": {
+                "actual_end_date": "2031-12-30",
+                "actual_spend_amount": 23.45,
+                "approved_spend_amount": 55.55,
+                "actual_start_date": "2018-01-20",
+                "approved_at": "2019-10-11T09:12:31.080Z",
+                "approval_rounds": 1,
+                "canceled_note": null,
+                "canceled_reason": null,
+                "description": "Project Description",
+                "estimated_savings_amount": 11.33,
+                "estimated_spend_amount": 21.12,
+                "external_id": "1234-5678-abcd-efgh",
+                "marked_as_needs_attention_at": null,
+                "needs_attention": false,
+                "needs_attention_note": null,
+                "needs_attention_reason": null,
+                "number": 1,
+                "on_hold_note": null,
+                "on_hold_reason": null,
+                "first_sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+                "sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+                "state": "active",
+                "state_label": "Sourcing",
+                "target_end_date": "2031-12-31",
+                "target_start_date": "2018-01-15",
+                "title": "Project Title",
+                "updated_at": "2019-10-29T21:28:46.790Z",
+                "request_submitted_at": "2019-10-28T21:28:46.790Z",
+                "request_opened_at": null,
+                "custom_fields": [
+                  {
+                    "name": "Custom Field Currency",
+                    "value": 1234567890
+                  },
+                  {
+                    "name": "Custom Field Integer",
+                    "value": 1234567890
+                  },
+                  {
+                    "name": "Custom Field Checkbox",
+                    "value": true
+                  },
+                  {
+                    "name": "Custom Field Decimal",
+                    "value": 123456.78
+                  },
+                  {
+                    "name": "Custom Field Date",
+                    "value": "2018-12-31T00:00:00.000Z"
+                  },
+                  {
+                    "name": "Custom Field Select",
+                    "value": "Select Option"
+                  },
+                  {
+                    "name": "Custom Field Multiple",
+                    "value": [
+                      "Multiple Select Option 1",
+                      "Multiple Select Option 2"
+                    ]
+                  },
+                  {
+                    "name": "Custom Field Short Text",
+                    "value": "some short text"
+                  },
+                  {
+                    "name": "Custom Field Paragraph",
+                    "value": "longer text than short text"
+                  },
+                  {
+                    "name": "Custom Field URL",
+                    "value": "http://www.example.com"
+                  }
+                ]
+              },
+              "relationships": {
+                "attachments": {
+                  "data": [
+                    {
+                      "id": "1",
+                      "type": "attachments"
+                    },
+                    {
+                      "id": "2",
+                      "type": "attachments"
+                    }
+                  ]
+                },
+                "spend_category": {
+                  "data": {
+                    "id": "1",
+                    "type": "spend_categories"
+                  }
+                },
+                "project_type": {
+                  "data": {
+                    "id": "1",
+                    "type": "project_types"
+                  }
+                },
+                "creator": {
+                  "data": {
+                    "id": "1",
+                    "type": "stakeholders"
+                  }
+                },
+                "requester": {
+                  "data": {
+                    "id": "3",
+                    "type": "stakeholders"
+                  }
+                },
+                "owner": {
+                  "data": {
+                    "id": "1",
+                    "type": "stakeholders"
+                  }
+                }
+              },
+              "links": {
+                "self": "https://api.us.workdayspend.com/services/projects/v1/projects/1"
+              }
+            },
+            {
+              "type": "projects",
+              "id": "2",
+              "attributes": {
+                "actual_end_date": "2032-11-20",
+                "actual_spend_amount": 223.45,
+                "approved_spend_amount": 255.55,
+                "actual_start_date": "2019-02-20",
+                "approved_at": "2019-10-11T09:12:31.080Z",
+                "approval_rounds": 1,
+                "canceled_note": null,
+                "canceled_reason": null,
+                "description": "Project #2 Description",
+                "estimated_savings_amount": 211.33,
+                "estimated_spend_amount": 221.12,
+                "external_id": "abcd-efgh-1234-5678",
+                "marked_as_needs_attention_at": null,
+                "needs_attention": false,
+                "needs_attention_note": null,
+                "needs_attention_reason": null,
+                "number": 2,
+                "on_hold_note": null,
+                "on_hold_reason": null,
+                "first_sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+                "sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+                "state": "active",
+                "state_label": "Sourcing",
+                "target_end_date": "2032-11-21",
+                "target_start_date": "2019-02-15",
+                "title": "Project #2 Title",
+                "updated_at": "2019-10-29T21:28:46.790Z",
+                "request_submitted_at": "2019-10-28T21:28:46.790Z",
+                "request_opened_at": null,
+                "custom_fields": [
+                  {
+                    "name": "Custom Field Currency",
+                    "value": 1234567890
+                  },
+                  {
+                    "name": "Custom Field Integer",
+                    "value": 1234567890
+                  },
+                  {
+                    "name": "Custom Field Checkbox",
+                    "value": true
+                  },
+                  {
+                    "name": "Custom Field Decimal",
+                    "value": 123456.78
+                  },
+                  {
+                    "name": "Custom Field Date",
+                    "value": "2018-12-31T00:00:00.000Z"
+                  },
+                  {
+                    "name": "Custom Field Select",
+                    "value": "Select Option"
+                  },
+                  {
+                    "name": "Custom Field Multiple",
+                    "value": [
+                      "Multiple Select Option 1",
+                      "Multiple Select Option 2"
+                    ]
+                  },
+                  {
+                    "name": "Custom Field Short Text",
+                    "value": "some short text"
+                  },
+                  {
+                    "name": "Custom Field Paragraph",
+                    "value": "longer text than short text"
+                  },
+                  {
+                    "name": "Custom Field URL",
+                    "value": "http://www.example.com"
+                  }
+                ]
+              },
+              "relationships": {
+                "attachments": {
+                  "data": []
+                },
+                "project_type": {
+                  "data": {
+                    "id": "1",
+                    "type": "project_types"
+                  }
+                },
+                "spend_category": {
+                  "data": {
+                    "id": "1",
+                    "type": "spend_categories"
+                  }
+                },
+                "creator": {
+                  "data": {
+                    "id": "1",
+                    "type": "stakeholders"
+                  }
+                },
+                "requester": {
+                  "data": {
+                    "id": "3",
+                    "type": "stakeholders"
+                  }
+                },
+                "owner": {
+                  "data": {
+                    "id": "1",
+                    "type": "stakeholders"
+                  }
+                }
+              },
+              "links": {
+                "self": "https://api.us.workdayspend.com/services/projects/v1/projects/2"
+              }
+            }
+          ],
+          "links": {
+            "self": "https://api.us.workdayspend.com/services/projects/v1/projects?page%5Bsize%5D=10",
+            "next": "https://api.us.workdayspend.com/services/projects/v1/projects?page%5Bcursor%5D=WzgzXQ%3D%3D&page%5Bdirection%5D=next&page%5Bsize%5D=10",
+            "prev": "https://api.us.workdayspend.com/services/projects/v1/projects?page%5Bcursor%5D=WzgyXQ%3D%3D&page%5Bdirection%5D=prev&page%5Bsize%5D=10"
+          }
+        }
+      },
+      "create_request": {
+        "value": {
+          "data": {
+            "type": "projects",
+            "attributes": {
+              "actual_end_date": "2031-12-30",
+              "actual_spend_amount": "23.45",
+              "approved_spend_amount": "55.55",
+              "actual_start_date": "2018-01-20",
+              "canceled_note": null,
+              "canceled_reason": null,
+              "description": "Project Description",
+              "estimated_savings_amount": "11.33",
+              "estimated_spend_amount": "21.12",
+              "external_id": "1234-5678-abcd-efgh",
+              "needs_attention": false,
+              "needs_attention_note": null,
+              "needs_attention_reason": null,
+              "on_hold_note": null,
+              "on_hold_reason": null,
+              "state": "active",
+              "state_label": "Sourcing",
+              "target_end_date": "2031-12-31",
+              "target_start_date": "2018-01-15",
+              "title": "Project Title",
+              "custom_fields": [
+                {
+                  "name": "Custom Field Currency",
+                  "value": 1234567890
+                },
+                {
+                  "name": "Custom Field Integer",
+                  "value": 1234567890
+                },
+                {
+                  "name": "Custom Field Checkbox",
+                  "value": true
+                },
+                {
+                  "name": "Custom Field Decimal",
+                  "value": 123456.78
+                },
+                {
+                  "name": "Custom Field Date",
+                  "value": "2018-12-31T00:00:00.000Z"
+                },
+                {
+                  "name": "Custom Field Select",
+                  "value": "Select Option"
+                },
+                {
+                  "name": "Custom Field Multiple",
+                  "value": [
+                    "Multiple Select Option 1",
+                    "Multiple Select Option 2"
+                  ]
+                },
+                {
+                  "name": "Custom Field Short Text",
+                  "value": "some short text"
+                },
+                {
+                  "name": "Custom Field Paragraph",
+                  "value": "longer text than short text"
+                },
+                {
+                  "name": "Custom Field URL",
+                  "value": "http://www.example.com"
+                }
+              ]
+            },
+            "relationships": {
+              "owner": {
+                "meta": {
+                  "email": "contract.owner@example.com"
+                }
+              },
+              "requester": {
+                "meta": {
+                  "email": "requester@example.com"
+                }
+              }
+            }
+          }
+        }
+      },
+      "create_compound_request": {
+        "value": {
+          "data": {
+            "type": "projects",
+            "attributes": {
+              "actual_end_date": "2031-12-30",
+              "actual_spend_amount": "23.45",
+              "approved_spend_amount": "55.55",
+              "actual_start_date": "2018-01-20",
+              "canceled_note": null,
+              "canceled_reason": null,
+              "description": "Project Description",
+              "estimated_savings_amount": "11.33",
+              "estimated_spend_amount": "21.12",
+              "external_id": "1234-5678-abcd-efgh",
+              "needs_attention": false,
+              "needs_attention_note": null,
+              "needs_attention_reason": null,
+              "on_hold_note": null,
+              "on_hold_reason": null,
+              "state": "active",
+              "state_label": "Sourcing",
+              "target_end_date": "2031-12-31",
+              "target_start_date": "2018-01-15",
+              "title": "Project Title",
+              "custom_fields": [
+                {
+                  "name": "Custom Field Currency",
+                  "value": 1234567890
+                },
+                {
+                  "name": "Custom Field Integer",
+                  "value": 1234567890
+                },
+                {
+                  "name": "Custom Field Checkbox",
+                  "value": true
+                },
+                {
+                  "name": "Custom Field Decimal",
+                  "value": 123456.78
+                },
+                {
+                  "name": "Custom Field Date",
+                  "value": "2018-12-31T00:00:00.000Z"
+                },
+                {
+                  "name": "Custom Field Select",
+                  "value": "Select Option"
+                },
+                {
+                  "name": "Custom Field Multiple",
+                  "value": [
+                    "Multiple Select Option 1",
+                    "Multiple Select Option 2"
+                  ]
+                },
+                {
+                  "name": "Custom Field Short Text",
+                  "value": "some short text"
+                },
+                {
+                  "name": "Custom Field Paragraph",
+                  "value": "longer text than short text"
+                },
+                {
+                  "name": "Custom Field URL",
+                  "value": "http://www.example.com"
+                }
+              ]
+            },
+            "relationships": {
+              "owner": {
+                "meta": {
+                  "email": "contract.owner@example.com"
+                }
+              },
+              "requester": {
+                "meta": {
+                  "email": "requester@example.com"
+                }
+              },
+              "requisition_currency": {
+                "data": {
+                  "id": "USD",
+                  "type": "requisition_currencies"
+                }
+              }
+            },
+            "included": [
+              {
+                "id": "USD",
+                "type": "requisition_currencies",
+                "attributes": {
+                  "abbreviation": "USD"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "create_response": {
+        "value": {
+          "data": {
+            "type": "projects",
+            "id": "1",
+            "attributes": {
+              "actual_end_date": "2031-12-30",
+              "actual_spend_amount": 23.45,
+              "approved_spend_amount": 55.55,
+              "actual_start_date": "2018-01-20",
+              "approved_at": null,
+              "approval_rounds": 0,
+              "canceled_note": null,
+              "canceled_reason": null,
+              "description": "Project Description",
+              "estimated_savings_amount": 11.33,
+              "estimated_spend_amount": 21.12,
+              "external_id": "1234-5678-abcd-efgh",
+              "marked_as_needs_attention_at": null,
+              "needs_attention": false,
+              "needs_attention_note": null,
+              "needs_attention_reason": null,
+              "number": 1,
+              "on_hold_note": null,
+              "on_hold_reason": null,
+              "first_sent_for_approval_at": null,
+              "sent_for_approval_at": null,
+              "state": "active",
+              "state_label": "Sourcing",
+              "target_end_date": "2031-12-31",
+              "target_start_date": "2018-01-15",
+              "title": "Project Title",
+              "updated_at": "2019-10-29T21:28:46.790Z",
+              "request_submitted_at": "2019-10-28T21:28:46.790Z",
+              "request_opened_at": null,
+              "custom_fields": [
+                {
+                  "name": "Custom Field Currency",
+                  "value": 1234567890
+                },
+                {
+                  "name": "Custom Field Integer",
+                  "value": 1234567890
+                },
+                {
+                  "name": "Custom Field Checkbox",
+                  "value": true
+                },
+                {
+                  "name": "Custom Field Decimal",
+                  "value": 123456.78
+                },
+                {
+                  "name": "Custom Field Date",
+                  "value": "2018-12-31T00:00:00.000Z"
+                },
+                {
+                  "name": "Custom Field Select",
+                  "value": "Select Option"
+                },
+                {
+                  "name": "Custom Field Multiple",
+                  "value": [
+                    "Multiple Select Option 1",
+                    "Multiple Select Option 2"
+                  ]
+                },
+                {
+                  "name": "Custom Field Short Text",
+                  "value": "some short text"
+                },
+                {
+                  "name": "Custom Field Paragraph",
+                  "value": "longer text than short text"
+                },
+                {
+                  "name": "Custom Field URL",
+                  "value": "http://www.example.com"
+                }
+              ]
+            },
+            "relationships": {
+              "attachments": {
+                "data": []
+              },
+              "project_type": {
+                "data": {
+                  "id": "1",
+                  "type": "project_types"
+                }
+              },
+              "spend_category": {
+                "data": {
+                  "id": "1",
+                  "type": "spend_categories"
+                }
+              },
+              "creator": {
+                "data": {
+                  "id": "2",
+                  "type": "stakeholders"
+                }
+              },
+              "requester": {
+                "data": {
+                  "id": "3",
+                  "type": "stakeholders"
+                }
+              },
+              "owner": {
+                "data": {
+                  "id": "2",
+                  "type": "stakeholders"
+                }
+              }
+            },
+            "links": {
+              "self": "https://api.us.workdayspend.com/services/projects/v1/projects/1"
+            }
+          }
+        }
+      },
+      "show_response": {
+        "value": {
+          "data": {
+            "type": "projects",
+            "id": "1",
+            "attributes": {
+              "actual_end_date": "2031-12-30",
+              "actual_spend_amount": 23.45,
+              "approved_spend_amount": 55.55,
+              "actual_start_date": "2018-01-20",
+              "approved_at": "2019-10-11T09:12:31.080Z",
+              "approval_rounds": 1,
+              "canceled_note": null,
+              "canceled_reason": null,
+              "description": "Project Description",
+              "estimated_savings_amount": 11.33,
+              "estimated_spend_amount": 21.12,
+              "external_id": "1234-5678-abcd-efgh",
+              "marked_as_needs_attention_at": null,
+              "needs_attention": false,
+              "needs_attention_note": null,
+              "needs_attention_reason": null,
+              "number": 1,
+              "on_hold_note": null,
+              "on_hold_reason": null,
+              "first_sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+              "sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+              "state": "active",
+              "state_label": "Sourcing",
+              "target_end_date": "2031-12-31",
+              "target_start_date": "2018-01-15",
+              "title": "Project Title",
+              "updated_at": "2019-10-29T21:28:46.790Z",
+              "request_submitted_at": "2019-10-28T21:28:46.790Z",
+              "request_opened_at": null,
+              "custom_fields": [
+                {
+                  "name": "Custom Field Currency",
+                  "value": 1234567890
+                },
+                {
+                  "name": "Custom Field Integer",
+                  "value": 1234567890
+                },
+                {
+                  "name": "Custom Field Checkbox",
+                  "value": true
+                },
+                {
+                  "name": "Custom Field Decimal",
+                  "value": 123456.78
+                },
+                {
+                  "name": "Custom Field Date",
+                  "value": "2018-12-31T00:00:00.000Z"
+                },
+                {
+                  "name": "Custom Field Select",
+                  "value": "Select Option"
+                },
+                {
+                  "name": "Custom Field Multiple",
+                  "value": [
+                    "Multiple Select Option 1",
+                    "Multiple Select Option 2"
+                  ]
+                },
+                {
+                  "name": "Custom Field Short Text",
+                  "value": "some short text"
+                },
+                {
+                  "name": "Custom Field Paragraph",
+                  "value": "longer text than short text"
+                },
+                {
+                  "name": "Custom Field URL",
+                  "value": "http://www.example.com"
+                }
+              ]
+            },
+            "relationships": {
+              "attachments": {
+                "data": [
+                  {
+                    "id": "1",
+                    "type": "attachments"
+                  },
+                  {
+                    "id": "2",
+                    "type": "attachments"
+                  }
+                ]
+              },
+              "project_type": {
+                "data": {
+                  "id": "1",
+                  "type": "project_types"
+                }
+              },
+              "spend_category": {
+                "data": {
+                  "id": "1",
+                  "type": "spend_categories"
+                }
+              },
+              "creator": {
+                "data": {
+                  "id": "1",
+                  "type": "stakeholders"
+                }
+              },
+              "requester": {
+                "data": {
+                  "id": "3",
+                  "type": "stakeholders"
+                }
+              },
+              "owner": {
+                "data": {
+                  "id": "1",
+                  "type": "stakeholders"
+                }
+              }
+            },
+            "links": {
+              "self": "https://api.us.workdayspend.com/services/projects/v1/projects/1"
+            }
+          }
+        }
+      },
+      "update_request": {
+        "value": {
+          "data": {
+            "type": "projects",
+            "id": "1",
+            "attributes": {
+              "actual_end_date": "2031-12-30",
+              "actual_spend_amount": "223.45",
+              "approved_spend_amount": "255.55",
+              "actual_start_date": "2019-01-20",
+              "canceled_note": null,
+              "canceled_reason": null,
+              "description": "Project Description Updated",
+              "estimated_savings_amount": "211.33",
+              "estimated_spend_amount": "221.12",
+              "external_id": "1234-5678-abcd-efgh",
+              "needs_attention": false,
+              "needs_attention_note": null,
+              "needs_attention_reason": null,
+              "on_hold_note": null,
+              "on_hold_reason": null,
+              "state": "active",
+              "state_label": "Sourcing",
+              "target_end_date": "2032-12-31",
+              "target_start_date": "2019-01-15",
+              "title": "Project Title Updated",
+              "custom_fields": [
+                {
+                  "name": "Custom Field Currency",
+                  "value": 987654321
+                },
+                {
+                  "name": "Custom Field Integer",
+                  "value": 987654321
+                },
+                {
+                  "name": "Custom Field Checkbox",
+                  "value": false
+                },
+                {
+                  "name": "Custom Field Decimal",
+                  "value": 876543.21
+                },
+                {
+                  "name": "Custom Field Date",
+                  "value": "2018-12-25T00:00:00.000Z"
+                },
+                {
+                  "name": "Custom Field Select",
+                  "value": "Select Option"
+                },
+                {
+                  "name": "Custom Field Multiple",
+                  "value": [
+                    "Multiple Select Option 2"
+                  ]
+                },
+                {
+                  "name": "Custom Field Short Text",
+                  "value": "some short text updated"
+                },
+                {
+                  "name": "Custom Field Paragraph",
+                  "value": "longer text than short text updated"
+                },
+                {
+                  "name": "Custom Field URL",
+                  "value": "http://www.example.com/updated"
+                }
+              ]
+            },
+            "relationships": {
+              "owner": {
+                "meta": {
+                  "email": "contract.owner@example.com"
+                }
+              },
+              "requester": {
+                "meta": {
+                  "email": "requester@example.com"
+                }
+              }
+            }
+          }
+        }
+      },
+      "update_response": {
+        "value": {
+          "data": {
+            "type": "projects",
+            "id": "1",
+            "attributes": {
+              "actual_end_date": "2031-12-30",
+              "actual_spend_amount": 223.45,
+              "approved_spend_amount": 255.55,
+              "actual_start_date": "2019-01-20",
+              "approved_at": "2019-10-11T09:12:31.080Z",
+              "approval_rounds": 1,
+              "canceled_note": null,
+              "canceled_reason": null,
+              "description": "Project Description Updated",
+              "estimated_savings_amount": 211.33,
+              "estimated_spend_amount": 221.12,
+              "external_id": "1234-5678-abcd-efgh",
+              "marked_as_needs_attention_at": null,
+              "needs_attention": false,
+              "needs_attention_note": null,
+              "needs_attention_reason": null,
+              "number": 1,
+              "on_hold_note": null,
+              "on_hold_reason": null,
+              "first_sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+              "sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+              "state": "active",
+              "state_label": "Sourcing",
+              "target_end_date": "2032-12-31",
+              "target_start_date": "2019-01-15",
+              "title": "Project Title Updated",
+              "updated_at": "2019-10-29T21:28:46.790Z",
+              "request_submitted_at": "2019-10-28T21:28:46.790Z",
+              "request_opened_at": null,
+              "custom_fields": [
+                {
+                  "name": "Custom Field Currency",
+                  "value": 987654321
+                },
+                {
+                  "name": "Custom Field Integer",
+                  "value": 987654321
+                },
+                {
+                  "name": "Custom Field Checkbox",
+                  "value": false
+                },
+                {
+                  "name": "Custom Field Decimal",
+                  "value": 876543.21
+                },
+                {
+                  "name": "Custom Field Date",
+                  "value": "2018-12-25T00:00:00.000Z"
+                },
+                {
+                  "name": "Custom Field Select",
+                  "value": "Select Option"
+                },
+                {
+                  "name": "Custom Field Multiple",
+                  "value": [
+                    "Multiple Select Option 2"
+                  ]
+                },
+                {
+                  "name": "Custom Field Short Text",
+                  "value": "some short text updated"
+                },
+                {
+                  "name": "Custom Field Paragraph",
+                  "value": "longer text than short text updated"
+                },
+                {
+                  "name": "Custom Field URL",
+                  "value": "http://www.example.com/updated"
+                }
+              ]
+            },
+            "relationships": {
+              "attachments": {
+                "data": [
+                  {
+                    "id": "1",
+                    "type": "attachments"
+                  },
+                  {
+                    "id": "2",
+                    "type": "attachments"
+                  }
+                ]
+              },
+              "project_type": {
+                "data": {
+                  "id": "1",
+                  "type": "project_types"
+                }
+              },
+              "spend_category": {
+                "data": {
+                  "id": "1",
+                  "type": "spend_categories"
+                }
+              },
+              "creator": {
+                "data": {
+                  "id": "1",
+                  "type": "stakeholders"
+                }
+              },
+              "requester": {
+                "data": {
+                  "id": "3",
+                  "type": "stakeholders"
+                }
+              },
+              "owner": {
+                "data": {
+                  "id": "1",
+                  "type": "stakeholders"
+                }
+              }
+            },
+            "links": {
+              "self": "https://api.us.workdayspend.com/services/projects/v1/projects/1"
+            }
+          }
+        }
+      },
+      "external_show_response": {
+        "value": {
+          "data": {
+            "type": "projects",
+            "id": "1",
+            "attributes": {
+              "actual_end_date": "2031-12-30",
+              "actual_spend_amount": 23.45,
+              "approved_spend_amount": 55.55,
+              "actual_start_date": "2018-01-20",
+              "approved_at": "2019-10-11T09:12:31.080Z",
+              "approval_rounds": 1,
+              "canceled_note": null,
+              "canceled_reason": null,
+              "description": "Project Description",
+              "estimated_savings_amount": 11.33,
+              "estimated_spend_amount": 21.12,
+              "external_id": "1234-5678-abcd-efgh",
+              "marked_as_needs_attention_at": null,
+              "needs_attention": false,
+              "needs_attention_note": null,
+              "needs_attention_reason": null,
+              "number": 1,
+              "on_hold_note": null,
+              "on_hold_reason": null,
+              "first_sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+              "sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+              "state": "active",
+              "state_label": "Sourcing",
+              "target_end_date": "2031-12-31",
+              "target_start_date": "2018-01-15",
+              "title": "Project Title",
+              "updated_at": "2019-10-29T21:28:46.790Z",
+              "request_submitted_at": "2019-10-28T21:28:46.790Z",
+              "request_opened_at": null,
+              "custom_fields": [
+                {
+                  "name": "Custom Field Currency",
+                  "value": 1234567890
+                },
+                {
+                  "name": "Custom Field Integer",
+                  "value": 1234567890
+                },
+                {
+                  "name": "Custom Field Checkbox",
+                  "value": true
+                },
+                {
+                  "name": "Custom Field Decimal",
+                  "value": 123456.78
+                },
+                {
+                  "name": "Custom Field Date",
+                  "value": "2018-12-31T00:00:00.000Z"
+                },
+                {
+                  "name": "Custom Field Select",
+                  "value": "Select Option"
+                },
+                {
+                  "name": "Custom Field Multiple",
+                  "value": [
+                    "Multiple Select Option 1",
+                    "Multiple Select Option 2"
+                  ]
+                },
+                {
+                  "name": "Custom Field Short Text",
+                  "value": "some short text"
+                },
+                {
+                  "name": "Custom Field Paragraph",
+                  "value": "longer text than short text"
+                },
+                {
+                  "name": "Custom Field URL",
+                  "value": "http://www.example.com"
+                }
+              ]
+            },
+            "relationships": {
+              "attachments": {
+                "data": [
+                  {
+                    "id": "1",
+                    "type": "attachments"
+                  },
+                  {
+                    "id": "2",
+                    "type": "attachments"
+                  }
+                ]
+              },
+              "project_type": {
+                "data": {
+                  "id": "1",
+                  "type": "project_types"
+                }
+              },
+              "spend_category": {
+                "data": {
+                  "id": "1",
+                  "type": "spend_categories"
+                }
+              },
+              "creator": {
+                "data": {
+                  "id": "1",
+                  "type": "stakeholders"
+                }
+              },
+              "requester": {
+                "data": {
+                  "id": "3",
+                  "type": "stakeholders"
+                }
+              },
+              "owner": {
+                "data": {
+                  "id": "1",
+                  "type": "stakeholders"
+                }
+              }
+            },
+            "links": {
+              "self": "https://api.us.workdayspend.com/services/projects/v1/projects/1"
+            }
+          }
+        }
+      },
+      "external_update_request": {
+        "value": {
+          "data": {
+            "type": "projects",
+            "id": "1234-5678-abcd-efgh",
+            "attributes": {
+              "actual_end_date": "2031-12-30",
+              "actual_spend_amount": "223.45",
+              "approved_spend_amount": "255.55",
+              "actual_start_date": "2019-01-20",
+              "approved_at": "2019-10-11T09:12:31.080Z",
+              "approval_rounds": 1,
+              "canceled_note": null,
+              "canceled_reason": null,
+              "description": "Project Description Updated",
+              "estimated_savings_amount": "211.33",
+              "estimated_spend_amount": "221.12",
+              "external_id": "1234-5678-abcd-efgh",
+              "needs_attention": false,
+              "needs_attention_note": null,
+              "needs_attention_reason": null,
+              "on_hold_note": null,
+              "on_hold_reason": null,
+              "first_sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+              "sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+              "state": "active",
+              "state_label": "Sourcing",
+              "target_end_date": "2032-12-31",
+              "target_start_date": "2019-01-15",
+              "title": "Project Title Updated",
+              "custom_fields": [
+                {
+                  "name": "Custom Field Currency",
+                  "value": 987654321
+                },
+                {
+                  "name": "Custom Field Integer",
+                  "value": 987654321
+                },
+                {
+                  "name": "Custom Field Checkbox",
+                  "value": false
+                },
+                {
+                  "name": "Custom Field Decimal",
+                  "value": 876543.21
+                },
+                {
+                  "name": "Custom Field Date",
+                  "value": "2018-12-25T00:00:00.000Z"
+                },
+                {
+                  "name": "Custom Field Select",
+                  "value": "Select Option"
+                },
+                {
+                  "name": "Custom Field Multiple",
+                  "value": [
+                    "Multiple Select Option 2"
+                  ]
+                },
+                {
+                  "name": "Custom Field Short Text",
+                  "value": "some short text updated"
+                },
+                {
+                  "name": "Custom Field Paragraph",
+                  "value": "longer text than short text updated"
+                },
+                {
+                  "name": "Custom Field URL",
+                  "value": "http://www.example.com/updated"
+                }
+              ]
+            },
+            "relationships": {
+              "owner": {
+                "meta": {
+                  "email": "contract.owner@example.com"
+                }
+              },
+              "requester": {
+                "meta": {
+                  "email": "requester@example.com"
+                }
+              }
+            }
+          }
+        }
+      },
+      "external_update_response": {
+        "value": {
+          "data": {
+            "type": "projects",
+            "id": "1",
+            "attributes": {
+              "actual_end_date": "2031-12-30",
+              "actual_spend_amount": 223.45,
+              "approved_spend_amount": 255.55,
+              "actual_start_date": "2019-01-20",
+              "approved_at": "2019-10-11T09:12:31.080Z",
+              "approval_rounds": 1,
+              "canceled_note": null,
+              "canceled_reason": null,
+              "description": "Project Description Updated",
+              "estimated_savings_amount": 211.33,
+              "estimated_spend_amount": 221.12,
+              "external_id": "1234-5678-abcd-efgh",
+              "marked_as_needs_attention_at": null,
+              "needs_attention": false,
+              "needs_attention_note": null,
+              "needs_attention_reason": null,
+              "number": 1,
+              "on_hold_note": null,
+              "on_hold_reason": null,
+              "first_sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+              "sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+              "state": "active",
+              "state_label": "Sourcing",
+              "target_end_date": "2032-12-31",
+              "target_start_date": "2019-01-15",
+              "title": "Project Title Updated",
+              "updated_at": "2019-10-29T21:28:46.790Z",
+              "request_submitted_at": "2019-10-28T21:28:46.790Z",
+              "request_opened_at": null,
+              "custom_fields": [
+                {
+                  "name": "Custom Field Currency",
+                  "value": 987654321
+                },
+                {
+                  "name": "Custom Field Integer",
+                  "value": 987654321
+                },
+                {
+                  "name": "Custom Field Checkbox",
+                  "value": false
+                },
+                {
+                  "name": "Custom Field Decimal",
+                  "value": 876543.21
+                },
+                {
+                  "name": "Custom Field Date",
+                  "value": "2018-12-25T00:00:00.000Z"
+                },
+                {
+                  "name": "Custom Field Select",
+                  "value": "Select Option"
+                },
+                {
+                  "name": "Custom Field Multiple",
+                  "value": [
+                    "Multiple Select Option 2"
+                  ]
+                },
+                {
+                  "name": "Custom Field Short Text",
+                  "value": "some short text updated"
+                },
+                {
+                  "name": "Custom Field Paragraph",
+                  "value": "longer text than short text updated"
+                },
+                {
+                  "name": "Custom Field URL",
+                  "value": "http://www.example.com/updated"
+                }
+              ]
+            },
+            "relationships": {
+              "attachments": {
+                "data": [
+                  {
+                    "id": "1",
+                    "type": "attachments"
+                  },
+                  {
+                    "id": "2",
+                    "type": "attachments"
+                  }
+                ]
+              },
+              "project_type": {
+                "data": {
+                  "id": "1",
+                  "type": "project_types"
+                }
+              },
+              "spend_category": {
+                "data": {
+                  "id": "2",
+                  "type": "spend_categories"
+                }
+              },
+              "creator": {
+                "data": {
+                  "id": "1",
+                  "type": "stakeholders"
+                }
+              },
+              "requester": {
+                "data": {
+                  "id": "3",
+                  "type": "stakeholders"
+                }
+              },
+              "owner": {
+                "data": {
+                  "id": "1",
+                  "type": "stakeholders"
+                }
+              }
+            },
+            "links": {
+              "self": "https://api.us.workdayspend.com/services/projects/v1/projects/1"
+            }
+          }
+        }
+      },
+      "describe_response": {
+        "value": {
+          "meta": {
+            "count": 35
+          },
+          "data": [
+            {
+              "id": "actual_end_date",
+              "type": "project_fields",
+              "attributes": {
+                "name": "actual_end_date",
+                "data_type": "string",
+                "type_description": "Date",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "actual_spend_amount",
+              "type": "project_fields",
+              "attributes": {
+                "name": "actual_spend_amount",
+                "data_type": "number",
+                "type_description": "Currency",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "actual_start_date",
+              "type": "project_fields",
+              "attributes": {
+                "name": "actual_start_date",
+                "data_type": "string",
+                "type_description": "Date",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "approved_spend_amount",
+              "type": "project_fields",
+              "attributes": {
+                "name": "approved_spend_amount",
+                "data_type": "number",
+                "type_description": "Currency",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "canceled_note",
+              "type": "project_fields",
+              "attributes": {
+                "name": "canceled_note",
+                "data_type": "string",
+                "type_description": "Short Text",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "canceled_reason",
+              "type": "project_fields",
+              "attributes": {
+                "name": "canceled_reason",
+                "data_type": "string",
+                "type_description": "Single Select",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "description",
+              "type": "project_fields",
+              "attributes": {
+                "name": "description",
+                "data_type": "string",
+                "type_description": "Paragraph",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "estimated_savings_amount",
+              "type": "project_fields",
+              "attributes": {
+                "name": "estimated_savings_amount",
+                "data_type": "number",
+                "type_description": "Currency",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "estimated_spend_amount",
+              "type": "project_fields",
+              "attributes": {
+                "name": "estimated_spend_amount",
+                "data_type": "number",
+                "type_description": "Currency",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "external_id",
+              "type": "project_fields",
+              "attributes": {
+                "name": "external_id",
+                "data_type": "string",
+                "type_description": "Short Text",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "needs_attention",
+              "type": "project_fields",
+              "attributes": {
+                "name": "needs_attention",
+                "data_type": "boolean",
+                "type_description": "Checkbox",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "on_hold_note",
+              "type": "project_fields",
+              "attributes": {
+                "name": "on_hold_note",
+                "data_type": "string",
+                "type_description": "Short Text",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "on_hold_reason",
+              "type": "project_fields",
+              "attributes": {
+                "name": "on_hold_reason",
+                "data_type": "string",
+                "type_description": "Single Select",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "state",
+              "type": "project_fields",
+              "attributes": {
+                "name": "state",
+                "data_type": "string",
+                "type_description": "Single Select",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "state_label",
+              "type": "project_fields",
+              "attributes": {
+                "name": "state_label",
+                "data_type": "string",
+                "type_description": "Short Text",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "target_end_date",
+              "type": "project_fields",
+              "attributes": {
+                "name": "target_end_date",
+                "data_type": "string",
+                "type_description": "Date",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "target_start_date",
+              "type": "project_fields",
+              "attributes": {
+                "name": "target_start_date",
+                "data_type": "string",
+                "type_description": "Date",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "title",
+              "type": "project_fields",
+              "attributes": {
+                "name": "title",
+                "data_type": "string",
+                "type_description": "Short Text",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "approved_at",
+              "type": "project_fields",
+              "attributes": {
+                "name": "approved_at",
+                "data_type": "string",
+                "type_description": "Date",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "marked_as_needs_attention_at",
+              "type": "project_fields",
+              "attributes": {
+                "name": "marked_as_needs_attention_at",
+                "data_type": "string",
+                "type_description": "Date",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "needs_attention_note",
+              "type": "project_fields",
+              "attributes": {
+                "name": "needs_attention_note",
+                "data_type": "string",
+                "type_description": "Short Text",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "needs_attention_reason",
+              "type": "project_fields",
+              "attributes": {
+                "name": "needs_attention_reason",
+                "data_type": "string",
+                "type_description": "Single Select",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "number",
+              "type": "project_fields",
+              "attributes": {
+                "name": "number",
+                "data_type": "integer",
+                "type_description": "Integer",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "sent_for_approval_at",
+              "type": "project_fields",
+              "attributes": {
+                "name": "sent_for_approval_at",
+                "data_type": "string",
+                "type_description": "Date",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "updated_at",
+              "type": "project_fields",
+              "attributes": {
+                "name": "updated_at",
+                "data_type": "string",
+                "type_description": "Date",
+                "custom_field": false
+              }
+            },
+            {
+              "id": "custom_field_1",
+              "type": "project_fields",
+              "attributes": {
+                "custom_field": true,
+                "data_type": "number",
+                "name": "Custom Field Currency",
+                "type_description": "Currency"
+              }
+            },
+            {
+              "attributes": {
+                "custom_field": true,
+                "data_type": "integer",
+                "name": "Custom Field Integer",
+                "type_description": "Integer"
+              },
+              "type": "project_fields"
+            },
+            {
+              "attributes": {
+                "custom_field": true,
+                "data_type": "boolean",
+                "name": "Custom Field Checkbox",
+                "type_description": "Checkbox"
+              },
+              "type": "project_fields"
+            },
+            {
+              "attributes": {
+                "custom_field": true,
+                "data_type": "number",
+                "name": "Custom Field Decimal",
+                "type_description": "Decimal"
+              },
+              "type": "project_fields"
+            },
+            {
+              "attributes": {
+                "custom_field": true,
+                "data_type": "string",
+                "name": "Custom Field Date",
+                "type_description": "Date"
+              },
+              "type": "project_fields"
+            },
+            {
+              "attributes": {
+                "custom_field": true,
+                "data_type": "string",
+                "name": "Custom Field Select",
+                "type_description": "Single Select"
+              },
+              "type": "project_fields"
+            },
+            {
+              "attributes": {
+                "custom_field": true,
+                "data_type": "array",
+                "name": "Custom Field Multiple",
+                "type_description": "Multiple Select"
+              },
+              "type": "project_fields"
+            },
+            {
+              "attributes": {
+                "custom_field": true,
+                "data_type": "string",
+                "name": "Custom Field Short Text",
+                "type_description": "Short Text"
+              },
+              "type": "project_fields"
+            },
+            {
+              "attributes": {
+                "custom_field": true,
+                "data_type": "string",
+                "name": "Custom Field Paragraph",
+                "type_description": "Paragraph"
+              },
+              "type": "project_fields"
+            },
+            {
+              "attributes": {
+                "custom_field": true,
+                "data_type": "string",
+                "name": "Custom Field URL",
+                "type_description": "URL"
+              },
+              "type": "project_fields"
+            }
+          ],
+          "links": {}
+        }
+      },
+      "create_request-2": {
+        "value": {
+          "data": [
+            {
+              "type": "supplier_companies",
+              "id": "5"
+            },
+            {
+              "type": "supplier_companies",
+              "id": "11"
+            }
+          ]
+        }
+      },
+      "delete_request": {
+        "value": {
+          "data": [
+            {
+              "type": "supplier_companies",
+              "id": "5"
+            },
+            {
+              "type": "supplier_companies",
+              "id": "11"
+            }
+          ]
+        }
+      },
+      "external_create_request": {
+        "value": {
+          "data": [
+            {
+              "type": "supplier_companies",
+              "id": "SUP5"
+            },
+            {
+              "type": "supplier_companies",
+              "id": "SUP11"
+            }
+          ]
+        }
+      },
+      "external_delete_request": {
+        "value": {
+          "data": [
+            {
+              "type": "supplier_companies",
+              "id": "SUP5"
+            },
+            {
+              "type": "supplier_companies",
+              "id": "SUP11"
+            }
+          ]
+        }
+      },
+      "create_request-3": {
+        "value": {
+          "data": [
+            {
+              "type": "supplier_contacts",
+              "id": "10"
+            },
+            {
+              "type": "supplier_contacts",
+              "id": "17"
+            }
+          ]
+        }
+      },
+      "delete_request-2": {
+        "value": {
+          "data": [
+            {
+              "type": "supplier_contacts",
+              "id": "10"
+            },
+            {
+              "type": "supplier_contacts",
+              "id": "17"
+            }
+          ]
+        }
+      },
+      "external_create_request-2": {
+        "value": {
+          "data": [
+            {
+              "type": "supplier_contacts",
+              "id": "SUPC10"
+            },
+            {
+              "type": "supplier_contacts",
+              "id": "SUPC17"
+            }
+          ]
+        }
+      },
+      "external_delete_request-2": {
+        "value": {
+          "data": [
+            {
+              "type": "supplier_contacts",
+              "id": "SUPC10"
+            },
+            {
+              "type": "supplier_contacts",
+              "id": "SUPC17"
+            }
+          ]
+        }
+      },
+      "index_response-2": {
+        "value": {
+          "meta": {
+            "count": 2
+          },
+          "data": [
+            {
+              "type": "project_types",
+              "id": "1",
+              "attributes": {
+                "name": "Project Type #1",
+                "shortcode": "PRJA"
+              },
+              "links": {
+                "self": "https://api.us.workdayspend.com/services/projects/v1/project_types/1"
+              }
+            },
+            {
+              "type": "project_types",
+              "id": "2",
+              "attributes": {
+                "name": "Project Type #2",
+                "shortcode": "PRJB"
+              },
+              "links": {
+                "self": "https://api.us.workdayspend.com/services/projects/v1/project_types/2"
+              }
+            }
+          ],
+          "links": {
+            "self": "https://api.us.workdayspend.com/services/projects/v1/project_types"
+          }
+        }
+      },
+      "show_response-2": {
+        "value": {
+          "data": {
+            "type": "project_types",
+            "id": "1",
+            "attributes": {
+              "name": "The Project Type",
+              "shortcode": "PRJT"
+            },
+            "links": {
+              "self": "https://api.us.workdayspend.com/services/projects/v1/project_types/1"
+            }
+          }
+        }
+      },
+      "project": {
+        "value": {
+          "type": "projects",
+          "id": "1",
+          "attributes": {
+            "actual_end_date": "2031-12-30",
+            "actual_spend_amount": 23.45,
+            "approved_spend_amount": 55.55,
+            "actual_start_date": "2018-01-20",
+            "approved_at": "2019-10-11T09:12:31.080Z",
+            "approval_rounds": 1,
+            "canceled_note": null,
+            "canceled_reason": null,
+            "description": "Project Description",
+            "estimated_savings_amount": 11.33,
+            "estimated_spend_amount": 21.12,
+            "external_id": "1234-5678-abcd-efgh",
+            "marked_as_needs_attention_at": null,
+            "needs_attention": false,
+            "needs_attention_note": null,
+            "needs_attention_reason": null,
+            "number": 1,
+            "on_hold_note": null,
+            "on_hold_reason": null,
+            "first_sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+            "sent_for_approval_at": "2019-10-05T05:24:12.000Z",
+            "state": "active",
+            "state_label": "Sourcing",
+            "target_end_date": "2031-12-31",
+            "target_start_date": "2018-01-15",
+            "title": "Project Title",
+            "updated_at": "2019-10-29T21:28:46.790Z",
+            "request_submitted_at": "2019-10-29T21:28:46.790Z",
+            "request_opened_at": null,
+            "custom_fields": [
+              {
+                "name": "Custom Field Currency",
+                "value": 1234567890
+              },
+              {
+                "name": "Custom Field Integer",
+                "value": 1234567890
+              },
+              {
+                "name": "Custom Field Checkbox",
+                "value": true
+              },
+              {
+                "name": "Custom Field Decimal",
+                "value": 123456.78
+              },
+              {
+                "name": "Custom Field Date",
+                "value": "2018-12-31T00:00:00.000Z"
+              },
+              {
+                "name": "Custom Field Select",
+                "value": "Select Option"
+              },
+              {
+                "name": "Custom Field Multiple",
+                "value": [
+                  "Multiple Select Option 1",
+                  "Multiple Select Option 2"
+                ]
+              },
+              {
+                "name": "Custom Field Short Text",
+                "value": "some short text"
+              },
+              {
+                "name": "Custom Field Paragraph",
+                "value": "longer text than short text"
+              },
+              {
+                "name": "Custom Field URL",
+                "value": "http://www.example.com"
+              }
+            ]
+          },
+          "relationships": {
+            "attachments": {
+              "data": [
+                {
+                  "id": "1",
+                  "type": "attachments"
+                },
+                {
+                  "id": "2",
+                  "type": "attachments"
+                }
+              ]
+            },
+            "project_type": {
+              "data": {
+                "id": "1",
+                "type": "project_types"
+              }
+            },
+            "spend_category": {
+              "data": {
+                "id": "1",
+                "type": "spend_categories"
+              }
+            },
+            "creator": {
+              "data": {
+                "id": "1",
+                "type": "stakeholders"
+              }
+            },
+            "requester": {
+              "data": {
+                "id": "3",
+                "type": "stakeholders"
+              }
+            },
+            "owner": {
+              "data": {
+                "id": "2",
+                "type": "stakeholders"
+              }
+            }
+          },
+          "links": {
+            "self": "https://api.us.workdayspend.com/services/projects/v1/projects/1"
+          }
+        }
+      },
+      "Project": {
+        "$ref": "#/components/examples/project"
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "X-Api-Key",
+        "in": "header",
+        "description": "Company API key."
+      },
+      "user_token": {
+        "type": "apiKey",
+        "name": "X-User-Token",
+        "in": "header",
+        "description": "User token."
+      },
+      "user_email": {
+        "type": "apiKey",
+        "name": "X-User-Email",
+        "in": "header",
+        "description": "User email."
+      }
+    }
+  },
+  "x-tagGroups": [
+    {
+      "name": "Getting Started",
+      "tags": [
+        "support",
+        "servers",
+        "api_specification",
+        "date_and_time_fields",
+        "authentication",
+        "rate_limiting",
+        "external_ids",
+        "pagination",
+        "filters"
+      ]
+    },
+    {
+      "name": "Projects",
+      "tags": [
+        "projects",
+        "project_types",
+        "project_supplier_companies",
+        "project_supplier_contacts"
+      ]
+    }
+  ]
+}

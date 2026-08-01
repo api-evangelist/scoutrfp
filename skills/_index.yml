@@ -1,0 +1,20 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/*.json operationIds + conventions/scoutrfp-conventions.yml
+skills:
+- file: scoutrfp-run-sourcing-event.md
+  name: Run a sourcing event
+  api: openapi/scoutrfp-events-v1-openapi.json
+  operations: [Create an Event, Create a Line Item, Bulk Create Line Items, Add Suppliers, List Bids, Get a Bid, List Bid Line Items]
+- file: scoutrfp-onboard-supplier.md
+  name: Onboard a supplier
+  api: openapi/scoutrfp-suppliers-v1-openapi.json
+  operations: [Create a Supplier Company, Get a Supplier Company, Create a Supplier Contact, Create a Supplier Category, Create a Supplier Company Segmentation]
+- file: scoutrfp-provision-users-scim.md
+  name: Provision users with SCIM
+  api: openapi/scoutrfp-scim-v2-openapi.json
+  operations: [List Users, Create a User, Get a user, Patch a User, Replace a User, Deactivate a user]
+- file: scoutrfp-manage-contract.md
+  name: Manage a contract
+  api: openapi/scoutrfp-contracts-v1-openapi.json
+  operations: [List Contract Types, Create a Contract, Get a Contract, Update a Contract, Update a Contract by External ID]

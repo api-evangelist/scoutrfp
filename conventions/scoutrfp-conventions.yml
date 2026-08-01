@@ -1,0 +1,52 @@
+generated: '2026-07-21'
+method: searched
+source: https://apidocs.workdayspend.com/ + openapi/*.json
+authentication:
+  style: api-key
+  headers:
+  - X-Api-Key (company API key)
+  - X-User-Token (personal user token)
+  - X-User-Email (user email)
+  scim_alt: HTTP Basic on the SCIM 2.0 service
+  transport: HTTPS required; plain HTTP requests fail
+  ref: authentication/scoutrfp-authentication.yml
+media_types:
+  services: application/vnd.api+json (JSON:API 1.0)
+  scim: application/scim+json
+idempotency:
+  supported: false
+  note: No idempotency-key mechanism is documented.
+pagination:
+  style: cursor
+  params:
+  - page[size]
+  - page[cursor]
+  - page[direction]
+  default_size: 10
+  max_size: 100
+  response_links:
+  - self
+  - next
+  - prev
+  example: /projects?page[size]=25
+filtering:
+  params:
+  - filter
+  - include
+  - external_id
+  note: JSON:API filter and include (compound documents) are supported on list endpoints.
+rate_limiting:
+  limit: 5 requests per second
+  exceeded_status: 429
+  guidance: On 429 sleep ~1s and retry.
+  ref: rate-limits/scoutrfp-rate-limits.yml
+versioning:
+  scheme: uri-path
+  pattern: /services/<service>/v<major>
+  policy: Each major version supported >= 18 months; breaking changes bump major, additive changes bump
+    minor.
+  ref: lifecycle/scoutrfp-lifecycle.yml
+errors:
+  services_envelope: JSON:API errors[] array
+  scim_envelope: SCIM 2.0 Error schema
+  ref: errors/scoutrfp-problem-types.yml

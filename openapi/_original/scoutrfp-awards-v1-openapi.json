@@ -1,0 +1,1235 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Workday Strategic Sourcing Awards API",
+    "version": "1.0",
+    "description": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n"
+  },
+  "servers": [
+    {
+      "url": "https://api.us.workdayspend.com/services/awards/v1",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://api.sandbox.us.workdayspend.com/services/awards/v1",
+      "description": "Sandbox Server"
+    }
+  ],
+  "security": [
+    {
+      "api_key": [],
+      "user_token": [],
+      "user_email": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "support",
+      "x-displayName": "Customer Support",
+      "description": "We've provided detailed documentation below to guide you. However, if you need additional assistance, here's how you can get the support you need:\n\n* __Community Discussions:__ Join the conversation on our Workday Community Discussion Boards (found under the \"Collaborate\" section in community). Connect with other users, share best practices, and get answers to your configuration questions.\n* __Expert Configuration Assistance (Professional Services):__ For tailored, hands-on support with your specific project, our Professional Services team is available.\n  * Looking for personalized guidance? Workday Success Plan customers can submit an \"Ask\" for expert insights on configuration and best practices.\n  * Need custom solutions? Consider Expert Assist, our consulting service for detailed changes and project support.\n* __Reporting System Issues:__ If you suspect a problem with the Workday system itself, please connect with our dedicated support team. Your company's Named Support Contact (NSC) can log a Product Support Defect case. We'll review the issue based on its impact and Workday's service level agreement (SLA).\n"
+    },
+    {
+      "name": "servers",
+      "x-displayName": "Servers",
+      "description": "### US Region\n| Environment       | US region Base URI                                         |\n|-------------------|------------------------------------------------------------|\n| **Production**    | https://api.us.workdayspend.com/services/awards/v1         |\n| **Sandbox**       | https://api.sandbox.us.workdayspend.com/services/awards/v1 |\n\n### EU Region\n| Environment       | EU region Base URI                                                |\n|-------------------|-------------------------------------------------------------------|\n| **Production**    | https://api.eu.workdayspend.com/services/awards/v1          |\n| **Sandbox**       | https://api.sandbox.eu.workdayspend.com/services/awards/v1  |\n\n### CA Region\n| Environment       | CA region Base URI                                                |\n|-------------------|-------------------------------------------------------------------|\n| **Production**    | https://api.ca.workdayspend.com/services/awards/v1          |\n| **Sandbox**       | https://api.sandbox.ca.workdayspend.com/services/awards/v1  |\n"
+    },
+    {
+      "name": "api_specification",
+      "x-displayName": "API Specification",
+      "description": "The API conforms to the [JSON API Specification](https://jsonapi.org).\n\nThe current version of this service is indicated by the `X-Api-Version` header.\n\nSample version header: `X-Api-Version: 1.0`.\n"
+    },
+    {
+      "name": "date_and_time_fields",
+      "x-displayName": "Date and Time Fields",
+      "description": "Our API adheres to the ISO 8601 standard when accepting and formatting Date and Time fields. All Date and Time fields returned by this API will be in the **UTC** timezone.\n\nDate and Time fields sent to this API can be in any timezone, provided they adhere to the ISO 8601 standard.\n"
+    },
+    {
+      "name": "authentication",
+      "x-displayName": "Authentication",
+      "description": "The Workday Strategic Sourcing API uses API keys to authenticate requests. Every request\nwill require all 3 HTTP headers:\n\n| HTTP Header       | Description               |\n|-------------------|---------------------------|\n| **X-Api-Key**     | a company-wide API key    |\n| **X-User-Token**  | a user-specific API token |\n| **X-User-Email**  | user email                |\n\nYou can generate all of those from the _API tokens_ section of your _Profile_ page.\n\nYour API keys carry many privileges, so be sure to keep them secure! Do not share your secret API\nkeys in publicly accessible areas such as GitHub, client-side code, and so forth.\n\nAll API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made\nover plain HTTP will fail. API requests without authentication will also fail.\n"
+    },
+    {
+      "name": "rate_limiting",
+      "x-displayName": "Rate Limiting",
+      "description": "Rate limit windows are per second and are shared by all API Keys for a company.\n\nThe rate limit is 5 requests per second.\n\nWhen request submissions exceed the limits, the limit-exceeding requests return `429 Too Many Requests` error responses to the client.\n\nUpon receiving a `429` response, it is recommended to retry the request in compliance with the rate limit. One example would be to add a sleep function for 1 second and retry.\n"
+    },
+    {
+      "name": "filters",
+      "x-displayName": "Filters",
+      "description": "The results can be filtered to a subset of the total set of results using `filter` query parameters.\n\nEndpoints that support filtering will include usage details in the Query Parameters section for the resource.\n\nMost filters that end in `equals` support a Query Parameter array format to filter by multiple values.\n\nExample:\n```\n?filter[status_equals][]=submitted&filter[status_equals][]=resubmitted\n```\n"
+    },
+    {
+      "name": "pagination",
+      "x-displayName": "Pagination",
+      "description": "Paginated endpoints may return a subset of the total results for a `GET` request that returns multiple resources. Endpoints that support pagination will include usage details in the Query Parameters section for the resource.\n\nThe paginated results can be configured using the `page` query parameter to configure the number of returned results. The default pagination size is 10 results and the maximum pagination size is 100 results per request.\n\nEndpoints that support pagination may return \"self\" and \"next\" sections within the \"links\" section that navigate to the current and next pages respectively.\n\n\n### Example Paginated Request\n\n#### Request Query Parameter Format\n```\n/projects?page[size]=25\n```\n\n#### Response Schema\nThe paginated response will also include the following schema\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Pagination\" exampleRef=\"#/components/examples/Pagination\" />\n"
+    },
+    {
+      "name": "external_ids",
+      "x-displayName": "External Identifiers (IDs)",
+      "description": "The `external_id` field exists on many of the Workday Strategic Sourcing resources. This optional and mutable extension is intended to store foreign keys of the corresponding resource from a third party system. **These IDs are not considered Sourcing Data and may be logged in external systems. Do not include any sensitive or personal data in IDs.**\n\nThe purpose of external IDs is to:\n\n* Prevent duplicate record creation\n* Allow resources in Workday Strategic Sourcing and a third party system to share the same identifier\n* Allow for records to be queried or updated without requiring knowledge of the Workday Strategic Sourcing generated IDs\n"
+    },
+    {
+      "name": "awards",
+      "x-displayName": "Awards",
+      "description": "Use the Awards API to query the Awards in Workday Strategic Sourcing.\n\nAwards are used for procurement.\n\n## Award Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Award\" showReadOnly={true} showWriteOnly={true} />\n"
+    },
+    {
+      "name": "award_line_items",
+      "x-displayName": "Award Line Items",
+      "description": "Use the Award Line Items API to query the Award Line Items in Workday Strategic Sourcing.\n\nAward Line Items are used for procurement.\n\n## Award Line Item Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/AwardLineItem\" exampleRef=\"#/components/examples/AwardLineItem\" showReadOnly={true} showWriteOnly={true} />\n"
+    }
+  ],
+  "paths": {
+    "/awards": {
+      "get": {
+        "tags": [
+          "awards"
+        ],
+        "description": "Returns a list of awards.",
+        "operationId": "List Awards",
+        "summary": "List Awards",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter awards by multiple criteria.\n",
+            "schema": {
+              "$ref": "#/components/schemas/AwardInputFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Award"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  ]
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/index_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/awards/v1/awards\"\n"
+          }
+        ]
+      }
+    },
+    "/awards/{award_id}/award_line_items": {
+      "get": {
+        "tags": [
+          "award_line_items"
+        ],
+        "description": "Returns a list of line items for a specific award.",
+        "operationId": "List Award Line Items",
+        "summary": "List Award Line Items",
+        "parameters": [
+          {
+            "name": "award_id",
+            "in": "path",
+            "description": "Award identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter awards line items by multiple criteria.\n",
+            "schema": {
+              "$ref": "#/components/schemas/AwardLineItemInputFilter"
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/AwardLineItemRelatedResources"
+            },
+            "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/AwardLineItem"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  ]
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/index_response-2"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/awards/v1/awards/1/award_line_items\"\n"
+          }
+        ]
+      }
+    },
+    "/award_line_items/{id}": {
+      "get": {
+        "tags": [
+          "award_line_items"
+        ],
+        "description": "Retrieves the details of an existing award line items. You need to supply the unique award line items\nidentifier.\n",
+        "operationId": "Get an Award Line Item",
+        "summary": "Get an Award Line Item",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique Award Line Items identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": 15
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/AwardLineItemRelatedResources"
+            },
+            "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/AwardLineItem"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/show_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/awards/v1/award_line_items/1_5\"\n"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AwardInputFilter": {
+        "type": "object",
+        "properties": {
+          "state_equals": {
+            "type": "array",
+            "description": "Find awards by their state.",
+            "example": [
+              "draft",
+              "confirmed"
+            ]
+          },
+          "updated_at_from": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Return awards updated on or after the specified timestamp.",
+            "example": "2021-05-29T21:28:46.790Z"
+          },
+          "updated_at_to": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Return awards updated on or before the specified timestamp.",
+            "example": "2021-05-29T21:28:46.790Z"
+          }
+        }
+      },
+      "AwardType": {
+        "type": "string",
+        "description": "Object type, should always be `awards`.",
+        "example": "awards"
+      },
+      "AwardId": {
+        "type": "integer",
+        "description": "Award identifier string.",
+        "example": 1
+      },
+      "AwardBase": {
+        "title": "Award",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/AwardType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/AwardId"
+          }
+        }
+      },
+      "AwardTitle": {
+        "type": "string",
+        "maxLength": 255,
+        "description": "Award title."
+      },
+      "AwardExternalId": {
+        "type": "string",
+        "maxLength": 255,
+        "description": "Award ID in your internal database."
+      },
+      "AwardState": {
+        "type": "string",
+        "description": "Award state. The default value is `draft` when the award is created.",
+        "enum": [
+          "draft",
+          "confirmed",
+          "awaiting_requisition_sync",
+          "requisition_created"
+        ]
+      },
+      "AwardUpdatedAt": {
+        "type": "string",
+        "format": "date-time",
+        "readOnly": true,
+        "description": "Last modification date.",
+        "example": "2021-05-29T21:28:46.790Z"
+      },
+      "AwardPros": {
+        "type": "string",
+        "description": "Pros associated with award option",
+        "example": "<p>Reliable company</p>"
+      },
+      "AwardCons": {
+        "type": "string",
+        "description": "Cons associated with award option",
+        "example": "<p>Expensive company</p>"
+      },
+      "AwardAttributes": {
+        "type": "object",
+        "description": "Award attributes.",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "$ref": "#/components/schemas/AwardTitle"
+          },
+          "external_id": {
+            "$ref": "#/components/schemas/AwardExternalId"
+          },
+          "state": {
+            "$ref": "#/components/schemas/AwardState"
+          },
+          "updated_at": {
+            "$ref": "#/components/schemas/AwardUpdatedAt"
+          },
+          "pros": {
+            "$ref": "#/components/schemas/AwardPros"
+          },
+          "cons": {
+            "$ref": "#/components/schemas/AwardCons"
+          }
+        }
+      },
+      "StakeholderType": {
+        "type": "string",
+        "description": "Object type, should always be `stakeholders`.",
+        "example": "stakeholders"
+      },
+      "StakeholderId": {
+        "type": "integer",
+        "description": "Stakeholder identifier string.",
+        "example": 1
+      },
+      "StakeholderBase": {
+        "title": "Stakeholder",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/StakeholderType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/StakeholderId"
+          }
+        }
+      },
+      "PaymentCurrencyType": {
+        "type": "string",
+        "description": "Object type, should always be `payment_currencies`.",
+        "example": "payment_currencies"
+      },
+      "PaymentCurrencyId": {
+        "type": "integer",
+        "description": "Payment currency identifier string.",
+        "example": 1
+      },
+      "PaymentCurrencyBase": {
+        "title": "Field",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/PaymentCurrencyType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/PaymentCurrencyId"
+          }
+        }
+      },
+      "ProjectType": {
+        "type": "string",
+        "description": "Object type, should always be `projects`.",
+        "example": "projects"
+      },
+      "ProjectId": {
+        "type": "integer",
+        "description": "Project identifier string.",
+        "example": 1
+      },
+      "ProjectBase": {
+        "title": "Project",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ProjectType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/ProjectId"
+          }
+        }
+      },
+      "AwardRelationship": {
+        "type": "object",
+        "description": "Award relationships.",
+        "properties": {
+          "creator": {
+            "type": "object",
+            "description": "Project creator is the user whose API keys are used for authentication.",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/StakeholderBase"
+              }
+            }
+          },
+          "project": {
+            "type": "object",
+            "description": "Project associated with this award.",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ProjectBase"
+              }
+            }
+          }
+        }
+      },
+      "SelfLink": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "type": "string",
+            "format": "url",
+            "description": "Normalized link to the resource."
+          }
+        }
+      },
+      "ResourceLinks": {
+        "type": "object",
+        "description": "List of related links.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SelfLink"
+          }
+        ]
+      },
+      "Award": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AwardBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "$ref": "#/components/schemas/AwardAttributes"
+              },
+              "relationships": {
+                "$ref": "#/components/schemas/AwardRelationship"
+              },
+              "links": {
+                "$ref": "#/components/schemas/ResourceLinks"
+              }
+            }
+          }
+        ]
+      },
+      "NextPageLink": {
+        "type": "object",
+        "properties": {
+          "next": {
+            "type": "string",
+            "format": "url",
+            "description": "Link to the next results page.",
+            "nullable": true
+          }
+        }
+      },
+      "PrevPageLink": {
+        "type": "object",
+        "properties": {
+          "prev": {
+            "type": "string",
+            "format": "url",
+            "description": "Link to the previous results page.",
+            "nullable": true,
+            "deprecated": true
+          }
+        }
+      },
+      "PaginationLinks": {
+        "type": "object",
+        "description": "List of related links.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SelfLink"
+          },
+          {
+            "$ref": "#/components/schemas/NextPageLink"
+          },
+          {
+            "$ref": "#/components/schemas/PrevPageLink"
+          }
+        ]
+      },
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "meta": {
+            "type": "object",
+            "description": "Result set metadata.",
+            "properties": {
+              "count": {
+                "type": "integer",
+                "description": "Number of pages in the result set."
+              }
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PaginationLinks"
+          }
+        }
+      },
+      "AwardUpdateAttributes": {
+        "type": "object",
+        "description": "Award update attributes.",
+        "properties": {
+          "title": {
+            "$ref": "#/components/schemas/AwardTitle"
+          },
+          "external_id": {
+            "$ref": "#/components/schemas/AwardExternalId"
+          },
+          "state": {
+            "$ref": "#/components/schemas/AwardState"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "detail": {
+            "type": "string",
+            "description": "A human-readable explanation specific to this occurrence of the problem."
+          }
+        }
+      },
+      "Errors": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "AwardLineItemTypeEnum": {
+        "type": "string",
+        "enum": [
+          "STANDARD",
+          "GOODS",
+          "SERVICES"
+        ],
+        "description": "Award line item type.",
+        "example": "STANDARD"
+      },
+      "AwardLineItemInputFilter": {
+        "type": "object",
+        "properties": {
+          "is_quoted_equals": {
+            "type": "boolean",
+            "description": "Return awards line items by their quoted state.",
+            "example": true
+          },
+          "line_item_type_equals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AwardLineItemTypeEnum"
+            },
+            "description": "Return awards line items with specified line item types.",
+            "example": [
+              "GOODS",
+              "SERVICES"
+            ]
+          }
+        }
+      },
+      "AwardLineItemRelatedResources": {
+        "type": "string",
+        "enum": [
+          "supplier_company",
+          "worksheet"
+        ]
+      },
+      "AwardLineItemType": {
+        "type": "string",
+        "description": "Object type, should always be `award_line_items`.",
+        "example": "award_line_items"
+      },
+      "AwardLineItemId": {
+        "type": "integer",
+        "description": "Award line items identifier string.",
+        "example": 1
+      },
+      "AwardLineItemBase": {
+        "title": "Award line item",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/AwardLineItemType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/AwardLineItemId"
+          }
+        }
+      },
+      "AwardLineItemAttributes": {
+        "type": "object",
+        "description": "Award line item attributes.",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "data_identifier": {
+                "type": "string",
+                "description": "Worksheet column identifier string."
+              }
+            },
+            "additionalProperties": {
+              "x-additionalPropertiesName": "value",
+              "description": "Worksheet line item cell value."
+            },
+            "description": "A hashmap where keys are data identifier strings for the columns in the worksheet,\nand values are cell values.\n"
+          },
+          "allocated_quantity": {
+            "type": "integer",
+            "description": "Award line item allocated quantity."
+          },
+          "sought_quantity": {
+            "type": "integer",
+            "description": "Award line item sought quantity."
+          },
+          "price": {
+            "type": "number",
+            "description": "Award line item unit price."
+          },
+          "total_spend": {
+            "type": "number",
+            "description": "Award line item total spend."
+          },
+          "net_savings": {
+            "type": "number",
+            "description": "Award line item net savings."
+          },
+          "net_savings_percentage": {
+            "type": "number",
+            "description": "Award line item net savings percentage."
+          },
+          "line_item_type": {
+            "$ref": "#/components/schemas/AwardLineItemTypeEnum"
+          },
+          "is_quoted": {
+            "type": "boolean",
+            "description": "Identifies whether the award line item is quoted."
+          }
+        }
+      },
+      "SupplierCompanyType": {
+        "type": "string",
+        "description": "Object type, should always be `supplier_companies`.",
+        "example": "supplier_companies"
+      },
+      "SupplierCompanyId": {
+        "type": "integer",
+        "description": "Supplier company identifier string.",
+        "example": 1
+      },
+      "SupplierCompanyBase": {
+        "title": "SupplierCompany",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SupplierCompanyType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/SupplierCompanyId"
+          }
+        }
+      },
+      "WorksheetType": {
+        "type": "string",
+        "description": "Object type, should always be `worksheets`.",
+        "example": "worksheets"
+      },
+      "WorksheetId": {
+        "type": "integer",
+        "description": "Worksheet identifier string.",
+        "example": 1
+      },
+      "WorksheetBase": {
+        "title": "Worksheet",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/WorksheetType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/WorksheetId"
+          }
+        }
+      },
+      "AwardLineItemRelationship": {
+        "type": "object",
+        "description": "Award line item relationships.",
+        "properties": {
+          "supplier_company": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/SupplierCompanyBase"
+              }
+            }
+          },
+          "worksheet": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/WorksheetBase"
+              }
+            }
+          }
+        }
+      },
+      "AwardLineItem": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AwardLineItemBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "$ref": "#/components/schemas/AwardLineItemAttributes"
+              },
+              "relationships": {
+                "$ref": "#/components/schemas/AwardLineItemRelationship"
+              }
+            }
+          }
+        ]
+      },
+      "PageInput": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "number",
+            "format": "integer",
+            "description": "The number of results returned per page. Default is `10` and max is `100`.",
+            "example": "25"
+          }
+        }
+      },
+      "SupplierCompany": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SupplierCompanyBase"
+          }
+        ]
+      },
+      "Project": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ProjectBase"
+          }
+        ]
+      },
+      "WorksheetModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WorksheetBase"
+          }
+        ]
+      },
+      "PaymentCurrency": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentCurrencyBase"
+          }
+        ]
+      },
+      "StakeholderBaseData": {
+        "title": "Stakeholder Data",
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/StakeholderBase"
+          }
+        }
+      }
+    },
+    "examples": {
+      "index_response": {
+        "value": {
+          "meta": {
+            "count": 2
+          },
+          "data": [
+            {
+              "type": "awards",
+              "id": "1",
+              "attributes": {
+                "title": "Award #1 title",
+                "state": "draft",
+                "updated_at": "2021-05-29T21:28:46.790Z",
+                "external_id": null,
+                "pros": "<p>Reliable</p>",
+                "cons": "<p>Expensive</p>"
+              },
+              "relationships": {
+                "creator": {
+                  "data": {
+                    "id": "1",
+                    "type": "stakeholders"
+                  }
+                },
+                "project": {
+                  "data": {
+                    "id": "1",
+                    "type": "projects"
+                  }
+                }
+              }
+            },
+            {
+              "type": "awards",
+              "id": "2",
+              "attributes": {
+                "title": "Award #2 title",
+                "state": "draft",
+                "updated_at": "2021-05-29T21:28:46.790Z",
+                "external_id": "AW-2",
+                "pros": null,
+                "cons": null
+              },
+              "relationships": {
+                "creator": {
+                  "data": {
+                    "id": "2",
+                    "type": "stakeholders"
+                  }
+                },
+                "project": {
+                  "data": {
+                    "id": "2",
+                    "type": "projects"
+                  }
+                }
+              }
+            }
+          ],
+          "links": {
+            "self": "https://api.us.workdayspend.com/services/awards/v1/awards?page%5Bsize%5D=10",
+            "next": "https://api.us.workdayspend.com/services/awards/v1/awards?page%5Bcursor%5D=WzgzXQ%3D%3D&page%5Bdirection%5D=next&page%5Bsize%5D=10",
+            "prev": null
+          }
+        }
+      },
+      "update_request": {
+        "value": {
+          "data": {
+            "id": "1",
+            "type": "awards",
+            "attributes": {
+              "title": "Award #1 title",
+              "external_id": "AW-1",
+              "state": "confirmed"
+            }
+          }
+        }
+      },
+      "update_response": {
+        "value": {
+          "data": {
+            "id": "1",
+            "type": "awards",
+            "attributes": {
+              "title": "Award #1 title",
+              "external_id": "AW-1",
+              "state": "confirmed",
+              "pros": null,
+              "cons": null
+            },
+            "relationships": {
+              "creator": {
+                "data": {
+                  "id": "1",
+                  "type": "stakeholders"
+                }
+              },
+              "project": {
+                "data": {
+                  "id": "1",
+                  "type": "projects"
+                }
+              }
+            }
+          }
+        }
+      },
+      "index_response-2": {
+        "value": {
+          "data": [
+            {
+              "id": "1_5",
+              "type": "award_line_items",
+              "attributes": {
+                "data": {
+                  "c263": "Worksheet 1 line item 1",
+                  "c264": 1,
+                  "c265": 10,
+                  "c266": 10,
+                  "c268": 0
+                },
+                "allocated_quantity": 1,
+                "sought_quantity": 1,
+                "price": 10,
+                "total_spend": 10,
+                "net_savings": -10,
+                "net_savings_percentage": null,
+                "line_item_type": "STANDARD",
+                "is_quoted": true
+              },
+              "relationships": {
+                "supplier_company": {
+                  "data": {
+                    "id": "1",
+                    "type": "supplier_companies"
+                  }
+                },
+                "worksheet": {
+                  "data": {
+                    "id": "2",
+                    "type": "worksheets"
+                  }
+                }
+              }
+            },
+            {
+              "id": "1_6",
+              "type": "award_line_items",
+              "attributes": {
+                "data": {
+                  "c263": "Worksheet 1 line item 2",
+                  "c264": 2,
+                  "c265": 20,
+                  "c266": 40,
+                  "c267": 30,
+                  "c268": 60
+                },
+                "allocated_quantity": 2,
+                "sought_quantity": 2,
+                "price": 20,
+                "total_spend": 40,
+                "net_savings": 20,
+                "net_savings_percentage": 33.33,
+                "line_item_type": "STANDARD",
+                "is_quoted": true
+              },
+              "relationships": {
+                "supplier_company": {
+                  "data": {
+                    "id": "1",
+                    "type": "supplier_companies"
+                  }
+                },
+                "worksheet": {
+                  "data": {
+                    "id": "2",
+                    "type": "worksheets"
+                  }
+                }
+              }
+            }
+          ],
+          "links": {
+            "self": "https://api.us.workdayspend.com/services/awards/v1/awards/1/award_line_items?page%5Bsize%5D=10",
+            "next": "https://api.us.workdayspend.com/services/awards/v1/awards/1/award_line_items?page%5Bcursor%5D=WzE0MV0&page%5Bdirection%5D=next&page%5Bsize%5D=10",
+            "prev": null
+          },
+          "meta": {
+            "count": 2
+          }
+        }
+      },
+      "show_response": {
+        "value": {
+          "data": {
+            "id": "1_5",
+            "type": "award_line_items",
+            "attributes": {
+              "data": {
+                "c263": "Worksheet 1 line item 1",
+                "c264": 1,
+                "c265": 10,
+                "c266": 10,
+                "c268": 0
+              },
+              "allocated_quantity": 1,
+              "sought_quantity": 1,
+              "price": 10,
+              "total_spend": 10,
+              "net_savings": -10,
+              "net_savings_percentage": null,
+              "line_item_type": "STANDARD",
+              "is_quoted": true
+            },
+            "relationships": {
+              "supplier_company": {
+                "data": {
+                  "id": "1",
+                  "type": "supplier_companies"
+                }
+              },
+              "worksheet": {
+                "data": {
+                  "id": "2",
+                  "type": "worksheets"
+                }
+              }
+            }
+          }
+        }
+      },
+      "pagination": {
+        "value": {
+          "data": {
+            "key": "value"
+          },
+          "meta": {
+            "count": 2
+          },
+          "links": {
+            "self": "https://api.us.workdayspend.com/services/awards/v1/projects",
+            "next": "https://api.us.workdayspend.com/services/awards/v1/projects?page[cursor]=WzFd&page[direction]=next&page[size]=25",
+            "prev": null
+          }
+        }
+      },
+      "award_line_item": {
+        "value": {
+          "type": "award_line_items",
+          "id": "1_5",
+          "attributes": {
+            "data": {
+              "c263": "Worksheet 1 line item 1",
+              "c264": 1,
+              "c265": 10,
+              "c266": 10,
+              "c268": 0
+            },
+            "allocated_quantity": 1,
+            "sought_quantity": 1,
+            "price": 10,
+            "total_spend": 10,
+            "net_savings": -10,
+            "net_savings_percentage": null,
+            "line_item_type": "STANDARD",
+            "is_quoted": true
+          },
+          "relationships": {
+            "supplier_company": {
+              "data": {
+                "id": "1",
+                "type": "supplier_companies"
+              }
+            },
+            "worksheet": {
+              "data": {
+                "id": "2",
+                "type": "worksheets"
+              }
+            }
+          }
+        }
+      },
+      "Pagination": {
+        "$ref": "#/components/examples/pagination"
+      },
+      "AwardLineItem": {
+        "$ref": "#/components/examples/award_line_item"
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "X-Api-Key",
+        "in": "header",
+        "description": "Company API key."
+      },
+      "user_token": {
+        "type": "apiKey",
+        "name": "X-User-Token",
+        "in": "header",
+        "description": "User token."
+      },
+      "user_email": {
+        "type": "apiKey",
+        "name": "X-User-Email",
+        "in": "header",
+        "description": "User email."
+      }
+    }
+  },
+  "x-tagGroups": [
+    {
+      "name": "Getting Started",
+      "tags": [
+        "support",
+        "servers",
+        "api_specification",
+        "date_and_time_fields",
+        "authentication",
+        "rate_limiting",
+        "external_ids",
+        "pagination",
+        "filters"
+      ]
+    },
+    {
+      "name": "Awards",
+      "tags": [
+        "awards",
+        "award_line_items"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/*.json 4xx/5xx responses + apidocs.workdayspend.com error docs
+format: json-api
+note: Strategic Sourcing services return JSON:API errors (application/vnd.api+json) with an errors[] array;
+  the SCIM service returns application/scim+json errors. These are not RFC 9457 problem+json.
+envelope:
+  json_api: '{ "errors": [ { "status": "404", "title": "...", "detail": "..." } ] }'
+  scim: '{ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"], "status": "404", "detail": "..."
+    }'
+problems:
+- status: 400
+  title: Bad Request
+  detail: The request was malformed or failed validation.
+  remediation: Check the request body/query against the JSON:API schema and required attributes.
+  media_type: application/scim+json
+- status: 401
+  title: Unauthorized
+  detail: Missing or invalid authentication headers (X-Api-Key / X-User-Token / X-User-Email).
+  remediation: Verify your company API key and personal user token and that all three auth headers are
+    sent over HTTPS.
+  media_type: application/vnd.api+json
+- status: 403
+  title: Forbidden
+  detail: The authenticated user lacks permission for this operation or resource.
+  remediation: Confirm the user role/permissions in Strategic Sourcing.
+  media_type: application/scim+json
+- status: 404
+  title: Not Found
+  detail: The requested resource does not exist or is not visible to the caller.
+  remediation: Verify the resource id and that it belongs to your company.
+  media_type: application/vnd.api+json
+- status: 409
+  title: Conflict
+  detail: The request conflicts with the current state of the resource (e.g. duplicate or constraint violation).
+  remediation: Reconcile with current resource state and retry.
+  media_type: application/vnd.api+json
+- status: 410
+  title: Gone
+  detail: The endpoint or resource has been removed (e.g. deprecated report).
+  remediation: Migrate to the current versioned endpoint.
+  media_type: application/vnd.api+json
+- status: 422
+  title: Unprocessable Entity
+  detail: The request was well-formed but semantically invalid.
+  remediation: Correct the invalid attributes indicated in the JSON:API errors array and retry.
+  media_type: application/vnd.api+json
+- status: 429
+  title: Too Many Requests
+  detail: Rate limit of 5 requests per second exceeded.
+  remediation: Sleep ~1 second and retry; throttle client to <=5 req/s.
+  media_type: application/vnd.api+json

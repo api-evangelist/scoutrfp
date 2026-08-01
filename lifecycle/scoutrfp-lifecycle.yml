@@ -1,0 +1,34 @@
+generated: '2026-07-21'
+method: searched
+source: https://apidocs.workdayspend.com/
+versioning:
+  scheme: uri-path
+  pattern: /services/<service>/v<major>
+  current:
+    suppliers: v1
+    events: v1
+    contracts: v1
+    projects: v1
+    payments: v1
+    reports: v1
+    fields: v1
+    awards: v1
+    attachments: v1
+    spend_categories: v1
+    scim: v2
+  docs: https://apidocs.workdayspend.com/
+deprecation:
+  policy: Each major version of a service is supported for at least 18 months.
+  sunset_header: null
+  legacy:
+    api: Legacy API v3.0 on api.scoutrfp.com
+    sunset_date: '2025-04-18'
+    replacement: Versioned services on api.us.workdayspend.com
+  docs: https://apidocs.workdayspend.com/services/legacy/v3.html
+sla:
+  note: SLA handled through the customer Named Support Contact (NSC) / Product Support Defect process;
+    no public uptime target.
+status_page: null
+changelog:
+  style: per-service changelog pages
+  docs: https://apidocs.workdayspend.com/

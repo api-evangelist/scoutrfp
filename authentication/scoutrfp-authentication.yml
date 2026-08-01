@@ -1,0 +1,68 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/scoutrfp-attachments-v1-openapi.json, openapi/scoutrfp-awards-v1-openapi.json,
+  openapi/scoutrfp-contracts-v1-openapi.json, openapi/scoutrfp-events-v1-openapi.json, openapi/scoutrfp-fields-v1-openapi.json,
+  openapi/scoutrfp-payments-v1-openapi.json, openapi/scoutrfp-projects-v1-openapi.json, openapi/scoutrfp-reports-v1-openapi.json,
+  openapi/scoutrfp-scim-v2-openapi.json, openapi/scoutrfp-spend_categories-v1-openapi.json,
+  openapi/scoutrfp-suppliers-v1-openapi.json
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: api_key
+  type: apiKey
+  in: header
+  parameter: X-Api-Key
+  description: Company API key.
+  sources:
+  - openapi/scoutrfp-attachments-v1-openapi.json
+  - openapi/scoutrfp-awards-v1-openapi.json
+  - openapi/scoutrfp-contracts-v1-openapi.json
+  - openapi/scoutrfp-events-v1-openapi.json
+  - openapi/scoutrfp-fields-v1-openapi.json
+  - openapi/scoutrfp-payments-v1-openapi.json
+  - openapi/scoutrfp-projects-v1-openapi.json
+  - openapi/scoutrfp-reports-v1-openapi.json
+  - openapi/scoutrfp-scim-v2-openapi.json
+  - openapi/scoutrfp-spend_categories-v1-openapi.json
+  - openapi/scoutrfp-suppliers-v1-openapi.json
+- name: user_token
+  type: apiKey
+  in: header
+  parameter: X-User-Token
+  description: User token.
+  sources:
+  - openapi/scoutrfp-attachments-v1-openapi.json
+  - openapi/scoutrfp-awards-v1-openapi.json
+  - openapi/scoutrfp-contracts-v1-openapi.json
+  - openapi/scoutrfp-events-v1-openapi.json
+  - openapi/scoutrfp-fields-v1-openapi.json
+  - openapi/scoutrfp-payments-v1-openapi.json
+  - openapi/scoutrfp-projects-v1-openapi.json
+  - openapi/scoutrfp-reports-v1-openapi.json
+  - openapi/scoutrfp-spend_categories-v1-openapi.json
+  - openapi/scoutrfp-suppliers-v1-openapi.json
+- name: user_email
+  type: apiKey
+  in: header
+  parameter: X-User-Email
+  description: User email.
+  sources:
+  - openapi/scoutrfp-attachments-v1-openapi.json
+  - openapi/scoutrfp-awards-v1-openapi.json
+  - openapi/scoutrfp-contracts-v1-openapi.json
+  - openapi/scoutrfp-events-v1-openapi.json
+  - openapi/scoutrfp-fields-v1-openapi.json
+  - openapi/scoutrfp-payments-v1-openapi.json
+  - openapi/scoutrfp-projects-v1-openapi.json
+  - openapi/scoutrfp-reports-v1-openapi.json
+  - openapi/scoutrfp-spend_categories-v1-openapi.json
+  - openapi/scoutrfp-suppliers-v1-openapi.json
+- name: basic_authentication
+  type: http
+  scheme: basic
+  sources:
+  - openapi/scoutrfp-scim-v2-openapi.json

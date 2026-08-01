@@ -1,0 +1,645 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: derived from openapi/*.json operations; no official Workday Strategic Sourcing MCP server found
+server:
+  name: scoutrfp
+  transport: stdio
+tools:
+- name: attachments_v1_list_attachments
+  description: List Attachments
+  source_operation: openapi/scoutrfp-attachments-v1-openapi.json#List Attachments
+- name: attachments_v1_create_an_attachment
+  description: Create an Attachment
+  source_operation: openapi/scoutrfp-attachments-v1-openapi.json#Create an Attachment
+- name: attachments_v1_get_an_attachment
+  description: Get an Attachment
+  source_operation: openapi/scoutrfp-attachments-v1-openapi.json#Get an Attachment
+- name: attachments_v1_update_an_attachment
+  description: Update an Attachment
+  source_operation: openapi/scoutrfp-attachments-v1-openapi.json#Update an Attachment
+- name: attachments_v1_get_an_attachment_by_external_id
+  description: Get an Attachment by External ID
+  source_operation: openapi/scoutrfp-attachments-v1-openapi.json#Get an Attachment by External ID
+- name: attachments_v1_update_an_attachment_by_external_id
+  description: Update an Attachment by External ID
+  source_operation: openapi/scoutrfp-attachments-v1-openapi.json#Update an Attachment by External ID
+- name: awards_v1_list_awards
+  description: List Awards
+  source_operation: openapi/scoutrfp-awards-v1-openapi.json#List Awards
+- name: awards_v1_list_award_line_items
+  description: List Award Line Items
+  source_operation: openapi/scoutrfp-awards-v1-openapi.json#List Award Line Items
+- name: awards_v1_get_an_award_line_item
+  description: Get an Award Line Item
+  source_operation: openapi/scoutrfp-awards-v1-openapi.json#Get an Award Line Item
+- name: contracts_v1_list_contracts
+  description: List Contracts
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#List Contracts
+- name: contracts_v1_create_a_contract
+  description: Create a Contract
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Create a Contract
+- name: contracts_v1_get_a_contract
+  description: Get a Contract
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Get a Contract
+- name: contracts_v1_update_a_contract
+  description: Update a Contract
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Update a Contract
+- name: contracts_v1_delete_a_contract
+  description: Delete a Contract
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Delete a Contract
+- name: contracts_v1_get_a_contract_by_external_id
+  description: Get a Contract by External ID
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Get a Contract by External ID
+- name: contracts_v1_update_a_contract_by_external_id
+  description: Update a Contract by External ID
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Update a Contract by External ID
+- name: contracts_v1_delete_a_contract_by_external_id
+  description: Delete a Contract by External ID
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Delete a Contract by External ID
+- name: contracts_v1_describe_contract_object
+  description: Describe Contract object
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Describe Contract object
+- name: contracts_v1_list_contract_types
+  description: List Contract Types
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#List Contract Types
+- name: contracts_v1_create_a_contract_type
+  description: Create a Contract Type
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Create a Contract Type
+- name: contracts_v1_get_a_contract_type
+  description: Get a Contract Type
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Get a Contract Type
+- name: contracts_v1_update_a_contract_type
+  description: Update a Contract Type
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Update a Contract Type
+- name: contracts_v1_delete_a_contract_type
+  description: Delete a Contract Type
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Delete a Contract Type
+- name: contracts_v1_get_a_contract_type_by_external_id
+  description: Get a Contract Type by External ID
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Get a Contract Type by External ID
+- name: contracts_v1_update_a_contract_type_by_external_id
+  description: Update a Contract Type by External ID
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Update a Contract Type by External ID
+- name: contracts_v1_delete_a_contract_type_by_external_id
+  description: Delete a Contract Type by External ID
+  source_operation: openapi/scoutrfp-contracts-v1-openapi.json#Delete a Contract Type by External ID
+- name: events_v1_list_event_templates
+  description: List Event Templates
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#List Event Templates
+- name: events_v1_get_an_event_template
+  description: Get an Event Template
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Get an Event Template
+- name: events_v1_list_events
+  description: List Events
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#List Events
+- name: events_v1_create_an_event
+  description: Create an Event
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Create an Event
+- name: events_v1_get_an_event
+  description: Get an Event
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Get an Event
+- name: events_v1_update_an_event
+  description: Update an Event
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Update an Event
+- name: events_v1_delete_an_event
+  description: Delete an Event
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Delete an Event
+- name: events_v1_describe_event_object
+  description: Describe Event Object
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Describe Event Object
+- name: events_v1_list_worksheets
+  description: List Worksheets
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#List Worksheets
+- name: events_v1_get_a_worksheet
+  description: Get a Worksheet
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Get a Worksheet
+- name: events_v1_describe_worksheet_object
+  description: Describe Worksheet object
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Describe Worksheet object
+- name: events_v1_list_line_items
+  description: List Line Items
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#List Line Items
+- name: events_v1_create_a_line_item
+  description: Create a Line Item
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Create a Line Item
+- name: events_v1_bulk_create_line_items
+  description: Bulk Create Line Items
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Bulk Create Line Items
+- name: events_v1_get_a_line_item
+  description: Get a Line Item
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Get a Line Item
+- name: events_v1_update_a_line_item
+  description: Update a Line Item
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Update a Line Item
+- name: events_v1_delete_a_line_item
+  description: Delete a Line Item
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Delete a Line Item
+- name: events_v1_add_suppliers
+  description: Add Suppliers
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Add Suppliers
+- name: events_v1_remove_suppliers
+  description: Remove Suppliers
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Remove Suppliers
+- name: events_v1_add_suppliers_using_external_ids
+  description: Add Suppliers using External IDs
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Add Suppliers using External IDs
+- name: events_v1_remove_suppliers_using_external_ids
+  description: Remove Suppliers using External IDs
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Remove Suppliers using External IDs
+- name: events_v1_add_suppliers_using_contacts
+  description: Add Suppliers using Contacts
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Add Suppliers using Contacts
+- name: events_v1_remove_suppliers_using_contacts
+  description: Remove Suppliers using Contacts
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Remove Suppliers using Contacts
+- name: events_v1_add_suppliers_using_contacts_external_ids
+  description: Add Suppliers using Contacts External IDs
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Add Suppliers using Contacts External IDs
+- name: events_v1_remove_suppliers_using_contacts_external_ids
+  description: Remove Suppliers using Contacts External IDs
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Remove Suppliers using Contacts External IDs
+- name: events_v1_list_bids
+  description: List Bids
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#List Bids
+- name: events_v1_get_a_bid
+  description: Get a Bid
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Get a Bid
+- name: events_v1_describe_bid_object
+  description: Describe Bid object
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Describe Bid object
+- name: events_v1_list_bid_line_items
+  description: List Bid Line Items
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#List Bid Line Items
+- name: events_v1_get_a_bid_line_item
+  description: Get a Bid Line Item
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Get a Bid Line Item
+- name: events_v1_list_all_bid_line_items
+  description: List All Bid Line Items
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#List All Bid Line Items
+- name: events_v1_describe_bid_line_item_object
+  description: Describe Bid Line Item Object
+  source_operation: openapi/scoutrfp-events-v1-openapi.json#Describe Bid Line Item Object
+- name: fields_v1_list_fields
+  description: List Fields
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#List Fields
+- name: fields_v1_create_a_field
+  description: Create a Field
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#Create a Field
+- name: fields_v1_get_a_field
+  description: Get a Field
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#Get a Field
+- name: fields_v1_update_a_field
+  description: Update a Field
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#Update a Field
+- name: fields_v1_delete_a_field
+  description: Delete a Field
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#Delete a Field
+- name: fields_v1_list_field_options
+  description: List Field Options
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#List Field Options
+- name: fields_v1_create_a_field_option
+  description: Create a Field Option
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#Create a Field Option
+- name: fields_v1_update_a_field_option
+  description: Update a Field Option
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#Update a Field Option
+- name: fields_v1_delete_a_field_option
+  description: Delete a Field Option
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#Delete a Field Option
+- name: fields_v1_list_field_groups
+  description: List Field Groups
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#List Field Groups
+- name: fields_v1_create_a_field_group
+  description: Create a Field Group
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#Create a Field Group
+- name: fields_v1_get_a_field_group
+  description: Get a Field Group
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#Get a Field Group
+- name: fields_v1_update_a_field_group
+  description: Update a Field Group
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#Update a Field Group
+- name: fields_v1_delete_a_field_group
+  description: Delete a Field Group
+  source_operation: openapi/scoutrfp-fields-v1-openapi.json#Delete a Field Group
+- name: payments_v1_list_payment_terms
+  description: List Payment Terms
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#List Payment Terms
+- name: payments_v1_create_a_payment_term
+  description: Create a Payment Term
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Create a Payment Term
+- name: payments_v1_update_a_payment_term
+  description: Update a Payment Term
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Update a Payment Term
+- name: payments_v1_delete_a_payment_term
+  description: Delete a Payment Term
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Delete a Payment Term
+- name: payments_v1_update_a_payment_term_by_external_id
+  description: Update a Payment Term by External ID
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Update a Payment Term by External ID
+- name: payments_v1_delete_a_payment_term_by_external_id
+  description: Delete a Payment Term by External ID
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Delete a Payment Term by External ID
+- name: payments_v1_list_payment_types
+  description: List Payment Types
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#List Payment Types
+- name: payments_v1_create_a_payment_type
+  description: Create a Payment Type
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Create a Payment Type
+- name: payments_v1_update_a_payment_type
+  description: Update a Payment Type
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Update a Payment Type
+- name: payments_v1_delete_a_payment_type
+  description: Delete a Payment Type
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Delete a Payment Type
+- name: payments_v1_update_a_payment_type_by_external_id
+  description: Update a Payment Type by External ID
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Update a Payment Type by External ID
+- name: payments_v1_delete_a_payment_type_by_external_id
+  description: Delete a Payment Type by External ID
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Delete a Payment Type by External ID
+- name: payments_v1_list_payment_currencies
+  description: List Payment Currencies
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#List Payment Currencies
+- name: payments_v1_create_a_payment_currency
+  description: Create a Payment Currency
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Create a Payment Currency
+- name: payments_v1_update_a_payment_currency
+  description: Update a Payment Currency
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Update a Payment Currency
+- name: payments_v1_delete_a_payment_currency
+  description: Delete a Payment Currency
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Delete a Payment Currency
+- name: payments_v1_update_a_payment_currency_by_external_id
+  description: Update a Payment Currency by External ID
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Update a Payment Currency by External ID
+- name: payments_v1_delete_a_payment_currency_by_external_id
+  description: Delete a Payment Currency by External ID
+  source_operation: openapi/scoutrfp-payments-v1-openapi.json#Delete a Payment Currency by External ID
+- name: projects_v1_list_projects
+  description: List Projects
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#List Projects
+- name: projects_v1_create_a_project
+  description: Create a Project
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Create a Project
+- name: projects_v1_get_a_project
+  description: Get a Project
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Get a Project
+- name: projects_v1_update_a_project
+  description: Update a Project
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Update a Project
+- name: projects_v1_delete_a_project
+  description: Delete a Project
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Delete a Project
+- name: projects_v1_get_a_project_by_external_id
+  description: Get a Project by External ID
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Get a Project by External ID
+- name: projects_v1_update_a_project_by_external_id
+  description: Update a Project by External ID
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Update a Project by External ID
+- name: projects_v1_delete_a_project_by_external_id
+  description: Delete a Project by External ID
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Delete a Project by External ID
+- name: projects_v1_describe_project_object
+  description: Describe Project object
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Describe Project object
+- name: projects_v1_add_suppliers
+  description: Add Suppliers
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Add Suppliers
+- name: projects_v1_remove_suppliers
+  description: Remove Suppliers
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Remove Suppliers
+- name: projects_v1_add_suppliers_using_external_ids
+  description: Add Suppliers using External IDs
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Add Suppliers using External IDs
+- name: projects_v1_remove_suppliers_using_external_ids
+  description: Remove Suppliers using External IDs
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Remove Suppliers using External IDs
+- name: projects_v1_add_suppliers_using_contacts
+  description: Add Suppliers using Contacts
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Add Suppliers using Contacts
+- name: projects_v1_remove_suppliers_using_contacts
+  description: Remove Suppliers using Contacts
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Remove Suppliers using Contacts
+- name: projects_v1_add_suppliers_using_contacts_external_ids
+  description: Add Suppliers using Contacts External IDs
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Add Suppliers using Contacts External IDs
+- name: projects_v1_remove_suppliers_using_contacts_external_ids
+  description: Remove Suppliers using Contacts External IDs
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Remove Suppliers using Contacts External
+    IDs
+- name: projects_v1_list_project_types
+  description: List Project Types
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#List Project Types
+- name: projects_v1_get_a_project_type
+  description: Get a Project Type
+  source_operation: openapi/scoutrfp-projects-v1-openapi.json#Get a Project Type
+- name: reports_v1_contract_milestone_report_entries
+  description: Contract Milestone Report Entries
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Contract Milestone Report Entries
+- name: reports_v1_contract_milestone_report_schema
+  description: Contract Milestone Report Schema
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Contract Milestone Report Schema
+- name: reports_v1_contract_report_entries
+  description: Contract Report Entries
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Contract Report Entries
+- name: reports_v1_contract_report_schema
+  description: Contract Report Schema
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Contract Report Schema
+- name: reports_v1_event_report_entries
+  description: Event Report Entries
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Event Report Entries
+- name: reports_v1_event_single_report_entries
+  description: Event Single Report Entries
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Event Single Report Entries
+- name: reports_v1_event_report_entries_(deprecated)
+  description: Event Report Entries (Deprecated)
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Event Report Entries (Deprecated)
+- name: reports_v1_event_report_schema
+  description: Event Report Schema
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Event Report Schema
+- name: reports_v1_performance_review_answer_report_entries
+  description: Performance Review Answer Report Entries
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Performance Review Answer Report Entries
+- name: reports_v1_performance_review_answer_schema
+  description: Performance Review Answer Schema
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Performance Review Answer Schema
+- name: reports_v1_performance_review_report_entries
+  description: Performance Review Report Entries
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Performance Review Report Entries
+- name: reports_v1_performance_review_report_schema
+  description: Performance Review Report Schema
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Performance Review Report Schema
+- name: reports_v1_project_milestone_report_entries
+  description: Project Milestone Report Entries
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Project Milestone Report Entries
+- name: reports_v1_project_milestone_report_schema
+  description: Project Milestone Report Schema
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Project Milestone Report Schema
+- name: reports_v1_project_report_entries
+  description: Project Report Entries
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Project Report Entries
+- name: reports_v1_project_report_schema
+  description: Project Report Schema
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Project Report Schema
+- name: reports_v1_savings_report_entries
+  description: Savings Report Entries
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Savings Report Entries
+- name: reports_v1_savings_report_schema
+  description: Savings Report Schema
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Savings Report Schema
+- name: reports_v1_supplier_report_entries
+  description: Supplier Report Entries
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Supplier Report Entries
+- name: reports_v1_supplier_report_schema
+  description: Supplier Report Schema
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Supplier Report Schema
+- name: reports_v1_supplier_review_report_entries
+  description: Supplier Review Report Entries
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Supplier Review Report Entries
+- name: reports_v1_supplier_review_report_schema
+  description: Supplier Review Report Schema
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Supplier Review Report Schema
+- name: reports_v1_all_suppliers
+  description: All suppliers
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#All suppliers
+- name: reports_v1_single_supplier
+  description: Single supplier
+  source_operation: openapi/scoutrfp-reports-v1-openapi.json#Single supplier
+- name: scim_v2_list_users
+  description: List Users
+  source_operation: openapi/scoutrfp-scim-v2-openapi.json#List Users
+- name: scim_v2_create_a_user
+  description: Create a User
+  source_operation: openapi/scoutrfp-scim-v2-openapi.json#Create a User
+- name: scim_v2_get_a_user
+  description: Get a user
+  source_operation: openapi/scoutrfp-scim-v2-openapi.json#Get a user
+- name: scim_v2_patch_a_user
+  description: Patch a User
+  source_operation: openapi/scoutrfp-scim-v2-openapi.json#Patch a User
+- name: scim_v2_replace_a_user
+  description: Replace a User
+  source_operation: openapi/scoutrfp-scim-v2-openapi.json#Replace a User
+- name: scim_v2_deactivate_a_user
+  description: Deactivate a user
+  source_operation: openapi/scoutrfp-scim-v2-openapi.json#Deactivate a user
+- name: scim_v2_list_schemas
+  description: List Schemas
+  source_operation: openapi/scoutrfp-scim-v2-openapi.json#List Schemas
+- name: scim_v2_get_a_schema
+  description: Get a Schema
+  source_operation: openapi/scoutrfp-scim-v2-openapi.json#Get a Schema
+- name: scim_v2_list_resource_types
+  description: List Resource Types
+  source_operation: openapi/scoutrfp-scim-v2-openapi.json#List Resource Types
+- name: scim_v2_get_a_resource_type
+  description: Get a Resource Type
+  source_operation: openapi/scoutrfp-scim-v2-openapi.json#Get a Resource Type
+- name: scim_v2_list_service_provider_configs
+  description: List Service Provider Configs
+  source_operation: openapi/scoutrfp-scim-v2-openapi.json#List Service Provider Configs
+- name: spend_categories_v1_list_spend_categories
+  description: List Spend Categories
+  source_operation: openapi/scoutrfp-spend_categories-v1-openapi.json#List Spend Categories
+- name: spend_categories_v1_create_a_spend_category
+  description: Create a Spend Category
+  source_operation: openapi/scoutrfp-spend_categories-v1-openapi.json#Create a Spend Category
+- name: spend_categories_v1_get_a_spend_category
+  description: Get a Spend Category
+  source_operation: openapi/scoutrfp-spend_categories-v1-openapi.json#Get a Spend Category
+- name: spend_categories_v1_update_a_spend_category
+  description: Update a Spend Category
+  source_operation: openapi/scoutrfp-spend_categories-v1-openapi.json#Update a Spend Category
+- name: spend_categories_v1_delete_a_spend_category
+  description: Delete a Spend Category
+  source_operation: openapi/scoutrfp-spend_categories-v1-openapi.json#Delete a Spend Category
+- name: spend_categories_v1_get_a_spend_category_by_external_id
+  description: Get a Spend Category by External ID
+  source_operation: openapi/scoutrfp-spend_categories-v1-openapi.json#Get a Spend Category by External
+    ID
+- name: spend_categories_v1_update_a_spend_category_by_external_id
+  description: Update a Spend Category by External ID
+  source_operation: openapi/scoutrfp-spend_categories-v1-openapi.json#Update a Spend Category by External
+    ID
+- name: spend_categories_v1_delete_a_spend_category_by_external_id
+  description: Delete a Spend Category by External ID
+  source_operation: openapi/scoutrfp-spend_categories-v1-openapi.json#Delete a Spend Category by External
+    ID
+- name: suppliers_v1_list_supplier_companies
+  description: List Supplier Companies
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#List Supplier Companies
+- name: suppliers_v1_create_a_supplier_company
+  description: Create a Supplier Company
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Create a Supplier Company
+- name: suppliers_v1_get_a_supplier_company
+  description: Get a Supplier Company
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Get a Supplier Company
+- name: suppliers_v1_update_a_supplier_company
+  description: Update a Supplier Company
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Company
+- name: suppliers_v1_delete_a_supplier_company
+  description: Delete a Supplier Company
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Company
+- name: suppliers_v1_get_a_supplier_company_by_external_id
+  description: Get a Supplier Company by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Get a Supplier Company by External ID
+- name: suppliers_v1_update_a_supplier_company_by_external_id
+  description: Update a Supplier Company by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Company by External ID
+- name: suppliers_v1_delete_a_supplier_company_by_external_id
+  description: Delete a Supplier Company by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Company by External ID
+- name: suppliers_v1_list_supplier_contacts
+  description: List Supplier Contacts
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#List Supplier Contacts
+- name: suppliers_v1_describe_supplier_company_object
+  description: Describe Supplier Company object
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Describe Supplier Company object
+- name: suppliers_v1_create_a_supplier_contact
+  description: Create a Supplier Contact
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Create a Supplier Contact
+- name: suppliers_v1_get_a_supplier_contact
+  description: Get a Supplier Contact
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Get a Supplier Contact
+- name: suppliers_v1_update_a_supplier_contact
+  description: Update a Supplier Contact
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Contact
+- name: suppliers_v1_delete_a_supplier_contact
+  description: Delete a Supplier Contact
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Contact
+- name: suppliers_v1_list_supplier_contacts_by_supplier_company_external_id
+  description: List Supplier Contacts by Supplier Company External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#List Supplier Contacts by Supplier Company
+    External ID
+- name: suppliers_v1_get_a_supplier_contact_by_external_id
+  description: Get a Supplier Contact by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Get a Supplier Contact by External ID
+- name: suppliers_v1_update_a_supplier_contact_by_external_id
+  description: Update a Supplier Contact by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Contact by External ID
+- name: suppliers_v1_delete_a_supplier_contact_by_external_id
+  description: Delete a Supplier Contact by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Contact by External ID
+- name: suppliers_v1_list_contact_types
+  description: List Contact Types
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#List Contact Types
+- name: suppliers_v1_create_a_contact_type
+  description: Create a Contact Type
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Create a Contact Type
+- name: suppliers_v1_update_a_contact_type
+  description: Update a Contact Type
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Contact Type
+- name: suppliers_v1_delete_a_contact_type
+  description: Delete a Contact Type
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Contact Type
+- name: suppliers_v1_update_a_contact_type_by_external_id
+  description: Update a Contact Type by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Contact Type by External ID
+- name: suppliers_v1_delete_a_contact_type_by_external_id
+  description: Delete a Contact Type by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Contact Type by External ID
+- name: suppliers_v1_list_supplier_company_segmentations
+  description: List Supplier Company Segmentations
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#List Supplier Company Segmentations
+- name: suppliers_v1_create_a_supplier_company_segmentation
+  description: Create a Supplier Company Segmentation
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Create a Supplier Company Segmentation
+- name: suppliers_v1_update_a_supplier_company_segmentation
+  description: Update a Supplier Company Segmentation
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Company Segmentation
+- name: suppliers_v1_delete_a_supplier_company_segmentation
+  description: Delete a Supplier Company Segmentation
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Company Segmentation
+- name: suppliers_v1_list_supplier_company_risks
+  description: List Supplier Company Risks
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#List Supplier Company Risks
+- name: suppliers_v1_create_a_supplier_company_risk
+  description: Create a Supplier Company Risk
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Create a Supplier Company Risk
+- name: suppliers_v1_update_a_supplier_company_risk
+  description: Update a Supplier Company Risk
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Company Risk
+- name: suppliers_v1_delete_a_supplier_company_risk
+  description: Delete a Supplier Company Risk
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Company Risk
+- name: suppliers_v1_list_supplier_company_segmentation_statuses
+  description: List Supplier Company segmentation_statuses
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#List Supplier Company segmentation_statuses
+- name: suppliers_v1_create_a_supplier_company_segmentation_status
+  description: Create a Supplier Company Segmentation Status
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Create a Supplier Company Segmentation
+    Status
+- name: suppliers_v1_update_a_supplier_company_segmentation_status
+  description: Update a Supplier Company Segmentation Status
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Company Segmentation
+    Status
+- name: suppliers_v1_delete_a_supplier_company_segmentation_status
+  description: Delete a Supplier Company Segmentation Status
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Company Segmentation
+    Status
+- name: suppliers_v1_list_supplier_categories
+  description: List Supplier Categories
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#List Supplier Categories
+- name: suppliers_v1_create_a_supplier_category
+  description: Create a Supplier Category
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Create a Supplier Category
+- name: suppliers_v1_update_a_supplier_category
+  description: Update a Supplier Category
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Category
+- name: suppliers_v1_delete_a_supplier_category
+  description: Delete a Supplier Category
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Category
+- name: suppliers_v1_update_a_supplier_category_by_external_id
+  description: Update a Supplier Category by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Category by External
+    ID
+- name: suppliers_v1_delete_a_supplier_category_by_external_id
+  description: Delete a Supplier Category by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Category by External
+    ID
+- name: suppliers_v1_list_supplier_groups
+  description: List Supplier Groups
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#List Supplier Groups
+- name: suppliers_v1_create_a_supplier_group
+  description: Create a Supplier Group
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Create a Supplier Group
+- name: suppliers_v1_update_a_supplier_group
+  description: Update a Supplier Group
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Group
+- name: suppliers_v1_delete_a_supplier_group
+  description: Delete a Supplier Group
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Group
+- name: suppliers_v1_update_a_supplier_group_by_external_id
+  description: Update a Supplier Group by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Group by External ID
+- name: suppliers_v1_delete_a_supplier_group_by_external_id
+  description: Delete a Supplier Group by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Group by External ID
+- name: suppliers_v1_list_supplier_classifications
+  description: List Supplier Classifications
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#List Supplier Classifications
+- name: suppliers_v1_create_a_supplier_classification
+  description: Create a Supplier Classification
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Create a Supplier Classification
+- name: suppliers_v1_get_a_supplier_classification
+  description: Get a Supplier Classification
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Get a Supplier Classification
+- name: suppliers_v1_update_a_supplier_classification
+  description: Update a Supplier Classification
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Classification
+- name: suppliers_v1_delete_a_supplier_classification
+  description: Delete a Supplier Classification
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Classification
+- name: suppliers_v1_get_a_supplier_classification_by_external_id
+  description: Get a Supplier Classification by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Get a Supplier Classification by External
+    ID
+- name: suppliers_v1_update_a_supplier_classification_by_external_id
+  description: Update a Supplier Classification by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Update a Supplier Classification by External
+    ID
+- name: suppliers_v1_delete_a_supplier_classification_by_external_id
+  description: Delete a Supplier Classification by External ID
+  source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Classification by External
+    ID

@@ -1,0 +1,47 @@
+# Scout RFP (Workday Strategic Sourcing)
+
+> Strategic sourcing and supplier engagement platform (founded 2014, acquired by Workday 2019, now Workday Strategic Sourcing). Its public developer platform exposes a JSON:API REST API across eleven versioned services plus a SCIM 2.0 user-provisioning API. Auth is company API key + per-user personal token; all calls HTTPS/JSON:API, cursor paginated, rate limited to 5 requests/second. Legacy v3 on api.scoutrfp.com was sunset 2025-04-18 in favor of api.us.workdayspend.com (with EU and CA regional hosts).
+
+## APIs
+
+- [Suppliers API](https://apidocs.workdayspend.com/services/suppliers/v1.html): supplier companies, contacts, categories, groups, segmentation (56 operations)
+- [Events API](https://apidocs.workdayspend.com/services/events/v1.html): sourcing events (RFP/RFQ/auction), line items, worksheets, bids (32 operations)
+- [Reports API](https://apidocs.workdayspend.com/services/reports/v1.html): reporting + Tableau web data connector feeds (24 operations)
+- [Contracts API](https://apidocs.workdayspend.com/services/contracts/v1.html): contracts and contract types (17 operations)
+- [Projects API](https://apidocs.workdayspend.com/services/projects/v1.html): sourcing projects and project types (19 operations)
+- [Payments API](https://apidocs.workdayspend.com/services/payments/v1.html): supplier payments, terms, currencies (18 operations)
+- [Fields API](https://apidocs.workdayspend.com/services/fields/v1.html): custom field definitions (14 operations)
+- [Awards API](https://apidocs.workdayspend.com/services/awards/v1.html): event awards and award line items
+- [Attachments API](https://apidocs.workdayspend.com/services/attachments/v1.html): file attachments on records
+- [Spend Categories API](https://apidocs.workdayspend.com/services/spend_categories/v1.html): spend category taxonomy
+- [SCIM (Users) API](https://apidocs.workdayspend.com/services/scim/v2.html): SCIM 2.0 user provisioning
+
+## Specs
+
+- [Suppliers OpenAPI](openapi/scoutrfp-suppliers-v1-openapi.json)
+- [Events OpenAPI](openapi/scoutrfp-events-v1-openapi.json)
+- [Reports OpenAPI](openapi/scoutrfp-reports-v1-openapi.json)
+- [Contracts OpenAPI](openapi/scoutrfp-contracts-v1-openapi.json)
+- [Projects OpenAPI](openapi/scoutrfp-projects-v1-openapi.json)
+- [Payments OpenAPI](openapi/scoutrfp-payments-v1-openapi.json)
+- [Fields OpenAPI](openapi/scoutrfp-fields-v1-openapi.json)
+- [Awards OpenAPI](openapi/scoutrfp-awards-v1-openapi.json)
+- [Attachments OpenAPI](openapi/scoutrfp-attachments-v1-openapi.json)
+- [Spend Categories OpenAPI](openapi/scoutrfp-spend_categories-v1-openapi.json)
+- [SCIM OpenAPI](openapi/scoutrfp-scim-v2-openapi.json)
+
+## Artifacts
+
+- [Authentication](authentication/scoutrfp-authentication.yml): api-key headers (X-Api-Key + X-User-Token + X-User-Email) + SCIM basic
+- [Conventions](conventions/scoutrfp-conventions.yml): JSON:API, cursor pagination, 5 req/s rate limit, versioning
+- [Error catalog](errors/scoutrfp-problem-types.yml): JSON:API / SCIM error envelopes
+- [Conformance](conformance/scoutrfp-conformance.yml): JSON:API 1.0, SCIM 2.0, SOC 2 / ISO 27001 / FedRAMP / GDPR
+- [Lifecycle](lifecycle/scoutrfp-lifecycle.yml): 18-month major-version support; legacy v3 sunset 2025-04-18
+- [Data model](data-model/scoutrfp-data-model.yml): entity/relationship graph
+- [Agent Skills](skills/_index.yml): run sourcing event, onboard supplier, SCIM provisioning, manage contract
+
+## Docs
+
+- [Developer portal](https://apidocs.workdayspend.com/)
+- [Product](https://www.workday.com/en-us/products/spend-management/strategic-sourcing.html)
+- [Trust / security](https://security.workday.com/)

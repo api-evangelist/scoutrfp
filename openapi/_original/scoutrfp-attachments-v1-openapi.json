@@ -1,0 +1,1422 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Workday Strategic Sourcing Attachments API",
+    "version": "1.0",
+    "description": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n"
+  },
+  "servers": [
+    {
+      "url": "https://api.us.workdayspend.com/services/attachments/v1",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://api.sandbox.us.workdayspend.com/services/attachments/v1",
+      "description": "Sandbox Server"
+    }
+  ],
+  "security": [
+    {
+      "api_key": [],
+      "user_token": [],
+      "user_email": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "support",
+      "x-displayName": "Customer Support",
+      "description": "We've provided detailed documentation below to guide you. However, if you need additional assistance, here's how you can get the support you need:\n\n* __Community Discussions:__ Join the conversation on our Workday Community Discussion Boards (found under the \"Collaborate\" section in community). Connect with other users, share best practices, and get answers to your configuration questions.\n* __Expert Configuration Assistance (Professional Services):__ For tailored, hands-on support with your specific project, our Professional Services team is available.\n  * Looking for personalized guidance? Workday Success Plan customers can submit an \"Ask\" for expert insights on configuration and best practices.\n  * Need custom solutions? Consider Expert Assist, our consulting service for detailed changes and project support.\n* __Reporting System Issues:__ If you suspect a problem with the Workday system itself, please connect with our dedicated support team. Your company's Named Support Contact (NSC) can log a Product Support Defect case. We'll review the issue based on its impact and Workday's service level agreement (SLA).\n"
+    },
+    {
+      "name": "servers",
+      "x-displayName": "Servers",
+      "description": "### US Region\n| Environment       | US region Base URI                                              |\n|-------------------|-----------------------------------------------------------------|\n| **Production**    | https://api.us.workdayspend.com/services/attachments/v1         |\n| **Sandbox**       | https://api.sandbox.us.workdayspend.com/services/attachments/v1 |\n\n### EU Region\n| Environment       | EU region Base URI                                                |\n|-------------------|-------------------------------------------------------------------|\n| **Production**    | https://api.eu.workdayspend.com/services/attachments/v1          |\n| **Sandbox**       | https://api.sandbox.eu.workdayspend.com/services/attachments/v1  |\n\n### CA Region\n| Environment       | CA region Base URI                                                |\n|-------------------|-------------------------------------------------------------------|\n| **Production**    | https://api.ca.workdayspend.com/services/attachments/v1          |\n| **Sandbox**       | https://api.sandbox.ca.workdayspend.com/services/attachments/v1  |\n"
+    },
+    {
+      "name": "api_specification",
+      "x-displayName": "API Specification",
+      "description": "The API conforms to the [JSON API Specification](https://jsonapi.org).\n\nThe current version of this service is indicated by the `X-Api-Version` header.\n\nSample version header: `X-Api-Version: 1.0`.\n"
+    },
+    {
+      "name": "authentication",
+      "x-displayName": "Authentication",
+      "description": "The Workday Strategic Sourcing API uses API keys to authenticate requests. Every request\nwill require all 3 HTTP headers:\n\n| HTTP Header       | Description               |\n|-------------------|---------------------------|\n| **X-Api-Key**     | a company-wide API key    |\n| **X-User-Token**  | a user-specific API token |\n| **X-User-Email**  | user email                |\n\nYou can generate all of those from the _API tokens_ section of your _Profile_ page.\n\nYour API keys carry many privileges, so be sure to keep them secure! Do not share your secret API\nkeys in publicly accessible areas such as GitHub, client-side code, and so forth.\n\nAll API requests must be made over [HTTPS](http://en.wikipedia.org/wiki/HTTP_Secure). Calls made\nover plain HTTP will fail. API requests without authentication will also fail.\n"
+    },
+    {
+      "name": "rate_limiting",
+      "x-displayName": "Rate Limiting",
+      "description": "Rate limit windows are per second and are shared by all API Keys for a company.\n\nThe rate limit is 5 requests per second.\n\nWhen request submissions exceed the limits, the limit-exceeding requests return `429 Too Many Requests` error responses to the client.\n\nUpon receiving a `429` response, it is recommended to retry the request in compliance with the rate limit. One example would be to add a sleep function for 1 second and retry.\n"
+    },
+    {
+      "name": "attachments",
+      "x-displayName": "Attachments",
+      "description": "Use the attachments API to create, update, and delete the attachments in Workday Strategic Sourcing.\n\n## Working with Attachments\n\nCreating attachments for Workday Strategic Sourcing objects is a two-step process. First, you need to inform\nthe system about your intention to upload an attachment by issuing a \"Create an Attachment\" request,\nconsisting of the file name and a link to the object to which you are adding an attachment. The link\nis represented by a relationship object containing an object ID and its type.\n\nIn the response you will receive a link in the `upload_url` attributes, along with required HTTP headers\nto send with your file. You will need to upload your file as a binary stream in a PUT request into the\nspecified URL, making sure the required headers are present. Here is how the workflow might look\nlike when triggered from a console:\n\n```bash\n$ curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n       -H \"X-User-Token: ${USER_TOKEN}\" \\\n       -H \"X-User-Email: ${USER_EMAIL}\" \\\n       -H \"Content-Type: application/vnd.api+json\" \\\n       -X POST \\\n       -d '\n         {\n           \"data\": {\n             \"type\": \"attachments\",\n             \"attributes\": {\n               \"title\": \"My Interesting Document\",\n               \"file_name\": \"Some Interesting File.pdf\"\n             },\n             \"relationships\": {\n               \"contract\": {\n                 \"data\": {\n                   \"id\": 1,\n                   \"type\": \"contracts\"\n                 }\n               }\n             }\n           }\n         }\n       ' \\\n       \"https://api.us.workdayspend.com/services/attachments/v1/attachments\"\n\n{\n    \"data\": {\n        \"id\": \"1\",\n        \"type\": \"attachments\",\n        \"attributes\": {\n            \"title\": \"My Interesting Document\",\n            \"file_size\": null,\n            \"upload_url\": \"https://upload.s3.amazonaws.com/uploads/contract/1/hex/file.pdf?some=very&long=url\",\n            \"upload_headers\": [\n                {\n                    \"name\": \"Content-Type\",\n                    \"value\": \"application/octet-stream\"\n                },\n                {\n                    \"name\": \"x-amz-acl\",\n                    \"value\": \"private\"\n                },\n                {\n                    \"name\": \"x-amz-server-side-encryption\",\n                    \"value\": \"AES256\"\n                },\n                {\n                    \"name\": \"Content-Disposition\",\n                    \"value\": \"attachment\"\n                }\n            ]\n        }\n    }\n}\n\n$ curl -X PUT \\\n    --data \"@file.pdf\" \\\n    -H \"Content-Type: application/octet-stream\" \\\n    -H \"x-amz-acl: private\" \\\n    -H \"x-amz-server-side-encryption: AES256\" \\\n    -H \"Content-Disposition: attachment\" \\\n    https://upload.s3.amazonaws.com/uploads/contract/1/hex/file.pdf?some=very&long=url\n```\n\nThe upload URL expires within 15 minutes after issuing. Please note that you will not be able to upload\nthe data file to the attachment object after that. An automated system will purge all partial uploads\nafter a certain period (usually within 30-60 minutes after creation) to prevent orphan records from\noverflowing the system.\n\n**Please Note**: The list of headers and their values might change at any time, so when you're\nimplementing an integration with the Workday Strategic Sourcing system, make sure to include all of the HTTP headers\nreturned from the attachments endpoint.\n\n## Attachment Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Attachment\" showReadOnly={true} showWriteOnly={true} />\n"
+    }
+  ],
+  "paths": {
+    "/attachments": {
+      "get": {
+        "tags": [
+          "attachments"
+        ],
+        "description": "Returns a filtered list of attachments based of the `filter[id_equals]` mandatory param.\nThe result is limited to **50** attachments.\n",
+        "operationId": "List Attachments",
+        "summary": "List Attachments",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter attachments by multiple criteria.\n",
+            "schema": {
+              "$ref": "#/components/schemas/AttachmentInputFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Attachment"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/index_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/attachments/v1/attachments\"\n"
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "attachments"
+        ],
+        "description": "Create an attachment for an object. This endpoint represents the first step in the two-step\nupload workflow, described in the [Working with Attachments](#section/Working-with-Attachments)\nsection.\n\nThe only required attribute is `file_name`, which will be used to generate attachment title\n(if a custom one is not supplied), and the upload URL. You will also need to specify the object\nto which you want to add an attachment (see `relationships` property).\n",
+        "operationId": "Create an Attachment",
+        "summary": "Create an Attachment",
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/AttachmentCreate"
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/create_request"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/AttachmentUpload"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/create_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '\n       {\n         \"data\": {\n           \"type\": \"attachments\",\n           \"attributes\": {\n             \"title\": \"My Interesting Document\",\n             \"file_name\": \"Some Interesting File.pdf\",\n             \"external_id\": \"AT1\"\n           },\n           \"relationships\": {\n             \"contract\": {\n               \"data\": {\n                 \"id\": 1,\n                 \"type\": \"contracts\"\n               }\n             }\n           }\n         }\n       }\n     ' \\\n     \"https://api.us.workdayspend.com/services/attachments/v1/attachments\"\n"
+          }
+        ]
+      }
+    },
+    "/attachments/{id}": {
+      "get": {
+        "tags": [
+          "attachments"
+        ],
+        "description": "Retrieves the details of an existing attachment. You need to supply the unique attachment identifier that was returned upon attachment creation.\n",
+        "operationId": "Get an Attachment",
+        "summary": "Get an Attachment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique attachment identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Attachment"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/show_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/attachments/v1/attachments/1\"\n"
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "attachments"
+        ],
+        "description": "Update an attachment for an object. This endpoint represents the first step in the two-step\nupdate upload workflow, described in the [Working with Attachments](#section/Working-with-Attachments)\nsection.\n\nNew `upload_url` and `upload_headers` will be returned when the `file_name` attribute is passed. In this case, the existing `upload_url` will be overridden with a new one that doesn\u2019t have the associated file yet, pending completion of the second step in the described upload process.\n",
+        "operationId": "Update an Attachment",
+        "summary": "Update an Attachment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique attachment identifier.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/AttachmentUpdate"
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/update_request"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/AttachmentUpload"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/update_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                },
+                "examples": {
+                  "invalid_type": {
+                    "summary": "Missing or invalid 'type' specified, expected 'attachments'",
+                    "description": "Returns error due to invalid `type` parameter.\n",
+                    "value": {
+                      "errors": [
+                        {
+                          "detail": "Missing or invalid 'type' specified, expected 'attachments'"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '\n       {\n         \"data\": {\n           \"id\": \"1\",\n           \"type\": \"attachments\",\n           \"attributes\": {\n             \"title\": \"My Interesting Document\",\n             \"file_name\": \"Some Interesting File.pdf\"\n           }\n         }\n       }\n     ' \\\n     \"https://api.us.workdayspend.com/services/attachments/v1/attachments/1\"\n"
+          }
+        ]
+      }
+    },
+    "/attachments/{external_id}/external_id": {
+      "get": {
+        "tags": [
+          "attachments"
+        ],
+        "description": "Retrieves the details of an existing attachment. You need to supply the unique attachment identifier (external ID) that was set during attachment creation.\n",
+        "operationId": "Get an Attachment by External ID",
+        "summary": "Get an Attachment by External ID",
+        "parameters": [
+          {
+            "name": "external_id",
+            "in": "path",
+            "description": "Unique attachment external identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "AT1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Attachment"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/external_show_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/attachments/v1/attachments/AT1/external_id\"\n"
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "attachments"
+        ],
+        "description": "Update an attachment for an object. This endpoint represents the first step in the two-step\nupdate upload workflow, described in the [Working with Attachments](#section/Working-with-Attachments)\nsection.\n\nNew `upload_url` and `upload_headers` will be returned when the `file_name` attribute is passed. In this case, the existing `upload_url` will be overridden with a new one that doesn\u2019t have the associated file yet, pending completion of the second step in the described upload process.\n",
+        "operationId": "Update an Attachment by External ID",
+        "summary": "Update an Attachment by External ID",
+        "parameters": [
+          {
+            "name": "external_id",
+            "in": "path",
+            "description": "Unique attachment external identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "AT1"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/AttachmentUpdate"
+                  }
+                }
+              },
+              "examples": {
+                "success": {
+                  "$ref": "#/components/examples/external_update_request"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/AttachmentUpload"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "$ref": "#/components/examples/external_update_response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                },
+                "examples": {
+                  "invalid_type": {
+                    "summary": "Missing or invalid 'type' specified, expected 'attachments'",
+                    "description": "Returns error due to invalid `type` parameter.\n",
+                    "value": {
+                      "errors": [
+                        {
+                          "detail": "Missing or invalid 'type' specified, expected 'attachments'"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "label": "Curl",
+            "source": "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '\n       {\n         \"data\": {\n           \"id\": \"AT1\",\n           \"type\": \"attachments\",\n           \"attributes\": {\n             \"title\": \"My Interesting Document\",\n             \"file_name\": \"Some Interesting File.pdf\"\n           }\n         }\n       }\n     ' \\\n     \"https://api.us.workdayspend.com/services/attachments/v1/attachments/AT1/external_id\"\n"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AttachmentInputFilter": {
+        "type": "object",
+        "properties": {
+          "id_equals": {
+            "type": "string",
+            "description": "Find attachments by IDs. A comma separated list of IDs to be provided.",
+            "example": "2,5,9"
+          }
+        }
+      },
+      "AttachmentType": {
+        "type": "string",
+        "description": "Object type, should always be `attachments`.",
+        "example": "attachments"
+      },
+      "AttachmentId": {
+        "type": "integer",
+        "description": "Attachment identifier string.",
+        "example": 1
+      },
+      "AttachmentBase": {
+        "title": "Attachment",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/AttachmentType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/AttachmentId"
+          }
+        }
+      },
+      "AttachmentAttributesBase": {
+        "type": "object",
+        "description": "Attachment attributes.",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 255,
+            "description": "Attachment title.",
+            "example": "My Contract"
+          },
+          "file_name": {
+            "type": "string",
+            "description": "Attachment file name.",
+            "example": "My Contract.pdf"
+          },
+          "file_size": {
+            "type": "string",
+            "description": "Attachment file size in bytes.",
+            "readOnly": true,
+            "example": "1023343"
+          },
+          "external_id": {
+            "type": "string",
+            "maxLength": 255,
+            "description": "Attachment external identifier.",
+            "example": "AT1"
+          }
+        }
+      },
+      "AttachmentAttributesExtended": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AttachmentAttributesBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "download_url": {
+                "type": "string",
+                "description": "Attachment download URL.",
+                "readOnly": true
+              },
+              "download_url_expires_at": {
+                "format": "date-time",
+                "description": "Download URL expiration time.",
+                "readOnly": true,
+                "example": "2020-08-21T13:26:59.999Z"
+              },
+              "uploaded_by": {
+                "type": "string",
+                "description": "Email of the uploader.",
+                "readOnly": true
+              },
+              "uploaded_at": {
+                "format": "date-time",
+                "description": "Time of upload.",
+                "readOnly": true,
+                "example": "2020-08-18T12:48:42.978Z"
+              }
+            }
+          }
+        ]
+      },
+      "AttachmentAttributes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AttachmentAttributesExtended"
+          },
+          {
+            "type": "object",
+            "required": [
+              "file_name"
+            ]
+          }
+        ]
+      },
+      "Attachment": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AttachmentBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "$ref": "#/components/schemas/AttachmentAttributes"
+              }
+            }
+          }
+        ]
+      },
+      "ContractTypeValue": {
+        "type": "string",
+        "description": "Object type, should always be `contracts`.",
+        "example": "contracts"
+      },
+      "ContractId": {
+        "type": "integer",
+        "description": "Contract identifier string.",
+        "example": 1
+      },
+      "ContractBase": {
+        "title": "Contract",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ContractTypeValue"
+          },
+          "id": {
+            "$ref": "#/components/schemas/ContractId"
+          }
+        }
+      },
+      "AttachmentContractRelationship": {
+        "title": "Contract",
+        "type": "object",
+        "description": "Contract relationship.",
+        "required": [
+          "contract"
+        ],
+        "properties": {
+          "contract": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ContractBase"
+              }
+            }
+          }
+        }
+      },
+      "EventType": {
+        "type": "string",
+        "description": "Object type, should always be `events`.",
+        "example": "events"
+      },
+      "EventId": {
+        "type": "integer",
+        "description": "Event identifier string.",
+        "example": 1
+      },
+      "EventBase": {
+        "title": "Event",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/EventType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/EventId"
+          }
+        }
+      },
+      "AttachmentEventRelationship": {
+        "title": "Event",
+        "type": "object",
+        "description": "Event relationship.",
+        "required": [
+          "event"
+        ],
+        "properties": {
+          "event": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/EventBase"
+              }
+            }
+          }
+        }
+      },
+      "ProjectType": {
+        "type": "string",
+        "description": "Object type, should always be `projects`.",
+        "example": "projects"
+      },
+      "ProjectId": {
+        "type": "integer",
+        "description": "Project identifier string.",
+        "example": 1
+      },
+      "ProjectBase": {
+        "title": "Project",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/ProjectType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/ProjectId"
+          }
+        }
+      },
+      "AttachmentProjectRelationship": {
+        "title": "Project",
+        "type": "object",
+        "description": "Project relationship.",
+        "required": [
+          "project"
+        ],
+        "properties": {
+          "project": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ProjectBase"
+              }
+            }
+          }
+        }
+      },
+      "SupplierCompanyType": {
+        "type": "string",
+        "description": "Object type, should always be `supplier_companies`.",
+        "example": "supplier_companies"
+      },
+      "SupplierCompanyId": {
+        "type": "integer",
+        "description": "Supplier company identifier string.",
+        "example": 1
+      },
+      "SupplierCompanyBase": {
+        "title": "SupplierCompany",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SupplierCompanyType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/SupplierCompanyId"
+          }
+        }
+      },
+      "AttachmentSupplierCompanyRelationship": {
+        "title": "Supplier Company",
+        "type": "object",
+        "description": "Supplier Company relationship.",
+        "required": [
+          "supplier_company"
+        ],
+        "properties": {
+          "supplier_company": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/SupplierCompanyBase"
+              }
+            }
+          }
+        }
+      },
+      "AttachmentCreate": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/AttachmentType"
+          },
+          "attributes": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AttachmentAttributesBase"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "file_name"
+                ]
+              }
+            ]
+          },
+          "relationships": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AttachmentContractRelationship"
+              },
+              {
+                "$ref": "#/components/schemas/AttachmentEventRelationship"
+              },
+              {
+                "$ref": "#/components/schemas/AttachmentProjectRelationship"
+              },
+              {
+                "$ref": "#/components/schemas/AttachmentSupplierCompanyRelationship"
+              }
+            ]
+          }
+        }
+      },
+      "AttachmentUploadAttributes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AttachmentAttributesBase"
+          },
+          {
+            "type": "object",
+            "required": [
+              "file_name"
+            ],
+            "properties": {
+              "upload_url": {
+                "type": "string",
+                "description": "Attachment upload URL. Please note, the URL expires within 15 minutes. This attribute\nwill only be returned when creating a new attachment.\n",
+                "readOnly": true
+              },
+              "upload_headers": {
+                "type": "array",
+                "description": "List of required HTTP headers with their values to submit when uploading the attachment file.\n",
+                "readOnly": true,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "HTTP header name."
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "HTTP header value."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "AttachmentUpload": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AttachmentBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "$ref": "#/components/schemas/AttachmentUploadAttributes"
+              }
+            }
+          }
+        ]
+      },
+      "AttachmentUpdate": {
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/AttachmentType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/AttachmentId"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/AttachmentAttributesBase"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "detail": {
+            "type": "string",
+            "description": "A human-readable explanation specific to this occurrence of the problem."
+          }
+        }
+      },
+      "Errors": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "SupplierCompany": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SupplierCompanyBase"
+          }
+        ]
+      },
+      "Project": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ProjectBase"
+          }
+        ]
+      },
+      "Contract": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ContractBase"
+          }
+        ]
+      },
+      "Event": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EventBase"
+          }
+        ]
+      }
+    },
+    "examples": {
+      "index_response": {
+        "value": {
+          "data": [
+            {
+              "id": "1",
+              "type": "attachments",
+              "attributes": {
+                "external_id": "AT1",
+                "title": "My Test Document",
+                "file_name": "my_test_document.pdf",
+                "file_size": "1023343",
+                "uploaded_at": "2020-08-18T12:48:42.978Z",
+                "uploaded_by": "someone@example.com",
+                "download_url": "https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url",
+                "download_url_expires_at": "2020-08-18T13:26:59.999Z"
+              },
+              "links": {
+                "self": " https://api.us.workdayspend.com/services/attachments/v1/attachments/1"
+              }
+            },
+            {
+              "id": "2",
+              "type": "attachments",
+              "attributes": {
+                "external_id": null,
+                "title": "My Test Document 2",
+                "file_name": "my_test_document_2.pdf",
+                "file_size": "534241",
+                "uploaded_at": "2020-08-19T12:48:42.978Z",
+                "uploaded_by": "someone@example.com",
+                "download_url": "https://upload.s3.amazonaws.com/uploads/contract/2/hex/Some%20Updated%20Test%20File2.pdf?some=very&long=url",
+                "download_url_expires_at": "2020-08-19T13:26:59.999Z"
+              },
+              "links": {
+                "self": " https://api.us.workdayspend.com/services/attachments/v1/attachments/2"
+              }
+            }
+          ],
+          "links": {
+            "self": "https://api.us.workdayspend.com/services/attachments/v1/attachments"
+          },
+          "meta": {
+            "count": 2
+          }
+        }
+      },
+      "index_preview_response": {
+        "value": {
+          "data": [
+            {
+              "id": "1",
+              "type": "attachments",
+              "attributes": {
+                "external_id": "AT1",
+                "title": "My Test Document",
+                "file_size": "1023343",
+                "uploaded_at": "2020-08-18T12:48:42.978Z",
+                "uploaded_by": "someone@example.com",
+                "download_url": "https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url",
+                "download_url_expires_at": "2020-08-18T13:26:59.999Z"
+              },
+              "links": {
+                "self": " https://api.us.workdayspend.com/services/attachments/v1/attachments/1"
+              },
+              "relationships": {
+                "wday_identifier": {
+                  "data": {
+                    "id": "attachments-1",
+                    "type": "wday_identifiers"
+                  }
+                }
+              }
+            },
+            {
+              "id": "2",
+              "type": "attachments",
+              "attributes": {
+                "external_id": null,
+                "title": "My Test Document 2",
+                "file_size": "534241",
+                "uploaded_at": "2020-08-19T12:48:42.978Z",
+                "uploaded_by": "someone@example.com",
+                "download_url": "https://upload.s3.amazonaws.com/uploads/contract/2/hex/Some%20Updated%20Test%20File2.pdf?some=very&long=url",
+                "download_url_expires_at": "2020-08-19T13:26:59.999Z"
+              },
+              "links": {
+                "self": " https://api.us.workdayspend.com/services/attachments/v1/attachments/2"
+              },
+              "relationships": {
+                "wday_identifier": {
+                  "data": {
+                    "id": "attachments-2",
+                    "type": "wday_identifiers"
+                  }
+                }
+              }
+            }
+          ],
+          "links": {
+            "self": "https://api.us.workdayspend.com/services/attachments/v1/attachments"
+          },
+          "meta": {
+            "count": 2
+          },
+          "included": [
+            {
+              "id": "attachments-1",
+              "type": "wday_identifiers",
+              "attributes": {
+                "wid": "attachments-wid-1"
+              }
+            },
+            {
+              "id": "attachments-2",
+              "type": "wday_identifiers",
+              "attributes": {
+                "wid": "attachments-wid-2"
+              }
+            }
+          ]
+        }
+      },
+      "create_request": {
+        "value": {
+          "data": {
+            "type": "attachments",
+            "attributes": {
+              "external_id": "AT1",
+              "title": "My Test Document",
+              "file_name": "Some Test File.pdf"
+            },
+            "relationships": {
+              "contract": {
+                "data": {
+                  "id": 1,
+                  "type": "contracts"
+                }
+              }
+            }
+          }
+        }
+      },
+      "create_response": {
+        "value": {
+          "data": {
+            "id": "1",
+            "type": "attachments",
+            "attributes": {
+              "external_id": "AT1",
+              "title": "My Test Document",
+              "file_size": null,
+              "upload_url": "https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Test%20File.pdf?some=very&long=url",
+              "upload_headers": [
+                {
+                  "name": "Content-Type",
+                  "value": "application/octet-stream"
+                },
+                {
+                  "name": "x-amz-acl",
+                  "value": "private"
+                },
+                {
+                  "name": "x-amz-server-side-encryption",
+                  "value": "AES256"
+                },
+                {
+                  "name": "Content-Disposition",
+                  "value": "attachment"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "create_preview_response": {
+        "value": {
+          "data": {
+            "id": "1",
+            "type": "attachments",
+            "attributes": {
+              "external_id": "AT1",
+              "title": "My Test Document",
+              "file_size": null,
+              "upload_url": "https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Test%20File.pdf?some=very&long=url",
+              "upload_headers": [
+                {
+                  "name": "Content-Type",
+                  "value": "application/octet-stream"
+                },
+                {
+                  "name": "x-amz-acl",
+                  "value": "private"
+                },
+                {
+                  "name": "x-amz-server-side-encryption",
+                  "value": "AES256"
+                },
+                {
+                  "name": "Content-Disposition",
+                  "value": "attachment"
+                }
+              ]
+            },
+            "relationships": {
+              "wday_identifier": {
+                "data": {
+                  "id": "attachments-1",
+                  "type": "wday_identifiers"
+                }
+              }
+            }
+          },
+          "included": [
+            {
+              "id": "attachments-1",
+              "type": "wday_identifiers",
+              "attributes": {
+                "wid": "attachments-wid-1"
+              }
+            }
+          ]
+        }
+      },
+      "show_response": {
+        "value": {
+          "data": {
+            "id": "1",
+            "type": "attachments",
+            "attributes": {
+              "external_id": "AT1",
+              "title": "My Test Document",
+              "file_name": "my_test_document.pdf",
+              "file_size": "1023343",
+              "uploaded_at": "2020-08-18T12:48:42.978Z",
+              "uploaded_by": "someone@example.com",
+              "download_url": "https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url",
+              "download_url_expires_at": "2020-08-21T13:26:59.999Z"
+            },
+            "links": {
+              "self": " https://api.us.workdayspend.com/services/attachments/v1/attachments/1"
+            }
+          }
+        }
+      },
+      "show_preview_response": {
+        "value": {
+          "data": {
+            "id": "1",
+            "type": "attachments",
+            "attributes": {
+              "external_id": "AT1",
+              "title": "My Test Document",
+              "file_size": "1023343",
+              "uploaded_at": "2020-08-18T12:48:42.978Z",
+              "uploaded_by": "someone@example.com",
+              "download_url": "https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url",
+              "download_url_expires_at": "2020-08-21T13:26:59.999Z"
+            },
+            "links": {
+              "self": " https://api.us.workdayspend.com/services/attachments/v1/attachments/1"
+            },
+            "relationships": {
+              "wday_identifier": {
+                "data": {
+                  "id": "attachments-1",
+                  "type": "wday_identifiers"
+                }
+              }
+            }
+          },
+          "included": [
+            {
+              "id": "attachments-1",
+              "type": "wday_identifiers",
+              "attributes": {
+                "wid": "attachments-wid-1"
+              }
+            }
+          ]
+        }
+      },
+      "update_request": {
+        "value": {
+          "data": {
+            "type": "attachments",
+            "id": "1",
+            "attributes": {
+              "title": "My Updated Test Document",
+              "file_name": "Some Updated Test File.pdf",
+              "external_id": "AT2"
+            }
+          }
+        }
+      },
+      "update_response": {
+        "value": {
+          "data": {
+            "id": "1",
+            "type": "attachments",
+            "attributes": {
+              "external_id": "AT2",
+              "title": "My Updated Test Document",
+              "file_size": null,
+              "upload_url": "https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url",
+              "upload_headers": [
+                {
+                  "name": "Content-Type",
+                  "value": "application/octet-stream"
+                },
+                {
+                  "name": "x-amz-acl",
+                  "value": "private"
+                },
+                {
+                  "name": "x-amz-server-side-encryption",
+                  "value": "AES256"
+                },
+                {
+                  "name": "Content-Disposition",
+                  "value": "attachment"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "update_preview_response": {
+        "value": {
+          "data": {
+            "id": "1",
+            "type": "attachments",
+            "attributes": {
+              "external_id": "AT2",
+              "title": "My Updated Test Document",
+              "file_size": null,
+              "upload_url": "https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url",
+              "upload_headers": [
+                {
+                  "name": "Content-Type",
+                  "value": "application/octet-stream"
+                },
+                {
+                  "name": "x-amz-acl",
+                  "value": "private"
+                },
+                {
+                  "name": "x-amz-server-side-encryption",
+                  "value": "AES256"
+                },
+                {
+                  "name": "Content-Disposition",
+                  "value": "attachment"
+                }
+              ]
+            },
+            "relationships": {
+              "wday_identifier": {
+                "data": {
+                  "id": "attachments-1",
+                  "type": "wday_identifiers"
+                }
+              }
+            }
+          },
+          "included": [
+            {
+              "id": "attachments-1",
+              "type": "wday_identifiers",
+              "attributes": {
+                "wid": "attachments-wid-1-updated"
+              }
+            }
+          ]
+        }
+      },
+      "external_show_response": {
+        "value": {
+          "data": {
+            "id": "1",
+            "type": "attachments",
+            "attributes": {
+              "external_id": "AT1",
+              "title": "My Test Document",
+              "file_name": "my_test_document.pdf",
+              "file_size": "1023343",
+              "uploaded_at": "2020-08-18T12:48:42.978Z",
+              "uploaded_by": "someone@example.com",
+              "download_url": "https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url",
+              "download_url_expires_at": "2020-08-21T13:26:59.999Z"
+            },
+            "links": {
+              "self": " https://api.us.workdayspend.com/services/attachments/v1/attachments/1"
+            }
+          }
+        }
+      },
+      "external_update_request": {
+        "value": {
+          "data": {
+            "type": "attachments",
+            "id": "AT1",
+            "attributes": {
+              "title": "My Updated Test Document",
+              "file_name": "Some Updated Test File.pdf",
+              "external_id": "AT2"
+            }
+          }
+        }
+      },
+      "external_update_response": {
+        "value": {
+          "data": {
+            "id": "1",
+            "type": "attachments",
+            "attributes": {
+              "external_id": "AT2",
+              "title": "My Updated Test Document",
+              "file_size": null,
+              "upload_url": "https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url",
+              "upload_headers": [
+                {
+                  "name": "Content-Type",
+                  "value": "application/octet-stream"
+                },
+                {
+                  "name": "x-amz-acl",
+                  "value": "private"
+                },
+                {
+                  "name": "x-amz-server-side-encryption",
+                  "value": "AES256"
+                },
+                {
+                  "name": "Content-Disposition",
+                  "value": "attachment"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "X-Api-Key",
+        "in": "header",
+        "description": "Company API key."
+      },
+      "user_token": {
+        "type": "apiKey",
+        "name": "X-User-Token",
+        "in": "header",
+        "description": "User token."
+      },
+      "user_email": {
+        "type": "apiKey",
+        "name": "X-User-Email",
+        "in": "header",
+        "description": "User email."
+      }
+    }
+  },
+  "x-tagGroups": [
+    {
+      "name": "Getting Started",
+      "tags": [
+        "support",
+        "servers",
+        "api_specification",
+        "authentication",
+        "rate_limiting"
+      ]
+    },
+    {
+      "name": "Attachments",
+      "tags": [
+        "attachments"
+      ]
+    }
+  ]
+}
