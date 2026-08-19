@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments bids API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "bids",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Bids",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_id/bids",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "1",
+                "type": "path",
+                "description": "Event identifier."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Customize pagination results with `size`.\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of all bids.\nOnly bids for events of type `RFP` are returned.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Bid",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/bids/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Bid identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing bid. You need to supply the unique bid\nidentifier that was returned upon bid creation.\n"
+        },
+        {
+          "info": {
+            "name": "Describe Bid object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/bids/describe"
+          },
+          "docs": "Returns a list of fields for the bid object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

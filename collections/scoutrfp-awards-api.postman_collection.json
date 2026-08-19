@@ -1,0 +1,211 @@
+{
+  "item": [
+    {
+      "id": "9f931854-4597-4992-8ead-1b608e838a35",
+      "name": "awards",
+      "description": {
+        "content": "Use the Awards API to query the Awards in Workday Strategic Sourcing.\n\nAwards are used for procurement.\n\n## Award Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Award\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ab9d5906-b6e2-4b33-9403-a8f52c9cde10",
+          "name": "List Awards",
+          "request": {
+            "name": "List Awards",
+            "description": {
+              "content": "Returns a list of awards.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "awards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "state_equals",
+                  "value": "<array>",
+                  "description": "Filter awards by multiple criteria.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter awards by multiple criteria.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter awards by multiple criteria.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d2437b3a-f925-49f2-8518-c9fe7d7e7636",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "awards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "state_equals",
+                      "value": "draft,confirmed"
+                    },
+                    {
+                      "key": "updated_at_from",
+                      "value": "2021-05-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": "2021-05-29T21:28:46.790Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"count\": 2\n  },\n  \"data\": [\n    {\n      \"type\": \"awards\",\n      \"id\": \"1\",\n      \"attributes\": {\n        \"title\": \"Award #1 title\",\n        \"state\": \"draft\",\n        \"updated_at\": \"2021-05-29T21:28:46.790Z\",\n        \"external_id\": null,\n        \"pros\": \"<p>Reliable</p>\",\n        \"cons\": \"<p>Expensive</p>\"\n      },\n      \"relationships\": {\n        \"creator\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"stakeholders\"\n          }\n        },\n        \"project\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"projects\"\n          }\n        }\n      }\n    },\n    {\n      \"type\": \"awards\",\n      \"id\": \"2\",\n      \"attributes\": {\n        \"title\": \"Award #2 title\",\n        \"state\": \"draft\",\n        \"updated_at\": \"2021-05-29T21:28:46.790Z\",\n        \"external_id\": \"AW-2\",\n        \"pros\": null,\n        \"cons\": null\n      },\n      \"relationships\": {\n        \"creator\": {\n          \"data\": {\n            \"id\": \"2\",\n            \"type\": \"stakeholders\"\n          }\n        },\n        \"project\": {\n          \"data\": {\n            \"id\": \"2\",\n            \"type\": \"projects\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/awards/v1/awards?page%5Bsize%5D=10\",\n    \"next\": \"https://api.us.workdayspend.com/services/awards/v1/awards?page%5Bcursor%5D=WzgzXQ%3D%3D&page%5Bdirection%5D=next&page%5Bsize%5D=10\",\n    \"prev\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14cd4f16-a7a3-499c-befa-ee706330fb48",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "awards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "state_equals",
+                      "value": "draft,confirmed"
+                    },
+                    {
+                      "key": "updated_at_from",
+                      "value": "2021-05-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": "2021-05-29T21:28:46.790Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4a8b3d63-42d3-4e2b-a0df-8b37151f07e8",
+    "name": "Workday Strategic Sourcing attachments awards API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

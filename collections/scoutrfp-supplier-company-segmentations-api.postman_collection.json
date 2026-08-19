@@ -1,0 +1,834 @@
+{
+  "item": [
+    {
+      "id": "c71d8360-7694-45ec-9922-584e77e128ed",
+      "name": "supplier_company_segmentations",
+      "description": {
+        "content": "Use the supplier company segmentations API to create, update, and query the supplier company segmentations in Workday Strategic Sourcing.\n\n## Supplier Company Segmentation Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/SupplierCompanySegmentation\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b02da145-93b4-4672-9101-92c07e9b3362",
+          "name": "List Supplier Company Segmentations",
+          "request": {
+            "name": "List Supplier Company Segmentations",
+            "description": {
+              "content": "Returns a list of supplier company segmentations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_company_segmentations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "913f61f6-1001-4cb2-a7af-bde3a64b16c6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"type\": \"supplier_company_segmentations\",\n      \"attributes\": {\n        \"label\": \"Tier 1\",\n        \"order\": 1,\n        \"slug\": \"tier_1\"\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/1\"\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"supplier_company_segmentations\",\n      \"attributes\": {\n        \"label\": \"Tier 2\",\n        \"order\": 2,\n        \"slug\": \"tier_2\"\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/2\"\n      }\n    },\n    {\n      \"id\": \"3\",\n      \"type\": \"supplier_company_segmentations\",\n      \"attributes\": {\n        \"label\": \"Tier 3\",\n        \"order\": 3,\n        \"slug\": \"tier_3\"\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/3\"\n      }\n    },\n    {\n      \"id\": \"4\",\n      \"type\": \"supplier_company_segmentations\",\n      \"attributes\": {\n        \"label\": \"Tier 4\",\n        \"order\": 4,\n        \"slug\": \"tier_4\"\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/4\"\n      }\n    },\n    {\n      \"id\": \"5\",\n      \"type\": \"supplier_company_segmentations\",\n      \"attributes\": {\n        \"label\": \"Tier 5\",\n        \"order\": 5,\n        \"slug\": \"tier_5_ab9fcfab-eaa5-4006-999a-7b82019f486a\"\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/5\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36d86ac1-c56e-43ed-b117-a9502e2a3c29",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee036485-8f7c-4d15-88b3-86e1c1e03df8",
+          "name": "Create a Supplier Company Segmentation",
+          "request": {
+            "name": "Create a Supplier Company Segmentation",
+            "description": {
+              "content": "Create a supplier company segmentation with given parameters.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_company_segmentations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": \"<object>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4aca33cc-5e89-47de-852a-e1fb191ab540",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_company_segmentations\",\n    \"attributes\": {\n      \"label\": \"Tier 5\",\n      \"order\": 5\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"5\",\n    \"type\": \"supplier_company_segmentations\",\n    \"attributes\": {\n      \"label\": \"Tier 5\",\n      \"order\": 5,\n      \"slug\": \"tier_5_25672734-8f8f-4735-9099-8a4f3c64505a\"\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/5\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff86cbd5-949d-4f4d-87df-bcbb0a47535d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_company_segmentations\",\n    \"attributes\": {\n      \"label\": \"Tier 5\",\n      \"order\": 5\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d3b87836-5f51-4c3f-b9bc-a11708ec38f5",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_company_segmentations\",\n    \"attributes\": {\n      \"label\": \"Tier 5\",\n      \"order\": 5\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"Missing or invalid 'type' specified, expected 'supplier_company_segmentations'\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f18931a9-903b-4de9-9a8f-2d634743cca2",
+          "name": "Update a Supplier Company Segmentation",
+          "request": {
+            "name": "Update a Supplier Company Segmentation",
+            "description": {
+              "content": "Updates the details of an existing supplier company segmentation. You need to supply the unique\nidentifier that was returned upon supplier company segmentation creation.\n\nPlease note, that request body must include an `id` attribute with the value of your supplier company segmentation\nunique identifier (the same one you passed in the URL).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_company_segmentations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique supplier company segmentation identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"attributes\": {\n      \"label\": \"<string>\",\n      \"order\": \"<integer>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "78603417-3f07-4e3c-8239-49be72cf7aae",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique supplier company segmentation identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_company_segmentations\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"label\": \"Tier 16\",\n      \"order\": 1\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"supplier_company_segmentations\",\n    \"attributes\": {\n      \"label\": \"Tier 16\",\n      \"order\": 1,\n      \"slug\": \"tier_1\"\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acd5e5d5-a593-42d2-b962-5c74bf5448ec",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique supplier company segmentation identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_company_segmentations\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"label\": \"Tier 16\",\n      \"order\": 1\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "01221fcd-53a4-483a-98d7-c231a6ee4bfd",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique supplier company segmentation identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_company_segmentations\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"label\": \"Tier 16\",\n      \"order\": 1\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4688edb9-a6ba-4138-8c96-fbb4013c9efa",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique supplier company segmentation identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_company_segmentations\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"label\": \"Tier 16\",\n      \"order\": 1\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"Missing or invalid 'type' specified, expected 'supplier_company_segmentations'\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa853d2c-ab92-4625-86b3-11648d69fef7",
+          "name": "Delete a Supplier Company Segmentation",
+          "request": {
+            "name": "Delete a Supplier Company Segmentation",
+            "description": {
+              "content": "Deletes a supplier company segmentation. You need to supply the unique supplier company segmentation\nidentifier that was returned upon supplier company segmentation creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_company_segmentations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique supplier company segmentation identifier."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "22c58a67-b054-4d3a-af78-8c576f2df9e5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique supplier company segmentation identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6265d236-737a-4a16-9145-8cb92ecdab69",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique supplier company segmentation identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "42ea0aba-0ff5-4669-912f-9bda82621965",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_company_segmentations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique supplier company segmentation identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "779bdb03-83e8-49ec-952b-9be814dc736e",
+    "name": "Workday Strategic Sourcing attachments supplier_company_segmentations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

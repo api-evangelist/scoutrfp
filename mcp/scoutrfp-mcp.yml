@@ -643,3 +643,9 @@ tools:
   description: Delete a Supplier Classification by External ID
   source_operation: openapi/scoutrfp-suppliers-v1-openapi.json#Delete a Supplier Classification by External
     ID
+deployment:
+  mode: none
+  verified: derived
+  tools: 208
+  checked: '2026-08-12'
+  source: catalog MCP census

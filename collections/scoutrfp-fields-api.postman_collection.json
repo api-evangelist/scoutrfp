@@ -1,0 +1,1006 @@
+{
+  "item": [
+    {
+      "id": "19a5200f-e95b-4e2d-acdb-d52f635b2632",
+      "name": "fields",
+      "description": {
+        "content": "Use the fields API to create, update, and query the custom fields in Workday Strategic Sourcing.\n\n## Field Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Field\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8ef84b9b-6347-4071-8f61-15906c892f2f",
+          "name": "List Fields",
+          "request": {
+            "name": "List Fields",
+            "description": {
+              "content": "Returns a list of custom fields for the specified criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "group_id_equals",
+                  "value": "<string>",
+                  "description": "Filter custom fields by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "target_object_equals",
+                  "value": "<string>",
+                  "description": "Filter custom fields by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5de029a0-cf9c-4682-9714-3124f6790bf9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id_equals",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "target_object_equals",
+                      "value": "RFP"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"type\": \"fields\",\n      \"attributes\": {\n        \"target_object\": \"PROJECT\",\n        \"name\": \"Field One\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"position\": null,\n        \"required\": false\n      },\n      \"relationships\": {\n        \"group\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"field_groups\"\n          }\n        }\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/fields/v1/fields/1\"\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"fields\",\n      \"attributes\": {\n        \"target_object\": \"PROJECT\",\n        \"name\": \"Field Two\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"position\": null,\n        \"required\": false\n      },\n      \"relationships\": {\n        \"group\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"field_groups\"\n          }\n        }\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/fields/v1/fields/2\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/fields/v1/fields\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76e14b59-2c69-4340-ac13-9390aea5c129",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id_equals",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "target_object_equals",
+                      "value": "RFP"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f5076e3-7be1-47d7-8715-282897ad4de4",
+          "name": "Create a Field",
+          "request": {
+            "name": "Create a Field",
+            "description": {
+              "content": "Create a field with given parameters.\n\nFor fields with `target_object` set to `RFP`, `group` relationship should be omitted. It is\nrequired to specify the relationship for all other target objects.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"target_object\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"type_description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    },\n    \"relationships\": {\n      \"group\": {\n        \"data\": {\n          \"type\": \"<string>\",\n          \"id\": \"<integer>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e09db982-edec-4051-bc1e-3b7c71656970",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"fields\",\n    \"attributes\": {\n      \"target_object\": \"PROJECT\",\n      \"name\": \"Custom Field\",\n      \"type_description\": \"Short Text\",\n      \"required\": false\n    },\n    \"relationships\": {\n      \"group\": {\n        \"data\": {\n          \"type\": \"field_groups\",\n          \"id\": \"1\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"fields\",\n    \"attributes\": {\n      \"target_object\": \"PROJECT\",\n      \"name\": \"Custom Field\",\n      \"data_type\": \"string\",\n      \"type_description\": \"Short Text\",\n      \"position\": null,\n      \"required\": false\n    },\n    \"relationships\": {\n      \"group\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"field_groups\"\n        }\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/fields/v1/fields/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b10112f9-455d-4999-846f-844a78fed3b2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"fields\",\n    \"attributes\": {\n      \"target_object\": \"PROJECT\",\n      \"name\": \"Custom Field\",\n      \"type_description\": \"Short Text\",\n      \"required\": false\n    },\n    \"relationships\": {\n      \"group\": {\n        \"data\": {\n          \"type\": \"field_groups\",\n          \"id\": \"1\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "556e240e-78bb-42e3-bd53-fc132a14dc75",
+          "name": "Get a Field",
+          "request": {
+            "name": "Get a Field",
+            "description": {
+              "content": "Retrieves the details of an existing field. You need to supply the unique field\nidentifier that was returned upon field creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fields",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Field identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20397d41-114c-4855-b0b6-b64967624fdc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Field identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"fields\",\n    \"attributes\": {\n      \"target_object\": \"PROJECT\",\n      \"name\": \"Field One\",\n      \"data_type\": \"string\",\n      \"type_description\": \"Short Text\",\n      \"position\": null,\n      \"required\": false\n    },\n    \"relationships\": {\n      \"group\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"field_groups\"\n        }\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/fields/v1/fields/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66332c1b-07e6-402d-ad3a-a7df6e5d8e6c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Field identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "75f67e64-436d-443d-b799-3637edc5ed1a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Field identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "782b5283-9291-4af1-9cdc-ef619e89c91e",
+          "name": "Update a Field",
+          "request": {
+            "name": "Update a Field",
+            "description": {
+              "content": "Updates the details of an existing field. You need to supply the unique\nidentifier that was returned upon field creation.\n\nFor fields with `target_object` set to `RFP`, `group` relationship should be omitted.\n\nPlease note, that request body must include an `id` attribute with the value of your field\nunique identifier (the same one you passed in the URL).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fields",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Field identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"target_object\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"type_description\": \"<string>\",\n      \"required\": \"<boolean>\"\n    },\n    \"relationships\": {\n      \"group\": {\n        \"data\": {\n          \"type\": \"<string>\",\n          \"id\": \"<integer>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "efc2a685-c994-48a4-9ad6-abeb2e661360",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Field identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"fields\",\n    \"attributes\": {\n      \"name\": \"Updated Custom Field\",\n      \"type_description\": \"Short Text\",\n      \"required\": true\n    },\n    \"relationships\": {\n      \"group\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"field_groups\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"fields\",\n    \"attributes\": {\n      \"target_object\": \"PROJECT\",\n      \"name\": \"Updated Custom Field\",\n      \"data_type\": \"string\",\n      \"type_description\": \"Short Text\",\n      \"position\": null,\n      \"required\": true\n    },\n    \"relationships\": {\n      \"group\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"field_groups\"\n        }\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/fields/v1/fields/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f26c2008-eab7-46a7-8596-32ac334c0f62",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Field identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"fields\",\n    \"attributes\": {\n      \"name\": \"Updated Custom Field\",\n      \"type_description\": \"Short Text\",\n      \"required\": true\n    },\n    \"relationships\": {\n      \"group\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"field_groups\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a9e38bdc-6098-42be-a6ed-a513572f8dec",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Field identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"fields\",\n    \"attributes\": {\n      \"name\": \"Updated Custom Field\",\n      \"type_description\": \"Short Text\",\n      \"required\": true\n    },\n    \"relationships\": {\n      \"group\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"field_groups\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b5e943c8-766d-44b7-bf05-40a78c3ab0d3",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Field identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"fields\",\n    \"attributes\": {\n      \"name\": \"Updated Custom Field\",\n      \"type_description\": \"Short Text\",\n      \"required\": true\n    },\n    \"relationships\": {\n      \"group\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"field_groups\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"Missing or invalid 'type' specified, expected 'fields'\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4fa48fb3-054b-4041-9ae2-2cb9007a0285",
+          "name": "Delete a Field",
+          "request": {
+            "name": "Delete a Field",
+            "description": {
+              "content": "Deletes a field. You need to supply the unique field\nidentifier that was returned upon field creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fields",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Field identifier."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bec6b2f5-8435-4a4e-b18b-efa9fe33d28b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Field identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "816216a7-e65a-4e16-bcff-6069db67644e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Field identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6bed9f89-a6d1-44b2-a706-57a8c4f4b06e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Field identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7a33f284-6bb9-42ad-8289-01dc247fe074",
+    "name": "Workday Strategic Sourcing attachments fields API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

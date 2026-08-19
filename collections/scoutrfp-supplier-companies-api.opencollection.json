@@ -1,0 +1,237 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments supplier_companies API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "supplier_companies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Supplier Companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_companies",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter supplier companies by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "To reduce the number of HTTP requests, related resources can be requested along with the\nrequested primary resources. Such responses are called \"compound documents\". In a compound\ndocument, all included resources will be represented as an array of resource objects in a\ntop-level `included` member.\n\nThe value of the `include` parameter must be a comma-separated list of relationships from\nthe list of available relationships.\n\n\n\n```\n/supplier_companies?include=payment_types,default_payment_type\n```\n\nIn the response, relationships will be represented as normal linkage objects (containing\n`id` and `type`), and full related resource details will be presented in the `included`\nsection as resource objects (with `attributes`, `links`, and potentially `relationships`).\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Customize pagination results with `size`.\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of supplier companies for the specified criteria."
+        },
+        {
+          "info": {
+            "name": "Create a Supplier Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_companies",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n(see \"List Supplier Companies\" for more details).\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a supplier company with given attributes, relationships, and related complex resources.\n\nWhen creating a supplier company with relationships, keep in mind that there are two kinds of\nrelationships: linked resources and composite resources.\n\n## Linked Resources\n\nThese are normal relationship resources managed outside of primary resource (supplier company).\nFor example, payment currencies exist on their own, and can be assigned to one or many supplier\ncompanies, contracts, etc. These resour"
+        },
+        {
+          "info": {
+            "name": "Get a Supplier Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_companies/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Supplier Company identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n(see \"List Supplier Companies\" for more details).\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing supplier company. You need to supply the unique supplier\ncompany identifier that was returned upon supplier company creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Supplier Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_companies/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Supplier Company identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n(see \"List Supplier Companies\" for more details).\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing supplier company. You need to supply the unique supplier\ncompany identifier that was returned upon supplier company creation.\n\nPlease note, that request body must include an `id` attribute with the value of your supplier\nunique identifier (the same one you passed in the URL).\n\n## Linked Resources\n\nWhen updating relationships on a supplier company resource, keep in mind the whole relationship\nwill be replaced the new values. For example, if a supplier company ha"
+        },
+        {
+          "info": {
+            "name": "Delete a Supplier Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_companies/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Supplier Company identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a supplier company. You need to supply the unique supplier\ncompany identifier that was returned upon supplier company creation.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Supplier Company by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_companies/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "1234-5678-abcd-efgh",
+                "type": "path",
+                "description": "Supplier company external identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n(see \"List Supplier Companies\" for more details).\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing supplier company. You need to supply the unique supplier\ncompany external identifier (the one you used when created the supplier company).\n"
+        },
+        {
+          "info": {
+            "name": "Update a Supplier Company by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_companies/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "1234-5678-abcd-efgh",
+                "type": "path",
+                "description": "Supplier company external identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n(see \"List Supplier Companies\" for more details).\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing supplier company. You need to supply the unique supplier\ncompany external identifier (the one you used when created the supplier company).\n\nPlease note, that request body must include an `id` attribute with the value of your supplier\nexternal identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Supplier Company by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_companies/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "1234-5678-abcd-efgh",
+                "type": "path",
+                "description": "Supplier company external identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a supplier company. You need to supply the unique supplier\ncompany external identifier (the one you used when created the supplier company).\n"
+        },
+        {
+          "info": {
+            "name": "Describe Supplier Company object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_companies/describe"
+          },
+          "docs": "Returns a list of fields for the supplier company object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

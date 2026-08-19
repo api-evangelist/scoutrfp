@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments project_milestone_reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "project_milestone_reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Project Milestone Report Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/project_milestone_reports/entries"
+          },
+          "docs": "Returns a list of project milestone entries."
+        },
+        {
+          "info": {
+            "name": "Project Milestone Report Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/project_milestone_reports/schema"
+          },
+          "docs": "Returns the project milestone report schema."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

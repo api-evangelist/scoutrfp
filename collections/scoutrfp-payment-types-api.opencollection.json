@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments payment_types API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "payment_types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Payment Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_types"
+          },
+          "docs": "Returns a list of payment types."
+        },
+        {
+          "info": {
+            "name": "Create a Payment Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_types",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a payment type with given parameters.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Payment Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique payment type identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing payment type. You need to supply the unique\nidentifier that was returned upon payment type creation.\n\nPlease note, that request body must include an `id` attribute with the value of your payment type\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Payment Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique payment type identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a payment type. You need to supply the unique payment type\nidentifier that was returned upon payment type creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Payment Type by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_types/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "PAYTYPE",
+                "type": "path",
+                "description": "Unique payment type external identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing payment type. You need to supply the unique\nexternal identifier assigned to the payment type on creation.\n\nPlease note, that request body must include an `id` attribute with the value of your payment type\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Payment Type by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_types/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "PAYTYPE",
+                "type": "path",
+                "description": "Unique payment type external identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a payment type. You need to supply the unique payment type\nexternal identifier assigned to the payment type on creation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

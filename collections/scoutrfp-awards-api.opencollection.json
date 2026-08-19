@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments awards API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "awards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Awards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/awards",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter awards by multiple criteria.\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of awards."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

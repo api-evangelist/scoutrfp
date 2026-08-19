@@ -1,0 +1,1695 @@
+{
+  "item": [
+    {
+      "id": "99aeeea2-d023-4517-80b9-284275ec3f2c",
+      "name": "events",
+      "description": {
+        "content": "Use the events API to create, update, and query the events in Workday Strategic Sourcing.\n\n## Event Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Event\" exampleRef=\"#/components/examples/Event\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aa30034a-d82f-4874-ba1c-37a9cb13b2e3",
+          "name": "List Events",
+          "request": {
+            "name": "List Events",
+            "description": {
+              "content": "Returns a list of events for the specified criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "updated_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "title_contains",
+                  "value": "<string>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "title_not_contains",
+                  "value": "<string>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "spend_category_id_equals",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "state_equals",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_type_equals",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "request_type_equals",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_rsvp_deadline_from",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_rsvp_deadline_to",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_rsvp_deadline_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_rsvp_deadline_not_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_question_deadline_from",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_question_deadline_to",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_question_deadline_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_question_deadline_not_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "bid_submission_deadline_from",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "bid_submission_deadline_to",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "bid_submission_deadline_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "bid_submission_deadline_not_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at_from",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_at_to",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "published_at_from",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "published_at_to",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "published_at_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "published_at_not_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "closed_at_from",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "closed_at_to",
+                  "value": "<date>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "closed_at_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "closed_at_not_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "spend_amount_from",
+                  "value": "<double>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "spend_amount_to",
+                  "value": "<double>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "spend_amount_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "spend_amount_not_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_not_empty",
+                  "value": "<boolean>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_equals",
+                  "value": "<string>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_not_equals",
+                  "value": "<string>",
+                  "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Customize pagination results with `size`.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "22a5a8e8-acbb-4783-80b9-ea5650189220",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "title_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "title_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spend_category_id_equals",
+                      "value": "1,2"
+                    },
+                    {
+                      "key": "state_equals",
+                      "value": "draft,scheduled"
+                    },
+                    {
+                      "key": "event_type_equals",
+                      "value": "RFP,AUCTION"
+                    },
+                    {
+                      "key": "request_type_equals",
+                      "value": "Rfp,RFQ"
+                    },
+                    {
+                      "key": "supplier_rsvp_deadline_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "supplier_rsvp_deadline_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "supplier_rsvp_deadline_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "supplier_rsvp_deadline_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "supplier_question_deadline_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "supplier_question_deadline_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "supplier_question_deadline_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "supplier_question_deadline_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "bid_submission_deadline_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "bid_submission_deadline_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "bid_submission_deadline_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "bid_submission_deadline_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "published_at_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "published_at_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "published_at_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "published_at_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "closed_at_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "closed_at_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "closed_at_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "closed_at_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "spend_amount_from",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "spend_amount_to",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "spend_amount_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "spend_amount_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "external_id_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "external_id_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "external_id_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "external_id_not_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"count\": 2\n  },\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"type\": \"events\",\n      \"attributes\": {\n        \"title\": \"Event #1\",\n        \"spend_amount\": 500.5,\n        \"supplier_rsvp_deadline\": \"2020-03-30T19:00:00.000Z\",\n        \"supplier_question_deadline\": \"2020-04-30T19:00:00.000Z\",\n        \"bid_submission_deadline\": \"2020-05-30T19:00:00.000Z\",\n        \"event_type\": \"RFP\",\n        \"state\": \"draft\",\n        \"duplication_state\": null,\n        \"request_type\": \"RFP\",\n        \"late_bids\": true,\n        \"revise_bids\": false,\n        \"instant_notifications\": false,\n        \"custom_fields\": [\n          {\n            \"name\": \"Field #0\",\n            \"value\": null\n          }\n        ],\n        \"created_at\": \"2020-03-16T02:36:31.276Z\",\n        \"updated_at\": \"2020-03-17T02:36:31.276Z\",\n        \"published_at\": \"2020-03-17T02:36:31.276Z\",\n        \"closed_at\": null,\n        \"external_id\": \"EVENT1\",\n        \"is_public\": false,\n        \"restricted\": true\n      },\n      \"relationships\": {\n        \"attachments\": {\n          \"data\": []\n        },\n        \"event_template\": {\n          \"data\": null\n        },\n        \"spend_category\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"spend_categories\"\n          }\n        },\n        \"project\": {\n          \"data\": null\n        },\n        \"commodity_codes\": {\n          \"data\": []\n        }\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/events/v1/events/1\"\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"events\",\n      \"attributes\": {\n        \"title\": \"Event #2\",\n        \"spend_amount\": 231.5,\n        \"supplier_rsvp_deadline\": null,\n        \"supplier_question_deadline\": null,\n        \"bid_submission_deadline\": null,\n        \"event_type\": \"RFP\",\n        \"state\": \"draft\",\n        \"duplication_state\": null,\n        \"request_type\": \"RFP\",\n        \"late_bids\": true,\n        \"revise_bids\": true,\n        \"instant_notifications\": false,\n        \"custom_fields\": [\n          {\n            \"name\": \"Field #0\",\n            \"value\": \"Field value\"\n          }\n        ],\n        \"updated_at\": \"2020-03-17T03:01:45.616Z\",\n        \"closed_at\": null,\n        \"external_id\": \"EVENT2\",\n        \"is_public\": false,\n        \"restricted\": true\n      },\n      \"relationships\": {\n        \"attachments\": {\n          \"data\": [\n            {\n              \"id\": \"1\",\n              \"type\": \"attachments\"\n            },\n            {\n              \"id\": \"2\",\n              \"type\": \"attachments\"\n            }\n          ]\n        },\n        \"event_template\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"event_templates\"\n          }\n        },\n        \"spend_category\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"spend_categories\"\n          }\n        },\n        \"project\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"projects\"\n          }\n        },\n        \"commodity_codes\": {\n          \"data\": [\n            {\n              \"id\": \"1\",\n              \"type\": \"commodity_codes\"\n            },\n            {\n              \"id\": \"2\",\n              \"type\": \"commodity_codes\"\n            }\n          ]\n        }\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/events/v1/events/2\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/events/v1/events?page%5Bsize%5D=10\",\n    \"next\": \"https://api.us.workdayspend.com/services/events/v1/events?page%5Bcursor%5D=WzRd&page%5Bdirection%5D=next&page%5Bsize%5D=10\",\n    \"prev\": \"https://api.us.workdayspend.com/services/events/v1/events?page%5Bcursor%5D=WzFd&page%5Bdirection%5D=prev&page%5Bsize%5D=10\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcc2cead-a455-4c27-97a4-e470e737ec24",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "title_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "title_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spend_category_id_equals",
+                      "value": "1,2"
+                    },
+                    {
+                      "key": "state_equals",
+                      "value": "draft,scheduled"
+                    },
+                    {
+                      "key": "event_type_equals",
+                      "value": "RFP,AUCTION"
+                    },
+                    {
+                      "key": "request_type_equals",
+                      "value": "Rfp,RFQ"
+                    },
+                    {
+                      "key": "supplier_rsvp_deadline_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "supplier_rsvp_deadline_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "supplier_rsvp_deadline_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "supplier_rsvp_deadline_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "supplier_question_deadline_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "supplier_question_deadline_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "supplier_question_deadline_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "supplier_question_deadline_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "bid_submission_deadline_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "bid_submission_deadline_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "bid_submission_deadline_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "bid_submission_deadline_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "published_at_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "published_at_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "published_at_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "published_at_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "closed_at_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "closed_at_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "closed_at_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "closed_at_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "spend_amount_from",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "spend_amount_to",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "spend_amount_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "spend_amount_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "external_id_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "external_id_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "external_id_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "external_id_not_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44a90143-e673-4c4c-9481-5f73972355ea",
+          "name": "Create an Event",
+          "request": {
+            "name": "Create an Event",
+            "description": {
+              "content": "Events can only be created from a template. When a creation request is issued, the base event\nobject will be created from the template and returned with the response. Child records\nsuch as attachments, price sheets and custom values, will be scheduled for copy asynchronously.\nCurrent duplication status can be retrieved from the `duplication_state` attribute, which will have\none of following values:\n\n* `scheduled` - duplication is scheduled, but not yet started;\n* `started` - duplication started, but not yet finished;\n* `finished` - duplication completed;\n* `failed` - there was an error duplicating relationships.\n\nAn event should always have an associated project. Please make sure to specify it as a\nrelationship object.\n\nA new event will automatically inherit its spend category from the event template.\n\nPlease note, this endpoint does not support auction creation/duplication.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"relationships\": {\n      \"event_template\": {\n        \"data\": {\n          \"type\": \"<string>\",\n          \"id\": \"<integer>\"\n        }\n      },\n      \"project\": {\n        \"data\": {\n          \"type\": \"<string>\",\n          \"id\": \"<integer>\"\n        }\n      }\n    },\n    \"attributes\": {\n      \"external_id\": \"<string>\",\n      \"duplicate_bids\": \"<boolean>\",\n      \"is_public\": \"<boolean>\",\n      \"restricted\": \"<boolean>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "752d6266-7a07-4d6c-9aa6-e4988861978e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"events\",\n    \"attributes\": {\n      \"duplicate_bids\": true,\n      \"is_public\": false,\n      \"external_id\": \"EVENT1\"\n    },\n    \"relationships\": {\n      \"event_template\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"event_templates\"\n        }\n      },\n      \"project\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"projects\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"2\",\n    \"type\": \"events\",\n    \"attributes\": {\n      \"title\": \"Copy of Event Title\",\n      \"spend_amount\": 500.5,\n      \"supplier_rsvp_deadline\": \"2020-03-30T19:00:00.000Z\",\n      \"supplier_question_deadline\": \"2020-04-30T19:00:00.000Z\",\n      \"bid_submission_deadline\": \"2020-05-30T19:00:00.000Z\",\n      \"event_type\": \"RFP\",\n      \"state\": \"draft\",\n      \"request_type\": \"RFP\",\n      \"late_bids\": true,\n      \"revise_bids\": true,\n      \"instant_notifications\": true,\n      \"custom_fields\": [],\n      \"created_at\": \"2020-03-16T02:36:31.276Z\",\n      \"updated_at\": \"2020-03-17T02:36:31.276Z\",\n      \"published_at\": \"2020-03-17T02:36:31.276Z\",\n      \"closed_at\": null,\n      \"duplication_state\": \"scheduled\",\n      \"external_id\": \"EVENT1\",\n      \"is_public\": false,\n      \"restricted\": true\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": []\n      },\n      \"event_template\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"event_templates\"\n        }\n      },\n      \"project\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"projects\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"commodity_codes\": {\n        \"data\": []\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/events/v1/events/2\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49c14b83-b7aa-463e-91e4-011bc4b15f55",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"events\",\n    \"attributes\": {\n      \"duplicate_bids\": true,\n      \"is_public\": false,\n      \"external_id\": \"EVENT1\"\n    },\n    \"relationships\": {\n      \"event_template\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"event_templates\"\n        }\n      },\n      \"project\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"projects\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c5adbbc1-ca9d-4e01-be39-ad19939fde39",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"events\",\n    \"attributes\": {\n      \"duplicate_bids\": true,\n      \"is_public\": false,\n      \"external_id\": \"EVENT1\"\n    },\n    \"relationships\": {\n      \"event_template\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"event_templates\"\n        }\n      },\n      \"project\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"projects\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"source\": {\n        \"pointer\": \"/data/attributes/event_template_id\"\n      },\n      \"title\": \"Validation Error\",\n      \"detail\": \"event_template_id Expected id to be for a duplicable record\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "adbb2ffa-4867-475a-9148-4536274fd078",
+          "name": "Get an Event",
+          "request": {
+            "name": "Get an Event",
+            "description": {
+              "content": "Retrieves the details of an existing event. You need to supply the unique event\nidentifier that was returned upon event creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Event identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aaf73f45-cb55-4879-987c-46d689296f38",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"events\",\n    \"attributes\": {\n      \"title\": \"Event Title\",\n      \"spend_amount\": 500.5,\n      \"supplier_rsvp_deadline\": \"2020-03-30T19:00:00.000Z\",\n      \"supplier_question_deadline\": \"2020-04-30T19:00:00.000Z\",\n      \"bid_submission_deadline\": \"2020-05-30T19:00:00.000Z\",\n      \"event_type\": \"RFP\",\n      \"state\": \"draft\",\n      \"duplication_state\": \"finished\",\n      \"request_type\": \"RFP\",\n      \"late_bids\": true,\n      \"revise_bids\": false,\n      \"instant_notifications\": false,\n      \"custom_fields\": [\n        {\n          \"name\": \"Field #1\",\n          \"value\": \"Field value\"\n        }\n      ],\n      \"created_at\": \"2020-03-16T02:36:31.276Z\",\n      \"updated_at\": \"2020-03-17T02:36:31.276Z\",\n      \"published_at\": \"2020-03-17T02:36:31.276Z\",\n      \"closed_at\": null,\n      \"external_id\": \"EVENT1\",\n      \"is_public\": false,\n      \"restricted\": true\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": [\n          {\n            \"id\": \"1\",\n            \"type\": \"attachments\"\n          },\n          {\n            \"id\": \"2\",\n            \"type\": \"attachments\"\n          }\n        ]\n      },\n      \"event_template\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"event_templates\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"project\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"projects\"\n        }\n      },\n      \"commodity_codes\": {\n        \"data\": [\n          {\n            \"id\": \"1\",\n            \"type\": \"commodity_codes\"\n          },\n          {\n            \"id\": \"2\",\n            \"type\": \"commodity_codes\"\n          }\n        ]\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/events/v1/events/2\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "988c9818-6cd1-46d1-89d8-921e37499f66",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ef64964c-9844-4779-860a-b5cf57476ff2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02234685-e544-40ff-b110-41fc1291c9c4",
+          "name": "Update an Event",
+          "request": {
+            "name": "Update an Event",
+            "description": {
+              "content": "Updates the details of an existing event. You need to supply the unique\nidentifier that was returned upon event creation.\n\nPlease note, that request body must include an `id` attribute with the value of your event\nunique identifier (the same one you passed in the URL).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Event identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"event_type\": \"<string>\",\n      \"state\": \"<string>\",\n      \"duplication_state\": \"<string>\",\n      \"spend_amount\": \"<double>\",\n      \"late_bids\": \"<boolean>\",\n      \"revise_bids\": \"<boolean>\",\n      \"instant_notifications\": \"<boolean>\",\n      \"external_id\": \"<string>\",\n      \"restricted\": \"<boolean>\",\n      \"custom_fields\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8e72756b-8819-4bde-a9cb-5758485aece3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"events\",\n    \"id\": \"2\",\n    \"attributes\": {\n      \"title\": \"Event Title Updated\",\n      \"spend_amount\": 244.44,\n      \"late_bids\": true,\n      \"revise_bids\": false,\n      \"instant_notifications\": false,\n      \"supplier_rsvp_deadline\": \"2031-12-30T00:00:00.000Z\",\n      \"supplier_question_deadline\": \"2032-12-30T00:00:00.000Z\",\n      \"bid_submission_deadline\": \"2033-12-30T00:00:00.000Z\",\n      \"external_id\": \"UEVENT1\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom field name\",\n          \"value\": \"Updated custom field value\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"project\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"projects\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"4\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"department\": {\n        \"data\": {\n          \"id\": \"5\",\n          \"type\": \"departments\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"events\",\n    \"id\": \"2\",\n    \"attributes\": {\n      \"title\": \"Event Title Updated\",\n      \"spend_amount\": 244.44,\n      \"event_type\": \"RFP\",\n      \"request_type\": \"RFP\",\n      \"state\": \"draft\",\n      \"duplication_state\": null,\n      \"late_bids\": true,\n      \"revise_bids\": false,\n      \"instant_notifications\": false,\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom field name\",\n          \"value\": \"Updated custom field value\"\n        }\n      ],\n      \"supplier_rsvp_deadline\": \"2031-12-30T00:00:00.000Z\",\n      \"supplier_question_deadline\": \"2032-12-30T00:00:00.000Z\",\n      \"bid_submission_deadline\": \"2033-12-30T00:00:00.000Z\",\n      \"closed_at\": null,\n      \"external_id\": \"UEVENT1\",\n      \"is_public\": false,\n      \"restricted\": true\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": []\n      },\n      \"event_template\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"event_templates\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"4\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"project\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"projects\"\n        }\n      },\n      \"commodity_codes\": {\n        \"data\": []\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/events/v1/events/2\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d490f1c-e42b-4feb-82b7-d21183b53c06",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"events\",\n    \"id\": \"2\",\n    \"attributes\": {\n      \"title\": \"Event Title Updated\",\n      \"spend_amount\": 244.44,\n      \"late_bids\": true,\n      \"revise_bids\": false,\n      \"instant_notifications\": false,\n      \"supplier_rsvp_deadline\": \"2031-12-30T00:00:00.000Z\",\n      \"supplier_question_deadline\": \"2032-12-30T00:00:00.000Z\",\n      \"bid_submission_deadline\": \"2033-12-30T00:00:00.000Z\",\n      \"external_id\": \"UEVENT1\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom field name\",\n          \"value\": \"Updated custom field value\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"project\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"projects\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"4\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"department\": {\n        \"data\": {\n          \"id\": \"5\",\n          \"type\": \"departments\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9720d3c8-2ce6-420c-a90e-816febc43e26",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"events\",\n    \"id\": \"2\",\n    \"attributes\": {\n      \"title\": \"Event Title Updated\",\n      \"spend_amount\": 244.44,\n      \"late_bids\": true,\n      \"revise_bids\": false,\n      \"instant_notifications\": false,\n      \"supplier_rsvp_deadline\": \"2031-12-30T00:00:00.000Z\",\n      \"supplier_question_deadline\": \"2032-12-30T00:00:00.000Z\",\n      \"bid_submission_deadline\": \"2033-12-30T00:00:00.000Z\",\n      \"external_id\": \"UEVENT1\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom field name\",\n          \"value\": \"Updated custom field value\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"project\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"projects\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"4\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"department\": {\n        \"data\": {\n          \"id\": \"5\",\n          \"type\": \"departments\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "74766523-ceda-4b89-9e54-8e7806f6d323",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"events\",\n    \"id\": \"2\",\n    \"attributes\": {\n      \"title\": \"Event Title Updated\",\n      \"spend_amount\": 244.44,\n      \"late_bids\": true,\n      \"revise_bids\": false,\n      \"instant_notifications\": false,\n      \"supplier_rsvp_deadline\": \"2031-12-30T00:00:00.000Z\",\n      \"supplier_question_deadline\": \"2032-12-30T00:00:00.000Z\",\n      \"bid_submission_deadline\": \"2033-12-30T00:00:00.000Z\",\n      \"external_id\": \"UEVENT1\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom field name\",\n          \"value\": \"Updated custom field value\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"project\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"projects\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"4\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"department\": {\n        \"data\": {\n          \"id\": \"5\",\n          \"type\": \"departments\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"Missing or invalid 'type' specified, expected 'events'\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aefab6db-e0eb-41dc-872b-630346e43711",
+          "name": "Delete an Event",
+          "request": {
+            "name": "Delete an Event",
+            "description": {
+              "content": "Deletes an event. You need to supply the unique event\nidentifier that was returned upon event creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Event identifier."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2981a67c-60c0-45f3-86c8-8b68013a6793",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e3b2318e-49e7-4c93-86b6-7b22ea85839f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a5ee325d-7162-4966-b5ee-5b24f2ad3982",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d804252-6136-4253-a316-f36845efcd88",
+          "name": "Describe Event Object",
+          "request": {
+            "name": "Describe Event Object",
+            "description": {
+              "content": "Returns the list of fields for the event object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                "describe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "440b2b0a-2b92-4c0b-b315-d641b15a89df",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"title\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"title\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"external_id\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"external_id\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"state\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"state\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"spend_amount\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"spend_amount\",\n        \"data_type\": \"number\",\n        \"type_description\": \"Currency\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"request_type\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"request_type\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"late_bids\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"late_bids\",\n        \"data_type\": \"boolean\",\n        \"type_description\": \"Checkbox\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"revise_bids\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"revise_bids\",\n        \"data_type\": \"boolean\",\n        \"type_description\": \"Checkbox\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"department\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"department\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"instant_notifications\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"instant_notifications\",\n        \"data_type\": \"boolean\",\n        \"type_description\": \"Checkbox\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"supplier_rsvp_deadline\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"supplier_rsvp_deadline\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"supplier_question_deadline\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"supplier_question_deadline\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"bid_submission_deadline\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"bid_submission_deadline\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"created_at\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"created_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"updated_at\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"updated_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"published_at\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"published_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"closed_at\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"closed_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"is_public\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"is_public\",\n        \"data_type\": \"boolean\",\n        \"type_description\": \"Checkbox\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"restricted\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"restricted\",\n        \"data_type\": \"boolean\",\n        \"type_description\": \"Checkbox\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"custom_field_1\",\n      \"type\": \"event_fields\",\n      \"attributes\": {\n        \"name\": \"Custom field #1\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": true\n      }\n    }\n  ],\n  \"links\": {},\n  \"meta\": {\n    \"count\": 19\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3657603-7f97-4c9a-94bc-3dde64f1f11d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d201ea0d-ee8f-4830-afbd-827a0c6a15fa",
+    "name": "Workday Strategic Sourcing attachments events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

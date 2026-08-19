@@ -1,0 +1,527 @@
+{
+  "item": [
+    {
+      "id": "cd02a3ef-5859-4d4c-8829-86cc8203f6e5",
+      "name": "discovery",
+      "description": {
+        "content": "Endpoints to facilitate discovery of SCIM service provider features",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "87ddd34c-749c-4cc6-8bf9-98a00926fdbb",
+          "name": "List Schemas",
+          "request": {
+            "name": "List Schemas",
+            "description": {
+              "content": "Endpoint used to retrieve information about schemas supported. See [section 3.4](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4) of RFC 7644\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Schemas"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b480c57e-afc8-4eae-aff5-2b7cbd106d09",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 1,\n  \"startIndex\": 0,\n  \"itemsPerPage\": 100,\n  \"Resources\": [\n    {\n      \"name\": \"User\",\n      \"id\": \"urn:ietf:params:scim:schemas:core:2.0:User\",\n      \"description\": \"Represents a User\",\n      \"meta\": {\n        \"resourceType\": \"Schema\",\n        \"location\": \"/scim/v2/Schemas\"\n      },\n      \"attributes\": [\n        {\n          \"multiValued\": false,\n          \"required\": true,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"server\",\n          \"returned\": \"default\",\n          \"name\": \"userName\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"name\",\n          \"type\": \"complex\",\n          \"subAttributes\": [\n            {\n              \"multiValued\": false,\n              \"required\": true,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"familyName\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": true,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"givenName\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"middleName\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"formatted\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"honorificPrefix\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"honorificSuffix\",\n              \"type\": \"string\"\n            }\n          ]\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"displayName\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"nickName\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"profileUrl\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"title\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"userType\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"preferredLanguage\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"locale\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"timezone\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"active\",\n          \"type\": \"boolean\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"writeOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"never\",\n          \"name\": \"password\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": true,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"emails\",\n          \"type\": \"complex\",\n          \"subAttributes\": [\n            {\n              \"multiValued\": false,\n              \"required\": true,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"value\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readOnly\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"display\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"type\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"primary\",\n              \"type\": \"boolean\"\n            }\n          ]\n        },\n        {\n          \"multiValued\": true,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"phoneNumbers\",\n          \"type\": \"complex\",\n          \"subAttributes\": [\n            {\n              \"multiValued\": false,\n              \"required\": true,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"value\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readOnly\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"display\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"type\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"primary\",\n              \"type\": \"boolean\"\n            }\n          ]\n        },\n        {\n          \"multiValued\": true,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"ims\",\n          \"type\": \"complex\",\n          \"subAttributes\": [\n            {\n              \"multiValued\": false,\n              \"required\": true,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"value\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readOnly\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"display\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"type\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"primary\",\n              \"type\": \"boolean\"\n            }\n          ]\n        },\n        {\n          \"multiValued\": true,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"photos\",\n          \"type\": \"complex\",\n          \"subAttributes\": [\n            {\n              \"multiValued\": false,\n              \"required\": true,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"value\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readOnly\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"display\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"type\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"primary\",\n              \"type\": \"boolean\"\n            }\n          ]\n        },\n        {\n          \"multiValued\": true,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"addresses\",\n          \"type\": \"complex\",\n          \"subAttributes\": [\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"type\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"formatted\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"streetAddress\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"locality\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"region\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"postalCode\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"country\",\n              \"type\": \"string\"\n            }\n          ]\n        },\n        {\n          \"multiValued\": true,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"groups\",\n          \"type\": \"complex\",\n          \"subAttributes\": [\n            {\n              \"multiValued\": false,\n              \"required\": true,\n              \"caseExact\": false,\n              \"mutability\": \"readOnly\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"value\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readOnly\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"display\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readOnly\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"type\",\n              \"type\": \"string\"\n            }\n          ]\n        },\n        {\n          \"multiValued\": true,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"entitlements\",\n          \"type\": \"complex\",\n          \"subAttributes\": [\n            {\n              \"multiValued\": false,\n              \"required\": true,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"value\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readOnly\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"display\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"type\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"primary\",\n              \"type\": \"boolean\"\n            }\n          ]\n        },\n        {\n          \"multiValued\": true,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"roles\",\n          \"type\": \"complex\",\n          \"subAttributes\": [\n            {\n              \"multiValued\": false,\n              \"required\": true,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"value\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readOnly\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"display\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"type\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"primary\",\n              \"type\": \"boolean\"\n            }\n          ]\n        },\n        {\n          \"multiValued\": true,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"x509Certificates\",\n          \"type\": \"complex\",\n          \"subAttributes\": [\n            {\n              \"multiValued\": false,\n              \"required\": true,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"value\",\n              \"type\": \"binary\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readOnly\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"display\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"type\",\n              \"type\": \"string\"\n            },\n            {\n              \"multiValued\": false,\n              \"required\": false,\n              \"caseExact\": false,\n              \"mutability\": \"readWrite\",\n              \"uniqueness\": \"none\",\n              \"returned\": \"default\",\n              \"name\": \"primary\",\n              \"type\": \"boolean\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a5209ee-f1c2-4426-9b67-8c1101879495",
+          "name": "Get a Schema",
+          "request": {
+            "name": "Get a Schema",
+            "description": {
+              "content": "Retrieves information about a specific resource",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Schemas",
+                ":uri"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uri",
+                  "description": "(Required) Schema URI of a particular resource type"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e457661-f3b6-4749-8da2-cc0b4c2bd262",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Schemas",
+                    ":uri"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uri",
+                      "description": "(Required) Schema URI of a particular resource type"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"name\": \"User\",\n  \"id\": \"urn:ietf:params:scim:schemas:core:2.0:User\",\n  \"description\": \"Represents a User\",\n  \"meta\": {\n    \"resourceType\": \"Schema\",\n    \"location\": \"/scim/v2/Schemas?name=urn%3Aietf%3Aparams%3Ascim%3Aschemas%3Acore%3A2.0%3AUser\"\n  },\n  \"attributes\": [\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readOnly\",\n      \"uniqueness\": \"server\",\n      \"returned\": \"always\",\n      \"name\": \"id\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"externalId\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": true,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"server\",\n      \"returned\": \"default\",\n      \"name\": \"userName\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"name\",\n      \"type\": \"complex\",\n      \"subAttributes\": [\n        {\n          \"multiValued\": false,\n          \"required\": true,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"familyName\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": true,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"givenName\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"middleName\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"formatted\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"honorificPrefix\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"honorificSuffix\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"displayName\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"nickName\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"profileUrl\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"title\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"userType\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"preferredLanguage\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"locale\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"timezone\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"active\",\n      \"type\": \"boolean\"\n    },\n    {\n      \"multiValued\": false,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"writeOnly\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"never\",\n      \"name\": \"password\",\n      \"type\": \"string\"\n    },\n    {\n      \"multiValued\": true,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"emails\",\n      \"type\": \"complex\",\n      \"subAttributes\": [\n        {\n          \"multiValued\": false,\n          \"required\": true,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"value\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"display\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"type\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"primary\",\n          \"type\": \"boolean\"\n        }\n      ]\n    },\n    {\n      \"multiValued\": true,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"phoneNumbers\",\n      \"type\": \"complex\",\n      \"subAttributes\": [\n        {\n          \"multiValued\": false,\n          \"required\": true,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"value\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"display\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"type\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"primary\",\n          \"type\": \"boolean\"\n        }\n      ]\n    },\n    {\n      \"multiValued\": true,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"ims\",\n      \"type\": \"complex\",\n      \"subAttributes\": [\n        {\n          \"multiValued\": false,\n          \"required\": true,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"value\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"display\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"type\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"primary\",\n          \"type\": \"boolean\"\n        }\n      ]\n    },\n    {\n      \"multiValued\": true,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"photos\",\n      \"type\": \"complex\",\n      \"subAttributes\": [\n        {\n          \"multiValued\": false,\n          \"required\": true,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"value\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"display\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"type\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"primary\",\n          \"type\": \"boolean\"\n        }\n      ]\n    },\n    {\n      \"multiValued\": true,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"addresses\",\n      \"type\": \"complex\",\n      \"subAttributes\": [\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"type\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"formatted\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"streetAddress\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"locality\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"region\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"postalCode\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"country\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    {\n      \"multiValued\": true,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readOnly\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"groups\",\n      \"type\": \"complex\",\n      \"subAttributes\": [\n        {\n          \"multiValued\": false,\n          \"required\": true,\n          \"caseExact\": false,\n          \"mutability\": \"readOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"value\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"display\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"type\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    {\n      \"multiValued\": true,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"entitlements\",\n      \"type\": \"complex\",\n      \"subAttributes\": [\n        {\n          \"multiValued\": false,\n          \"required\": true,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"value\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"display\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"type\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"primary\",\n          \"type\": \"boolean\"\n        }\n      ]\n    },\n    {\n      \"multiValued\": true,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"roles\",\n      \"type\": \"complex\",\n      \"subAttributes\": [\n        {\n          \"multiValued\": false,\n          \"required\": true,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"value\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"display\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"type\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"primary\",\n          \"type\": \"boolean\"\n        }\n      ]\n    },\n    {\n      \"multiValued\": true,\n      \"required\": false,\n      \"caseExact\": false,\n      \"mutability\": \"readWrite\",\n      \"uniqueness\": \"none\",\n      \"returned\": \"default\",\n      \"name\": \"x509Certificates\",\n      \"type\": \"complex\",\n      \"subAttributes\": [\n        {\n          \"multiValued\": false,\n          \"required\": true,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"value\",\n          \"type\": \"binary\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readOnly\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"display\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"type\",\n          \"type\": \"string\"\n        },\n        {\n          \"multiValued\": false,\n          \"required\": false,\n          \"caseExact\": false,\n          \"mutability\": \"readWrite\",\n          \"uniqueness\": \"none\",\n          \"returned\": \"default\",\n          \"name\": \"primary\",\n          \"type\": \"boolean\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "894af575-c6fa-4573-a2c6-1125d5e6055c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Schemas",
+                    ":uri"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uri",
+                      "description": "(Required) Schema URI of a particular resource type"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"404\",\n  \"detail\": \"Resource \\\"User\\\" not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ce5e1ee-802e-4e5d-b580-59d5b3318a79",
+          "name": "List Resource Types",
+          "request": {
+            "name": "List Resource Types",
+            "description": {
+              "content": "This endpoint is used to discover the types of resources available (see [section 4](https://datatracker.ietf.org/doc/html/rfc7644#section-4) of RFC 7644)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ResourceTypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "051305fb-c05b-4103-9345-248d3b63c23e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ResourceTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 1,\n  \"startIndex\": 0,\n  \"itemsPerPage\": 100,\n  \"Resources\": [\n    {\n      \"meta\": {\n        \"resourceType\": \"ResourceType\",\n        \"location\": \"/scim/v2/ResourceTypes/User\"\n      },\n      \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:ResourceType\"\n      ],\n      \"endpoint\": \"/Users\",\n      \"schema\": \"urn:ietf:params:scim:schemas:core:2.0:User\",\n      \"id\": \"User\",\n      \"name\": \"User\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae11f070-b66a-4133-ad89-1808512e82c4",
+          "name": "Get a Resource Type",
+          "request": {
+            "name": "Get a Resource Type",
+            "description": {
+              "content": "Describes the endpoint, schemas and extensions supported by a specific kind of resource.\nIt returns a specific portion of the ouput of the more general /Resources endpoint  \n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ResourceTypes",
+                ":resource"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "resource",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2d8ebb0-75e3-4003-9236-7568d1691bd2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ResourceTypes",
+                    ":resource"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"resourceType\": \"ResourceType\",\n    \"location\": \"https://api.us.workdayspend.com/scim/v2/ResourceTypes/User\"\n  },\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:ResourceType\"\n  ],\n  \"endpoint\": \"/Users\",\n  \"schema\": \"urn:ietf:params:scim:schemas:core:2.0:User\",\n  \"id\": \"User\",\n  \"name\": \"User\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91be884c-2ab6-4b44-8646-a3259500b3c4",
+          "name": "List Service Provider Configs",
+          "request": {
+            "name": "List Service Provider Configs",
+            "description": {
+              "content": "Describes the SCIM specification features available (see [section 5](https://datatracker.ietf.org/doc/html/rfc7643#section-5) of RFC 7643)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ServiceProviderConfig"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7932f4eb-8208-4ef4-afdc-4978e4f5874a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ServiceProviderConfig"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"bulk\": {\n    \"supported\": false\n  },\n  \"changePassword\": {\n    \"supported\": false\n  },\n  \"sort\": {\n    \"supported\": true\n  },\n  \"etag\": {\n    \"supported\": false\n  },\n  \"patch\": {\n    \"supported\": true\n  },\n  \"filter\": {\n    \"supported\": true,\n    \"maxResults\": 100\n  },\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig\"\n  ],\n  \"meta\": {\n    \"resourceType\": \"ServiceProviderConfig\",\n    \"created\": \"2021-07-27T13:24:01.182+01:00\",\n    \"lastModified\": \"2021-07-27T13:24:01.182+01:00\",\n    \"version\": \"1\",\n    \"location\": \"https://api.us.workdayspend.com/scim/v2/ServiceProviderConfig\"\n  },\n  \"authenticationSchemes\": [\n    {\n      \"type\": \"httpbasic\",\n      \"name\": \"HTTP Basic\",\n      \"description\": \"Authentication scheme using the HTTP Basic Standard\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ebd9597c-b757-45eb-940c-64861ab6a7fe",
+    "name": "Workday Strategic Sourcing attachments discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

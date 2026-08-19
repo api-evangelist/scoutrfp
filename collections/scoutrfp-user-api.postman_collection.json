@@ -1,0 +1,1596 @@
+{
+  "item": [
+    {
+      "id": "d5063513-3f70-4c7b-a000-d98d170f8e20",
+      "name": "user",
+      "description": {
+        "content": "Use the users API to create, update, and query the users in Workday Strategic Sourcing.\n\n## User Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/UserResource\" exampleRef=\"#/components/examples/User\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "50abbe97-f4fa-4d7b-91a7-2a6578a47955",
+          "name": "List Users",
+          "request": {
+            "name": "List Users",
+            "description": {
+              "content": "Returns a list of users for the specified criteria. The pagination size is 100 results per request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "attributes",
+                  "value": "<string>",
+                  "description": "A comma-separated list of attribute names to return in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "attributes",
+                  "value": "<string>",
+                  "description": "An expression specifying the search criteria. See [section 3.4.2.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2) of RFC 7644"
+                },
+                {
+                  "disabled": false,
+                  "key": "operators",
+                  "value": "3658",
+                  "description": "An expression specifying the search criteria. See [section 3.4.2.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2) of RFC 7644"
+                },
+                {
+                  "disabled": false,
+                  "key": "startIndex",
+                  "value": "<integer>",
+                  "description": "The 1-based index of the first query result"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Specifies the desired maximum number of query results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>",
+                  "description": "The attribute whose value will be used to order the returned responses. Allowed values are `id` and `externalId`"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Order in which the `sortBy` param is applied. Allowed values are `ascending` and `descending`"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3651b721-2481-4fea-a6a6-d8d62368882a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operators",
+                      "value": "207"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 2,\n  \"startIndex\": 1,\n  \"itemsPerPage\": 100,\n  \"Resources\": [\n    {\n      \"userName\": \"john.doe@example.com\",\n      \"name\": {\n        \"givenName\": \"John\",\n        \"familyName\": \"Doe\"\n      },\n      \"active\": true,\n      \"roles\": [\n        {\n          \"value\": \"company_user\",\n          \"display\": \"Stakeholder\",\n          \"primary\": true,\n          \"type\": \"primary\"\n        }\n      ],\n      \"id\": \"552232\",\n      \"externalId\": \"EXT1234\",\n      \"meta\": {\n        \"resourceType\": \"User\",\n        \"created\": \"2021-05-11T14:51:17Z\",\n        \"lastModified\": \"2021-05-31T17:34:20Z\",\n        \"location\": \"https://api.us.workdayspend.com/scim/v2/Users/552232\"\n      },\n      \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n      ]\n    },\n    {\n      \"userName\": \"bjensen@example.com\",\n      \"name\": {\n        \"givenName\": \"Barbara\",\n        \"familyName\": \"Johnson\"\n      },\n      \"active\": true,\n      \"roles\": [\n        {\n          \"value\": \"company_admin\",\n          \"display\": \"Company Admin\",\n          \"primary\": true,\n          \"type\": \"primary\"\n        }\n      ],\n      \"id\": \"552245\",\n      \"externalId\": \"EXT789\",\n      \"meta\": {\n        \"resourceType\": \"User\",\n        \"created\": \"2021-06-16T15:56:19Z\",\n        \"lastModified\": \"2021-07-26T13:34:25Z\",\n        \"location\": \"https://api.us.workdayspend.com/scim/v2/Users/552245\"\n      },\n      \"schemas\": [\n        \"urn:ietf:params:scim:schemas:core:2.0:User\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "711f48f8-d809-4383-95e3-08f3cbf4a96b",
+              "name": "Parameter count exceeds the maximum allowed value or the filter supplied was unparsable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operators",
+                      "value": "207"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"400\",\n    \"scimType\": \"invalidValue\",\n    \"detail\": \"Invalid resource: Name is missing\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87b53c85-c15b-4ab9-9721-7f9e646ce5b8",
+          "name": "Create a User",
+          "request": {
+            "name": "Create a User",
+            "description": {
+              "content": "Create a user with given attributes",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "attributes",
+                  "value": "<string>",
+                  "description": "A comma-separated list of attribute names to return in the response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\"\n  },\n  \"externalId\": \"<string>\",\n  \"active\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "de169306-b1df-477e-818f-420345f2682d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"externalId\": \"701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Jensen\"\n  },\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"2819c223-7f76-453a-919d-413861904646\",\n  \"externalId\": \"701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Jensen\"\n  },\n  \"active\": true,\n  \"roles\": [\n    {\n      \"value\": \"company_admin\",\n      \"display\": \"Company Admin\",\n      \"primary\": true,\n      \"type\": \"primary\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"User\",\n    \"created\": \"2010-01-23T04:56:22Z\",\n    \"lastModified\": \"2011-05-13T04:42:34Z\",\n    \"location\": \"https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91d408b2-f11a-4eb5-b9e2-46917fb87f2d",
+              "name": "An invalid value was passed in the payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"externalId\": \"701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Jensen\"\n  },\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"400\",\n    \"scimType\": \"invalidValue\",\n    \"detail\": \"Invalid resource: Name is missing\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b88624ce-f6fa-4b47-913f-d804743a7c11",
+              "name": "There is a conflict with an already existing user. Uniqueness is assumed over userName",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"externalId\": \"701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Jensen\"\n  },\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"409\",\n    \"scimType\": \"uniqueness\",\n    \"detail\": \"joined_errors\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "542449d3-33a6-4b56-8bdd-7039c412c60f",
+          "name": "Get a user",
+          "request": {
+            "name": "Get a user",
+            "description": {
+              "content": "Retrieves a User resource by Id (see [section 3.4.1](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.1) of RFC 7644)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "attributes",
+                  "value": "<string>",
+                  "description": "A comma-separated list of attribute names to return in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "attributes",
+                  "value": "<string>",
+                  "description": "An expression specifying the search criteria. See [section 3.4.2.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2) of RFC 7644"
+                },
+                {
+                  "disabled": false,
+                  "key": "operators",
+                  "value": "3658",
+                  "description": "An expression specifying the search criteria. See [section 3.4.2.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2) of RFC 7644"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0c3aa3f-7b3b-4730-9620-3cdeeb0b21e8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operators",
+                      "value": "207"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"2819c223-7f76-453a-919d-413861904646\",\n  \"externalId\": \"701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Jensen\"\n  },\n  \"active\": true,\n  \"roles\": [\n    {\n      \"value\": \"company_admin\",\n      \"display\": \"Company Admin\",\n      \"primary\": true,\n      \"type\": \"primary\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"User\",\n    \"created\": \"2010-01-23T04:56:22Z\",\n    \"lastModified\": \"2011-05-13T04:42:34Z\",\n    \"location\": \"https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a26654ae-456a-4f2e-9387-34bcbbc65e78",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operators",
+                      "value": "207"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"404\",\n    \"detail\": \"Resource \\\"User\\\" not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2b37aa3-68ff-4fbe-8fcb-151a1a98c582",
+          "name": "Patch a User",
+          "request": {
+            "name": "Patch a User",
+            "description": {
+              "content": "Updates one or more attributes of a User resource using a sequence of additions, removals,\nand replacements operations. See [section 3.5.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.5.2) of RFC 7644.\n\nIf the user tries to deactivate themselves, they will get a `403 Access forbidden` response.\n\nOperations on the `userName` field will only be processed if both original and target email addresses match the domains list set for the Company's SSO connections.\n\nIf not, the response returned  will be a `403 Access forbidden`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "attributes",
+                  "value": "<string>",
+                  "description": "A comma-separated list of attribute names to return in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ],\n  \"schemas\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5a107094-97d7-427d-9878-93be265e39d0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"value\": {\n        \"externalId\": \"EXT701984\",\n        \"name\": {\n          \"familyName\": \"Johnson\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"2819c223-7f76-453a-919d-413861904646\",\n  \"externalId\": \"EXT701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Johnson\"\n  },\n  \"active\": true,\n  \"roles\": [\n    {\n      \"value\": \"company_admin\",\n      \"display\": \"Company Admin\",\n      \"primary\": true,\n      \"type\": \"primary\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"User\",\n    \"created\": \"2010-01-23T04:56:22Z\",\n    \"lastModified\": \"2011-06-13T04:42:34Z\",\n    \"location\": \"https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4b7dfdd-d768-40ed-8fb1-81362fd67444",
+              "name": "One or more operations supplied in the request are specified incorrectly, there were attempts to\nmodify immutable attributes, or the resulting resource cannot pass intrinsic validations\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"value\": {\n        \"externalId\": \"EXT701984\",\n        \"name\": {\n          \"familyName\": \"Johnson\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"400\",\n    \"scimType\": \"invalidValue\",\n    \"detail\": \"Invalid resource: Name is missing\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b84003a8-b71c-4685-a956-bfa55ea1e292",
+              "name": "Access Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"value\": {\n        \"externalId\": \"EXT701984\",\n        \"name\": {\n          \"familyName\": \"Johnson\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"403\",\n    \"detail\": \"Access forbidden - Email cannot be updated as new email is not scoped by company's SSO domains\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94250863-8d38-42ac-aecf-715887adbac1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"value\": {\n        \"externalId\": \"EXT701984\",\n        \"name\": {\n          \"familyName\": \"Johnson\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"404\",\n    \"detail\": \"Resource \\\"User\\\" not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48630e5d-7ad6-4f5d-8d7e-a2ccf3d5af8d",
+          "name": "Replace a User",
+          "request": {
+            "name": "Replace a User",
+            "description": {
+              "content": "Updates a User resource (see [section 3.5.1](https://datatracker.ietf.org/doc/html/rfc7644#section-3.5.1) of RFC 7644). Update works in a replacement fashion;\nevery attribute value found in the payload sent will replace the one in the existing resource representation.\nAttributes not passed in the payload will be left intact.\n\nIf the user tries to deactivate themselves, they will get a `403 Access forbidden` response.\n\nOperations on the `userName` field will only be processed if both original and target email addresses match the domains list set for the Company's SSO connections.\n\nIf not, the response returned  will be a `403 Access forbidden`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "attributes",
+                  "value": "<string>",
+                  "description": "A comma-separated list of attribute names to return in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/scim+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userName\": \"<string>\",\n  \"name\": {\n    \"familyName\": \"<string>\",\n    \"givenName\": \"<string>\"\n  },\n  \"externalId\": \"<string>\",\n  \"active\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d540962-2a29-4391-b3ed-9cbdf16bd396",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"externalId\": \"EXT701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Johnson\"\n  },\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"2819c223-7f76-453a-919d-413861904646\",\n  \"externalId\": \"EXT701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Johnson\"\n  },\n  \"active\": true,\n  \"roles\": [\n    {\n      \"value\": \"company_admin\",\n      \"display\": \"Company Admin\",\n      \"primary\": true,\n      \"type\": \"primary\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"User\",\n    \"created\": \"2010-01-23T04:56:22Z\",\n    \"lastModified\": \"2011-06-13T04:42:34Z\",\n    \"location\": \"https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38cfd9b5-c635-4c01-8732-e4923223b8ac",
+              "name": "An invalid value was passed in the payload or there was an attempt to update an immutable attribute\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"externalId\": \"EXT701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Johnson\"\n  },\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"400\",\n    \"scimType\": \"invalidValue\",\n    \"detail\": \"Invalid resource: Name is missing\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56c21e2f-e071-4cfa-9d63-df503ba3e2ac",
+              "name": "Access Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"externalId\": \"EXT701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Johnson\"\n  },\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"403\",\n    \"detail\": \"Access forbidden - Email cannot be updated as new email is not scoped by company's SSO domains\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad5d0c90-4fca-4787-a77a-4bf907fbaae8",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"externalId\": \"EXT701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Johnson\"\n  },\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"404\",\n    \"detail\": \"Resource \\\"User\\\" not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a83c26cb-621e-4d40-83cb-d000c93bef50",
+              "name": "There is a conflict with an already existing user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "attributes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"externalId\": \"EXT701984\",\n  \"userName\": \"bjensen@example.com\",\n  \"name\": {\n    \"givenName\": \"Barbara\",\n    \"familyName\": \"Johnson\"\n  },\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"409\",\n    \"scimType\": \"uniqueness\",\n    \"detail\": \"joined_errors\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "495f849c-6d9a-4460-8639-b87c977ab30a",
+          "name": "Deactivate a user",
+          "request": {
+            "name": "Deactivate a user",
+            "description": {
+              "content": "Deactivates a user. You need to supply the unique user\nidentifier that was returned upon user creation.\n\nIf the user tries to deactivate themselves, they will get a `403 Access forbidden` response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the resource to deactivate"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/scim+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c8a6d711-6ddc-4496-a203-99912c72bc2a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the resource to deactivate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "07c14868-0beb-4f73-ab80-429349aa94cb",
+              "name": "Access Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the resource to deactivate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"403\",\n    \"detail\": \"Access forbidden\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80fb185d-3cc0-4deb-9642-d1f9d5bd416c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the resource to deactivate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/scim+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/scim+json"
+                }
+              ],
+              "body": "{\n  \"value\": {\n    \"schemas\": [\n      \"urn:ietf:params:scim:api:messages:2.0:Error\"\n    ],\n    \"status\": \"404\",\n    \"detail\": \"Resource \\\"User\\\" not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3e77cfc1-f4ba-4213-9048-ae4a406ee284",
+    "name": "Workday Strategic Sourcing attachments user API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

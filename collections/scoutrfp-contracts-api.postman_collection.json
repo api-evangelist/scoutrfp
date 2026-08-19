@@ -1,0 +1,2537 @@
+{
+  "item": [
+    {
+      "id": "d5361a92-e3c0-4d64-8669-c9a0a5745558",
+      "name": "contracts",
+      "description": {
+        "content": "Use the contracts API to create, update, and query the contracts in Workday Strategic Sourcing.\n\n## Contract Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Contract\" exampleRef=\"#/components/examples/Contract\" showReadOnly={true} showWriteOnly={true} />\n\n## Docusign Envelope Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/DocusignEnvelope\" showReadOnly={true} showWriteOnly={true} />\n\n## Adobe Sign Agreement Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/AdobeSignAgreement\" showReadOnly={true} showWriteOnly={true} />\n\n## Adobe Sign Document Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/AdobeSignDocument\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de02da7b-9372-4c9b-b6d0-0a52697cd1d5",
+          "name": "List Contracts",
+          "request": {
+            "name": "List Contracts",
+            "description": {
+              "content": "Returns a list of contracts for the specified criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "updated_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "number_from",
+                  "value": "<integer>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "number_to",
+                  "value": "<integer>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "title_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "title_not_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "description_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "description_not_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_empty",
+                  "value": "<boolean>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_not_empty",
+                  "value": "<boolean>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_equals",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_not_equals",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "actual_start_date_from",
+                  "value": "<date>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "actual_start_date_to",
+                  "value": "<date>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "actual_end_date_from",
+                  "value": "<date>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "actual_end_date_to",
+                  "value": "<date>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "actual_spend_amount_from",
+                  "value": "<double>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "actual_spend_amount_to",
+                  "value": "<double>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "auto_renewal",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "needs_attention_equals",
+                  "value": "<boolean>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "needs_attention_not_equals",
+                  "value": "<boolean>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "renew_number_of_times_from",
+                  "value": "<integer>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "renew_number_of_times_to",
+                  "value": "<integer>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "state_equals",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "terminated_note_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "terminated_note_not_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "terminated_note_empty",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "terminated_note_not_empty",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "terminated_reason_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "terminated_reason_not_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "terminated_reason_empty",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "terminated_reason_not_empty",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "contract_type_id_equals",
+                  "value": "<integer>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "contract_type_id_not_equals",
+                  "value": "<integer>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "marked_as_needs_attention_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "marked_as_needs_attention_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "needs_attention_note_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "needs_attention_note_not_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "needs_attention_note_empty",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "needs_attention_note_not_empty",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "needs_attention_reason_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "needs_attention_reason_not_contains",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "needs_attention_reason_empty",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "needs_attention_reason_not_empty",
+                  "value": "<string>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "renewal_termination_notice_date_from",
+                  "value": "<date>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "renewal_termination_notice_date_to",
+                  "value": "<date>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "renewal_termination_reminder_date_from",
+                  "value": "<date>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "renewal_termination_reminder_date_to",
+                  "value": "<date>",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "spend_category_id_equals",
+                  "value": "[\"<integer>\",\"<integer>\"]",
+                  "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "To reduce the number of HTTP requests, related resources can be requested along with the\nrequested primary resources. Such responses are called \"compound documents\". In a compound\ndocument, all included resources will be represented as an array of resource objects in a\ntop-level `included` member.\n\nThe value of the `include` parameter must be a comma-separated list of relationships from\nthe list of available relationships.\n\n\n\n```\n/contracts?include=contract_type,supplier_company\n```\n\nIn the response, relationships will be represented as normal linkage objects (containing\n`id` and `type`), and full related resource details will be presented in the `included`\nsection as resource objects (with `attributes`, `links`, and potentially `relationships`).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Customize pagination results with `size`.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc77c7dc-8882-4a83-a1ad-eaf796992463",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "number_from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number_to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "title_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "title_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_id_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "external_id_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "external_id_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "external_id_not_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "actual_start_date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "actual_start_date_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "actual_end_date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "actual_end_date_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "actual_spend_amount_from",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "actual_spend_amount_to",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "auto_renewal",
+                      "value": "yes,evergreen"
+                    },
+                    {
+                      "key": "needs_attention_equals",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "needs_attention_not_equals",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "renew_number_of_times_from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "renew_number_of_times_to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state_equals",
+                      "value": "expired,terminated"
+                    },
+                    {
+                      "key": "terminated_note_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_note_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_note_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_note_not_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_reason_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_reason_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_reason_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_reason_not_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_type_id_equals",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "contract_type_id_not_equals",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "marked_as_needs_attention_at_from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "marked_as_needs_attention_at_to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "needs_attention_note_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_note_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_note_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_note_not_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_reason_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_reason_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_reason_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_reason_not_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "renewal_termination_notice_date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "renewal_termination_notice_date_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "renewal_termination_reminder_date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "renewal_termination_reminder_date_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "spend_category_id_equals",
+                      "value": "1,2"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"count\": 2\n  },\n  \"data\": [\n    {\n      \"type\": \"contracts\",\n      \"id\": \"1\",\n      \"attributes\": {\n        \"actual_end_date\": \"2031-12-30\",\n        \"actual_spend_amount\": 11.11,\n        \"actual_start_date\": \"2028-12-30\",\n        \"approved_at\": \"2019-10-11T09:12:31.080Z\",\n        \"approval_rounds\": 1,\n        \"auto_renewal\": \"yes\",\n        \"description\": \"Contract Description\",\n        \"external_id\": \"1234-5678-abcd-efgh\",\n        \"marked_as_needs_attention_at\": null,\n        \"needs_attention\": false,\n        \"needs_attention_note\": null,\n        \"needs_attention_reason\": null,\n        \"number\": 1,\n        \"renew_number_of_times\": 3,\n        \"renewal_term_unit\": \"days\",\n        \"renewal_term_value\": 4,\n        \"renewal_termination_notice_date\": \"2031-07-30\",\n        \"renewal_termination_notice_unit\": \"months\",\n        \"renewal_termination_notice_value\": 5,\n        \"renewal_termination_reminder_date\": \"2031-06-18\",\n        \"renewal_termination_reminder_unit\": \"weeks\",\n        \"renewal_termination_reminder_value\": 6,\n        \"first_sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n        \"sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n        \"state\": \"in_progress\",\n        \"state_label\": \"Discovery\",\n        \"terminated_note\": null,\n        \"terminated_reason\": null,\n        \"title\": \"Contract Title\",\n        \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n        \"scc_updated_at\": null,\n        \"request_submitted_at\": \"2019-10-28T21:28:46.790Z\",\n        \"request_opened_at\": null,\n        \"public\": false,\n        \"custom_fields\": [\n          {\n            \"name\": \"Custom Field Currency\",\n            \"value\": 1234567890\n          },\n          {\n            \"name\": \"Custom Field Integer\",\n            \"value\": 1234567890\n          },\n          {\n            \"name\": \"Custom Field Checkbox\",\n            \"value\": true\n          },\n          {\n            \"name\": \"Custom Field Decimal\",\n            \"value\": 123456.78\n          },\n          {\n            \"name\": \"Custom Field Date\",\n            \"value\": \"2018-12-31T00:00:00.000Z\"\n          },\n          {\n            \"name\": \"Custom Field Select\",\n            \"value\": \"Select Option\"\n          },\n          {\n            \"name\": \"Custom Field Multiple\",\n            \"value\": [\n              \"Multiple Select Option 1\",\n              \"Multiple Select Option 2\"\n            ]\n          },\n          {\n            \"name\": \"Custom Field Short Text\",\n            \"value\": \"some short text\"\n          },\n          {\n            \"name\": \"Custom Field Paragraph\",\n            \"value\": \"longer text than short text\"\n          },\n          {\n            \"name\": \"Custom Field URL\",\n            \"value\": \"http://www.example.com\"\n          }\n        ]\n      },\n      \"relationships\": {\n        \"attachments\": {\n          \"data\": [\n            {\n              \"id\": \"1\",\n              \"type\": \"attachments\"\n            },\n            {\n              \"id\": \"2\",\n              \"type\": \"attachments\"\n            }\n          ]\n        },\n        \"supplier_company\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"supplier_companies\"\n          }\n        },\n        \"creator\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"stakeholders\"\n          }\n        },\n        \"owner\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"stakeholders\"\n          }\n        },\n        \"spend_category\": {\n          \"data\": {\n            \"id\": \"2\",\n            \"type\": \"spend_categories\"\n          }\n        },\n        \"contract_type\": {\n          \"data\": {\n            \"id\": \"3\",\n            \"type\": \"contract_types\"\n          }\n        },\n        \"docusign_envelopes\": {\n          \"data\": [\n            {\n              \"id\": \"3\",\n              \"type\": \"docusign_envelopes\"\n            }\n          ]\n        },\n        \"adobe_sign_agreements\": {\n          \"data\": [\n            {\n              \"id\": \"4\",\n              \"type\": \"adobe_sign_agreements\"\n            }\n          ]\n        }\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/contracts/v1/contracts/1\"\n      }\n    },\n    {\n      \"type\": \"contracts\",\n      \"id\": \"2\",\n      \"attributes\": {\n        \"actual_end_date\": \"2033-12-30\",\n        \"actual_spend_amount\": 22.22,\n        \"actual_start_date\": \"2030-12-30\",\n        \"auto_renewal\": \"yes\",\n        \"approved_at\": \"2019-10-11T09:12:31.080Z\",\n        \"approval_rounds\": 1,\n        \"description\": \"Contract #2 Description\",\n        \"external_id\": \"abcd-efgh-1234-5678\",\n        \"marked_as_needs_attention_at\": null,\n        \"needs_attention\": false,\n        \"needs_attention_note\": null,\n        \"needs_attention_reason\": null,\n        \"number\": 2,\n        \"renew_number_of_times\": 6,\n        \"renewal_term_unit\": \"days\",\n        \"renewal_term_value\": 3,\n        \"renewal_termination_notice_date\": \"2033-08-30\",\n        \"renewal_termination_notice_unit\": \"months\",\n        \"renewal_termination_notice_value\": 4,\n        \"renewal_termination_reminder_date\": \"2033-07-26\",\n        \"renewal_termination_reminder_unit\": \"weeks\",\n        \"renewal_termination_reminder_value\": 5,\n        \"first_sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n        \"sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n        \"state\": \"in_progress\",\n        \"state_label\": \"Discovery\",\n        \"terminated_note\": null,\n        \"terminated_reason\": null,\n        \"title\": \"Contract #2 Title\",\n        \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n        \"request_submitted_at\": \"2019-10-28T21:28:46.790Z\",\n        \"scc_updated_at\": null,\n        \"request_opened_at\": null,\n        \"public\": false,\n        \"custom_fields\": [\n          {\n            \"name\": \"Custom Field Currency\",\n            \"value\": 1234567890\n          },\n          {\n            \"name\": \"Custom Field Integer\",\n            \"value\": 1234567890\n          },\n          {\n            \"name\": \"Custom Field Checkbox\",\n            \"value\": true\n          },\n          {\n            \"name\": \"Custom Field Decimal\",\n            \"value\": 123456.78\n          },\n          {\n            \"name\": \"Custom Field Date\",\n            \"value\": \"2018-12-31T00:00:00.000Z\"\n          },\n          {\n            \"name\": \"Custom Field Select\",\n            \"value\": \"Select Option\"\n          },\n          {\n            \"name\": \"Custom Field Multiple\",\n            \"value\": [\n              \"Multiple Select Option 1\",\n              \"Multiple Select Option 2\"\n            ]\n          },\n          {\n            \"name\": \"Custom Field Short Text\",\n            \"value\": \"some short text\"\n          },\n          {\n            \"name\": \"Custom Field Paragraph\",\n            \"value\": \"longer text than short text\"\n          },\n          {\n            \"name\": \"Custom Field URL\",\n            \"value\": \"http://www.example.com\"\n          }\n        ]\n      },\n      \"relationships\": {\n        \"attachments\": {\n          \"data\": []\n        },\n        \"supplier_company\": {\n          \"data\": null\n        },\n        \"creator\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"stakeholders\"\n          }\n        },\n        \"owner\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"stakeholders\"\n          }\n        },\n        \"spend_category\": {\n          \"data\": {\n            \"id\": \"2\",\n            \"type\": \"spend_categories\"\n          }\n        },\n        \"contract_type\": {\n          \"data\": {\n            \"id\": \"3\",\n            \"type\": \"contract_types\"\n          }\n        },\n        \"docusign_envelopes\": {\n          \"data\": [\n            {\n              \"id\": \"3\",\n              \"type\": \"docusign_envelopes\"\n            }\n          ]\n        },\n        \"adobe_sign_agreements\": {\n          \"data\": [\n            {\n              \"id\": \"5\",\n              \"type\": \"adobe_sign_agreements\"\n            }\n          ]\n        }\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/contracts/v1/contracts/2\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/contracts/v1/contracts?page%5Bsize%5D=10\",\n    \"next\": \"https://api.us.workdayspend.com/services/contracts/v1/contracts?page%5Bcursor%5D=WzM2NV0%3D&page%5Bdirection%5D=next&page%5Bsize%5D=10\",\n    \"prev\": \"https://api.us.workdayspend.com/services/contracts/v1/contracts?page%5Bcursor%5D=WzM2NF0%3D&page%5Bdirection%5D=prev&page%5Bsize%5D=10\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "651f0eea-0623-4b48-8fbc-76272a8d951a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "number_from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "number_to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "title_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "title_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "description_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_id_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "external_id_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "external_id_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "external_id_not_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "actual_start_date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "actual_start_date_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "actual_end_date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "actual_end_date_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "actual_spend_amount_from",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "actual_spend_amount_to",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "auto_renewal",
+                      "value": "yes,evergreen"
+                    },
+                    {
+                      "key": "needs_attention_equals",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "needs_attention_not_equals",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "renew_number_of_times_from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "renew_number_of_times_to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "state_equals",
+                      "value": "expired,terminated"
+                    },
+                    {
+                      "key": "terminated_note_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_note_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_note_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_note_not_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_reason_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_reason_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_reason_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "terminated_reason_not_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_type_id_equals",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "contract_type_id_not_equals",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "marked_as_needs_attention_at_from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "marked_as_needs_attention_at_to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "needs_attention_note_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_note_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_note_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_note_not_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_reason_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_reason_not_contains",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_reason_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "needs_attention_reason_not_empty",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "renewal_termination_notice_date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "renewal_termination_notice_date_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "renewal_termination_reminder_date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "renewal_termination_reminder_date_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "spend_category_id_equals",
+                      "value": "1,2"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "abc168a8-6788-4628-90c0-efa1ac9e2594",
+          "name": "Create a Contract",
+          "request": {
+            "name": "Create a Contract",
+            "description": {
+              "content": "Create a contract with given attributes.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"state\": \"<string>\",\n      \"state_label\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"actual_start_date\": \"<date>\",\n      \"actual_end_date\": \"<date>\",\n      \"actual_spend_amount\": \"<double>\",\n      \"auto_renewal\": \"<string>\",\n      \"marked_as_needs_attention_at\": \"<dateTime>\",\n      \"needs_attention\": \"<boolean>\",\n      \"needs_attention_note\": \"<string>\",\n      \"needs_attention_reason\": \"<string>\",\n      \"renew_number_of_times\": \"<integer>\",\n      \"renewal_term_unit\": \"<string>\",\n      \"renewal_term_value\": \"<integer>\",\n      \"renewal_termination_notice_unit\": \"<string>\",\n      \"renewal_termination_notice_value\": \"<integer>\",\n      \"renewal_termination_reminder_unit\": \"<string>\",\n      \"renewal_termination_reminder_value\": \"<integer>\",\n      \"terminated_note\": \"<string>\",\n      \"terminated_reason\": \"<string>\",\n      \"custom_fields\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"approval_rounds\": \"<integer>\",\n      \"public\": \"<boolean>\"\n    },\n    \"relationships\": {\n      \"owner\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"supplier_company\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"external_supplier_company\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"external_contract_type\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"payment_currency\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "02934549-1bab-4d83-9b3c-730e960d66c3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"attributes\": {\n      \"actual_end_date\": \"2031-12-30\",\n      \"actual_spend_amount\": \"11.11\",\n      \"actual_start_date\": \"2028-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"description\": \"Contract Description\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"actual_end_date\": \"2031-12-30\",\n      \"actual_spend_amount\": 11.11,\n      \"actual_start_date\": \"2028-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"approved_at\": null,\n      \"approval_rounds\": 0,\n      \"description\": \"Contract Description\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"marked_as_needs_attention_at\": null,\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"number\": 1,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_date\": \"2031-07-30\",\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_date\": \"2031-06-18\",\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"first_sent_for_approval_at\": null,\n      \"sent_for_approval_at\": null,\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title\",\n      \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n      \"scc_updated_at\": null,\n      \"request_submitted_at\": \"2019-10-28T21:28:46.790Z\",\n      \"request_opened_at\": null,\n      \"public\": false,\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"supplier_company\": {\n        \"data\": null\n      },\n      \"creator\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"stakeholders\"\n        }\n      },\n      \"owner\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"stakeholders\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      },\n      \"docusign_envelopes\": {\n        \"data\": []\n      },\n      \"adobe_sign_agreements\": {\n        \"data\": []\n      },\n      \"attachments\": {\n        \"data\": []\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/contracts/v1/contracts/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffc40ae9-4275-4e6d-8c29-4909b8ceb8ff",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"attributes\": {\n      \"actual_end_date\": \"2031-12-30\",\n      \"actual_spend_amount\": \"11.11\",\n      \"actual_start_date\": \"2028-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"description\": \"Contract Description\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a36097bc-3f28-4e71-924f-a9aa0dc1d06d",
+          "name": "Get a Contract",
+          "request": {
+            "name": "Get a Contract",
+            "description": {
+              "content": "Retrieves the details of an existing contract. You need to supply the unique contract\nidentifier that was returned upon contract creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Contract identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "69ce805f-e634-40af-8c4b-80bbc667f019",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Contract identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"actual_end_date\": \"2031-12-30\",\n      \"actual_spend_amount\": 11.11,\n      \"actual_start_date\": \"2028-12-30\",\n      \"approved_at\": \"2019-10-11T09:12:31.080Z\",\n      \"approval_rounds\": 1,\n      \"auto_renewal\": \"yes\",\n      \"description\": \"Contract Description\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"marked_as_needs_attention_at\": null,\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"number\": 1,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_date\": \"2031-07-30\",\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_date\": \"2031-06-18\",\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"first_sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n      \"sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title\",\n      \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n      \"scc_updated_at\": null,\n      \"request_submitted_at\": \"2019-10-28T21:28:46.790Z\",\n      \"request_opened_at\": null,\n      \"public\": false,\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": [\n          {\n            \"id\": \"1\",\n            \"type\": \"attachments\"\n          },\n          {\n            \"id\": \"2\",\n            \"type\": \"attachments\"\n          }\n        ]\n      },\n      \"supplier_company\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"supplier_companies\"\n        }\n      },\n      \"creator\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"stakeholders\"\n        }\n      },\n      \"owner\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"stakeholders\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      },\n      \"docusign_envelopes\": {\n        \"data\": [\n          {\n            \"id\": \"3\",\n            \"type\": \"docusign_envelopes\"\n          }\n        ]\n      },\n      \"adobe_sign_agreements\": {\n        \"data\": [\n          {\n            \"id\": \"4\",\n            \"type\": \"adobe_sign_agreements\"\n          }\n        ]\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/contracts/v1/contracts/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c920e938-5293-4c81-b61a-4d38da7db3c7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Contract identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "036175b2-34ee-48f8-bade-6bb2cbd618b9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Contract identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60e689e0-fd4c-4f2d-9c05-5b5a83fb869d",
+          "name": "Update a Contract",
+          "request": {
+            "name": "Update a Contract",
+            "description": {
+              "content": "Updates the details of an existing contract. You need to supply the unique supplier\ncontract that was returned upon contract creation.\n\nPlease note, that request body must include an `id` attribute with the value of your contract\nunique identifier (the same one you passed in the URL).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Contract identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"state\": \"<string>\",\n      \"state_label\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"actual_start_date\": \"<date>\",\n      \"actual_end_date\": \"<date>\",\n      \"actual_spend_amount\": \"<double>\",\n      \"auto_renewal\": \"<string>\",\n      \"marked_as_needs_attention_at\": \"<dateTime>\",\n      \"needs_attention\": \"<boolean>\",\n      \"needs_attention_note\": \"<string>\",\n      \"needs_attention_reason\": \"<string>\",\n      \"renew_number_of_times\": \"<integer>\",\n      \"renewal_term_unit\": \"<string>\",\n      \"renewal_term_value\": \"<integer>\",\n      \"renewal_termination_notice_unit\": \"<string>\",\n      \"renewal_termination_notice_value\": \"<integer>\",\n      \"renewal_termination_reminder_unit\": \"<string>\",\n      \"renewal_termination_reminder_value\": \"<integer>\",\n      \"terminated_note\": \"<string>\",\n      \"terminated_reason\": \"<string>\",\n      \"custom_fields\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"approval_rounds\": \"<integer>\",\n      \"public\": \"<boolean>\"\n    },\n    \"relationships\": {\n      \"owner\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"supplier_company\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_supplier_company\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_contract_type\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"payment_currency\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "38da4a1d-6135-4aa3-8c9a-f420d35d9b5e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Contract identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"actual_end_date\": \"2032-12-30\",\n      \"actual_spend_amount\": \"22.11\",\n      \"actual_start_date\": \"2029-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"description\": \"Contract Description Updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title Updated\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": false\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 876543.21\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-25T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text updated\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text updated\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com/updated\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"actual_end_date\": \"2032-12-30\",\n      \"actual_spend_amount\": 22.11,\n      \"actual_start_date\": \"2029-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"approved_at\": \"2019-10-11T09:12:31.080Z\",\n      \"approval_rounds\": 1,\n      \"description\": \"Contract Description Updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"marked_as_needs_attention_at\": null,\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"number\": 1,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_date\": \"2032-07-30\",\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_date\": \"2032-06-18\",\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"first_sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n      \"sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title Updated\",\n      \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n      \"scc_updated_at\": null,\n      \"request_submitted_at\": \"2019-10-28T21:28:46.790Z\",\n      \"request_opened_at\": null,\n      \"public\": false,\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": false\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 876543.21\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-25T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text updated\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text updated\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com/updated\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": [\n          {\n            \"id\": \"1\",\n            \"type\": \"attachments\"\n          },\n          {\n            \"id\": \"2\",\n            \"type\": \"attachments\"\n          }\n        ]\n      },\n      \"supplier_company\": {\n        \"data\": null\n      },\n      \"creator\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"stakeholders\"\n        }\n      },\n      \"owner\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"stakeholders\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      },\n      \"docusign_envelopes\": {\n        \"data\": []\n      },\n      \"adobe_sign_agreements\": {\n        \"data\": []\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/contracts/v1/contracts/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce3dcf88-e704-4119-8295-b55acc0b63a8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Contract identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"actual_end_date\": \"2032-12-30\",\n      \"actual_spend_amount\": \"22.11\",\n      \"actual_start_date\": \"2029-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"description\": \"Contract Description Updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title Updated\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": false\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 876543.21\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-25T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text updated\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text updated\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com/updated\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fdcc3f50-561d-4d08-9a6d-cda37c22ed89",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Contract identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"actual_end_date\": \"2032-12-30\",\n      \"actual_spend_amount\": \"22.11\",\n      \"actual_start_date\": \"2029-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"description\": \"Contract Description Updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title Updated\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": false\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 876543.21\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-25T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text updated\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text updated\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com/updated\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aa2c64de-bf5c-4fbf-8c39-f4b7358e90f2",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Contract identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"actual_end_date\": \"2032-12-30\",\n      \"actual_spend_amount\": \"22.11\",\n      \"actual_start_date\": \"2029-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"description\": \"Contract Description Updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title Updated\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": false\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 876543.21\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-25T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text updated\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text updated\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com/updated\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"Missing or invalid 'type' specified, expected 'contracts'\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2759848-56db-40a6-a7b1-a3071ff66f45",
+          "name": "Delete a Contract",
+          "request": {
+            "name": "Delete a Contract",
+            "description": {
+              "content": "Deletes a contract. You need to supply the unique contract\nidentifier that was returned upon contract creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Contract identifier."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "31ec6f41-1cf6-407b-b1e4-b6bd57ba0c6b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Contract identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "39dc7a52-dfcc-4adc-90c4-b51cdbd3f930",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Contract identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "440e9a83-ca5b-425b-ae22-31bb7f07c381",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Contract identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fcce5d62-e404-4b77-928c-64a2e1e220f8",
+          "name": "Get a Contract by External ID",
+          "request": {
+            "name": "Get a Contract by External ID",
+            "description": {
+              "content": "Retrieves the details of an existing contract. You need to supply the unique\ncontract external identifier (the one you used when created the contract).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":external_id",
+                "external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) Contract external identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "001dcb13-4c12-4d80-bf18-350fe7125658",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Contract external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"actual_end_date\": \"2031-12-30\",\n      \"actual_spend_amount\": 11.11,\n      \"actual_start_date\": \"2028-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"approved_at\": \"2019-10-11T09:12:31.080Z\",\n      \"approval_rounds\": 1,\n      \"description\": \"Contract Description\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"marked_as_needs_attention_at\": null,\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"number\": 1,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_date\": \"2031-07-30\",\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_date\": \"2031-06-18\",\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"first_sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n      \"sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title\",\n      \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n      \"scc_updated_at\": null,\n      \"request_submitted_at\": \"2019-10-28T21:28:46.790Z\",\n      \"request_opened_at\": null,\n      \"public\": false,\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": [\n          {\n            \"id\": \"1\",\n            \"type\": \"attachments\"\n          },\n          {\n            \"id\": \"2\",\n            \"type\": \"attachments\"\n          }\n        ]\n      },\n      \"supplier_company\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"supplier_companies\"\n        }\n      },\n      \"creator\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"stakeholders\"\n        }\n      },\n      \"owner\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"stakeholders\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      },\n      \"docusign_envelopes\": {\n        \"data\": [\n          {\n            \"id\": \"3\",\n            \"type\": \"docusign_envelopes\"\n          }\n        ]\n      },\n      \"adobe_sign_agreements\": {\n        \"data\": [\n          {\n            \"id\": \"4\",\n            \"type\": \"adobe_sign_agreements\"\n          }\n        ]\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/contracts/v1/contracts/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aac21498-08bb-49ee-a68d-bde3783d2a55",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Contract external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c97a967b-8519-4108-a138-9b773e5c04cb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Contract external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1696b509-56e2-4bec-a499-d5743255af84",
+          "name": "Update a Contract by External ID",
+          "request": {
+            "name": "Update a Contract by External ID",
+            "description": {
+              "content": "Updates the details of an existing contract. You need to supply the unique contract\nexternal identifier (the one you used when created the contract).\n\nPlease note, that request body must include an `id` attribute with the value of your contract\nexternal identifier (the same one you passed in the URL).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":external_id",
+                "external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) Contract external identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"state\": \"<string>\",\n      \"state_label\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"actual_start_date\": \"<date>\",\n      \"actual_end_date\": \"<date>\",\n      \"actual_spend_amount\": \"<double>\",\n      \"auto_renewal\": \"<string>\",\n      \"marked_as_needs_attention_at\": \"<dateTime>\",\n      \"needs_attention\": \"<boolean>\",\n      \"needs_attention_note\": \"<string>\",\n      \"needs_attention_reason\": \"<string>\",\n      \"renew_number_of_times\": \"<integer>\",\n      \"renewal_term_unit\": \"<string>\",\n      \"renewal_term_value\": \"<integer>\",\n      \"renewal_termination_notice_unit\": \"<string>\",\n      \"renewal_termination_notice_value\": \"<integer>\",\n      \"renewal_termination_reminder_unit\": \"<string>\",\n      \"renewal_termination_reminder_value\": \"<integer>\",\n      \"terminated_note\": \"<string>\",\n      \"terminated_reason\": \"<string>\",\n      \"custom_fields\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"approval_rounds\": \"<integer>\",\n      \"public\": \"<boolean>\"\n    },\n    \"relationships\": {\n      \"owner\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"supplier_company\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_supplier_company\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_contract_type\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"payment_currency\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "338b91ed-7246-43bb-b93b-a141e1fcf501",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Contract external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1234-5678-abcd-efgh\",\n    \"attributes\": {\n      \"actual_end_date\": \"2032-12-30\",\n      \"actual_spend_amount\": \"22.11\",\n      \"actual_start_date\": \"2029-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"description\": \"Contract Description Updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title Updated\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": false\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 876543.21\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-25T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text updated\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text updated\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com/updated\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"supplier_company\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"supplier_companies\"\n        }\n      },\n      \"owner\": {\n        \"meta\": {\n          \"email\": \"contract.owner@example.com\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"actual_end_date\": \"2032-12-30\",\n      \"actual_spend_amount\": 22.11,\n      \"actual_start_date\": \"2029-12-30\",\n      \"approved_at\": \"2019-10-11T09:12:31.080Z\",\n      \"approval_rounds\": 1,\n      \"auto_renewal\": \"yes\",\n      \"description\": \"Contract Description Updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"marked_as_needs_attention_at\": null,\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"number\": 1,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_date\": \"2032-07-30\",\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_date\": \"2032-06-18\",\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"first_sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n      \"sent_for_approval_at\": \"2019-10-05T05:24:12.000Z\",\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title Updated\",\n      \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n      \"scc_updated_at\": null,\n      \"request_submitted_at\": \"2019-10-28T21:28:46.790Z\",\n      \"request_opened_at\": null,\n      \"public\": false,\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": false\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 876543.21\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-25T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text updated\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text updated\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com/updated\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": [\n          {\n            \"id\": \"1\",\n            \"type\": \"attachments\"\n          },\n          {\n            \"id\": \"2\",\n            \"type\": \"attachments\"\n          }\n        ]\n      },\n      \"supplier_company\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"supplier_companies\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"creator\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"stakeholders\"\n        }\n      },\n      \"owner\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"stakeholders\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      },\n      \"docusign_envelopes\": {\n        \"data\": []\n      },\n      \"adobe_sign_agreements\": {\n        \"data\": []\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/contracts/v1/contracts/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8ac7346-c8ef-4472-866d-71b7e86da402",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Contract external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1234-5678-abcd-efgh\",\n    \"attributes\": {\n      \"actual_end_date\": \"2032-12-30\",\n      \"actual_spend_amount\": \"22.11\",\n      \"actual_start_date\": \"2029-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"description\": \"Contract Description Updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title Updated\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": false\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 876543.21\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-25T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text updated\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text updated\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com/updated\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"supplier_company\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"supplier_companies\"\n        }\n      },\n      \"owner\": {\n        \"meta\": {\n          \"email\": \"contract.owner@example.com\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9707d040-c7ac-4a79-a998-b70b7f148e7f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Contract external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"contracts\",\n    \"id\": \"1234-5678-abcd-efgh\",\n    \"attributes\": {\n      \"actual_end_date\": \"2032-12-30\",\n      \"actual_spend_amount\": \"22.11\",\n      \"actual_start_date\": \"2029-12-30\",\n      \"auto_renewal\": \"yes\",\n      \"description\": \"Contract Description Updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"needs_attention\": false,\n      \"needs_attention_note\": null,\n      \"needs_attention_reason\": null,\n      \"renew_number_of_times\": 3,\n      \"renewal_term_unit\": \"days\",\n      \"renewal_term_value\": 4,\n      \"renewal_termination_notice_unit\": \"months\",\n      \"renewal_termination_notice_value\": 5,\n      \"renewal_termination_reminder_unit\": \"weeks\",\n      \"renewal_termination_reminder_value\": 6,\n      \"state\": \"in_progress\",\n      \"state_label\": \"Discovery\",\n      \"terminated_note\": null,\n      \"terminated_reason\": null,\n      \"title\": \"Contract Title Updated\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 987654321\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": false\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 876543.21\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-25T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text updated\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text updated\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com/updated\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"supplier_company\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"supplier_companies\"\n        }\n      },\n      \"owner\": {\n        \"meta\": {\n          \"email\": \"contract.owner@example.com\"\n        }\n      },\n      \"spend_category\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"spend_categories\"\n        }\n      },\n      \"contract_type\": {\n        \"data\": {\n          \"id\": \"3\",\n          \"type\": \"contract_types\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b9a05a3-5bdb-4ee7-b85c-6b3c76aed5e1",
+          "name": "Delete a Contract by External ID",
+          "request": {
+            "name": "Delete a Contract by External ID",
+            "description": {
+              "content": "Deletes a contract. You need to supply the unique contract\nexternal identifier (the one you used when created the contract).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                ":external_id",
+                "external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) Contract external identifier."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e5b47c5-a7bc-470f-9b7f-4f662468ec14",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Contract external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8b366a8a-5b8c-4beb-86a3-76213b69a676",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Contract external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "42c32651-ae35-42a5-96e0-aaaa8033f517",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Contract external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "095888c9-7b1c-4fca-8354-8c19cb669ec0",
+          "name": "Describe Contract object",
+          "request": {
+            "name": "Describe Contract object",
+            "description": {
+              "content": "Returns a list of fields for the contract object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contracts",
+                "describe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fdf18c03-e416-4b00-ab91-387f721dc642",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"count\": 40\n  },\n  \"data\": [\n    {\n      \"id\": \"actual_end_date\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"actual_end_date\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"actual_spend_amount\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"actual_spend_amount\",\n        \"data_type\": \"number\",\n        \"type_description\": \"Currency\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"actual_start_date\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"actual_start_date\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"auto_renewal\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"auto_renewal\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"description\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"description\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Paragraph\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"external_id\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"external_id\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"needs_attention\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"needs_attention\",\n        \"data_type\": \"boolean\",\n        \"type_description\": \"Checkbox\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"renew_number_of_times\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"renew_number_of_times\",\n        \"data_type\": \"integer\",\n        \"type_description\": \"Integer\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"renewal_term_unit\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"renewal_term_unit\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"renewal_term_value\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"renewal_term_value\",\n        \"data_type\": \"integer\",\n        \"type_description\": \"Integer\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"renewal_termination_notice_unit\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"renewal_termination_notice_unit\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"renewal_termination_notice_value\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"renewal_termination_notice_value\",\n        \"data_type\": \"integer\",\n        \"type_description\": \"Integer\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"renewal_termination_reminder_unit\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"renewal_termination_reminder_unit\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"renewal_termination_reminder_value\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"renewal_termination_reminder_value\",\n        \"data_type\": \"integer\",\n        \"type_description\": \"Integer\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"state\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"state\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"state_label\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"state_label\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"terminated_note\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"terminated_note\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"terminated_reason\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"terminated_reason\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"title\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"title\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"approved_at\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"approved_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"marked_as_needs_attention_at\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"marked_as_needs_attention_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"needs_attention_note\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"needs_attention_note\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"needs_attention_reason\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"needs_attention_reason\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"number\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"number\",\n        \"data_type\": \"integer\",\n        \"type_description\": \"Integer\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"renewal_termination_notice_date\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"renewal_termination_notice_date\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"renewal_termination_reminder_date\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"renewal_termination_reminder_date\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"sent_for_approval_at\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"sent_for_approval_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"updated_at\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"updated_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"scc_updated_at\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"scc_updated_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"public\",\n      \"type\": \"contract_fields\",\n      \"attributes\": {\n        \"name\": \"public\",\n        \"data_type\": \"boolean\",\n        \"type_description\": \"Checkbox\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"attributes\": {\n        \"custom_field\": true,\n        \"data_type\": \"number\",\n        \"name\": \"Custom Field Currency\",\n        \"type_description\": \"Currency\"\n      },\n      \"type\": \"contract_fields\"\n    },\n    {\n      \"attributes\": {\n        \"custom_field\": true,\n        \"data_type\": \"integer\",\n        \"name\": \"Custom Field Integer\",\n        \"type_description\": \"Integer\"\n      },\n      \"type\": \"contract_fields\"\n    },\n    {\n      \"attributes\": {\n        \"custom_field\": true,\n        \"data_type\": \"boolean\",\n        \"name\": \"Custom Field Checkbox\",\n        \"type_description\": \"Checkbox\"\n      },\n      \"type\": \"contract_fields\"\n    },\n    {\n      \"attributes\": {\n        \"custom_field\": true,\n        \"data_type\": \"number\",\n        \"name\": \"Custom Field Decimal\",\n        \"type_description\": \"Decimal\"\n      },\n      \"type\": \"contract_fields\"\n    },\n    {\n      \"attributes\": {\n        \"custom_field\": true,\n        \"data_type\": \"string\",\n        \"name\": \"Custom Field Date\",\n        \"type_description\": \"Date\"\n      },\n      \"type\": \"contract_fields\"\n    },\n    {\n      \"attributes\": {\n        \"custom_field\": true,\n        \"data_type\": \"string\",\n        \"name\": \"Custom Field Select\",\n        \"type_description\": \"Single Select\"\n      },\n      \"type\": \"contract_fields\"\n    },\n    {\n      \"attributes\": {\n        \"custom_field\": true,\n        \"data_type\": \"array\",\n        \"name\": \"Custom Field Multiple\",\n        \"type_description\": \"Multiple Select\"\n      },\n      \"type\": \"contract_fields\"\n    },\n    {\n      \"attributes\": {\n        \"custom_field\": true,\n        \"data_type\": \"string\",\n        \"name\": \"Custom Field Short Text\",\n        \"type_description\": \"Short Text\"\n      },\n      \"type\": \"contract_fields\"\n    },\n    {\n      \"attributes\": {\n        \"custom_field\": true,\n        \"data_type\": \"string\",\n        \"name\": \"Custom Field Paragraph\",\n        \"type_description\": \"Paragraph\"\n      },\n      \"type\": \"contract_fields\"\n    },\n    {\n      \"attributes\": {\n        \"custom_field\": true,\n        \"data_type\": \"string\",\n        \"name\": \"Custom Field URL\",\n        \"type_description\": \"URL\"\n      },\n      \"type\": \"contract_fields\"\n    }\n  ],\n  \"links\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "029bdd09-8a29-407d-8eb0-6a9795919e8d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2ee7c94b-2ff9-4ced-9a55-21ede5e76a70",
+    "name": "Workday Strategic Sourcing attachments contracts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

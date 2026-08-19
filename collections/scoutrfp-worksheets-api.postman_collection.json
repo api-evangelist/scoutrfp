@@ -1,0 +1,544 @@
+{
+  "item": [
+    {
+      "id": "a48f2f65-e70b-4c23-bf23-ba7bed592007",
+      "name": "worksheets",
+      "description": {
+        "content": "Use the worksheets API to create, update, and query the worksheets in Workday Strategic Sourcing.\n\n## Worksheet Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/WorksheetModel\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9b575829-4bf8-45b0-b920-beb255be3a0c",
+          "name": "List Worksheets",
+          "request": {
+            "name": "List Worksheets",
+            "description": {
+              "content": "Returns a list of all worksheets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                ":event_id",
+                "worksheets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "event_id",
+                  "description": "(Required) Event identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0fa0a9e8-486a-4c44-a447-f5228ba55391",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_id",
+                    "worksheets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "event_id",
+                      "description": "(Required) Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"count\": 2\n  },\n  \"data\": [\n    {\n      \"type\": \"worksheets\",\n      \"id\": \"1\",\n      \"attributes\": {\n        \"title\": \"Worksheet title #1\",\n        \"budget\": 120.32,\n        \"notes\": \"Worksheet related notes\",\n        \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n        \"worksheet_type\": \"standard\",\n        \"columns\": [\n          {\n            \"id\": \"141\",\n            \"name\": \"Title\",\n            \"data_identifier\": \"c1\",\n            \"mapping_key\": \"TITLE\"\n          },\n          {\n            \"id\": \"143\",\n            \"name\": \"Unit of Measure\",\n            \"data_identifier\": \"c3\",\n            \"mapping_key\": \"UNIT_OF_MEASURE\"\n          },\n          {\n            \"id\": \"142\",\n            \"name\": \"Quantity\",\n            \"data_identifier\": \"c2\",\n            \"mapping_key\": \"QUANTITY\"\n          },\n          {\n            \"id\": \"145\",\n            \"name\": \"Price\",\n            \"data_identifier\": \"c5\",\n            \"mapping_key\": \"PRICE\"\n          },\n          {\n            \"id\": \"144\",\n            \"name\": \"Extended Price\",\n            \"data_identifier\": \"c4\",\n            \"mapping_key\": \"EXTENDED_PRICE\"\n          }\n        ]\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1\"\n      }\n    },\n    {\n      \"type\": \"worksheets\",\n      \"id\": \"2\",\n      \"attributes\": {\n        \"title\": \"Worksheet title #2\",\n        \"budget\": null,\n        \"notes\": null,\n        \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n        \"worksheet_type\": \"standard\",\n        \"columns\": [\n          {\n            \"id\": \"146\",\n            \"name\": \"Title\",\n            \"data_identifier\": \"c6\",\n            \"mapping_key\": \"TITLE\"\n          },\n          {\n            \"id\": \"148\",\n            \"name\": \"Unit of Measure\",\n            \"data_identifier\": \"c8\",\n            \"mapping_key\": \"UNIT_OF_MEASURE\"\n          },\n          {\n            \"id\": \"147\",\n            \"name\": \"Quantity\",\n            \"data_identifier\": \"c7\",\n            \"mapping_key\": \"QUANTITY\"\n          },\n          {\n            \"id\": \"150\",\n            \"name\": \"Price\",\n            \"data_identifier\": \"c10\",\n            \"mapping_key\": \"PRICE\"\n          },\n          {\n            \"id\": \"149\",\n            \"name\": \"Extended Price\",\n            \"data_identifier\": \"c9\",\n            \"mapping_key\": \"EXTENDED_PRICE\"\n          }\n        ]\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/2\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "192d950d-3dda-4606-a655-d611017c4f63",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_id",
+                    "worksheets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "event_id",
+                      "description": "(Required) Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff5d8473-5f44-40c2-8988-6380a1ced67c",
+          "name": "Get a Worksheet",
+          "request": {
+            "name": "Get a Worksheet",
+            "description": {
+              "content": "Retrieves the details of an existing worksheet. You need to supply the unique worksheet\nidentifier that was returned upon worksheet creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                ":event_id",
+                "worksheets",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "event_id",
+                  "description": "(Required) Event identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Worksheet identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6128bd22-1c86-410e-b643-9fe59f47c21b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_id",
+                    "worksheets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "event_id",
+                      "description": "(Required) Event identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Worksheet identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"worksheets\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"title\": \"Worksheet title #1\",\n      \"budget\": null,\n      \"notes\": null,\n      \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n      \"worksheet_type\": \"standard\",\n      \"columns\": [\n        {\n          \"id\": \"111\",\n          \"name\": \"Title\",\n          \"data_identifier\": \"c11\",\n          \"mapping_key\": \"TITLE\"\n        },\n        {\n          \"id\": \"113\",\n          \"name\": \"Unit of Measure\",\n          \"data_identifier\": \"c13\",\n          \"mapping_key\": \"UNIT_OF_MEASURE\"\n        },\n        {\n          \"id\": \"112\",\n          \"name\": \"Quantity\",\n          \"data_identifier\": \"c12\",\n          \"mapping_key\": \"QUANTITY\"\n        },\n        {\n          \"id\": \"115\",\n          \"name\": \"Price\",\n          \"data_identifier\": \"c15\",\n          \"mapping_key\": \"PRICE\"\n        },\n        {\n          \"id\": \"114\",\n          \"name\": \"Extended Price\",\n          \"data_identifier\": \"c14\",\n          \"mapping_key\": \"EXTENDED_PRICE\"\n        }\n      ]\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/events/v1/events/3/worksheets/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a81c3e95-6051-41ae-91ea-68f57e256303",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_id",
+                    "worksheets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "event_id",
+                      "description": "(Required) Event identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Worksheet identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8b2d097a-464d-4697-82ce-e6a35919ce4b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_id",
+                    "worksheets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "event_id",
+                      "description": "(Required) Event identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Worksheet identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71357f61-31b4-49b9-b4cc-6ce4c40eb692",
+          "name": "Describe Worksheet object",
+          "request": {
+            "name": "Describe Worksheet object",
+            "description": {
+              "content": "Returns a list of fields for the worksheet object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "worksheets",
+                "describe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f5d34b83-79b5-45a8-af71-d403c71813d3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "worksheets",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"count\": 4\n  },\n  \"data\": [\n    {\n      \"id\": \"title\",\n      \"type\": \"worksheet_fields\",\n      \"attributes\": {\n        \"name\": \"title\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"budget\",\n      \"type\": \"worksheet_fields\",\n      \"attributes\": {\n        \"name\": \"budget\",\n        \"data_type\": \"number\",\n        \"type_description\": \"Decimal\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"notes\",\n      \"type\": \"worksheet_fields\",\n      \"attributes\": {\n        \"name\": \"notes\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Paragraph\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"updated_at\",\n      \"type\": \"worksheet_fields\",\n      \"attributes\": {\n        \"name\": \"updated_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    }\n  ],\n  \"links\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81fd79fb-f9a8-4ed9-9162-36ccd71b4bf9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "worksheets",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b8c20506-8223-48a4-8f43-a0f6deabd672",
+    "name": "Workday Strategic Sourcing attachments worksheets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

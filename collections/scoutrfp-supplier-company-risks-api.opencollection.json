@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments supplier_company_risks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "supplier_company_risks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Supplier Company Risks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_company_risks"
+          },
+          "docs": "Returns a list of supplier company risks."
+        },
+        {
+          "info": {
+            "name": "Create a Supplier Company Risk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_company_risks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a supplier company risk with given parameters.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Supplier Company Risk",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_company_risks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier company risk identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing supplier company risk. You need to supply the unique\nidentifier that was returned upon supplier company risk creation.\n\nPlease note, that request body must include an `id` attribute with the value of your supplier company risk\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Supplier Company Risk",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_company_risks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier company risk identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a supplier company risk. You need to supply the unique supplier company risk\nidentifier that was returned upon supplier company risk creation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

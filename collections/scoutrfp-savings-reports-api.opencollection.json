@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments savings_reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "savings_reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Savings Report Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/savings_reports/entries"
+          },
+          "docs": "Returns a list of savings entries."
+        },
+        {
+          "info": {
+            "name": "Savings Report Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/savings_reports/schema"
+          },
+          "docs": "Returns the savings report schema."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,289 @@
+{
+  "item": [
+    {
+      "id": "702ffcab-d2de-4bdd-95b5-d6710ece8307",
+      "name": "contract_milestone_reports",
+      "description": {
+        "content": "This report returns a list of contract milestone report entries.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7efc93fa-cb8f-4ce9-8087-59b0d2fc0861",
+          "name": "Contract Milestone Report Entries",
+          "request": {
+            "name": "Contract Milestone Report Entries",
+            "description": {
+              "content": "Returns a list of milestone report entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contract_milestone_reports",
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da764a28-6b4d-4c10-ab42-bd94c5cb68a4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_milestone_reports",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"type\": \"contract_milestone_report_entries\",\n      \"attributes\": {\n        \"Scout-System ID\": 1,\n        \"Scout-Milestone Name\": \"example 1\",\n        \"Scout-Milestone Date\": \"2020-04-16\",\n        \"Scout-Milestone Date FY\": 2020,\n        \"Scout-Milestone Date FQ\": 2,\n        \"Scout-Milestone Status\": \"Open\",\n        \"Scout-Milestone Complete Date\": null,\n        \"Scout-Milestone Complete Date FY\": null,\n        \"Scout-Milestone Complete Date FQ\": null,\n        \"Scout-Template Milestone\": false,\n        \"Scout-Milestone Created By\": null,\n        \"Scout-Milestone Create Date\": \"2020-04-14\",\n        \"Scout-Milestone Create Date FY\": 2020,\n        \"Scout-Milestone Create Date FQ\": 2,\n        \"Scout-Milestone Assign Date\": null,\n        \"Scout-Milestone Assignee\": null,\n        \"Scout-Mark Completed By\": null,\n        \"Scout-# of Days Milestone is Open\": null,\n        \"Scout-Requestor Name\": null,\n        \"Scout-Request Submitted\": null,\n        \"Scout-Request Opened\": null,\n        \"Scout-ID #\": 1,\n        \"Scout-Contract Type\": \"Contract Type #11\",\n        \"Scout-Contract Type Short Code\": \"11VD\",\n        \"Scout-Supplier\": null,\n        \"Scout-Contract Title\": \"Fantastic Steel Plate\",\n        \"Scout-Contract State & Status\": \"In Progress\",\n        \"Scout-Auto Renewal\": \"no\",\n        \"Scout-Start Date\": null,\n        \"Scout-Start Date FY\": null,\n        \"Scout-Start Date FQ\": null,\n        \"Scout-End Date\": null,\n        \"Scout-End Date FY\": null,\n        \"Scout-End Date FQ\": null,\n        \"Scout-Sourcing Owner\": \"Sophie II\",\n        \"Scout-Category\": null,\n        \"Scout-Renewal Term\": null,\n        \"Custom field for project!\": \"Custom field value\"\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"contract_milestone_report_entries\",\n      \"attributes\": {\n        \"Scout-System ID\": 2,\n        \"Scout-Milestone Name\": \"example 2\",\n        \"Scout-Milestone Date\": \"2020-04-16\",\n        \"Scout-Milestone Date FY\": 2020,\n        \"Scout-Milestone Date FQ\": 2,\n        \"Scout-Milestone Status\": \"Open\",\n        \"Scout-Milestone Complete Date\": null,\n        \"Scout-Milestone Complete Date FY\": null,\n        \"Scout-Milestone Complete Date FQ\": null,\n        \"Scout-Template Milestone\": false,\n        \"Scout-Milestone Created By\": null,\n        \"Scout-Milestone Create Date\": \"2020-04-14\",\n        \"Scout-Milestone Create Date FY\": 2020,\n        \"Scout-Milestone Create Date FQ\": 2,\n        \"Scout-Milestone Assign Date\": null,\n        \"Scout-Milestone Assignee\": null,\n        \"Scout-Mark Completed By\": null,\n        \"Scout-# of Days Milestone is Open\": null,\n        \"Scout-Requestor Name\": null,\n        \"Scout-Request Submitted\": null,\n        \"Scout-Request Opened\": null,\n        \"Scout-ID #\": 1,\n        \"Scout-Contract Type\": \"Contract Type #11\",\n        \"Scout-Contract Type Short Code\": \"11VD\",\n        \"Scout-Supplier\": null,\n        \"Scout-Contract Title\": \"Fantastic Steel Plate\",\n        \"Scout-Contract State & Status\": \"In Progress\",\n        \"Scout-Auto Renewal\": \"no\",\n        \"Scout-Start Date\": null,\n        \"Scout-Start Date FY\": null,\n        \"Scout-Start Date FQ\": null,\n        \"Scout-End Date\": null,\n        \"Scout-End Date FY\": null,\n        \"Scout-End Date FQ\": null,\n        \"Scout-Sourcing Owner\": \"Sophie II\",\n        \"Scout-Category\": null,\n        \"Scout-Renewal Term\": null,\n        \"Custom field for project!\": \"Custom field value\"\n      }\n    },\n    {\n      \"id\": \"3\",\n      \"type\": \"contract_milestone_report_entries\",\n      \"attributes\": {\n        \"Scout-System ID\": 3,\n        \"Scout-Milestone Name\": \"this will not show up\",\n        \"Scout-Milestone Date\": \"2020-04-16\",\n        \"Scout-Milestone Date FY\": 2020,\n        \"Scout-Milestone Date FQ\": 2,\n        \"Scout-Milestone Status\": \"Open\",\n        \"Scout-Milestone Complete Date\": null,\n        \"Scout-Milestone Complete Date FY\": null,\n        \"Scout-Milestone Complete Date FQ\": null,\n        \"Scout-Template Milestone\": false,\n        \"Scout-Milestone Created By\": null,\n        \"Scout-Milestone Create Date\": \"2020-04-14\",\n        \"Scout-Milestone Create Date FY\": 2020,\n        \"Scout-Milestone Create Date FQ\": 2,\n        \"Scout-Milestone Assign Date\": null,\n        \"Scout-Milestone Assignee\": null,\n        \"Scout-Mark Completed By\": null,\n        \"Scout-# of Days Milestone is Open\": null,\n        \"Scout-Requestor Name\": null,\n        \"Scout-Request Submitted\": null,\n        \"Scout-Request Opened\": null,\n        \"Scout-ID #\": 1,\n        \"Scout-Contract Type\": \"Contract Type #11\",\n        \"Scout-Contract Type Short Code\": \"11VD\",\n        \"Scout-Supplier\": null,\n        \"Scout-Contract Title\": \"Fantastic Steel Plate\",\n        \"Scout-Contract State & Status\": \"In Progress\",\n        \"Scout-Auto Renewal\": \"no\",\n        \"Scout-Start Date\": null,\n        \"Scout-Start Date FY\": null,\n        \"Scout-Start Date FQ\": null,\n        \"Scout-End Date\": null,\n        \"Scout-End Date FY\": null,\n        \"Scout-End Date FQ\": null,\n        \"Scout-Sourcing Owner\": \"Sophie II\",\n        \"Scout-Category\": null,\n        \"Scout-Renewal Term\": null,\n        \"Custom field for project!\": \"Custom field value\"\n      }\n    }\n  ],\n  \"links\": {\n    \"prev\": null,\n    \"next\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbb000b8-5a95-40cd-8b2a-d1b1351348ef",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_milestone_reports",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "585fac2d-ac6a-444b-bb5a-2a9be1e8df56",
+          "name": "Contract Milestone Report Schema",
+          "request": {
+            "name": "Contract Milestone Report Schema",
+            "description": {
+              "content": "Returns the contract milestone report schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contract_milestone_reports",
+                "schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "326315ff-7d50-471f-9d06-a544633d49ce",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_milestone_reports",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"contract_milestone_schemas\",\n    \"type\": \"contract_milestone_schemas\",\n    \"attributes\": {\n      \"fields\": [\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-System ID\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Milestone Name\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Milestone Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Milestone Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Milestone Date FQ\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Milestone Status\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Milestone Complete Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Milestone Complete Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Milestone Complete Date FQ\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Template Milestone\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Milestone Created By\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Milestone Create Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Milestone Create Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Milestone Create Date FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Milestone Assign Date\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Milestone Assignee\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Mark Completed By\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Days Milestone is Open\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Requestor Name\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Request Submitted\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Request Opened\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-ID #\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Contract Type\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Contract Type Short Code\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Supplier\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contract Title\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Contract State & Status\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Auto Renewal\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Start Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Start Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Start Date FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-End Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-End Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-End Date FQ\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Sourcing Owner\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Category\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Renewal Term\"\n        },\n        {\n          \"type\": \"string\",\n          \"name\": \"Field #3\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "471514f7-4198-419e-81ad-9ccaea424c95",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_milestone_reports",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0dda8366-30fa-4216-b232-d01137c035d5",
+    "name": "Workday Strategic Sourcing attachments contract_milestone_reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,656 @@
+{
+  "item": [
+    {
+      "id": "61a9bead-47a7-4221-9414-6315eed37d71",
+      "name": "bid_line_items",
+      "description": {
+        "content": "Use the bid line items API to query the bid line items in Workday Strategic Sourcing.\n\n## Bid Line Item Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/BidLineItem\" exampleRef=\"#/components/examples/BidLineItem\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "afca9cf6-56e9-495c-98e0-c502904ba2b2",
+          "name": "List Bid Line Items",
+          "request": {
+            "name": "List Bid Line Items",
+            "description": {
+              "content": "Returns a list of line items for a specific bid.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bids",
+                ":bid_id",
+                "bid_line_items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "bid_id",
+                  "description": "(Required) Bid identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3406ac3e-cbf9-4294-a470-63756a353ee3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bids",
+                    ":bid_id",
+                    "bid_line_items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "bid_id",
+                      "description": "(Required) Bid identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"type\": \"bid_line_items\",\n      \"attributes\": {\n        \"data\": {\n          \"c4\": 300.1,\n          \"c5\": 60.02\n        },\n        \"updated_at\": \"2021-02-24T21:42:17.783Z\"\n      },\n      \"relationships\": {\n        \"line_item\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"line_items\"\n          }\n        },\n        \"bid\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"bids\"\n          }\n        },\n        \"event\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"events\"\n          }\n        },\n        \"worksheet\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"worksheets\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"bid_line_items\",\n      \"attributes\": {\n        \"data\": {\n          \"c4\": 200.44,\n          \"c5\": 50.11\n        },\n        \"updated_at\": \"2021-02-24T21:42:17.783Z\"\n      },\n      \"relationships\": {\n        \"line_item\": {\n          \"data\": {\n            \"id\": \"2\",\n            \"type\": \"line_items\"\n          }\n        },\n        \"bid\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"bids\"\n          }\n        },\n        \"event\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"events\"\n          }\n        },\n        \"worksheet\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"worksheets\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/events/v1/bids/1/bid_line_items?page%5Bsize%5D=20\",\n    \"next\": \"https://api.us.workdayspend.com/services/events/v1/bids/1/bid_line_items?page%5Bcursor%5D=WzIxXQ&page%5Bdirection%5D=next&page%5Bsize%5D=20\",\n    \"prev\": \"https://api.us.workdayspend.com/services/events/v1/bids/1/bid_line_items?page%5Bcursor%5D=WzJd&page%5Bdirection%5D=prev&page%5Bsize%5D=20\"\n  },\n  \"meta\": {\n    \"count\": 2\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cff8017e-5844-4efe-9146-860fada423f2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bids",
+                    ":bid_id",
+                    "bid_line_items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "bid_id",
+                      "description": "(Required) Bid identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ab20cd8-5ee3-4b01-ae65-91b151d30efa",
+          "name": "Get a Bid Line Item",
+          "request": {
+            "name": "Get a Bid Line Item",
+            "description": {
+              "content": "Retrieves the details of an existing bid line item.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bid_line_items",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique bid line item identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cfb65e90-db89-4403-a1c6-c20467d12892",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bid_line_items",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique bid line item identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"bid_line_items\",\n    \"attributes\": {\n      \"data\": {\n        \"c4\": 300.1,\n        \"c5\": 60.02\n      },\n      \"updated_at\": \"2021-02-24T21:42:17.783Z\"\n    },\n    \"relationships\": {\n      \"line_item\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"line_items\"\n        }\n      },\n      \"bid\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"bids\"\n        }\n      },\n      \"event\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"events\"\n        }\n      },\n      \"worksheet\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"worksheets\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7feddac-bef9-4ae6-899f-2924ed3e9025",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bid_line_items",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique bid line item identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5d1c8676-9b73-43d6-a4eb-5d23caa7655b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bid_line_items",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique bid line item identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c82731c4-50f3-40bc-8f79-b3573029c685",
+          "name": "List All Bid Line Items",
+          "request": {
+            "name": "List All Bid Line Items",
+            "description": {
+              "content": "Returns a list of all bid line items.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bid_line_items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bid_id_equals",
+                  "value": "<integer>",
+                  "description": "Filter bid line items by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "event_id_equals",
+                  "value": "<integer>",
+                  "description": "Filter bid line items by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c0884d7b-d81f-44df-b797-684a1fab6ccf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bid_line_items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bid_id_equals",
+                      "value": "1"
+                    },
+                    {
+                      "key": "event_id_equals",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"type\": \"bid_line_items\",\n      \"attributes\": {\n        \"data\": {\n          \"c4\": 300.1,\n          \"c5\": 60.02\n        },\n        \"updated_at\": \"2021-02-24T21:42:17.783Z\"\n      },\n      \"relationships\": {\n        \"line_item\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"line_items\"\n          }\n        },\n        \"bid\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"bids\"\n          }\n        },\n        \"event\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"events\"\n          }\n        },\n        \"worksheet\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"worksheets\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"bid_line_items\",\n      \"attributes\": {\n        \"data\": {\n          \"c4\": 200.44,\n          \"c5\": 50.11\n        },\n        \"updated_at\": \"2021-02-24T21:42:17.783Z\"\n      },\n      \"relationships\": {\n        \"line_item\": {\n          \"data\": {\n            \"id\": \"2\",\n            \"type\": \"line_items\"\n          }\n        },\n        \"bid\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"bids\"\n          }\n        },\n        \"event\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"events\"\n          }\n        },\n        \"worksheet\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"worksheets\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/events/v1/bid_line_items?page%5Bsize%5D=20\",\n    \"next\": \"https://api.us.workdayspend.com/services/events/v1/bid_line_items?page%5Bcursor%5D=WzIxXQ&page%5Bdirection%5D=next&page%5Bsize%5D=20\",\n    \"prev\": \"https://api.us.workdayspend.com/services/events/v1/bid_line_items?page%5Bcursor%5D=WzJd&page%5Bdirection%5D=prev&page%5Bsize%5D=20\"\n  },\n  \"meta\": {\n    \"count\": 2\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec0e3612-cafb-46c2-a38b-3f363510c92d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bid_line_items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bid_id_equals",
+                      "value": "1"
+                    },
+                    {
+                      "key": "event_id_equals",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "efbf3009-200d-49be-a8b8-68de028af479",
+          "name": "Describe Bid Line Item Object",
+          "request": {
+            "name": "Describe Bid Line Item Object",
+            "description": {
+              "content": "Returns a list of fields for bid line item object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bid_line_items",
+                "describe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ad872a2e-6787-4550-9aea-2d62d85687f5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bid_line_items",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"data\",\n      \"type\": \"bid_line_item_fields\",\n      \"attributes\": {\n        \"name\": \"data\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Lookup\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"updated_at\",\n      \"type\": \"bid_line_item_fields\",\n      \"attributes\": {\n        \"name\": \"updated_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"event\",\n      \"type\": \"bid_line_item_fields\",\n      \"attributes\": {\n        \"name\": \"event\",\n        \"data_type\": \"object\",\n        \"type_description\": \"Single Relationship\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"bid\",\n      \"type\": \"bid_line_item_fields\",\n      \"attributes\": {\n        \"name\": \"bid\",\n        \"data_type\": \"object\",\n        \"type_description\": \"Single Relationship\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"worksheet\",\n      \"type\": \"bid_line_item_fields\",\n      \"attributes\": {\n        \"name\": \"worksheet\",\n        \"data_type\": \"object\",\n        \"type_description\": \"Single Relationship\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"line_item\",\n      \"type\": \"bid_line_item_fields\",\n      \"attributes\": {\n        \"name\": \"line_item\",\n        \"data_type\": \"object\",\n        \"type_description\": \"Single Relationship\",\n        \"custom_field\": false\n      }\n    }\n  ],\n  \"links\": {},\n  \"meta\": {\n    \"count\": 6\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd674f2e-6669-4f06-a069-9e5627ed5caf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bid_line_items",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b82a17ec-ccc3-4f4b-8f84-b264c69e6615",
+    "name": "Workday Strategic Sourcing attachments bid_line_items API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

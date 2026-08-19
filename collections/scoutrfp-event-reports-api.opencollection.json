@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments event_reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "event_reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Event Report Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/event_reports/entries"
+          },
+          "docs": "Returns a list of event report entries."
+        },
+        {
+          "info": {
+            "name": "Event Single Report Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/event_reports/:event_report_id/entries",
+            "params": [
+              {
+                "name": "event_report_id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Event Report identifier."
+              }
+            ]
+          },
+          "docs": "Returns a list of event report entries."
+        },
+        {
+          "info": {
+            "name": "Event Report Entries (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/event_reports"
+          },
+          "docs": "Returns a list of reports owned by the user.\n\n**This report endpoint is only valid in version 2018-04-01.**\n\n**It is deprecated and unavailable in subsequent versions.**\n"
+        },
+        {
+          "info": {
+            "name": "Event Report Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/event_reports/schema"
+          },
+          "docs": "Returns the event report schema."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments project_types API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "project_types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Project Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/project_types"
+          },
+          "docs": "Returns a list of all project types."
+        },
+        {
+          "info": {
+            "name": "Get a Project Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/project_types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique project type identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing project type.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

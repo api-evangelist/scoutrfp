@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments event_supplier_companies API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "event_supplier_companies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add Suppliers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_id/relationships/supplier_companies",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "1",
+                "type": "path",
+                "description": "Event identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add suppliers to an event. Only events of type `RFP` are supported.\n\nThe operation will be rolled back upon any failure, and invitations won't be sent.\n\nFor best performance, we recommend inviting 10 or less suppliers in a single request.\n"
+        },
+        {
+          "info": {
+            "name": "Remove Suppliers",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_id/relationships/supplier_companies",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "1",
+                "type": "path",
+                "description": "Event identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove suppliers from an event. Only events of type `RFP` are supported.\n\nThe operation will be rolled back upon any failure, and invitations won't be removed.\n\nFor best performance, we recommend removing 10 or less suppliers in a single request.\n"
+        },
+        {
+          "info": {
+            "name": "Add Suppliers using External IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_external_id/relationships/supplier_companies/external_id",
+            "params": [
+              {
+                "name": "event_external_id",
+                "value": "EVENT1",
+                "type": "path",
+                "description": "Event external identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add suppliers to an event. Only events of type `RFP` are supported.\n\nYou must supply the unique event external identifier (the one you used when created the event).\n\nYou must supply the external identifiers of the supplier companies too.\n\nThe operation will be rolled back upon any failure, and invitations won't be sent.\n\nFor best performance, we recommend inviting 10 or less suppliers in a single request.\n"
+        },
+        {
+          "info": {
+            "name": "Remove Suppliers using External IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_external_id/relationships/supplier_companies/external_id",
+            "params": [
+              {
+                "name": "event_external_id",
+                "value": "EVENT1",
+                "type": "path",
+                "description": "Event external identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove suppliers from an event. Only events of type `RFP` are supported.\n\nYou must supply the unique event external identifier (the one you used when created the event).\n\nYou must supply the external identifiers of the supplier companies too.\n\nThe operation will be rolled back upon any failure, and invitations won't be removed.\n\nFor best performance, we recommend removing 10 or less suppliers in a single request.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

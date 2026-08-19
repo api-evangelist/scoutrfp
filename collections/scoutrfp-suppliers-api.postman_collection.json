@@ -1,0 +1,310 @@
+{
+  "item": [
+    {
+      "id": "314c2efa-269b-45ca-8bf8-85ea800418a1",
+      "name": "suppliers",
+      "description": {
+        "content": "This report returns a list of Suppliers.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9cf424b9-521e-4887-bf7a-2c94e58efcdc",
+          "name": "All suppliers",
+          "request": {
+            "name": "All suppliers",
+            "description": {
+              "content": "Returns a list of all suppliers.\n\n**Query Params**\n\n| **Param**    |    |\n| ------------ | -- |\n| `include`  | Include supplier contacts with `include=contacts` |\n| `sort`     | Sort the suppliers. Supported values: `name`, `-name`, `created_at`, `-created_at`. |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "suppliers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d3ae05c1-2088-40c9-b3b1-5d167493c697",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "suppliers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"3\",\n      \"type\": \"suppliers\",\n      \"attributes\": {\n        \"name\": \"Hubschrauber LLC\"\n      },\n      \"relationships\": {\n        \"contacts\": {\n          \"data\": [\n            {\n              \"id\": \"3\",\n              \"type\": \"supplier_contacts\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"1\",\n      \"type\": \"suppliers\",\n      \"attributes\": {\n        \"name\": \"Schnappi Group\"\n      },\n      \"relationships\": {\n        \"contacts\": {\n          \"data\": []\n        }\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"suppliers\",\n      \"attributes\": {\n        \"name\": \"Trippy Cow Inc\"\n      },\n      \"relationships\": {\n        \"contacts\": {\n          \"data\": [\n            {\n              \"id\": \"2\",\n              \"type\": \"supplier_contacts\"\n            },\n            {\n              \"id\": \"1\",\n              \"type\": \"supplier_contacts\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"prev\": null,\n    \"next\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca328421-b281-4a34-ab79-bcb9e03dc9ff",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "suppliers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37158fbd-c64f-42e3-993e-7541792e86c2",
+          "name": "Single supplier",
+          "request": {
+            "name": "Single supplier",
+            "description": {
+              "content": "Returns a single supplier.\n\nYou can optionally include the following query parameter to include supplier contacts in the response:\n\n`suppliers/1?include=contacts`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "suppliers",
+                ":supplier_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "supplier_id",
+                  "description": "(Required) Unique Supplier identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fe70e5c2-1a2d-4450-b289-2ef89fd971de",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "suppliers",
+                    ":supplier_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "supplier_id",
+                      "description": "(Required) Unique Supplier identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"177\",\n    \"type\": \"suppliers\",\n    \"attributes\": {\n      \"name\": \"Hubschrauber LLC\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Country of incorporation\",\n          \"value\": \"France\"\n        },\n        {\n          \"name\": \"Supplier options\",\n          \"value\": [\n            \"Option #1\",\n            \"Option #2\"\n          ]\n        },\n        {\n          \"name\": \"Foundation year\",\n          \"value\": 2015\n        },\n        {\n          \"name\": \"Logo\",\n          \"value\": [\n            {\n              \"title\": \"The logo file\",\n              \"file_type\": \"img\",\n              \"url\": \"/downloads/1\"\n            }\n          ]\n        }\n      ]\n    },\n    \"relationships\": {\n      \"contacts\": {\n        \"data\": [\n          {\n            \"id\": \"59\",\n            \"type\": \"supplier_contacts\"\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ca5ddef-1751-4769-b380-9ecd78caaabc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "suppliers",
+                    ":supplier_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "supplier_id",
+                      "description": "(Required) Unique Supplier identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c8714d26-ce3a-4757-b2e7-9eb9603921f6",
+    "name": "Workday Strategic Sourcing attachments suppliers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

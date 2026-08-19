@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments events API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter events by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Customize pagination results with `size`.\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of events for the specified criteria."
+        },
+        {
+          "info": {
+            "name": "Create an Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Events can only be created from a template. When a creation request is issued, the base event\nobject will be created from the template and returned with the response. Child records\nsuch as attachments, price sheets and custom values, will be scheduled for copy asynchronously.\nCurrent duplication status can be retrieved from the `duplication_state` attribute, which will have\none of following values:\n\n* `scheduled` - duplication is scheduled, but not yet started;\n* `started` - duplication started,"
+        },
+        {
+          "info": {
+            "name": "Get an Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Event identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing event. You need to supply the unique event\nidentifier that was returned upon event creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update an Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Event identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing event. You need to supply the unique\nidentifier that was returned upon event creation.\n\nPlease note, that request body must include an `id` attribute with the value of your event\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete an Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Event identifier."
+              }
+            ]
+          },
+          "docs": "Deletes an event. You need to supply the unique event\nidentifier that was returned upon event creation.\n"
+        },
+        {
+          "info": {
+            "name": "Describe Event Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/describe"
+          },
+          "docs": "Returns the list of fields for the event object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

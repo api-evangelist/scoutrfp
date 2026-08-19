@@ -1,0 +1,2029 @@
+{
+  "item": [
+    {
+      "id": "bd9d616c-4522-4ca4-ac6b-81755d50eefa",
+      "name": "supplier_companies",
+      "description": {
+        "content": "Use the supplier companies API to create, update, and query the suppliers in Workday Strategic Sourcing.\n\n## Supplier Company Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/SupplierCompany\" exampleRef=\"#/components/examples/SupplierCompany\" showReadOnly={true} showWriteOnly={true} />\n\n\n\n## Supplier Classification Value Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/SupplierClassificationValue\" exampleRef=\"#/components/examples/SupplierClassificationValue\" showReadOnly={true} showWriteOnly={true} />\n\n## Supplier Classification Field Value Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/SupplierClassificationFieldValue\" exampleRef=\"#/components/examples/SupplierClassificationFieldValue\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5ee90323-c868-430b-bb4e-7d6edf57abb4",
+          "name": "List Supplier Companies",
+          "request": {
+            "name": "List Supplier Companies",
+            "description": {
+              "content": "Returns a list of supplier companies for the specified criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_companies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "updated_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter supplier companies by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter supplier companies by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_empty",
+                  "value": "<boolean>",
+                  "description": "Filter supplier companies by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_not_empty",
+                  "value": "<boolean>",
+                  "description": "Filter supplier companies by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_equals",
+                  "value": "<string>",
+                  "description": "Filter supplier companies by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_id_not_equals",
+                  "value": "<string>",
+                  "description": "Filter supplier companies by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "segmentation_status_equals",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Filter supplier companies by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "To reduce the number of HTTP requests, related resources can be requested along with the\nrequested primary resources. Such responses are called \"compound documents\". In a compound\ndocument, all included resources will be represented as an array of resource objects in a\ntop-level `included` member.\n\nThe value of the `include` parameter must be a comma-separated list of relationships from\nthe list of available relationships.\n\n\n\n```\n/supplier_companies?include=payment_types,default_payment_type\n```\n\nIn the response, relationships will be represented as normal linkage objects (containing\n`id` and `type`), and full related resource details will be presented in the `included`\nsection as resource objects (with `attributes`, `links`, and potentially `relationships`).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Customize pagination results with `size`.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "363f3c53-4d4b-4802-928f-e527208fc375",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "external_id_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "external_id_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "external_id_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "external_id_not_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "segmentation_status_equals",
+                      "value": "approved,not_approved"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"count\": 2\n  },\n  \"data\": [\n    {\n      \"type\": \"supplier_companies\",\n      \"id\": \"1\",\n      \"attributes\": {\n        \"name\": \"Supplier Company Name #1\",\n        \"description\": \"Suppler Company Description #1\",\n        \"is_suggested\": false,\n        \"accept_all_currencies\": false,\n        \"public\": true,\n        \"risk\": \"low\",\n        \"segmentation\": \"tier_1\",\n        \"segmentation_status\": \"approved\",\n        \"segmentation_notes\": \"Segmentation Notes\",\n        \"tags\": [\n          \"tag1\",\n          \"tag2\"\n        ],\n        \"url\": \"http://example.com\",\n        \"external_id\": \"1234-5678-abcd-efgh\",\n        \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n        \"self_registered\": false,\n        \"onboarding_form_completion_status\": null,\n        \"duns_number\": null,\n        \"custom_fields\": [\n          {\n            \"name\": \"Custom Field Currency\",\n            \"value\": 1234567890\n          },\n          {\n            \"name\": \"Custom Field Integer\",\n            \"value\": 1234567890\n          },\n          {\n            \"name\": \"Custom Field Checkbox\",\n            \"value\": true\n          },\n          {\n            \"name\": \"Custom Field Decimal\",\n            \"value\": 123456.78\n          },\n          {\n            \"name\": \"Custom Field Date\",\n            \"value\": \"2018-12-31T00:00:00.000Z\"\n          },\n          {\n            \"name\": \"Custom Field Select\",\n            \"value\": \"Select Option\"\n          },\n          {\n            \"name\": \"Custom Field Multiple\",\n            \"value\": [\n              \"Multiple Select Option 1\",\n              \"Multiple Select Option 2\"\n            ]\n          },\n          {\n            \"name\": \"Custom Field Short Text\",\n            \"value\": \"some short text\"\n          },\n          {\n            \"name\": \"Custom Field Paragraph\",\n            \"value\": \"longer text than short text\"\n          },\n          {\n            \"name\": \"Custom Field URL\",\n            \"value\": \"http://www.example.com\"\n          }\n        ]\n      },\n      \"relationships\": {\n        \"attachments\": {\n          \"data\": [\n            {\n              \"id\": \"2\",\n              \"type\": \"attachments\"\n            }\n          ]\n        },\n        \"default_payment_currency\": {\n          \"data\": {\n            \"id\": \"172\",\n            \"type\": \"payment_currencies\"\n          }\n        },\n        \"default_payment_term\": {\n          \"data\": {\n            \"id\": \"38\",\n            \"type\": \"payment_terms\"\n          }\n        },\n        \"default_payment_type\": {\n          \"data\": {\n            \"id\": \"99\",\n            \"type\": \"payment_types\"\n          }\n        },\n        \"supplier_category\": {\n          \"data\": {\n            \"id\": \"83\",\n            \"type\": \"supplier_categories\"\n          }\n        },\n        \"payment_currencies\": {\n          \"data\": [\n            {\n              \"id\": \"172\",\n              \"type\": \"payment_currencies\"\n            },\n            {\n              \"id\": \"174\",\n              \"type\": \"payment_currencies\"\n            }\n          ]\n        },\n        \"payment_types\": {\n          \"data\": [\n            {\n              \"id\": \"99\",\n              \"type\": \"payment_types\"\n            },\n            {\n              \"id\": \"96\",\n              \"type\": \"payment_types\"\n            }\n          ]\n        },\n        \"supplier_groups\": {\n          \"data\": [\n            {\n              \"id\": \"48\",\n              \"type\": \"supplier_groups\"\n            },\n            {\n              \"id\": \"53\",\n              \"type\": \"supplier_groups\"\n            }\n          ]\n        },\n        \"supplier_classification_values\": {\n          \"data\": [\n            {\n              \"id\": \"1-21\",\n              \"type\": \"supplier_classification_values\"\n            },\n            {\n              \"id\": \"1-22\",\n              \"type\": \"supplier_classification_values\"\n            }\n          ]\n        }\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1\"\n      }\n    },\n    {\n      \"type\": \"supplier_companies\",\n      \"id\": \"2\",\n      \"attributes\": {\n        \"name\": \"Supplier Company Name #2\",\n        \"description\": \"Suppler Company Description #2\",\n        \"is_suggested\": false,\n        \"accept_all_currencies\": false,\n        \"public\": true,\n        \"risk\": \"low\",\n        \"segmentation\": \"tier_1\",\n        \"segmentation_status\": \"approved\",\n        \"segmentation_notes\": \"Segmentation Notes\",\n        \"tags\": [\n          \"tag1\",\n          \"tag2\"\n        ],\n        \"url\": \"http://example.com\",\n        \"external_id\": \"5678-9012-ijkl-mnop\",\n        \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n        \"self_registered\": false,\n        \"onboarding_form_completion_status\": null,\n        \"duns_number\": null,\n        \"custom_fields\": [\n          {\n            \"name\": \"Custom Field Currency\",\n            \"value\": 1234567890\n          },\n          {\n            \"name\": \"Custom Field Integer\",\n            \"value\": 1234567890\n          },\n          {\n            \"name\": \"Custom Field Checkbox\",\n            \"value\": true\n          },\n          {\n            \"name\": \"Custom Field Decimal\",\n            \"value\": 123456.78\n          },\n          {\n            \"name\": \"Custom Field Date\",\n            \"value\": \"2018-12-31T00:00:00.000Z\"\n          },\n          {\n            \"name\": \"Custom Field Select\",\n            \"value\": \"Select Option\"\n          },\n          {\n            \"name\": \"Custom Field Multiple\",\n            \"value\": [\n              \"Multiple Select Option 1\",\n              \"Multiple Select Option 2\"\n            ]\n          },\n          {\n            \"name\": \"Custom Field Short Text\",\n            \"value\": \"some short text\"\n          },\n          {\n            \"name\": \"Custom Field Paragraph\",\n            \"value\": \"longer text than short text\"\n          },\n          {\n            \"name\": \"Custom Field URL\",\n            \"value\": \"http://www.example.com\"\n          }\n        ]\n      },\n      \"relationships\": {\n        \"attachments\": {\n          \"data\": [\n            {\n              \"id\": \"1\",\n              \"type\": \"attachments\"\n            }\n          ]\n        },\n        \"default_payment_currency\": {\n          \"data\": {\n            \"id\": \"172\",\n            \"type\": \"payment_currencies\"\n          }\n        },\n        \"default_payment_term\": {\n          \"data\": {\n            \"id\": \"38\",\n            \"type\": \"payment_terms\"\n          }\n        },\n        \"default_payment_type\": {\n          \"data\": {\n            \"id\": \"99\",\n            \"type\": \"payment_types\"\n          }\n        },\n        \"supplier_category\": {\n          \"data\": {\n            \"id\": \"83\",\n            \"type\": \"supplier_categories\"\n          }\n        },\n        \"payment_currencies\": {\n          \"data\": [\n            {\n              \"id\": \"172\",\n              \"type\": \"payment_currencies\"\n            }\n          ]\n        },\n        \"payment_types\": {\n          \"data\": [\n            {\n              \"id\": \"99\",\n              \"type\": \"payment_types\"\n            }\n          ]\n        },\n        \"supplier_groups\": {\n          \"data\": [\n            {\n              \"id\": \"48\",\n              \"type\": \"supplier_groups\"\n            }\n          ]\n        },\n        \"supplier_classification_values\": {\n          \"data\": []\n        }\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/2\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies\",\n    \"next\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies?page[cursor]=WyJzdXBwbGllciBjb21wYW55IDA5IiwxMTRd&page[direction]=next&page[size]=10\",\n    \"prev\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies?page[cursor]=WyJzdXBwbGllciBjb21wYW55IDAwIiwxMDVd&page[direction]=prev&page[size]=10\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dac5a6b9-90db-4d45-8dc0-e45e40be64ca",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "external_id_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "external_id_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "external_id_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "external_id_not_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "segmentation_status_equals",
+                      "value": "approved,not_approved"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"'include' parameter does not support following values: [\\\"comments\\\"]\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd026b8f-4d07-401a-b958-c8198aa01b77",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "external_id_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "external_id_not_empty",
+                      "value": "false"
+                    },
+                    {
+                      "key": "external_id_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "external_id_not_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "segmentation_status_equals",
+                      "value": "approved,not_approved"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5801c0ab-a613-4bdc-865d-36cd62e5a696",
+          "name": "Create a Supplier Company",
+          "request": {
+            "name": "Create a Supplier Company",
+            "description": {
+              "content": "Create a supplier company with given attributes, relationships, and related complex resources.\n\nWhen creating a supplier company with relationships, keep in mind that there are two kinds of\nrelationships: linked resources and composite resources.\n\n## Linked Resources\n\nThese are normal relationship resources managed outside of primary resource (supplier company).\nFor example, payment currencies exist on their own, and can be assigned to one or many supplier\ncompanies, contracts, etc. These resources usually have their own API management endpoints.\n\nAll related objects should exist prior to being linked to the supplier company. They can be\nreferenced by Workday Strategic Sourcing identifier, or by external ID; in the latter case, the relationship\nname is used with prefix `external_`. For example, a payment currency with Workday Strategic Sourcing ID `\"1\"` and\nexternal ID `\"C$EUR\"` can be used to initialize `default_payment_currency`:\n\n```json\n{\n  \"default_payment_currency\": {\n    \"data\" {\n      \"id\": \"1\",\n      \"type\": \"payment_currencies\"\n    }\n  }\n}\n```\n\n```json\n{\n  \"external_default_payment_currency\": {\n    \"data\" {\n      \"id\": \"C$EUR\",\n      \"type\": \"payment_currencies\"\n    }\n  }\n}\n```\n\nWhen `external_` prefix is applied to a \"many\" relationship, like `external_payment_currencies`,\nall of the identifiers will be treated as external IDs.\n\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_companies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n(see \"List Supplier Companies\" for more details).\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"public\": \"<boolean>\",\n      \"risk\": \"<string>\",\n      \"segmentation\": \"<string>\",\n      \"segmentation_status\": \"<string>\",\n      \"segmentation_notes\": \"<string>\",\n      \"preferred_supplier\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\",\n      \"duns_number\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"self_registered\": \"<boolean>\",\n      \"onboarding_form_completion_status\": \"<string>\",\n      \"accept_all_currencies\": \"<boolean>\",\n      \"custom_fields\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"supplier_category\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"default_payment_currency\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"attachments\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"supplier_classification_values\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"external_supplier_category\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_supplier_groups\": {\n        \"data\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"external_default_payment_term\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_payment_types\": {\n        \"data\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"external_default_payment_type\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_payment_currencies\": {\n        \"data\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"external_default_payment_currency\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_supplier_classification_values\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9e034f7f-c038-49c7-aba8-8ba152fb4e41",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name\",\n      \"description\": \"Suppler Company Description\",\n      \"is_suggested\": false,\n      \"public\": true,\n      \"risk\": \"low\",\n      \"segmentation\": \"tier_1\",\n      \"segmentation_status\": \"approved\",\n      \"segmentation_notes\": \"Segmentation Notes\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\"\n      ],\n      \"url\": \"http://example.com\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"default_payment_currency\": {\n        \"data\": {\n          \"id\": \"172\",\n          \"type\": \"payment_currencies\"\n        }\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"id\": \"38\",\n          \"type\": \"payment_terms\"\n        }\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"id\": \"99\",\n          \"type\": \"payment_types\"\n        }\n      },\n      \"supplier_category\": {\n        \"data\": {\n          \"id\": \"83\",\n          \"type\": \"supplier_categories\"\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"id\": \"172\",\n            \"type\": \"payment_currencies\"\n          }\n        ]\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"id\": \"99\",\n            \"type\": \"payment_types\"\n          }\n        ]\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"id\": \"48\",\n            \"type\": \"supplier_groups\"\n          }\n        ]\n      },\n      \"supplier_classification_values\": {\n        \"data\": [\n          {\n            \"id\": \"21\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name\",\n      \"description\": \"Suppler Company Description\",\n      \"is_suggested\": false,\n      \"accept_all_currencies\": false,\n      \"public\": true,\n      \"risk\": \"low\",\n      \"segmentation\": \"tier_1\",\n      \"segmentation_status\": \"approved\",\n      \"segmentation_notes\": \"Segmentation Notes\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\"\n      ],\n      \"url\": \"http://example.com\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n      \"self_registered\": false,\n      \"onboarding_form_completion_status\": null,\n      \"duns_number\": null,\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": []\n      },\n      \"default_payment_currency\": {\n        \"data\": {\n          \"id\": \"172\",\n          \"type\": \"payment_currencies\"\n        }\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"id\": \"38\",\n          \"type\": \"payment_terms\"\n        }\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"id\": \"99\",\n          \"type\": \"payment_types\"\n        }\n      },\n      \"supplier_category\": {\n        \"data\": {\n          \"id\": \"83\",\n          \"type\": \"supplier_categories\"\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"id\": \"172\",\n            \"type\": \"payment_currencies\"\n          }\n        ]\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"id\": \"99\",\n            \"type\": \"payment_types\"\n          }\n        ]\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"id\": \"48\",\n            \"type\": \"supplier_groups\"\n          }\n        ]\n      },\n      \"supplier_classification_values\": {\n        \"data\": [\n          {\n            \"id\": \"1-21\",\n            \"type\": \"supplier_classification_values\"\n          }\n        ]\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66d9ecfb-f397-4131-8c9a-4069e039cd3c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name\",\n      \"description\": \"Suppler Company Description\",\n      \"is_suggested\": false,\n      \"public\": true,\n      \"risk\": \"low\",\n      \"segmentation\": \"tier_1\",\n      \"segmentation_status\": \"approved\",\n      \"segmentation_notes\": \"Segmentation Notes\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\"\n      ],\n      \"url\": \"http://example.com\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"default_payment_currency\": {\n        \"data\": {\n          \"id\": \"172\",\n          \"type\": \"payment_currencies\"\n        }\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"id\": \"38\",\n          \"type\": \"payment_terms\"\n        }\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"id\": \"99\",\n          \"type\": \"payment_types\"\n        }\n      },\n      \"supplier_category\": {\n        \"data\": {\n          \"id\": \"83\",\n          \"type\": \"supplier_categories\"\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"id\": \"172\",\n            \"type\": \"payment_currencies\"\n          }\n        ]\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"id\": \"99\",\n            \"type\": \"payment_types\"\n          }\n        ]\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"id\": \"48\",\n            \"type\": \"supplier_groups\"\n          }\n        ]\n      },\n      \"supplier_classification_values\": {\n        \"data\": [\n          {\n            \"id\": \"21\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03613cad-adfd-4549-b924-bc81b51ab49d",
+          "name": "Get a Supplier Company",
+          "request": {
+            "name": "Get a Supplier Company",
+            "description": {
+              "content": "Retrieves the details of an existing supplier company. You need to supply the unique supplier\ncompany identifier that was returned upon supplier company creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_companies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n(see \"List Supplier Companies\" for more details).\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Supplier Company identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72ce841d-af83-4b0e-80eb-6c2a5bc042a7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Supplier Company identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name\",\n      \"description\": \"Suppler Company Description\",\n      \"is_suggested\": false,\n      \"accept_all_currencies\": false,\n      \"public\": true,\n      \"risk\": \"low\",\n      \"segmentation\": \"tier_1\",\n      \"segmentation_status\": \"approved\",\n      \"segmentation_notes\": \"Segmentation Notes\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\"\n      ],\n      \"url\": \"http://example.com\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n      \"self_registered\": false,\n      \"onboarding_form_completion_status\": null,\n      \"duns_number\": null,\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": [\n          {\n            \"id\": \"1\",\n            \"type\": \"attachments\"\n          }\n        ]\n      },\n      \"default_payment_currency\": {\n        \"data\": {\n          \"id\": \"172\",\n          \"type\": \"payment_currencies\"\n        }\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"id\": \"38\",\n          \"type\": \"payment_terms\"\n        }\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"id\": \"99\",\n          \"type\": \"payment_types\"\n        }\n      },\n      \"supplier_category\": {\n        \"data\": {\n          \"id\": \"83\",\n          \"type\": \"supplier_categories\"\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"id\": \"172\",\n            \"type\": \"payment_currencies\"\n          },\n          {\n            \"id\": \"174\",\n            \"type\": \"payment_currencies\"\n          }\n        ]\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"id\": \"99\",\n            \"type\": \"payment_types\"\n          },\n          {\n            \"id\": \"96\",\n            \"type\": \"payment_types\"\n          }\n        ]\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"id\": \"48\",\n            \"type\": \"supplier_groups\"\n          },\n          {\n            \"id\": \"53\",\n            \"type\": \"supplier_groups\"\n          }\n        ]\n      },\n      \"supplier_classification_values\": {\n        \"data\": [\n          {\n            \"id\": \"1-21\",\n            \"type\": \"supplier_classification_values\"\n          },\n          {\n            \"id\": \"1-22\",\n            \"type\": \"supplier_classification_values\"\n          }\n        ]\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc79d74d-5af7-4388-b832-8abe10af5ce0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Supplier Company identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "91f3d00b-caab-4387-86bc-0127532f5257",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Supplier Company identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7de33057-ee13-4f80-8678-91b519ce95fb",
+          "name": "Update a Supplier Company",
+          "request": {
+            "name": "Update a Supplier Company",
+            "description": {
+              "content": "Updates the details of an existing supplier company. You need to supply the unique supplier\ncompany identifier that was returned upon supplier company creation.\n\nPlease note, that request body must include an `id` attribute with the value of your supplier\nunique identifier (the same one you passed in the URL).\n\n## Linked Resources\n\nWhen updating relationships on a supplier company resource, keep in mind the whole relationship\nwill be replaced the new values. For example, if a supplier company has currencies with IDs\n`\"1\"` and `\"2\"`, and in update request payload `payment_currencies` relationship is specified\nwith ID `\"3\"`, the only payment currency associated after the request succeeded will be `\"3\"`.\n\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_companies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n(see \"List Supplier Companies\" for more details).\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Supplier Company identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"public\": \"<boolean>\",\n      \"risk\": \"<string>\",\n      \"segmentation\": \"<string>\",\n      \"segmentation_status\": \"<string>\",\n      \"segmentation_notes\": \"<string>\",\n      \"preferred_supplier\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\",\n      \"duns_number\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"self_registered\": \"<boolean>\",\n      \"onboarding_form_completion_status\": \"<string>\",\n      \"accept_all_currencies\": \"<boolean>\",\n      \"custom_fields\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"supplier_category\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"default_payment_currency\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"attachments\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"supplier_classification_values\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"external_supplier_category\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_supplier_groups\": {\n        \"data\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"external_default_payment_term\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_payment_types\": {\n        \"data\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"external_default_payment_type\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_payment_currencies\": {\n        \"data\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"external_default_payment_currency\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_supplier_classification_values\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "54bd1815-4fa4-4b48-80d9-d6661d410b19",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Supplier Company identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name Updated\",\n      \"description\": \"Suppler Company Description Updated\",\n      \"is_suggested\": false,\n      \"public\": false,\n      \"risk\": \"medium\",\n      \"segmentation\": \"tier_2\",\n      \"segmentation_status\": \"not_approved\",\n      \"segmentation_notes\": \"Segmentation Notes Updated\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\",\n        \"tag3\"\n      ],\n      \"url\": \"http://example.com/updated\",\n      \"external_id\": \"1234-5678-upda-tedd\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"default_payment_currency\": {\n        \"data\": {\n          \"id\": \"172\",\n          \"type\": \"payment_currencies\"\n        }\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"id\": \"38\",\n          \"type\": \"payment_terms\"\n        }\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"id\": \"99\",\n          \"type\": \"payment_types\"\n        }\n      },\n      \"supplier_category\": {\n        \"data\": {\n          \"id\": \"83\",\n          \"type\": \"supplier_categories\"\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"id\": \"172\",\n            \"type\": \"payment_currencies\"\n          }\n        ]\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"id\": \"99\",\n            \"type\": \"payment_types\"\n          }\n        ]\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"id\": \"48\",\n            \"type\": \"supplier_groups\"\n          }\n        ]\n      },\n      \"supplier_classification_values\": {\n        \"data\": [\n          {\n            \"id\": \"123\",\n            \"type\": \"supplier_classification_values\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name Updated\",\n      \"description\": \"Suppler Company Description Updated\",\n      \"is_suggested\": false,\n      \"accept_all_currencies\": false,\n      \"public\": false,\n      \"risk\": \"medium\",\n      \"segmentation\": \"tier_2\",\n      \"segmentation_status\": \"not_approved\",\n      \"segmentation_notes\": \"Segmentation Notes Updated\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\",\n        \"tag3\"\n      ],\n      \"url\": \"http://example.com/updated\",\n      \"external_id\": \"1234-5678-upda-tedd\",\n      \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n      \"self_registered\": false,\n      \"onboarding_form_completion_status\": null,\n      \"duns_number\": null,\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": [\n          {\n            \"id\": \"1\",\n            \"type\": \"attachments\"\n          }\n        ]\n      },\n      \"default_payment_currency\": {\n        \"data\": {\n          \"id\": \"172\",\n          \"type\": \"payment_currencies\"\n        }\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"id\": \"38\",\n          \"type\": \"payment_terms\"\n        }\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"id\": \"99\",\n          \"type\": \"payment_types\"\n        }\n      },\n      \"supplier_category\": {\n        \"data\": {\n          \"id\": \"83\",\n          \"type\": \"supplier_categories\"\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"id\": \"172\",\n            \"type\": \"payment_currencies\"\n          }\n        ]\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"id\": \"99\",\n            \"type\": \"payment_types\"\n          }\n        ]\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"id\": \"48\",\n            \"type\": \"supplier_groups\"\n          }\n        ]\n      },\n      \"supplier_classification_values\": {\n        \"data\": [\n          {\n            \"id\": \"1-123\",\n            \"type\": \"supplier_classification_values\"\n          }\n        ]\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4792b428-015c-400c-8c95-d76b54d549f9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Supplier Company identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name Updated\",\n      \"description\": \"Suppler Company Description Updated\",\n      \"is_suggested\": false,\n      \"public\": false,\n      \"risk\": \"medium\",\n      \"segmentation\": \"tier_2\",\n      \"segmentation_status\": \"not_approved\",\n      \"segmentation_notes\": \"Segmentation Notes Updated\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\",\n        \"tag3\"\n      ],\n      \"url\": \"http://example.com/updated\",\n      \"external_id\": \"1234-5678-upda-tedd\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"default_payment_currency\": {\n        \"data\": {\n          \"id\": \"172\",\n          \"type\": \"payment_currencies\"\n        }\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"id\": \"38\",\n          \"type\": \"payment_terms\"\n        }\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"id\": \"99\",\n          \"type\": \"payment_types\"\n        }\n      },\n      \"supplier_category\": {\n        \"data\": {\n          \"id\": \"83\",\n          \"type\": \"supplier_categories\"\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"id\": \"172\",\n            \"type\": \"payment_currencies\"\n          }\n        ]\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"id\": \"99\",\n            \"type\": \"payment_types\"\n          }\n        ]\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"id\": \"48\",\n            \"type\": \"supplier_groups\"\n          }\n        ]\n      },\n      \"supplier_classification_values\": {\n        \"data\": [\n          {\n            \"id\": \"123\",\n            \"type\": \"supplier_classification_values\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a44d3719-86ac-4cd1-bd6a-936c980afbe0",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Supplier Company identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name Updated\",\n      \"description\": \"Suppler Company Description Updated\",\n      \"is_suggested\": false,\n      \"public\": false,\n      \"risk\": \"medium\",\n      \"segmentation\": \"tier_2\",\n      \"segmentation_status\": \"not_approved\",\n      \"segmentation_notes\": \"Segmentation Notes Updated\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\",\n        \"tag3\"\n      ],\n      \"url\": \"http://example.com/updated\",\n      \"external_id\": \"1234-5678-upda-tedd\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"default_payment_currency\": {\n        \"data\": {\n          \"id\": \"172\",\n          \"type\": \"payment_currencies\"\n        }\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"id\": \"38\",\n          \"type\": \"payment_terms\"\n        }\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"id\": \"99\",\n          \"type\": \"payment_types\"\n        }\n      },\n      \"supplier_category\": {\n        \"data\": {\n          \"id\": \"83\",\n          \"type\": \"supplier_categories\"\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"id\": \"172\",\n            \"type\": \"payment_currencies\"\n          }\n        ]\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"id\": \"99\",\n            \"type\": \"payment_types\"\n          }\n        ]\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"id\": \"48\",\n            \"type\": \"supplier_groups\"\n          }\n        ]\n      },\n      \"supplier_classification_values\": {\n        \"data\": [\n          {\n            \"id\": \"123\",\n            \"type\": \"supplier_classification_values\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c974dc10-68d3-4f87-b745-9396243cfe84",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Supplier Company identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name Updated\",\n      \"description\": \"Suppler Company Description Updated\",\n      \"is_suggested\": false,\n      \"public\": false,\n      \"risk\": \"medium\",\n      \"segmentation\": \"tier_2\",\n      \"segmentation_status\": \"not_approved\",\n      \"segmentation_notes\": \"Segmentation Notes Updated\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\",\n        \"tag3\"\n      ],\n      \"url\": \"http://example.com/updated\",\n      \"external_id\": \"1234-5678-upda-tedd\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"default_payment_currency\": {\n        \"data\": {\n          \"id\": \"172\",\n          \"type\": \"payment_currencies\"\n        }\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"id\": \"38\",\n          \"type\": \"payment_terms\"\n        }\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"id\": \"99\",\n          \"type\": \"payment_types\"\n        }\n      },\n      \"supplier_category\": {\n        \"data\": {\n          \"id\": \"83\",\n          \"type\": \"supplier_categories\"\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"id\": \"172\",\n            \"type\": \"payment_currencies\"\n          }\n        ]\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"id\": \"99\",\n            \"type\": \"payment_types\"\n          }\n        ]\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"id\": \"48\",\n            \"type\": \"supplier_groups\"\n          }\n        ]\n      },\n      \"supplier_classification_values\": {\n        \"data\": [\n          {\n            \"id\": \"123\",\n            \"type\": \"supplier_classification_values\"\n          }\n        ]\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"Missing or invalid 'type' specified, expected 'supplier_companies'\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e53c8d88-8d81-4c5f-8aa6-f8caf1116279",
+          "name": "Delete a Supplier Company",
+          "request": {
+            "name": "Delete a Supplier Company",
+            "description": {
+              "content": "Deletes a supplier company. You need to supply the unique supplier\ncompany identifier that was returned upon supplier company creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_companies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Supplier Company identifier."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8928a6f2-2d47-4774-a190-4e94a9b74ef6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Supplier Company identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "76e8102c-08a2-48e0-b548-58197675d277",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Supplier Company identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6259be94-c75b-4528-b0c8-3839807042d6",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Supplier Company identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c07dccca-7533-4ab9-a514-f7948e833bab",
+          "name": "Get a Supplier Company by External ID",
+          "request": {
+            "name": "Get a Supplier Company by External ID",
+            "description": {
+              "content": "Retrieves the details of an existing supplier company. You need to supply the unique supplier\ncompany external identifier (the one you used when created the supplier company).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_companies",
+                ":external_id",
+                "external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n(see \"List Supplier Companies\" for more details).\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) Supplier company external identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "62385eb4-f434-4fb1-9737-5ce99543bde7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Supplier company external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name\",\n      \"description\": \"Suppler Company Description\",\n      \"is_suggested\": false,\n      \"accept_all_currencies\": false,\n      \"public\": true,\n      \"risk\": \"low\",\n      \"segmentation\": \"tier_1\",\n      \"segmentation_status\": \"approved\",\n      \"segmentation_notes\": \"Segmentation Notes\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\"\n      ],\n      \"url\": \"http://example.com\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n      \"self_registered\": false,\n      \"onboarding_form_completion_status\": null,\n      \"duns_number\": null,\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": []\n      },\n      \"default_payment_currency\": {\n        \"data\": null\n      },\n      \"default_payment_term\": {\n        \"data\": null\n      },\n      \"default_payment_type\": {\n        \"data\": null\n      },\n      \"supplier_category\": {\n        \"data\": null\n      },\n      \"payment_currencies\": {\n        \"data\": []\n      },\n      \"payment_types\": {\n        \"data\": []\n      },\n      \"supplier_groups\": {\n        \"data\": []\n      },\n      \"supplier_classification_values\": {\n        \"data\": []\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47ec99de-9d87-4c82-aa8b-3acda9c69da4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Supplier company external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b8334205-fde7-4384-89a3-f8b63c853b4b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Supplier company external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b93e04c1-ccad-42af-a240-7eeddf944f8f",
+          "name": "Update a Supplier Company by External ID",
+          "request": {
+            "name": "Update a Supplier Company by External ID",
+            "description": {
+              "content": "Updates the details of an existing supplier company. You need to supply the unique supplier\ncompany external identifier (the one you used when created the supplier company).\n\nPlease note, that request body must include an `id` attribute with the value of your supplier\nexternal identifier (the same one you passed in the URL).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_companies",
+                ":external_id",
+                "external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n(see \"List Supplier Companies\" for more details).\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) Supplier company external identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"public\": \"<boolean>\",\n      \"risk\": \"<string>\",\n      \"segmentation\": \"<string>\",\n      \"segmentation_status\": \"<string>\",\n      \"segmentation_notes\": \"<string>\",\n      \"preferred_supplier\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"url\": \"<string>\",\n      \"duns_number\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"self_registered\": \"<boolean>\",\n      \"onboarding_form_completion_status\": \"<string>\",\n      \"accept_all_currencies\": \"<boolean>\",\n      \"custom_fields\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"supplier_category\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"supplier_groups\": {\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"default_payment_term\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"payment_types\": {\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"default_payment_type\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"payment_currencies\": {\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"default_payment_currency\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"attachments\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"supplier_classification_values\": [\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"external_supplier_category\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_supplier_groups\": {\n        \"data\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"external_default_payment_term\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_payment_types\": {\n        \"data\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"external_default_payment_type\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_payment_currencies\": {\n        \"data\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"external_default_payment_currency\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"external_supplier_classification_values\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b81282f6-a444-4da2-b8e2-d164c871ff69",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Supplier company external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1234-5678-abcd-efgh\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name Updated\",\n      \"description\": \"Suppler Company Description Updated\",\n      \"is_suggested\": false,\n      \"accept_all_currencies\": false,\n      \"public\": false,\n      \"risk\": \"medium\",\n      \"segmentation\": \"tier_2\",\n      \"segmentation_status\": \"not_approved\",\n      \"segmentation_notes\": \"Segmentation Notes Updated\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\",\n        \"tag3\"\n      ],\n      \"url\": \"http://example.com/updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name Updated\",\n      \"description\": \"Suppler Company Description Updated\",\n      \"is_suggested\": false,\n      \"accept_all_currencies\": false,\n      \"public\": false,\n      \"risk\": \"medium\",\n      \"segmentation\": \"tier_2\",\n      \"segmentation_status\": \"not_approved\",\n      \"segmentation_notes\": \"Segmentation Notes Updated\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\",\n        \"tag3\"\n      ],\n      \"url\": \"http://example.com/updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"updated_at\": \"2019-10-29T21:28:46.790Z\",\n      \"self_registered\": false,\n      \"onboarding_form_completion_status\": null,\n      \"duns_number\": null,\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"attachments\": {\n        \"data\": []\n      },\n      \"default_payment_currency\": {\n        \"data\": null\n      },\n      \"default_payment_term\": {\n        \"data\": null\n      },\n      \"default_payment_type\": {\n        \"data\": null\n      },\n      \"supplier_category\": {\n        \"data\": null\n      },\n      \"payment_currencies\": {\n        \"data\": []\n      },\n      \"payment_types\": {\n        \"data\": []\n      },\n      \"supplier_groups\": {\n        \"data\": []\n      },\n      \"supplier_classification_values\": {\n        \"data\": []\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af37afff-0cac-4a47-9a23-96c053677751",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Supplier company external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1234-5678-abcd-efgh\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name Updated\",\n      \"description\": \"Suppler Company Description Updated\",\n      \"is_suggested\": false,\n      \"accept_all_currencies\": false,\n      \"public\": false,\n      \"risk\": \"medium\",\n      \"segmentation\": \"tier_2\",\n      \"segmentation_status\": \"not_approved\",\n      \"segmentation_notes\": \"Segmentation Notes Updated\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\",\n        \"tag3\"\n      ],\n      \"url\": \"http://example.com/updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3504706f-c419-4d82-ad21-d930128ccb18",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Supplier company external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"supplier_companies\",\n    \"id\": \"1234-5678-abcd-efgh\",\n    \"attributes\": {\n      \"name\": \"Supplier Company Name Updated\",\n      \"description\": \"Suppler Company Description Updated\",\n      \"is_suggested\": false,\n      \"accept_all_currencies\": false,\n      \"public\": false,\n      \"risk\": \"medium\",\n      \"segmentation\": \"tier_2\",\n      \"segmentation_status\": \"not_approved\",\n      \"segmentation_notes\": \"Segmentation Notes Updated\",\n      \"tags\": [\n        \"tag1\",\n        \"tag2\",\n        \"tag3\"\n      ],\n      \"url\": \"http://example.com/updated\",\n      \"external_id\": \"1234-5678-abcd-efgh\",\n      \"custom_fields\": [\n        {\n          \"name\": \"Custom Field Currency\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Integer\",\n          \"value\": 1234567890\n        },\n        {\n          \"name\": \"Custom Field Checkbox\",\n          \"value\": true\n        },\n        {\n          \"name\": \"Custom Field Decimal\",\n          \"value\": 123456.78\n        },\n        {\n          \"name\": \"Custom Field Date\",\n          \"value\": \"2018-12-31T00:00:00.000Z\"\n        },\n        {\n          \"name\": \"Custom Field Select\",\n          \"value\": \"Select Option\"\n        },\n        {\n          \"name\": \"Custom Field Multiple\",\n          \"value\": [\n            \"Multiple Select Option 1\",\n            \"Multiple Select Option 2\"\n          ]\n        },\n        {\n          \"name\": \"Custom Field Short Text\",\n          \"value\": \"some short text\"\n        },\n        {\n          \"name\": \"Custom Field Paragraph\",\n          \"value\": \"longer text than short text\"\n        },\n        {\n          \"name\": \"Custom Field URL\",\n          \"value\": \"http://www.example.com\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d19085a2-c4a2-4c04-a07e-8c5ae097a98c",
+          "name": "Delete a Supplier Company by External ID",
+          "request": {
+            "name": "Delete a Supplier Company by External ID",
+            "description": {
+              "content": "Deletes a supplier company. You need to supply the unique supplier\ncompany external identifier (the one you used when created the supplier company).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_companies",
+                ":external_id",
+                "external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) Supplier company external identifier."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b3714188-ca81-4f05-a170-77a0e913cd47",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Supplier company external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "036eb236-1d96-47f7-acbc-9c252927f2c1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Supplier company external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3408f85d-75e4-4336-8f97-f6c04c1fb870",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Supplier company external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "617a6323-a5a7-4b27-8bc9-867767d2aefd",
+          "name": "Describe Supplier Company object",
+          "request": {
+            "name": "Describe Supplier Company object",
+            "description": {
+              "content": "Returns a list of fields for the supplier company object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_companies",
+                "describe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2cfa70a0-b86c-4450-acf0-366ea8b94384",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"name\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"name\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"description\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"description\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Paragraph\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"is_suggested\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"is_suggested\",\n        \"data_type\": \"boolean\",\n        \"type_description\": \"Checkbox\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"public\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"public\",\n        \"data_type\": \"boolean\",\n        \"type_description\": \"Checkbox\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"risk\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"risk\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"segmentation\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"segmentation\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"segmentation_notes\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"segmentation_notes\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"segmentation_status\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"segmentation_status\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"preferred_supplier\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"preferred_supplier\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"tags\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"tags\",\n        \"data_type\": \"array\",\n        \"type_description\": \"Multiple Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"url\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"url\",\n        \"data_type\": \"string\",\n        \"type_description\": \"URL\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"external_id\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"external_id\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"updated_at\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"updated_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"duns_number\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"duns_number\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"custom_field_1\",\n      \"type\": \"supplier_company_fields\",\n      \"attributes\": {\n        \"name\": \"Custom field #1\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Short Text\",\n        \"custom_field\": true\n      }\n    }\n  ],\n  \"links\": {},\n  \"meta\": {\n    \"count\": 15\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3bf1afc6-b90e-461d-83d0-45a58019998d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_companies",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0b318f12-9f9a-4077-9cbd-7d07d30afb86",
+    "name": "Workday Strategic Sourcing attachments supplier_companies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments worksheets API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "worksheets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Worksheets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_id/worksheets",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "1",
+                "type": "path",
+                "description": "Event identifier."
+              }
+            ]
+          },
+          "docs": "Returns a list of all worksheets."
+        },
+        {
+          "info": {
+            "name": "Get a Worksheet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_id/worksheets/:id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "1",
+                "type": "path",
+                "description": "Event identifier."
+              },
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Worksheet identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing worksheet. You need to supply the unique worksheet\nidentifier that was returned upon worksheet creation.\n"
+        },
+        {
+          "info": {
+            "name": "Describe Worksheet object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/worksheets/describe"
+          },
+          "docs": "Returns a list of fields for the worksheet object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

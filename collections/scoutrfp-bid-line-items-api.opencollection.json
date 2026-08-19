@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments bid_line_items API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "bid_line_items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Bid Line Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/bids/:bid_id/bid_line_items",
+            "params": [
+              {
+                "name": "bid_id",
+                "value": "1",
+                "type": "path",
+                "description": "Bid identifier."
+              }
+            ]
+          },
+          "docs": "Returns a list of line items for a specific bid."
+        },
+        {
+          "info": {
+            "name": "Get a Bid Line Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/bid_line_items/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique bid line item identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing bid line item.\n"
+        },
+        {
+          "info": {
+            "name": "List All Bid Line Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/bid_line_items",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter bid line items by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of all bid line items."
+        },
+        {
+          "info": {
+            "name": "Describe Bid Line Item Object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/bid_line_items/describe"
+          },
+          "docs": "Returns a list of fields for bid line item object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

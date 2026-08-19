@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments supplier_groups API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "supplier_groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Supplier Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_groups"
+          },
+          "docs": "Returns a list of supplier groups."
+        },
+        {
+          "info": {
+            "name": "Create a Supplier Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a supplier group with given parameters.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Supplier Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier group identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing supplier group. You need to supply the unique\nidentifier that was returned upon supplier group creation.\n\nPlease note, that request body must include an `id` attribute with the value of your supplier group\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Supplier Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier group identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a supplier group. You need to supply the unique supplier group\nidentifier that was returned upon supplier group creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Supplier Group by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_groups/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "SUPGROUP",
+                "type": "path",
+                "description": "Unique supplier group external identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing supplier group. You need to supply the unique\nexternal identifier assigned to the supplier group on creation.\n\nPlease note, that request body must include an `id` attribute with the value of your supplier group\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Supplier Group by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_groups/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "SUPGROUP",
+                "type": "path",
+                "description": "Unique supplier group external identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a supplier group. You need to supply the unique supplier group\nexternal identifier assigned to the supplier group on creation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

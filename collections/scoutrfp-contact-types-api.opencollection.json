@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments contact_types API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "contact_types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Contact Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contact_types"
+          },
+          "docs": "Returns a list of contact types."
+        },
+        {
+          "info": {
+            "name": "Create a Contact Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contact_types",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a contact type with given parameters.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Contact Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contact_types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique contact type identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing contact type. You need to supply the unique\nidentifier that was returned upon contact type creation.\n\nPlease note, that request body must include an `id` attribute with the value of your contact type\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Contact Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contact_types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique contact type identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a contact type. You need to supply the unique contact type\nidentifier that was returned upon contact type creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Contact Type by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contact_types/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "CTYPE",
+                "type": "path",
+                "description": "Unique contact type external identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing contact type. You need to supply the unique\nexternal identifier assigned to the contact type on creation.\n\nPlease note, that request body must include an `id` attribute with the value of your contact type\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Contact Type by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contact_types/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "CTYPE",
+                "type": "path",
+                "description": "Unique contact type external identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a contact type. You need to supply the unique contact type\nexternal identifier assigned to the contact type on creation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

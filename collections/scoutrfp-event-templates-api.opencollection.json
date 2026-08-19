@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments event_templates API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "event_templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Event Templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/event_templates"
+          },
+          "docs": "Returns a list of all event templates."
+        },
+        {
+          "info": {
+            "name": "Get an Event Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/event_templates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique event template identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing event template.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

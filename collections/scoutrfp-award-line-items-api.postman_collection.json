@@ -1,0 +1,455 @@
+{
+  "item": [
+    {
+      "id": "61dccb32-4a3a-4b7e-8067-e7e768ee9931",
+      "name": "award_line_items",
+      "description": {
+        "content": "Use the Award Line Items API to query the Award Line Items in Workday Strategic Sourcing.\n\nAward Line Items are used for procurement.\n\n## Award Line Item Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/AwardLineItem\" exampleRef=\"#/components/examples/AwardLineItem\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c4bb1375-7efb-414b-bf8b-435e8f068f1f",
+          "name": "List Award Line Items",
+          "request": {
+            "name": "List Award Line Items",
+            "description": {
+              "content": "Returns a list of line items for a specific award.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "awards",
+                ":award_id",
+                "award_line_items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "is_quoted_equals",
+                  "value": "<boolean>",
+                  "description": "Filter awards line items by multiple criteria.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "line_item_type_equals",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Filter awards line items by multiple criteria.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "award_id",
+                  "description": "(Required) Award identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7abec2f7-6101-41a9-8c86-abc89b113adb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "awards",
+                    ":award_id",
+                    "award_line_items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_quoted_equals",
+                      "value": "true"
+                    },
+                    {
+                      "key": "line_item_type_equals",
+                      "value": "GOODS,SERVICES"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "award_id",
+                      "description": "(Required) Award identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"1_5\",\n      \"type\": \"award_line_items\",\n      \"attributes\": {\n        \"data\": {\n          \"c263\": \"Worksheet 1 line item 1\",\n          \"c264\": 1,\n          \"c265\": 10,\n          \"c266\": 10,\n          \"c268\": 0\n        },\n        \"allocated_quantity\": 1,\n        \"sought_quantity\": 1,\n        \"price\": 10,\n        \"total_spend\": 10,\n        \"net_savings\": -10,\n        \"net_savings_percentage\": null,\n        \"line_item_type\": \"STANDARD\",\n        \"is_quoted\": true\n      },\n      \"relationships\": {\n        \"supplier_company\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"supplier_companies\"\n          }\n        },\n        \"worksheet\": {\n          \"data\": {\n            \"id\": \"2\",\n            \"type\": \"worksheets\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"1_6\",\n      \"type\": \"award_line_items\",\n      \"attributes\": {\n        \"data\": {\n          \"c263\": \"Worksheet 1 line item 2\",\n          \"c264\": 2,\n          \"c265\": 20,\n          \"c266\": 40,\n          \"c267\": 30,\n          \"c268\": 60\n        },\n        \"allocated_quantity\": 2,\n        \"sought_quantity\": 2,\n        \"price\": 20,\n        \"total_spend\": 40,\n        \"net_savings\": 20,\n        \"net_savings_percentage\": 33.33,\n        \"line_item_type\": \"STANDARD\",\n        \"is_quoted\": true\n      },\n      \"relationships\": {\n        \"supplier_company\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"supplier_companies\"\n          }\n        },\n        \"worksheet\": {\n          \"data\": {\n            \"id\": \"2\",\n            \"type\": \"worksheets\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/awards/v1/awards/1/award_line_items?page%5Bsize%5D=10\",\n    \"next\": \"https://api.us.workdayspend.com/services/awards/v1/awards/1/award_line_items?page%5Bcursor%5D=WzE0MV0&page%5Bdirection%5D=next&page%5Bsize%5D=10\",\n    \"prev\": null\n  },\n  \"meta\": {\n    \"count\": 2\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e4a30fa-f055-4524-8405-a3c5f90036d8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "awards",
+                    ":award_id",
+                    "award_line_items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_quoted_equals",
+                      "value": "true"
+                    },
+                    {
+                      "key": "line_item_type_equals",
+                      "value": "GOODS,SERVICES"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "award_id",
+                      "description": "(Required) Award identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7d25766-2d62-44ee-8606-8a2d88307440",
+          "name": "Get an Award Line Item",
+          "request": {
+            "name": "Get an Award Line Item",
+            "description": {
+              "content": "Retrieves the details of an existing award line items. You need to supply the unique award line items\nidentifier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "award_line_items",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique Award Line Items identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f477e11-cfec-440d-a9fb-54bb9898e24f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "award_line_items",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique Award Line Items identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1_5\",\n    \"type\": \"award_line_items\",\n    \"attributes\": {\n      \"data\": {\n        \"c263\": \"Worksheet 1 line item 1\",\n        \"c264\": 1,\n        \"c265\": 10,\n        \"c266\": 10,\n        \"c268\": 0\n      },\n      \"allocated_quantity\": 1,\n      \"sought_quantity\": 1,\n      \"price\": 10,\n      \"total_spend\": 10,\n      \"net_savings\": -10,\n      \"net_savings_percentage\": null,\n      \"line_item_type\": \"STANDARD\",\n      \"is_quoted\": true\n    },\n    \"relationships\": {\n      \"supplier_company\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"supplier_companies\"\n        }\n      },\n      \"worksheet\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"worksheets\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01d20e7a-0804-4815-a9c6-c7419cb1af84",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "award_line_items",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique Award Line Items identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ab168a4a-3fa8-450d-8f88-dc7367dfb449",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "award_line_items",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique Award Line Items identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fe10e216-7bed-4234-be17-1aa785d0773a",
+    "name": "Workday Strategic Sourcing attachments award_line_items API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

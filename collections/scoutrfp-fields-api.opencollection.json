@@ -1,0 +1,121 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments fields API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/fields",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter custom fields by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of custom fields for the specified criteria."
+        },
+        {
+          "info": {
+            "name": "Create a Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/fields",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a field with given parameters.\n\nFor fields with `target_object` set to `RFP`, `group` relationship should be omitted. It is\nrequired to specify the relationship for all other target objects.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/fields/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Field identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing field. You need to supply the unique field\nidentifier that was returned upon field creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/fields/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Field identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing field. You need to supply the unique\nidentifier that was returned upon field creation.\n\nFor fields with `target_object` set to `RFP`, `group` relationship should be omitted.\n\nPlease note, that request body must include an `id` attribute with the value of your field\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/fields/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Field identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a field. You need to supply the unique field\nidentifier that was returned upon field creation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

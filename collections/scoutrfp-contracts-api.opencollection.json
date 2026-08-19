@@ -1,0 +1,237 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments contracts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contracts",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter contracts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "To reduce the number of HTTP requests, related resources can be requested along with the\nrequested primary resources. Such responses are called \"compound documents\". In a compound\ndocument, all included resources will be represented as an array of resource objects in a\ntop-level `included` member.\n\nThe value of the `include` parameter must be a comma-separated list of relationships from\nthe list of available relationships.\n\n\n\n```\n/contracts?include=contract_type,supplier_company\n```\n\nIn the response, relationships will be represented as normal linkage objects (containing\n`id` and `type`), and full related resource details will be presented in the `included`\nsection as resource objects (with `attributes`, `links`, and potentially `relationships`).\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Customize pagination results with `size`.\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of contracts for the specified criteria."
+        },
+        {
+          "info": {
+            "name": "Create a Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contracts",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a contract with given attributes.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contracts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Contract identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing contract. You need to supply the unique contract\nidentifier that was returned upon contract creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contracts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Contract identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing contract. You need to supply the unique supplier\ncontract that was returned upon contract creation.\n\nPlease note, that request body must include an `id` attribute with the value of your contract\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contracts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Contract identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a contract. You need to supply the unique contract\nidentifier that was returned upon contract creation.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Contract by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contracts/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "1234-5678-abcd-efgh",
+                "type": "path",
+                "description": "Contract external identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing contract. You need to supply the unique\ncontract external identifier (the one you used when created the contract).\n"
+        },
+        {
+          "info": {
+            "name": "Update a Contract by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contracts/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "1234-5678-abcd-efgh",
+                "type": "path",
+                "description": "Contract external identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing contract. You need to supply the unique contract\nexternal identifier (the one you used when created the contract).\n\nPlease note, that request body must include an `id` attribute with the value of your contract\nexternal identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Contract by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contracts/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "1234-5678-abcd-efgh",
+                "type": "path",
+                "description": "Contract external identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a contract. You need to supply the unique contract\nexternal identifier (the one you used when created the contract).\n"
+        },
+        {
+          "info": {
+            "name": "Describe Contract object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contracts/describe"
+          },
+          "docs": "Returns a list of fields for the contract object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

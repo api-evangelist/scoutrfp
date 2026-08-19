@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments project_supplier_contacts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "project_supplier_contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add Suppliers using Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects/:project_id/relationships/supplier_contacts",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "1",
+                "type": "path",
+                "description": "Project identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add suppliers to a project using supplier contacts.\n\nFor best performance, we recommend inviting 10 or less supplier contacts in a single request.\n"
+        },
+        {
+          "info": {
+            "name": "Remove Suppliers using Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects/:project_id/relationships/supplier_contacts",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "1",
+                "type": "path",
+                "description": "Project identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove suppliers from a project using supplier contacts.\n\nFor best performance, we recommend removing 10 or less supplier contacts in a single request.\n"
+        },
+        {
+          "info": {
+            "name": "Add Suppliers using Contacts External IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects/:project_external_id/relationships/supplier_contacts/external_id",
+            "params": [
+              {
+                "name": "project_external_id",
+                "value": "PRJ1",
+                "type": "path",
+                "description": "Project external identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add suppliers to a project using supplier contacts.\n\nYou must supply the unique project external identifier (the one you used when created the project).\n\nYou must supply the external identifiers of the supplier contacts too.\n\nFor best performance, we recommend inviting 10 or less supplier contacts in a single request.\n"
+        },
+        {
+          "info": {
+            "name": "Remove Suppliers using Contacts External IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects/:project_external_id/relationships/supplier_contacts/external_id",
+            "params": [
+              {
+                "name": "project_external_id",
+                "value": "PRJ1",
+                "type": "path",
+                "description": "Project external identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove suppliers from a project using supplier contacts.\n\nYou must supply the unique project external identifier (the one you used when created the project).\n\nYou must supply the external identifiers of the supplier contacts too.\n\nFor best performance, we recommend removing 10 or less supplier contacts in a single request.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

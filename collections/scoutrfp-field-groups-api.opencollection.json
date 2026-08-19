@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments field_groups API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "field_groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Field Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/field_groups"
+          },
+          "docs": "Returns a list of field groups."
+        },
+        {
+          "info": {
+            "name": "Create a Field Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/field_groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a field group with given parameters.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Field Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/field_groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Field identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing field group. You need to supply the unique\nfield group identifier that was returned upon group creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Field Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/field_groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Field Group identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing field group. You need to supply the unique\nidentifier that was returned upon field group creation.\n\nPlease note, that request body must include an `id` attribute with the value of your field\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Field Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/field_groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Field Group identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a field group. You need to supply the unique field group\nidentifier that was returned upon field group creation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

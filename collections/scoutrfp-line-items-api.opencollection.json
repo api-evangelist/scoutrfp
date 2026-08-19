@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments line_items API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "line_items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Line Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_id/worksheets/:worksheet_id/line_items",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "1",
+                "type": "path",
+                "description": "Event identifier."
+              },
+              {
+                "name": "worksheet_id",
+                "value": "1",
+                "type": "path",
+                "description": "Worksheet identifier."
+              }
+            ]
+          },
+          "docs": "Returns a list of line items for the specified criteria."
+        },
+        {
+          "info": {
+            "name": "Create a Line Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_id/worksheets/:worksheet_id/line_items",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "1",
+                "type": "path",
+                "description": "Event identifier."
+              },
+              {
+                "name": "worksheet_id",
+                "value": "1",
+                "type": "path",
+                "description": "Worksheet identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a line item with given cell values.\n"
+        },
+        {
+          "info": {
+            "name": "Bulk Create Line Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_id/worksheets/:worksheet_id/line_items/bulk",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "1",
+                "type": "path",
+                "description": "Event identifier."
+              },
+              {
+                "name": "worksheet_id",
+                "value": "1",
+                "type": "path",
+                "description": "Worksheet identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create multiple line items in a given worksheet. You can create up to 200 line items in\na single request.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Line Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_id/worksheets/:worksheet_id/line_items/:id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "1",
+                "type": "path",
+                "description": "Event identifier."
+              },
+              {
+                "name": "worksheet_id",
+                "value": "1",
+                "type": "path",
+                "description": "Worksheet identifier."
+              },
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique line item identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing line item. You need to supply the unique line item\nidentifier that was returned upon line item creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Line Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_id/worksheets/:worksheet_id/line_items/:id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "1",
+                "type": "path",
+                "description": "Event identifier."
+              },
+              {
+                "name": "worksheet_id",
+                "value": "1",
+                "type": "path",
+                "description": "Worksheet identifier."
+              },
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique line item identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing line item. You need to supply the unique\nline item that was returned upon line item creation.\n\nPlease note, that request body must include the `id` attribute with the value of your\nline item unique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Line Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/events/:event_id/worksheets/:worksheet_id/line_items/:id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "1",
+                "type": "path",
+                "description": "Event identifier."
+              },
+              {
+                "name": "worksheet_id",
+                "value": "1",
+                "type": "path",
+                "description": "Worksheet identifier."
+              },
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique line item identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a line item. You need to supply the unique line item\nidentifier that was returned upon line item creation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

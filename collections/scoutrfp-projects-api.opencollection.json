@@ -1,0 +1,199 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments projects API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter projects by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Customize pagination results with `size`.\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of projects for the specified criteria."
+        },
+        {
+          "info": {
+            "name": "Create a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a project with given attributes.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Project identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing project. You need to supply the unique project\nidentifier that was returned upon project creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Project identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing project. You need to supply the unique supplier\nproject that was returned upon project creation.\n\nPlease note, that request body must include an `id` attribute with the value of your project\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Project identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a project. You need to supply the unique project\nidentifier that was returned upon project creation.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Project by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "1234-5678-abcd-efgh",
+                "type": "path",
+                "description": "Project external identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing project. You need to supply the unique\nproject external identifier (the one you used when created the project).\n"
+        },
+        {
+          "info": {
+            "name": "Update a Project by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "1234-5678-abcd-efgh",
+                "type": "path",
+                "description": "Project external identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing project. You need to supply the unique project\nexternal identifier (the one you used when created the project).\n\nPlease note, that request body must include an `id` attribute with the value of your project\nexternal identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Project by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "1234-5678-abcd-efgh",
+                "type": "path",
+                "description": "Project external identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a project. You need to supply the unique project\nexternal identifier (the one you used when created the project).\n"
+        },
+        {
+          "info": {
+            "name": "Describe Project object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/projects/describe"
+          },
+          "docs": "Returns a list of fields for the project object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

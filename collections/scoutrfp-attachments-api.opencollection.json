@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/attachments",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter attachments by multiple criteria.\n"
+              }
+            ]
+          },
+          "docs": "Returns a filtered list of attachments based of the `filter[id_equals]` mandatory param.\nThe result is limited to **50** attachments.\n"
+        },
+        {
+          "info": {
+            "name": "Create an Attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/attachments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an attachment for an object. This endpoint represents the first step in the two-step\nupload workflow, described in the [Working with Attachments](#section/Working-with-Attachments)\nsection.\n\nThe only required attribute is `file_name`, which will be used to generate attachment title\n(if a custom one is not supplied), and the upload URL. You will also need to specify the object\nto which you want to add an attachment (see `relationships` property).\n"
+        },
+        {
+          "info": {
+            "name": "Get an Attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/attachments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique attachment identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing attachment. You need to supply the unique attachment identifier that was returned upon attachment creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update an Attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/attachments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique attachment identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an attachment for an object. This endpoint represents the first step in the two-step\nupdate upload workflow, described in the [Working with Attachments](#section/Working-with-Attachments)\nsection.\n\nNew `upload_url` and `upload_headers` will be returned when the `file_name` attribute is passed. In this case, the existing `upload_url` will be overridden with a new one that doesn’t have the associated file yet, pending completion of the second step in the described upload process.\n"
+        },
+        {
+          "info": {
+            "name": "Get an Attachment by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/attachments/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "AT1",
+                "type": "path",
+                "description": "Unique attachment external identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing attachment. You need to supply the unique attachment identifier (external ID) that was set during attachment creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update an Attachment by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/attachments/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "AT1",
+                "type": "path",
+                "description": "Unique attachment external identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an attachment for an object. This endpoint represents the first step in the two-step\nupdate upload workflow, described in the [Working with Attachments](#section/Working-with-Attachments)\nsection.\n\nNew `upload_url` and `upload_headers` will be returned when the `file_name` attribute is passed. In this case, the existing `upload_url` will be overridden with a new one that doesn’t have the associated file yet, pending completion of the second step in the described upload process.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,289 @@
+{
+  "item": [
+    {
+      "id": "e6ab2bb7-adc6-4196-a70e-501cbe9b0bc0",
+      "name": "project_reports",
+      "description": {
+        "content": "This report returns a list of Project report entries.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "970ea3e1-8c71-47bd-9e25-a9ead77324d4",
+          "name": "Project Report Entries",
+          "request": {
+            "name": "Project Report Entries",
+            "description": {
+              "content": "Returns a list of project report entries.\n\n**Does not support `project_report_id` parameter for the 2019-01-01 version.**\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project_reports",
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7dde87da-f066-4e1b-926a-0064286b759a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project_reports",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"type\": \"project_report_entries\",\n      \"attributes\": {\n        \"Scout-System ID\": 100,\n        \"Scout-ID #\": 1,\n        \"Scout-Project Title\": \"Project 1\",\n        \"Scout-Project Type\": \"General Project\",\n        \"Scout-Project Type Short Code\": \"GENR\",\n        \"Scout-Project Needs Attention\": false,\n        \"Scout-Project State & Status\": \"Planned\",\n        \"Scout-Sourcing Owner\": \"Gabriel Keebler\",\n        \"Scout-Project Requester\": \"Gabriel Keebler\",\n        \"Scout-Category\": null,\n        \"Scout-Project Description\": null,\n        \"Scout-# of Suppliers on Project\": 0,\n        \"Scout-Suppliers on Project\": null,\n        \"Scout-Estimated Start Date\": \"2018-08-30\",\n        \"Scout-Estimated Start Date FY\": 2018,\n        \"Scout-Estimated Start Date FQ\": 3,\n        \"Scout-Estimated End Date\": \"2018-08-31\",\n        \"Scout-Estimated End Date FY\": 2018,\n        \"Scout-Estimated End Date FQ\": 3,\n        \"Scout-Actual Start Date\": \"2018-08-30\",\n        \"Scout-Actual Start Date FY\": 2018,\n        \"Scout-Actual Start Date FQ\": 3,\n        \"Scout-Actual End Date\": \"2018-08-31\",\n        \"Scout-Actual End Date FY\": 2018,\n        \"Scout-Actual End Date FQ\": 3,\n        \"Scout-Request Submitted\": \"2018-08-01\",\n        \"Scout-Request Opened\": \"2018-08-01\",\n        \"Scout-Estimated Spend\": null,\n        \"Scout-Estimated Savings\": null,\n        \"Scout-Final Spend\": null,\n        \"Scout-Savings Type\": null,\n        \"Scout-Recognized Savings\": null,\n        \"Scout-Projected Recognized Savings\": null,\n        \"Scout-Unrecognized Savings\": null,\n        \"Scout-Projected Unrecognized Savings\": null,\n        \"Scout-Total Savings\": null,\n        \"Scout-# of Stakeholders\": 1,\n        \"Scout-Stakeholders List\": \"Gabriel Keebler\",\n        \"Scout-Event Names\": null,\n        \"Scout-Event Status\": null,\n        \"Scout-# of Suppliers Invited to Event(s)\": 0,\n        \"Scout-Suppliers Invited to Event(s)\": null,\n        \"Scout-External ID\": null,\n        \"Scout-Canceled Reason\": null,\n        \"Scout-Original Approval Request Date\": null,\n        \"Scout-Original Approval Request Date FY\": null,\n        \"Scout-Original Approval Request Date FQ\": null,\n        \"Scout-Approved Date\": null,\n        \"Scout-Approved FY\": null,\n        \"Scout-Approved FQ\": null,\n        \"Scout-Sent for Approval\": null,\n        \"Scout-Sent for Approval FY\": null,\n        \"Scout-Sent for Approval FQ\": null,\n        \"Scout-Needs Attention Reason\": null,\n        \"Scout-Last Updated Date\": \"2018-08-31\",\n        \"Scout-Has Attachments\": false,\n        \"Scout-Related Project ID #\": \"1000\",\n        \"Scout-First Milestone Assign Date\": null,\n        \"Scout-Milestone Name\": null,\n        \"Scout-Milestone Date\": null,\n        \"Scout-Milestone Status\": null,\n        \"Scout-Milestone Complete Date\": null,\n        \"Scout-Template Milestone\": null,\n        \"Scout-Milestone Created By\": null,\n        \"Scout-Milestone Create Date\": null,\n        \"Scout-Milestone Assignee\": null,\n        \"Scout-Mark Completed By\": null,\n        \"Scout-# of Days Milestone is Open\": null,\n        \"Scout-Days Requested\": \"0.0\",\n        \"Scout-Days Planned\": \"0.0\",\n        \"Scout-Days Active - Discovery\": \"0.0\",\n        \"Scout-Days Active - Planning Performance Review\": \"0.0\",\n        \"Scout-Days Active - Sourcing\": \"0.0\",\n        \"Scout-Days Active - Published Stakeholder & Supplier Review\": \"0.0\",\n        \"Scout-Days Active - Negotiation\": \"0.0\",\n        \"Scout-Days Active - Evaluating Responses\": \"0.0\",\n        \"Scout-Days Active - Contract\": \"0.0\",\n        \"Scout-Days Active - Supplier Meeting\": \"0.0\",\n        \"Scout-Days Active - Develop Action Item Plan\": \"0.0\",\n        \"Scout-Days Out For Approval\": \"0.0\",\n        \"Scout-Days Approved\": \"0.0\",\n        \"Scout-Days On hold\": \"0.0\",\n        \"Custom field for project!\": null,\n        \"Custom date field\": null\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"project_report_entries\",\n      \"attributes\": {\n        \"Scout-System ID\": 200,\n        \"Scout-ID #\": 2,\n        \"Scout-Project Title\": \"Project 2\",\n        \"Scout-Project Type\": \"General Project\",\n        \"Scout-Project Type Short Code\": \"GENR\",\n        \"Scout-Project Needs Attention\": false,\n        \"Scout-Project State & Status\": \"Planned\",\n        \"Scout-Sourcing Owner\": \"Gabriel Keebler\",\n        \"Scout-Project Requester\": \"Gabriel Keebler\",\n        \"Scout-Category\": null,\n        \"Scout-Project Description\": null,\n        \"Scout-# of Suppliers on Project\": 0,\n        \"Scout-Suppliers on Project\": null,\n        \"Scout-Estimated Start Date\": \"2018-08-30\",\n        \"Scout-Estimated Start Date FY\": 2018,\n        \"Scout-Estimated Start Date FQ\": 3,\n        \"Scout-Estimated End Date\": \"2018-08-31\",\n        \"Scout-Estimated End Date FY\": 2018,\n        \"Scout-Estimated End Date FQ\": 3,\n        \"Scout-Actual Start Date\": \"2018-08-30\",\n        \"Scout-Actual Start Date FY\": 2018,\n        \"Scout-Actual Start Date FQ\": 3,\n        \"Scout-Actual End Date\": \"2018-08-31\",\n        \"Scout-Actual End Date FY\": 2018,\n        \"Scout-Actual End Date FQ\": 3,\n        \"Scout-Request Submitted\": \"2018-08-01\",\n        \"Scout-Request Opened\": \"2018-08-01\",\n        \"Scout-Estimated Spend\": null,\n        \"Scout-Estimated Savings\": null,\n        \"Scout-Final Spend\": null,\n        \"Scout-Savings Type\": null,\n        \"Scout-Recognized Savings\": null,\n        \"Scout-Projected Recognized Savings\": null,\n        \"Scout-Unrecognized Savings\": null,\n        \"Scout-Projected Unrecognized Savings\": null,\n        \"Scout-Total Savings\": null,\n        \"Scout-# of Stakeholders\": 1,\n        \"Scout-Stakeholders List\": \"Gabriel Keebler\",\n        \"Scout-Event Names\": null,\n        \"Scout-Event Status\": null,\n        \"Scout-# of Suppliers Invited to Event(s)\": 0,\n        \"Scout-Suppliers Invited to Event(s)\": null,\n        \"Scout-External ID\": null,\n        \"Scout-Canceled Reason\": null,\n        \"Scout-Original Approval Request Date\": null,\n        \"Scout-Original Approval Request Date FY\": null,\n        \"Scout-Original Approval Request Date FQ\": null,\n        \"Scout-Approved Date\": null,\n        \"Scout-Approved FY\": null,\n        \"Scout-Approved FQ\": null,\n        \"Scout-Sent for Approval\": null,\n        \"Scout-Sent for Approval FY\": null,\n        \"Scout-Sent for Approval FQ\": null,\n        \"Scout-Needs Attention Reason\": null,\n        \"Scout-Last Updated Date\": \"2018-08-31\",\n        \"Scout-Has Attachments\": false,\n        \"Scout-Related Project ID #\": \"2000\",\n        \"Scout-First Milestone Assign Date\": null,\n        \"Scout-Milestone Name\": null,\n        \"Scout-Milestone Date\": null,\n        \"Scout-Milestone Status\": null,\n        \"Scout-Milestone Complete Date\": null,\n        \"Scout-Template Milestone\": null,\n        \"Scout-Milestone Created By\": null,\n        \"Scout-Milestone Create Date\": null,\n        \"Scout-Milestone Assignee\": null,\n        \"Scout-Mark Completed By\": null,\n        \"Scout-# of Days Milestone is Open\": null,\n        \"Scout-Days Requested\": \"0.0\",\n        \"Scout-Days Planned\": \"0.0\",\n        \"Scout-Days Active - Discovery\": \"0.0\",\n        \"Scout-Days Active - Planning Performance Review\": \"0.0\",\n        \"Scout-Days Active - Sourcing\": \"0.0\",\n        \"Scout-Days Active - Published Stakeholder & Supplier Review\": \"0.0\",\n        \"Scout-Days Active - Negotiation\": \"0.0\",\n        \"Scout-Days Active - Evaluating Responses\": \"0.0\",\n        \"Scout-Days Active - Contract\": \"0.0\",\n        \"Scout-Days Active - Supplier Meeting\": \"0.0\",\n        \"Scout-Days Active - Develop Action Item Plan\": \"0.0\",\n        \"Scout-Days Out For Approval\": \"0.0\",\n        \"Scout-Days Approved\": \"0.0\",\n        \"Scout-Days On hold\": \"0.0\",\n        \"Custom field for project!\": \"Custom string field value\",\n        \"Custom date field\": \"2018-01-01\"\n      }\n    },\n    {\n      \"id\": \"3\",\n      \"type\": \"project_report_entries\",\n      \"attributes\": {\n        \"Scout-System ID\": 300,\n        \"Scout-ID #\": 3,\n        \"Scout-Project Title\": \"Project 3\",\n        \"Scout-Project Type\": \"General Project\",\n        \"Scout-Project Type Short Code\": \"GENR\",\n        \"Scout-Project Needs Attention\": false,\n        \"Scout-Project State & Status\": \"Planned\",\n        \"Scout-Sourcing Owner\": \"Gabriel Keebler\",\n        \"Scout-Project Requester\": \"Gabriel Keebler\",\n        \"Scout-Category\": null,\n        \"Scout-Project Description\": null,\n        \"Scout-# of Suppliers on Project\": 0,\n        \"Scout-Suppliers on Project\": null,\n        \"Scout-Estimated Start Date\": \"2018-08-30\",\n        \"Scout-Estimated Start Date FY\": 2018,\n        \"Scout-Estimated Start Date FQ\": 3,\n        \"Scout-Estimated End Date\": \"2018-08-31\",\n        \"Scout-Estimated End Date FY\": 2018,\n        \"Scout-Estimated End Date FQ\": 3,\n        \"Scout-Actual Start Date\": \"2018-08-30\",\n        \"Scout-Actual Start Date FY\": 2018,\n        \"Scout-Actual Start Date FQ\": 3,\n        \"Scout-Actual End Date\": \"2018-08-31\",\n        \"Scout-Actual End Date FY\": 2018,\n        \"Scout-Actual End Date FQ\": 3,\n        \"Scout-Request Submitted\": \"2018-08-01\",\n        \"Scout-Request Opened\": \"2018-08-01\",\n        \"Scout-Estimated Spend\": null,\n        \"Scout-Estimated Savings\": null,\n        \"Scout-Final Spend\": null,\n        \"Scout-Savings Type\": null,\n        \"Scout-Recognized Savings\": null,\n        \"Scout-Projected Recognized Savings\": null,\n        \"Scout-Unrecognized Savings\": null,\n        \"Scout-Projected Unrecognized Savings\": null,\n        \"Scout-Total Savings\": null,\n        \"Scout-# of Stakeholders\": 1,\n        \"Scout-Stakeholders List\": \"Gabriel Keebler\",\n        \"Scout-Event Names\": null,\n        \"Scout-Event Status\": null,\n        \"Scout-# of Suppliers Invited to Event(s)\": 0,\n        \"Scout-Suppliers Invited to Event(s)\": null,\n        \"Scout-External ID\": null,\n        \"Scout-Canceled Reason\": null,\n        \"Scout-Original Approval Request Date\": null,\n        \"Scout-Original Approval Request Date FY\": null,\n        \"Scout-Original Approval Request Date FQ\": null,\n        \"Scout-Approved Date\": null,\n        \"Scout-Approved FY\": null,\n        \"Scout-Approved FQ\": null,\n        \"Scout-Sent for Approval\": null,\n        \"Scout-Sent for Approval FY\": null,\n        \"Scout-Sent for Approval FQ\": null,\n        \"Scout-Needs Attention Reason\": null,\n        \"Scout-Last Updated Date\": \"2018-08-31\",\n        \"Scout-Has Attachments\": false,\n        \"Scout-Related Project ID #\": \"3000\",\n        \"Scout-First Milestone Assign Date\": null,\n        \"Scout-Milestone Name\": null,\n        \"Scout-Milestone Date\": null,\n        \"Scout-Milestone Status\": null,\n        \"Scout-Milestone Complete Date\": null,\n        \"Scout-Template Milestone\": null,\n        \"Scout-Milestone Created By\": null,\n        \"Scout-Milestone Create Date\": null,\n        \"Scout-Milestone Assignee\": null,\n        \"Scout-Mark Completed By\": null,\n        \"Scout-# of Days Milestone is Open\": null,\n        \"Scout-Days Requested\": \"0.0\",\n        \"Scout-Days Planned\": \"0.0\",\n        \"Scout-Days Active - Discovery\": \"0.0\",\n        \"Scout-Days Active - Planning Performance Review\": \"0.0\",\n        \"Scout-Days Active - Sourcing\": \"0.0\",\n        \"Scout-Days Active - Published Stakeholder & Supplier Review\": \"0.0\",\n        \"Scout-Days Active - Negotiation\": \"0.0\",\n        \"Scout-Days Active - Evaluating Responses\": \"0.0\",\n        \"Scout-Days Active - Contract\": \"0.0\",\n        \"Scout-Days Active - Supplier Meeting\": \"0.0\",\n        \"Scout-Days Active - Develop Action Item Plan\": \"0.0\",\n        \"Scout-Days Out For Approval\": \"0.0\",\n        \"Scout-Days Approved\": \"0.0\",\n        \"Scout-Days On hold\": \"0.0\",\n        \"Custom field for project!\": null,\n        \"Custom date field\": null\n      }\n    }\n  ],\n  \"links\": {\n    \"prev\": null,\n    \"next\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcec0389-7f40-4f7a-a953-160a0e6be28f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project_reports",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ec19aee-8b85-4024-9074-98d7a265f483",
+          "name": "Project Report Schema",
+          "request": {
+            "name": "Project Report Schema",
+            "description": {
+              "content": "Returns the project report schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project_reports",
+                "schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d806a172-d394-4de0-a709-0265731f453b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project_reports",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"project_schemas\",\n    \"type\": \"project_schemas\",\n    \"attributes\": {\n      \"fields\": [\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-System ID\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-ID #\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Project Title\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Project Type\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Project Type Short Code\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Project Needs Attention\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Project State & Status\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Sourcing Owner\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Project Requester\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Category\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Project Description\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Suppliers on Project\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Suppliers on Project\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Estimated Start Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Estimated Start Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Estimated Start Date FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Estimated End Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Estimated End Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Estimated End Date FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Actual Start Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Actual Start Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Actual Start Date FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Actual End Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Actual End Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Actual End Date FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Request Submitted\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Request Opened\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Estimated Spend\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Estimated Savings\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Final Spend\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Savings Type\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Recognized Savings\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Projected Recognized Savings\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Unrecognized Savings\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Projected Unrecognized Savings\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Total Savings\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Stakeholders\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Stakeholders List\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Event Names\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Event Status\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Suppliers Invited to Event(s)\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Suppliers Invited to Event(s)\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-External ID\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Canceled Reason\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Original Approval Request Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Original Approval Request Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Original Approval Request Date FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Approved Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Approved FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Approved FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Sent for Approval\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Sent for Approval FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Sent for Approval FQ\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Needs Attention Reason\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Last Updated Date\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Has Attachments\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Related Project ID #\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-First Milestone Assign Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days Requested\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days Planned\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days Active\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days On hold\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Milestone Name\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Milestone Date\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Milestone Status\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Milestone Complete Date\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Template Milestone\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Milestone Created By\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Milestone Create Date\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Milestone Assignee\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Mark Completed By\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Days Milestone is Open\"\n        },\n        {\n          \"type\": \"string\",\n          \"name\": \"Field #21\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdf461d8-958a-457d-be26-6d1aa99aac41",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project_reports",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "65b11392-ec59-48eb-8e9e-2b8b24ed6160",
+    "name": "Workday Strategic Sourcing attachments project_reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments suppliers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "suppliers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "All suppliers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/suppliers"
+          },
+          "docs": "Returns a list of all suppliers.\n\n**Query Params**\n\n| **Param**    |    |\n| ------------ | -- |\n| `include`  | Include supplier contacts with `include=contacts` |\n| `sort`     | Sort the suppliers. Supported values: `name`, `-name`, `created_at`, `-created_at`. |\n"
+        },
+        {
+          "info": {
+            "name": "Single supplier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/suppliers/:supplier_id",
+            "params": [
+              {
+                "name": "supplier_id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Supplier identifier."
+              }
+            ]
+          },
+          "docs": "Returns a single supplier.\n\nYou can optionally include the following query parameter to include supplier contacts in the response:\n\n`suppliers/1?include=contacts`\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

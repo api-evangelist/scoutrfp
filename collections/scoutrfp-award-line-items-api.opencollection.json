@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments award_line_items API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "award_line_items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Award Line Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/awards/:award_id/award_line_items",
+            "params": [
+              {
+                "name": "award_id",
+                "value": "1",
+                "type": "path",
+                "description": "Award identifier."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter awards line items by multiple criteria.\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of line items for a specific award."
+        },
+        {
+          "info": {
+            "name": "Get an Award Line Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/award_line_items/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "15",
+                "type": "path",
+                "description": "Unique Award Line Items identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing award line items. You need to supply the unique award line items\nidentifier.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

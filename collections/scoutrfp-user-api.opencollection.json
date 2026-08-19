@@ -1,0 +1,203 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments user API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "user",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/Users",
+            "params": [
+              {
+                "name": "attributes",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of attribute names to return in the response"
+              },
+              {
+                "name": "filter",
+                "value": "userName eq \"jhon.doe@example.com\" and meta.lastModified gt \"2011-05-13T04:42:34Z\"",
+                "type": "query",
+                "description": "An expression specifying the search criteria. See [section 3.4.2.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2) of RFC 7644"
+              },
+              {
+                "name": "startIndex",
+                "value": "",
+                "type": "query",
+                "description": "The 1-based index of the first query result"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired maximum number of query results per page"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "The attribute whose value will be used to order the returned responses. Allowed values are `id` and `externalId`"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Order in which the `sortBy` param is applied. Allowed values are `ascending` and `descending`"
+              }
+            ]
+          },
+          "docs": "Returns a list of users for the specified criteria. The pagination size is 100 results per request."
+        },
+        {
+          "info": {
+            "name": "Create a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/Users",
+            "params": [
+              {
+                "name": "attributes",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of attribute names to return in the response"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a user with given attributes"
+        },
+        {
+          "info": {
+            "name": "Get a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/Users/:id",
+            "params": [
+              {
+                "name": "attributes",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of attribute names to return in the response"
+              },
+              {
+                "name": "filter",
+                "value": "userName eq \"jhon.doe@example.com\" and meta.lastModified gt \"2011-05-13T04:42:34Z\"",
+                "type": "query",
+                "description": "An expression specifying the search criteria. See [section 3.4.2.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.2.2) of RFC 7644"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a User resource by Id (see [section 3.4.1](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4.1) of RFC 7644)"
+        },
+        {
+          "info": {
+            "name": "Replace a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/Users/:id",
+            "params": [
+              {
+                "name": "attributes",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of attribute names to return in the response"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a User resource (see [section 3.5.1](https://datatracker.ietf.org/doc/html/rfc7644#section-3.5.1) of RFC 7644). Update works in a replacement fashion;\nevery attribute value found in the payload sent will replace the one in the existing resource representation.\nAttributes not passed in the payload will be left intact.\n\nIf the user tries to deactivate themselves, they will get a `403 Access forbidden` response.\n\nOperations on the `userName` field will only be processed if both original and"
+        },
+        {
+          "info": {
+            "name": "Patch a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/Users/:id",
+            "params": [
+              {
+                "name": "attributes",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of attribute names to return in the response"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates one or more attributes of a User resource using a sequence of additions, removals,\nand replacements operations. See [section 3.5.2](https://datatracker.ietf.org/doc/html/rfc7644#section-3.5.2) of RFC 7644.\n\nIf the user tries to deactivate themselves, they will get a `403 Access forbidden` response.\n\nOperations on the `userName` field will only be processed if both original and target email addresses match the domains list set for the Company's SSO connections.\n\nIf not, the response retur"
+        },
+        {
+          "info": {
+            "name": "Deactivate a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/Users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the resource to deactivate"
+              }
+            ]
+          },
+          "docs": "Deactivates a user. You need to supply the unique user\nidentifier that was returned upon user creation.\n\nIf the user tries to deactivate themselves, they will get a `403 Access forbidden` response.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

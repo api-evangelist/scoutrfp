@@ -1,0 +1,729 @@
+{
+  "item": [
+    {
+      "id": "3a417038-a40c-4b04-b7f2-8cce3dca39c7",
+      "name": "bids",
+      "description": {
+        "content": "Use the bids API to query the bids in Workday Strategic Sourcing.\nOnly bids for events of type `RFP` are supported.\n\n## Bid Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Bid\" exampleRef=\"#/components/examples/Bid\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "78f1f881-a947-4555-9662-6419d2e8eaa1",
+          "name": "List Bids",
+          "request": {
+            "name": "List Bids",
+            "description": {
+              "content": "Returns a list of all bids.\nOnly bids for events of type `RFP` are returned.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                ":event_id",
+                "bids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id_equals",
+                  "value": "<integer>",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "intend_to_bid_equals",
+                  "value": "<boolean>",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "intend_to_bid_not_equals",
+                  "value": "<boolean>",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "intend_to_bid_answered_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "intend_to_bid_answered_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "submitted_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "submitted_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "resubmitted_at_from",
+                  "value": "<dateTime>",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "resubmitted_at_to",
+                  "value": "<dateTime>",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "status_equals",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_company_id_equals",
+                  "value": "<integer>",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_company_external_id_equals",
+                  "value": "<string>",
+                  "description": "Filter bids by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Customize pagination results with `size`.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "event_id",
+                  "description": "(Required) Event identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a3f59c8-8381-4cfe-94b4-03e24c18f7ee",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_id",
+                    "bids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id_equals",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "intend_to_bid_equals",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "intend_to_bid_not_equals",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "intend_to_bid_answered_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "intend_to_bid_answered_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "submitted_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "submitted_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "resubmitted_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "resubmitted_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "status_equals",
+                      "value": "awarded,award_retracted"
+                    },
+                    {
+                      "key": "supplier_company_id_equals",
+                      "value": "1"
+                    },
+                    {
+                      "key": "supplier_company_external_id_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "event_id",
+                      "description": "(Required) Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"count\": 2\n  },\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"type\": \"bids\",\n      \"attributes\": {\n        \"intend_to_bid\": true,\n        \"intend_to_bid_answered_at\": \"2020-01-02T03:04:05.000Z\",\n        \"status\": \"resubmitted\",\n        \"submitted_at\": \"2020-01-02T03:04:05.000Z\",\n        \"resubmitted_at\": \"2020-01-02T03:04:05.000Z\"\n      },\n      \"relationships\": {\n        \"event\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"events\"\n          }\n        },\n        \"supplier_company\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"supplier_companies\"\n          }\n        }\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/events/v1/bids/1\"\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"bids\",\n      \"attributes\": {\n        \"intend_to_bid\": false,\n        \"intend_to_bid_answered_at\": \"2020-01-02T03:04:05.000Z\",\n        \"status\": \"awarded\",\n        \"submitted_at\": \"2020-01-02T03:04:05.000Z\",\n        \"resubmitted_at\": \"2020-01-02T03:04:05.000Z\"\n      },\n      \"relationships\": {\n        \"event\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"events\"\n          }\n        },\n        \"supplier_company\": {\n          \"data\": {\n            \"id\": \"1\",\n            \"type\": \"supplier_companies\"\n          }\n        }\n      },\n      \"links\": {\n        \"self\": \"https://api.us.workdayspend.com/services/events/v1/bids/2\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bsize%5D=10\",\n    \"next\": \"https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzRd&page%5Bdirection%5D=next&page%5Bsize%5D=10\",\n    \"prev\": \"https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzFd&page%5Bdirection%5D=prev&page%5Bsize%5D=10\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9371e367-0563-4f31-b271-e1cffb606bf3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_id",
+                    "bids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id_equals",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "intend_to_bid_equals",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "intend_to_bid_not_equals",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "intend_to_bid_answered_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "intend_to_bid_answered_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "submitted_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "submitted_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "resubmitted_at_from",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "resubmitted_at_to",
+                      "value": "2019-10-29T21:28:46.790Z"
+                    },
+                    {
+                      "key": "status_equals",
+                      "value": "awarded,award_retracted"
+                    },
+                    {
+                      "key": "supplier_company_id_equals",
+                      "value": "1"
+                    },
+                    {
+                      "key": "supplier_company_external_id_equals",
+                      "value": "SUP-123"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "event_id",
+                      "description": "(Required) Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47b39852-ce05-40ba-b9e0-fa84dd437b51",
+          "name": "Get a Bid",
+          "request": {
+            "name": "Get a Bid",
+            "description": {
+              "content": "Retrieves the details of an existing bid. You need to supply the unique bid\nidentifier that was returned upon bid creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bids",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique Bid identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9bf1b3eb-e8ea-4a24-b5ae-6d08d97342a8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bids",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Bid identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"bids\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"intend_to_bid\": true,\n      \"intend_to_bid_answered_at\": \"2020-01-02T03:04:05.000Z\",\n      \"status\": \"resubmitted\",\n      \"submitted_at\": \"2020-01-02T03:04:05.000Z\",\n      \"resubmitted_at\": \"2020-01-02T03:04:05.000Z\"\n    },\n    \"relationships\": {\n      \"event\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"events\"\n        }\n      },\n      \"supplier_company\": {\n        \"data\": {\n          \"id\": \"1\",\n          \"type\": \"supplier_companies\"\n        }\n      }\n    },\n    \"links\": {\n      \"self\": \"https://api.us.workdayspend.com/services/events/v1/bids/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55951113-d9b3-431e-b5b5-6db1b8ae7400",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bids",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Bid identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "75a460a2-eedd-46fb-91a3-3a99d418aa08",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bids",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique Bid identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02b76bcb-c3a2-4c32-ac9a-41f944a7883b",
+          "name": "Describe Bid object",
+          "request": {
+            "name": "Describe Bid object",
+            "description": {
+              "content": "Returns a list of fields for the bid object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bids",
+                "describe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b815e320-71d3-4425-9e1b-defed700a99a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bids",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"count\": 7\n  },\n  \"data\": [\n    {\n      \"id\": \"intend_to_bid\",\n      \"type\": \"bid_fields\",\n      \"attributes\": {\n        \"name\": \"intend_to_bid\",\n        \"data_type\": \"boolean\",\n        \"type_description\": \"Checkbox\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"intend_to_bid_answered_at\",\n      \"type\": \"bid_fields\",\n      \"attributes\": {\n        \"name\": \"intend_to_bid_answered_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"status\",\n      \"type\": \"bid_fields\",\n      \"attributes\": {\n        \"name\": \"status\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Single Select\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"submitted_at\",\n      \"type\": \"bid_fields\",\n      \"attributes\": {\n        \"name\": \"submitted_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"resubmitted_at\",\n      \"type\": \"bid_fields\",\n      \"attributes\": {\n        \"name\": \"resubmitted_at\",\n        \"data_type\": \"string\",\n        \"type_description\": \"Date\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"event\",\n      \"type\": \"bid_fields\",\n      \"attributes\": {\n        \"name\": \"event\",\n        \"data_type\": \"object\",\n        \"type_description\": \"Single Relationship\",\n        \"custom_field\": false\n      }\n    },\n    {\n      \"id\": \"supplier_company\",\n      \"type\": \"bid_fields\",\n      \"attributes\": {\n        \"name\": \"supplier_company\",\n        \"data_type\": \"object\",\n        \"type_description\": \"Single Relationship\",\n        \"custom_field\": false\n      }\n    }\n  ],\n  \"links\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f6323de-3f08-4eb6-89be-ca787a2ac9c0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bids",
+                    "describe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f3f36ea2-a667-41c9-b1fc-2b3db714085d",
+    "name": "Workday Strategic Sourcing attachments bids API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

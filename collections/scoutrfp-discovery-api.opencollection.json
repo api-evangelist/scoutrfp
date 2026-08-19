@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments discovery API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Schemas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/Schemas"
+          },
+          "docs": "Endpoint used to retrieve information about schemas supported. See [section 3.4](https://datatracker.ietf.org/doc/html/rfc7644#section-3.4) of RFC 7644\n"
+        },
+        {
+          "info": {
+            "name": "Get a Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/Schemas/:uri",
+            "params": [
+              {
+                "name": "uri",
+                "value": "",
+                "type": "path",
+                "description": "Schema URI of a particular resource type"
+              }
+            ]
+          },
+          "docs": "Retrieves information about a specific resource"
+        },
+        {
+          "info": {
+            "name": "List Resource Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/ResourceTypes"
+          },
+          "docs": "This endpoint is used to discover the types of resources available (see [section 4](https://datatracker.ietf.org/doc/html/rfc7644#section-4) of RFC 7644)\n"
+        },
+        {
+          "info": {
+            "name": "Get a Resource Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/ResourceTypes/:resource",
+            "params": [
+              {
+                "name": "resource",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Describes the endpoint, schemas and extensions supported by a specific kind of resource.\nIt returns a specific portion of the ouput of the more general /Resources endpoint  \n"
+        },
+        {
+          "info": {
+            "name": "List Service Provider Configs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/ServiceProviderConfig"
+          },
+          "docs": "Describes the SCIM specification features available (see [section 5](https://datatracker.ietf.org/doc/html/rfc7643#section-5) of RFC 7643)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

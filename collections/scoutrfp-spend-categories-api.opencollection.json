@@ -1,0 +1,174 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments spend_categories API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "spend_categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Spend Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/spend_categories"
+          },
+          "docs": "Returns a list of spend categories."
+        },
+        {
+          "info": {
+            "name": "Create a Spend Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/spend_categories",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Spend Category with given parameters.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Spend Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/spend_categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Spend Category identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing Spend Category.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Spend Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/spend_categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Spend Category identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing Spend Category. You need to supply the unique\nidentifier that was returned upon Spend Category creation.\n\nPlease note, that request body must include an `id` attribute with the value of your Spend Category\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Spend Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/spend_categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Spend Category identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a Spend Category. You need to supply the unique Spend Category\nidentifier that was returned upon Spend Category creation.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Spend Category by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/spend_categories/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "SP",
+                "type": "path",
+                "description": "Unique Spend Category external identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing Spend Category.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Spend Category by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/spend_categories/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "SP",
+                "type": "path",
+                "description": "Unique Spend Category external identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing Spend Category. You need to supply the unique\nexternal identifier assigned to the Spend Category on creation.\n\nPlease note, that request body must include an `id` attribute with the value of your Spend Category\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Spend Category by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/spend_categories/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "SP",
+                "type": "path",
+                "description": "Unique Spend Category external identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a Spend Category. You need to supply the unique Spend Category\nexternal identifier assigned to the Spend Category on creation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

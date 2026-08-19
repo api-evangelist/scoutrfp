@@ -1,0 +1,289 @@
+{
+  "item": [
+    {
+      "id": "6d3e8cce-cd3f-48e8-8c5f-54cdb2b80284",
+      "name": "contract_reports",
+      "description": {
+        "content": "This report returns a list of contract report entries.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "85477e38-59db-49c8-8a3b-bb258eb65be4",
+          "name": "Contract Report Entries",
+          "request": {
+            "name": "Contract Report Entries",
+            "description": {
+              "content": "Returns a list of contract report entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contract_reports",
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4fca555e-6580-4e6b-b159-ded5a6c8d7a1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_reports",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"type\": \"contract_report_entries\",\n      \"attributes\": {\n        \"Scout-Record ID\": 100,\n        \"Scout-ID #\": 1,\n        \"Scout-Contract Type\": \"Contract Type #22\",\n        \"Scout-Contract Type Short Code\": \"22JD\",\n        \"Scout-Supplier\": null,\n        \"Scout-Contract Title\": \"New contract\",\n        \"Scout-Contract State & Status\": \"In Progress - Internal Review\",\n        \"Scout-Auto Renewal\": \"no\",\n        \"Scout-Start Date\": null,\n        \"Scout-Start Date FY\": null,\n        \"Scout-Start Date FQ\": null,\n        \"Scout-End Date\": null,\n        \"Scout-End Date FY\": null,\n        \"Scout-End Date FQ\": null,\n        \"Scout-Currency\": \"USD\",\n        \"Scout-Spend\": null,\n        \"Scout-Sourcing Owner\": \"Gabriel Keebler\",\n        \"Scout-Category\": null,\n        \"Scout-Contract Description\": \"Facilis assumenda voluptatem magnam.\",\n        \"Scout-Renewal Number of Times\": null,\n        \"Scout-Renewal Term\": null,\n        \"Scout-Renewal Termination Notice\": null,\n        \"Scout-Renewal Termination Reminder\": null,\n        \"Scout-Attachments\": null,\n        \"Scout-Related Contract ID #\": null,\n        \"Scout-Related Projects\": null,\n        \"Scout-Related Project ID #\": null,\n        \"Scout-Stakeholders\": \"Gabriel Keebler\",\n        \"Scout-Termination Reason\": null,\n        \"Scout-Original Approval Request Date\": null,\n        \"Scout-Original Approval Request Date FY\": null,\n        \"Scout-Original Approval Request Date FQ\": null,\n        \"Scout-Approved Date\": null,\n        \"Scout-Approved FY\": null,\n        \"Scout-Approved FQ\": null,\n        \"Scout-Sent for Approval\": null,\n        \"Scout-Sent for Approval FY\": null,\n        \"Scout-Sent for Approval FQ\": null,\n        \"Scout-Contract Requester\": \"Gabriel Keebler\",\n        \"Scout-Contract Request Submitted Date\": \"2021-11-04\",\n        \"Scout-Contract Request Submitted FY\": 2021,\n        \"Scout-Contract Request Submitted FQ\": 4,\n        \"Scout-Contract Request Opened Date\": \"2021-11-04\",\n        \"Scout-Contract Request Opened FY\": 2021,\n        \"Scout-Contract Request Opened FQ\": 4,\n        \"Scout-Record Type\": \"Contract\",\n        \"Scout-Revised Contract ID #\": null,\n        \"Scout-Creator\": \"Gabriel Keebler\",\n        \"Scout-Last Updated Date\": \"2021-11-04\",\n        \"Scout-Has Attachments\": false,\n        \"Scout-Needs Attention Reason\": null,\n        \"Scout-Canceled Reason\": null,\n        \"Scout-First Milestone Assign Date\": null,\n        \"Scout-ESign Platforms\": null,\n        \"Scout-ESign States\": null,\n        \"Scout-External ID\": null,\n        \"Scout-Company\": null,\n        \"Scout-Company Hierarchy\": null,\n        \"Scout-Milestone Name\": null,\n        \"Scout-Milestone Date\": null,\n        \"Scout-Milestone Assignee\": null,\n        \"Scout-Days Requested\": \"0.0\",\n        \"Scout-Days In Progress - Internal Review\": \"0.0\",\n        \"Scout-Days In Progress - External Review\": \"0.0\",\n        \"Scout-Days In Progress - Negotiating\": \"0.0\",\n        \"Scout-Days In Progress - Out for Signature\": \"0.0\",\n        \"Scout-Days Approved\": \"0.0\",\n        \"Scout-Days Active\": \"0.0\",\n        \"Custom field for contract!\": null\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"contract_report_entries\",\n      \"attributes\": {\n        \"Scout-Record ID\": 200,\n        \"Scout-ID #\": 2,\n        \"Scout-Contract Type\": \"Contract Type #22\",\n        \"Scout-Contract Type Short Code\": \"22JD\",\n        \"Scout-Supplier\": null,\n        \"Scout-Contract Title\": \"New contract 2\",\n        \"Scout-Contract State & Status\": \"In Progress - Internal Review\",\n        \"Scout-Auto Renewal\": \"no\",\n        \"Scout-Start Date\": null,\n        \"Scout-Start Date FY\": null,\n        \"Scout-Start Date FQ\": null,\n        \"Scout-End Date\": null,\n        \"Scout-End Date FY\": null,\n        \"Scout-End Date FQ\": null,\n        \"Scout-Currency\": \"USD\",\n        \"Scout-Spend\": null,\n        \"Scout-Sourcing Owner\": \"Gabriel Keebler\",\n        \"Scout-Category\": null,\n        \"Scout-Contract Description\": \"Distinctio vel iure voluptas.\",\n        \"Scout-Renewal Number of Times\": null,\n        \"Scout-Renewal Term\": null,\n        \"Scout-Renewal Termination Notice\": null,\n        \"Scout-Renewal Termination Reminder\": null,\n        \"Scout-Attachments\": null,\n        \"Scout-Related Contract ID #\": null,\n        \"Scout-Related Projects\": null,\n        \"Scout-Related Project ID #\": null,\n        \"Scout-Stakeholders\": \"Gabriel Keebler\",\n        \"Scout-Termination Reason\": null,\n        \"Scout-Original Approval Request Date\": null,\n        \"Scout-Original Approval Request Date FY\": null,\n        \"Scout-Original Approval Request Date FQ\": null,\n        \"Scout-Approved Date\": null,\n        \"Scout-Approved FY\": null,\n        \"Scout-Approved FQ\": null,\n        \"Scout-Sent for Approval\": null,\n        \"Scout-Sent for Approval FY\": null,\n        \"Scout-Sent for Approval FQ\": null,\n        \"Scout-Contract Requester\": \"Gabriel Keebler\",\n        \"Scout-Contract Request Submitted Date\": \"2021-11-04\",\n        \"Scout-Contract Request Submitted FY\": 2021,\n        \"Scout-Contract Request Submitted FQ\": 4,\n        \"Scout-Contract Request Opened Date\": \"2021-11-04\",\n        \"Scout-Contract Request Opened FY\": 2021,\n        \"Scout-Contract Request Opened FQ\": 4,\n        \"Scout-Record Type\": \"Contract\",\n        \"Scout-Revised Contract ID #\": null,\n        \"Scout-Creator\": \"Gabriel Keebler\",\n        \"Scout-Last Updated Date\": \"2021-11-04\",\n        \"Scout-Has Attachments\": false,\n        \"Scout-Needs Attention Reason\": null,\n        \"Scout-Canceled Reason\": null,\n        \"Scout-First Milestone Assign Date\": null,\n        \"Scout-ESign Platforms\": null,\n        \"Scout-ESign States\": null,\n        \"Scout-External ID\": null,\n        \"Scout-Company\": null,\n        \"Scout-Company Hierarchy\": null,\n        \"Scout-Milestone Name\": null,\n        \"Scout-Milestone Date\": null,\n        \"Scout-Milestone Assignee\": null,\n        \"Scout-Days Requested\": \"0.0\",\n        \"Scout-Days In Progress - Internal Review\": \"0.0\",\n        \"Scout-Days In Progress - External Review\": \"0.0\",\n        \"Scout-Days In Progress - Negotiating\": \"0.0\",\n        \"Scout-Days In Progress - Out for Signature\": \"0.0\",\n        \"Scout-Days Approved\": \"0.0\",\n        \"Scout-Days Active\": \"0.0\",\n        \"Custom field for contract!\": \"Custom field value\"\n      }\n    },\n    {\n      \"id\": \"3\",\n      \"type\": \"contract_report_entries\",\n      \"attributes\": {\n        \"Scout-Record ID\": 300,\n        \"Scout-ID #\": 3,\n        \"Scout-Contract Type\": \"Contract Type #22\",\n        \"Scout-Contract Type Short Code\": \"22JD\",\n        \"Scout-Supplier\": null,\n        \"Scout-Contract Title\": \"Old contract\",\n        \"Scout-Contract State & Status\": \"In Progress - Internal Review\",\n        \"Scout-Auto Renewal\": \"no\",\n        \"Scout-Start Date\": null,\n        \"Scout-Start Date FY\": null,\n        \"Scout-Start Date FQ\": null,\n        \"Scout-End Date\": null,\n        \"Scout-End Date FY\": null,\n        \"Scout-End Date FQ\": null,\n        \"Scout-Currency\": \"USD\",\n        \"Scout-Spend\": null,\n        \"Scout-Sourcing Owner\": \"Gabriel Keebler\",\n        \"Scout-Category\": null,\n        \"Scout-Contract Description\": \"Ipsa voluptatem vel recusandae.\",\n        \"Scout-Renewal Number of Times\": null,\n        \"Scout-Renewal Term\": null,\n        \"Scout-Renewal Termination Notice\": null,\n        \"Scout-Renewal Termination Reminder\": null,\n        \"Scout-Attachments\": null,\n        \"Scout-Related Contract ID #\": null,\n        \"Scout-Related Projects\": null,\n        \"Scout-Related Project ID #\": null,\n        \"Scout-Stakeholders\": \"Gabriel Keebler\",\n        \"Scout-Termination Reason\": null,\n        \"Scout-Original Approval Request Date\": null,\n        \"Scout-Original Approval Request Date FY\": null,\n        \"Scout-Original Approval Request Date FQ\": null,\n        \"Scout-Approved Date\": null,\n        \"Scout-Approved FY\": null,\n        \"Scout-Approved FQ\": null,\n        \"Scout-Sent for Approval\": null,\n        \"Scout-Sent for Approval FY\": null,\n        \"Scout-Sent for Approval FQ\": null,\n        \"Scout-Contract Requester\": \"Gabriel Keebler\",\n        \"Scout-Contract Request Submitted Date\": \"2021-11-04\",\n        \"Scout-Contract Request Submitted FY\": 2021,\n        \"Scout-Contract Request Submitted FQ\": 4,\n        \"Scout-Contract Request Opened Date\": \"2021-11-04\",\n        \"Scout-Contract Request Opened FY\": 2021,\n        \"Scout-Contract Request Opened FQ\": 4,\n        \"Scout-Record Type\": \"Contract\",\n        \"Scout-Revised Contract ID #\": null,\n        \"Scout-Creator\": \"Gabriel Keebler\",\n        \"Scout-Last Updated Date\": \"2021-11-04\",\n        \"Scout-Has Attachments\": false,\n        \"Scout-Needs Attention Reason\": null,\n        \"Scout-Canceled Reason\": null,\n        \"Scout-First Milestone Assign Date\": null,\n        \"Scout-ESign Platforms\": \"Adobe Sign, Docusign\",\n        \"Scout-ESign States\": \"Creating, Waiting For Notarization\",\n        \"Scout-External ID\": null,\n        \"Scout-Company\": null,\n        \"Scout-Company Hierarchy\": null,\n        \"Scout-Milestone Name\": null,\n        \"Scout-Milestone Date\": null,\n        \"Scout-Milestone Assignee\": null,\n        \"Scout-Days Requested\": \"0.0\",\n        \"Scout-Days In Progress - Internal Review\": \"0.0\",\n        \"Scout-Days In Progress - External Review\": \"0.0\",\n        \"Scout-Days In Progress - Negotiating\": \"0.0\",\n        \"Scout-Days In Progress - Out for Signature\": \"0.0\",\n        \"Scout-Days Approved\": \"0.0\",\n        \"Scout-Days Active\": \"0.0\",\n        \"Custom field for contract!\": null\n      }\n    }\n  ],\n  \"links\": {\n    \"prev\": null,\n    \"next\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc986ba8-3fb1-46f6-a173-81ed4fa13677",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_reports",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbe0ba54-ac06-48d8-aa78-0efb16681009",
+          "name": "Contract Report Schema",
+          "request": {
+            "name": "Contract Report Schema",
+            "description": {
+              "content": "Returns the contract report schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contract_reports",
+                "schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd6efeea-fbc1-4da3-b292-062c85c5697b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_reports",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"contract_schemas\",\n    \"type\": \"contract_schemas\",\n    \"attributes\": {\n      \"fields\": [\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Record ID\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-ID #\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Contract Type\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Contract Type Short Code\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Supplier\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contract Title\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Contract State & Status\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Auto Renewal\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Start Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Start Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Start Date FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-End Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-End Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-End Date FQ\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Currency\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Spend\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Sourcing Owner\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Category\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contract Description\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Renewal Number of Times\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Renewal Term\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Renewal Termination Notice\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Renewal Termination Reminder\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Attachments\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Related Contract ID #\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Related Projects\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Related Project ID #\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Stakeholders\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Termination Reason\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Original Approval Request Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Original Approval Request Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Original Approval Request Date FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Approved Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Approved FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Approved FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Sent for Approval\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Sent for Approval FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Sent for Approval FQ\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Contract Requester\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Contract Request Submitted Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Contract Request Submitted FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Contract Request Submitted FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Contract Request Opened Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Contract Request Opened FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Contract Request Opened FQ\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Record Type\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Revised Contract ID #\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Creator\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Last Updated Date\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Has Attachments\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Needs Attention Reason\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Canceled Reason\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-First Milestone Assign Date\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-ESign Platforms\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-ESign States\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-External ID\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Company\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Company Hierarchy\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days Requested\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days In Progress - Internal Review\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days In Progress - External Review\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days In Progress - Negotiating\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days In Progress - Out for Signature\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days Out For Approval\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days Approved\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Days Active\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Milestone Name\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Milestone Date\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Milestone Assignee\"\n        },\n        {\n          \"type\": \"string\",\n          \"name\": \"Custom field for contract\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df742c9c-ab2c-449c-a87b-ce8ba5c3b946",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_reports",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5aa08e06-7187-42a6-86ef-2537b2c07aff",
+    "name": "Workday Strategic Sourcing attachments contract_reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

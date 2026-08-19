@@ -1,0 +1,289 @@
+{
+  "item": [
+    {
+      "id": "dcaf9308-1853-4d36-bdf3-30ce19525f88",
+      "name": "supplier_reports",
+      "description": {
+        "content": "This report returns a list of Supplier report entries.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f8ee6b6a-f91a-45fb-b642-a757b2632ff0",
+          "name": "Supplier Report Entries",
+          "request": {
+            "name": "Supplier Report Entries",
+            "description": {
+              "content": "Returns a list of supplier entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_reports",
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2ba4aa32-09ae-4349-b3a8-6f0b4881fd8d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_reports",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"supplier_schemas\",\n    \"type\": \"supplier_schemas\",\n    \"attributes\": {\n      \"fields\": [\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Supplier ID\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Supplier Name\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Website\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Supplier Description\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Tags\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-External ID\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Workday Supplier Status\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Supplier Status\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Segmentation\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Supplier Risk\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Segmentation Notes\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Supplier Category\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Supplier Groups\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Created Date\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Last Updated Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Events\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Events List\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Event Type List\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Sourcing Owners (Events)\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Sourcing Owner List (Events)\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Contacts\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contact(s)\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contact Email\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contact Title\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contact Phone\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Contact International Calling Code\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Contact Types\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contact Notes\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Last Login\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of RSVP Yes\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of RSVP No\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Bids Submitted\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Awarded Bids\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Awarded Event List\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Sanction List Screening Status\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Sanction List Screening Date\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Parent\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Children\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Default Payment Type\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Default Payment Term\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Payment Types\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Accepted Currencies\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Accept All Currencies\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Address Country\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Address State / Province\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Address Usage\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Address Postal Code\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Bank Account Type\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Bank Account Country\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Bank Account Nickname\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Bank Account Payment Types\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Phone Device Type\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-International Calling Code\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Phone Number\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Tax Country\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Tax ID Type\"\n        },\n        {\n          \"type\": \"string\",\n          \"name\": \"Field #27\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0383fb75-3154-42f4-b99f-b905e1920274",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_reports",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8fb1137c-6241-400f-9daf-3fecbedf7ac0",
+          "name": "Supplier Report Schema",
+          "request": {
+            "name": "Supplier Report Schema",
+            "description": {
+              "content": "Returns the supplier report schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "supplier_reports",
+                "schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "030a6ed7-933e-41f7-a94a-a215bbc632fd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_reports",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"supplier_schemas\",\n    \"type\": \"supplier_schemas\",\n    \"attributes\": {\n      \"fields\": [\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Supplier ID\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Supplier Name\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Website\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Supplier Description\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Tags\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-External ID\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Workday Supplier Status\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Supplier Status\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Segmentation\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Supplier Risk\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Segmentation Notes\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Supplier Category\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Supplier Groups\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Created Date\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Last Updated Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Events\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Events List\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Event Type List\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Sourcing Owners (Events)\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Sourcing Owner List (Events)\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Contacts\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contact(s)\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contact Email\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contact Title\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contact Phone\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Contact International Calling Code\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Contact Types\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Contact Notes\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Last Login\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of RSVP Yes\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of RSVP No\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Bids Submitted\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-# of Awarded Bids\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Awarded Event List\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Sanction List Screening Status\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Sanction List Screening Date\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Parent\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Children\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Default Payment Type\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Default Payment Term\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Payment Types\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Accepted Currencies\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Accept All Currencies\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Address Country\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Address State / Province\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Address Usage\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Address Postal Code\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Bank Account Type\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Bank Account Country\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Bank Account Nickname\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Bank Account Payment Types\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Phone Device Type\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-International Calling Code\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Phone Number\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Tax Country\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Tax ID Type\"\n        },\n        {\n          \"type\": \"string\",\n          \"name\": \"Field #27\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a6c25df-b1df-487f-a58a-b6b2c0d72b04",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "supplier_reports",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "90498c82-d3ff-4784-b439-a6307911a8ff",
+    "name": "Workday Strategic Sourcing attachments supplier_reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

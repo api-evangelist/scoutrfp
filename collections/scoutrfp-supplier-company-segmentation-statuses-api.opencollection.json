@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments supplier_company_segmentation_statuses API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "supplier_company_segmentation_statuses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Supplier Company segmentation_statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_company_segmentation_statuses"
+          },
+          "docs": "Returns a list of supplier company segmentation_statuses."
+        },
+        {
+          "info": {
+            "name": "Create a Supplier Company Segmentation Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_company_segmentation_statuses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a supplier company segmentation status with given parameters.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Supplier Company Segmentation Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_company_segmentation_statuses/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier company segmentation status identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing supplier company segmentation status. You need to supply the unique\nidentifier that was returned upon supplier company segmentation status creation.\n\nPlease note, that request body must include an `id` attribute with the value of your supplier company segmentation status\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Supplier Company Segmentation Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_company_segmentation_statuses/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier company segmentation status identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a supplier company segmentation status. You need to supply the unique supplier company segmentation status\nidentifier that was returned upon supplier company segmentation status creation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

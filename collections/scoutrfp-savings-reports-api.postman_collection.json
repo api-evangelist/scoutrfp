@@ -1,0 +1,289 @@
+{
+  "item": [
+    {
+      "id": "618055fc-012c-4479-8623-8f6c04124b6f",
+      "name": "savings_reports",
+      "description": {
+        "content": "This report returns a list of Savings report entries.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e97cf91e-7885-4605-95ac-e852c20760df",
+          "name": "Savings Report Entries",
+          "request": {
+            "name": "Savings Report Entries",
+            "description": {
+              "content": "Returns a list of savings entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "savings_reports",
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40e32a7a-2bca-4206-8b57-bf4e2e7430dc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "savings_reports",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"1-2018-04-01\",\n      \"type\": \"savings_report_entries\",\n      \"attributes\": {\n        \"Scout-ID\": 1,\n        \"Scout-Savings Type\": \"Savings Type #0\",\n        \"Scout-Realized Date\": \"2018-04-01\",\n        \"Scout-Realized Date FY\": 2018,\n        \"Scout-Realized Date FQ\": 2,\n        \"Scout-Savings Start Date\": \"2018-04-20\",\n        \"Scout-Savings Start Date FY\": 2018,\n        \"Scout-Savings Start Date FQ\": 2,\n        \"Scout-Savings End Date\": \"2018-04-25\",\n        \"Scout-Savings End Date FY\": 2018,\n        \"Scout-Savings End Date FQ\": 2,\n        \"Scout-Frequency\": \"Calculated\",\n        \"Scout-Realized Savings\": \"100.0\",\n        \"Scout-Projected Savings\": \"0.0\",\n        \"Scout-Monthly Total\": \"100.0\",\n        \"Scout-Total\": \"100.0\",\n        \"Scout-Savings Notes\": \"Some notes\",\n        \"Scout-Last Updated Date\": \"2018-04-25\",\n        \"Scout-ID #\": 1,\n        \"Scout-Project Title\": \"Project 1\",\n        \"Scout-Project Type\": \"Project Type #183\",\n        \"Scout-Project Type Short Code\": \"1833\",\n        \"Scout-Project State & Status\": \"Planned\",\n        \"Scout-Sourcing Owner\": \"Cammy Ankunding\",\n        \"Scout-Category\": null,\n        \"Scout-Suppliers on Project\": null,\n        \"Scout-Actual Start Date\": \"2018-04-20\",\n        \"Scout-Actual End Date\": \"2018-04-25\",\n        \"Scout-Estimated Savings\": \"20000.0\",\n        \"Scout-ID-Unique\": \"1-2018-04-01\",\n        \"Custom field for project!\": null,\n        \"Custom date field\": null\n      }\n    },\n    {\n      \"id\": \"2-2018-04-01\",\n      \"type\": \"savings_report_entries\",\n      \"attributes\": {\n        \"Scout-ID\": 2,\n        \"Scout-Savings Type\": \"Savings Type #0\",\n        \"Scout-Realized Date\": \"2018-04-01\",\n        \"Scout-Realized Date FY\": 2018,\n        \"Scout-Realized Date FQ\": 2,\n        \"Scout-Savings Start Date\": \"2018-04-19\",\n        \"Scout-Savings Start Date FY\": 2018,\n        \"Scout-Savings Start Date FQ\": 2,\n        \"Scout-Savings End Date\": \"2018-05-24\",\n        \"Scout-Savings End Date FY\": 2018,\n        \"Scout-Savings End Date FQ\": 2,\n        \"Scout-Frequency\": \"Calculated\",\n        \"Scout-Realized Savings\": \"33.3333333333333333\",\n        \"Scout-Projected Savings\": \"0.0\",\n        \"Scout-Monthly Total\": \"33.3333333333333333\",\n        \"Scout-Total\": \"100.0\",\n        \"Scout-Savings Notes\": \"Some notes\",\n        \"Scout-Last Updated Date\": \"2018-04-25\",\n        \"Scout-ID #\": 2,\n        \"Scout-Project Title\": \"Project 2\",\n        \"Scout-Project Type\": \"Project Type #185\",\n        \"Scout-Project Type Short Code\": \"1859\",\n        \"Scout-Project State & Status\": \"Planned\",\n        \"Scout-Sourcing Owner\": \"Cammy Ankunding\",\n        \"Scout-Category\": null,\n        \"Scout-Suppliers on Project\": null,\n        \"Scout-Actual Start Date\": \"2018-04-20\",\n        \"Scout-Actual End Date\": \"2018-04-25\",\n        \"Scout-Estimated Savings\": \"20000.0\",\n        \"Scout-ID-Unique\": \"2-2018-04-01\",\n        \"Custom field for project!\": \"Custom string field value\",\n        \"Custom date field\": \"2018-01-01\"\n      }\n    },\n    {\n      \"id\": \"2-2018-05-01\",\n      \"type\": \"savings_report_entries\",\n      \"attributes\": {\n        \"Scout-ID\": 2,\n        \"Scout-Savings Type\": \"Savings Type #0\",\n        \"Scout-Realized Date\": \"2018-05-01\",\n        \"Scout-Realized Date FY\": 2018,\n        \"Scout-Realized Date FQ\": 2,\n        \"Scout-Savings Start Date\": \"2018-04-19\",\n        \"Scout-Savings Start Date FY\": 2018,\n        \"Scout-Savings Start Date FQ\": 2,\n        \"Scout-Savings End Date\": \"2018-05-24\",\n        \"Scout-Savings End Date FY\": 2018,\n        \"Scout-Savings End Date FQ\": 2,\n        \"Scout-Frequency\": \"Calculated\",\n        \"Scout-Realized Savings\": \"66.6666666666666667\",\n        \"Scout-Projected Savings\": \"0.0\",\n        \"Scout-Monthly Total\": \"66.6666666666666667\",\n        \"Scout-Total\": \"100.0\",\n        \"Scout-Savings Notes\": \"Some notes\",\n        \"Scout-Last Updated Date\": \"2018-04-25\",\n        \"Scout-ID #\": 2,\n        \"Scout-Project Title\": \"Project 2\",\n        \"Scout-Project Type\": \"Project Type #185\",\n        \"Scout-Project Type Short Code\": \"1859\",\n        \"Scout-Project State & Status\": \"Planned\",\n        \"Scout-Sourcing Owner\": \"Cammy Ankunding\",\n        \"Scout-Category\": null,\n        \"Scout-Suppliers on Project\": null,\n        \"Scout-Actual Start Date\": \"2018-04-20\",\n        \"Scout-Actual End Date\": \"2018-04-25\",\n        \"Scout-Estimated Savings\": \"20000.0\",\n        \"Scout-ID-Unique\": \"2-2018-05-01\",\n        \"Custom field for project!\": \"Custom string field value\",\n        \"Custom date field\": \"2018-01-01\"\n      }\n    }\n  ],\n  \"links\": {\n    \"prev\": null,\n    \"next\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9baf55f-3039-4312-99a1-f77e0d4f5cad",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "savings_reports",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49c98c12-1fb7-4172-9598-9af54ec7ce8e",
+          "name": "Savings Report Schema",
+          "request": {
+            "name": "Savings Report Schema",
+            "description": {
+              "content": "Returns the savings report schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "savings_reports",
+                "schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "30197d2e-39a6-49e7-aafd-e50867e40973",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "savings_reports",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"savings_schemas\",\n    \"type\": \"savings_schemas\",\n    \"attributes\": {\n      \"fields\": [\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-ID\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Savings Type\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Realized Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Realized Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Realized Date FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Savings Start Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Savings Start Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Savings Start Date FQ\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Savings End Date\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Savings End Date FY\"\n        },\n        {\n          \"type\": \"integer\",\n          \"name\": \"Scout-Savings End Date FQ\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Frequency\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Realized Savings\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Projected Savings\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Monthly Total\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Total\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Savings Notes\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Last Updated Date\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-ID #\"\n        },\n        {\n          \"type\": \"text\",\n          \"name\": \"Scout-Project Title\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Project Type\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Project Type Short Code\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Project State & Status\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Sourcing Owner\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Category\"\n        },\n        {\n          \"type\": \"select\",\n          \"name\": \"Scout-Suppliers on Project\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Actual Start Date\"\n        },\n        {\n          \"type\": \"date\",\n          \"name\": \"Scout-Actual End Date\"\n        },\n        {\n          \"type\": \"currency\",\n          \"name\": \"Scout-Estimated Savings\"\n        },\n        {\n          \"type\": \"string\",\n          \"name\": \"Field #23\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83c734f0-3484-4001-8d14-c7f813ccb498",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "savings_reports",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d4a4c821-843e-44a5-96f5-355dc7420b88",
+    "name": "Workday Strategic Sourcing attachments savings_reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments project_reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "project_reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Project Report Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/project_reports/entries"
+          },
+          "docs": "Returns a list of project report entries.\n\n**Does not support `project_report_id` parameter for the 2019-01-01 version.**\n"
+        },
+        {
+          "info": {
+            "name": "Project Report Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/project_reports/schema"
+          },
+          "docs": "Returns the project report schema."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,257 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments supplier_contacts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "supplier_contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Supplier Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_companies/:company_id/supplier_contacts",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier company identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "To reduce the number of HTTP requests, related resources can be requested along with the\nrequested primary resources. Such responses are called \"compound documents\". In a compound\ndocument, all included resources will be represented as an array of resource objects in a\ntop-level `included` member.\n\nThe value of the `include` parameter must be a comma-separated list of relationships from\nthe list of available relationships.\n\n\n\n```\n/supplier_contacts?include=supplier_company\n```\n\nIn the response, relationships will be represented as normal linkage objects (containing\n`id` and `type`), and related resource details will be presented in the `included`\nsection as resource objects (with `attributes` that have a corresponding `external_id`).\n"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter supplier contacts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of contacts for an existing supplier company.\n"
+        },
+        {
+          "info": {
+            "name": "Create a Supplier Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_contacts",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request a primary resource `supplier company`.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a supplier contact with given attributes.\n\n## Linked Resources\n\nThe supplier company should exist prior to being linked to the supplier contact. It can be\nreferenced by Workday Strategic Sourcing identifier, or by external ID; in the latter case, the relationship\nname is used with prefix `external_`. For example, a supplier company with Workday Strategic Sourcing ID `\"1\"` and\nexternal ID `\"SCM-1\"` can be used to initialize `supplier_company`:\n\n```json\n{\n  \"supplier_company\": {\n    \"data\" "
+        },
+        {
+          "info": {
+            "name": "Get a Supplier Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier contact identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request a primary resource `supplier company`.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing supplier contact.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Supplier Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier contact identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request a primary resource `supplier company`.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing supplier contact. You need to supply the unique supplier\ncompany and contact identifiers.\n\nPlease note, that request body must include an `id` attribute with the value of your supplier\ncontact unique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Supplier Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier contact identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a supplier contact.\n"
+        },
+        {
+          "info": {
+            "name": "List Supplier Contacts by Supplier Company External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_companies/:external_id/supplier_contacts/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "1234-5678-abcd-efgh",
+                "type": "path",
+                "description": "Supplier company external identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "To reduce the number of HTTP requests, related resources can be requested along with the\nrequested primary resources. Such responses are called \"compound documents\". In a compound\ndocument, all included resources will be represented as an array of resource objects in a\ntop-level `included` member.\n\nThe value of the `include` parameter must be a comma-separated list of relationships from\nthe list of available relationships.\n\n\n\n```\n/supplier_contacts?include=supplier_company\n```\n\nIn the response, relationships will be represented as normal linkage objects (containing\n`id` and `type`), and related resource details will be presented in the `included`\nsection as resource objects (with `attributes` that have a corresponding `external_id`).\n"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter supplier contacts by multiple criteria. Only one filter per attribute is supported.\nFor best performance, we recommend 5 or less filters.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of contacts for an existing supplier company by Supplier Company External ID.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Supplier Contact by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_contacts/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "CNT-17",
+                "type": "path",
+                "description": "Unique supplier contact identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request a primary resource `supplier company`.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing supplier contact by Supplier Contact External ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Supplier Contact by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_contacts/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "CNT-17",
+                "type": "path",
+                "description": "Unique supplier contact external identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request a primary resource `supplier company`.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing supplier contact by Supplir Contact External ID.\n\nPlease note, that request body must include an `id` attribute with the value of your supplier\ncontact unique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Supplier Contact by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_contacts/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "CNT-17",
+                "type": "path",
+                "description": "Unique supplier contact identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a supplier contact by Supplier Contact External ID.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

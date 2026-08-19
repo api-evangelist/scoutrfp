@@ -1,0 +1,1300 @@
+{
+  "item": [
+    {
+      "id": "b66ea878-7cda-48fa-9eb7-4c61a437195b",
+      "name": "attachments",
+      "description": {
+        "content": "Use the attachments API to create, update, and delete the attachments in Workday Strategic Sourcing.\n\n## Working with Attachments\n\nCreating attachments for Workday Strategic Sourcing objects is a two-step process. First, you need to inform\nthe system about your intention to upload an attachment by issuing a \"Create an Attachment\" request,\nconsisting of the file name and a link to the object to which you are adding an attachment. The link\nis represented by a relationship object containing an object ID and its type.\n\nIn the response you will receive a link in the `upload_url` attributes, along with required HTTP headers\nto send with your file. You will need to upload your file as a binary stream in a PUT request into the\nspecified URL, making sure the required headers are present. Here is how the workflow might look\nlike when triggered from a console:\n\n```bash\n$ curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n       -H \"X-User-Token: ${USER_TOKEN}\" \\\n       -H \"X-User-Email: ${USER_EMAIL}\" \\\n       -H \"Content-Type: application/vnd.api+json\" \\\n       -X POST \\\n       -d '\n         {\n           \"data\": {\n             \"type\": \"attachments\",\n             \"attributes\": {\n               \"title\": \"My Interesting Document\",\n               \"file_name\": \"Some Interesting File.pdf\"\n             },\n             \"relationships\": {\n               \"contract\": {\n                 \"data\": {\n                   \"id\": 1,\n                   \"type\": \"contracts\"\n                 }\n               }\n             }\n           }\n         }\n       ' \\\n       \"https://api.us.workdayspend.com/services/attachments/v1/attachments\"\n\n{\n    \"data\": {\n        \"id\": \"1\",\n        \"type\": \"attachments\",\n        \"attributes\": {\n            \"title\": \"My Interesting Document\",\n            \"file_size\": null,\n            \"upload_url\": \"https://upload.s3.amazonaws.com/uploads/contract/1/hex/file.pdf?some=very&long=url\",\n            \"upload_headers\": [\n                {\n                    \"name\": \"Content-Type\",\n                    \"value\": \"application/octet-stream\"\n                },\n                {\n                    \"name\": \"x-amz-acl\",\n                    \"value\": \"private\"\n                },\n                {\n                    \"name\": \"x-amz-server-side-encryption\",\n                    \"value\": \"AES256\"\n                },\n                {\n                    \"name\": \"Content-Disposition\",\n                    \"value\": \"attachment\"\n                }\n            ]\n        }\n    }\n}\n\n$ curl -X PUT \\\n    --data \"@file.pdf\" \\\n    -H \"Content-Type: application/octet-stream\" \\\n    -H \"x-amz-acl: private\" \\\n    -H \"x-amz-server-side-encryption: AES256\" \\\n    -H \"Content-Disposition: attachment\" \\\n    https://upload.s3.amazonaws.com/uploads/contract/1/hex/file.pdf?some=very&long=url\n```\n\nThe upload URL expires within 15 minutes after issuing. Please note that you will not be able to upload\nthe data file to the attachment object after that. An automated system will purge all partial uploads\nafter a certain period (usually within 30-60 minutes after creation) to prevent orphan records from\noverflowing the system.\n\n**Please Note**: The list of headers and their values might change at any time, so when you're\nimplementing an integration with the Workday Strategic Sourcing system, make sure to include all of the HTTP headers\nreturned from the attachments endpoint.\n\n## Attachment Object\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Attachment\" showReadOnly={true} showWriteOnly={true} />\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8cf01a92-20ea-45ab-8705-c0de06510602",
+          "name": "List Attachments",
+          "request": {
+            "name": "List Attachments",
+            "description": {
+              "content": "Returns a filtered list of attachments based of the `filter[id_equals]` mandatory param.\nThe result is limited to **50** attachments.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id_equals",
+                  "value": "<string>",
+                  "description": "Filter attachments by multiple criteria.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8547ff74-05c7-44cb-a33b-d952a723c041",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id_equals",
+                      "value": "2,5,9"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"type\": \"attachments\",\n      \"attributes\": {\n        \"external_id\": \"AT1\",\n        \"title\": \"My Test Document\",\n        \"file_name\": \"my_test_document.pdf\",\n        \"file_size\": \"1023343\",\n        \"uploaded_at\": \"2020-08-18T12:48:42.978Z\",\n        \"uploaded_by\": \"someone@example.com\",\n        \"download_url\": \"https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url\",\n        \"download_url_expires_at\": \"2020-08-18T13:26:59.999Z\"\n      },\n      \"links\": {\n        \"self\": \" https://api.us.workdayspend.com/services/attachments/v1/attachments/1\"\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"type\": \"attachments\",\n      \"attributes\": {\n        \"external_id\": null,\n        \"title\": \"My Test Document 2\",\n        \"file_name\": \"my_test_document_2.pdf\",\n        \"file_size\": \"534241\",\n        \"uploaded_at\": \"2020-08-19T12:48:42.978Z\",\n        \"uploaded_by\": \"someone@example.com\",\n        \"download_url\": \"https://upload.s3.amazonaws.com/uploads/contract/2/hex/Some%20Updated%20Test%20File2.pdf?some=very&long=url\",\n        \"download_url_expires_at\": \"2020-08-19T13:26:59.999Z\"\n      },\n      \"links\": {\n        \"self\": \" https://api.us.workdayspend.com/services/attachments/v1/attachments/2\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.us.workdayspend.com/services/attachments/v1/attachments\"\n  },\n  \"meta\": {\n    \"count\": 2\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c23d5939-4d53-4d77-bddd-170469ed54eb",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id_equals",
+                      "value": "2,5,9"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba347951-afeb-45ff-856a-2c1121b39399",
+          "name": "Create an Attachment",
+          "request": {
+            "name": "Create an Attachment",
+            "description": {
+              "content": "Create an attachment for an object. This endpoint represents the first step in the two-step\nupload workflow, described in the [Working with Attachments](#section/Working-with-Attachments)\nsection.\n\nThe only required attribute is `file_name`, which will be used to generate attachment title\n(if a custom one is not supplied), and the upload URL. You will also need to specify the object\nto which you want to add an attachment (see `relationships` property).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": \"<object>\",\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "724c2a14-f47a-49d0-ac55-db69123cec87",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"attachments\",\n    \"attributes\": {\n      \"external_id\": \"AT1\",\n      \"title\": \"My Test Document\",\n      \"file_name\": \"Some Test File.pdf\"\n    },\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"id\": 1,\n          \"type\": \"contracts\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"attachments\",\n    \"attributes\": {\n      \"external_id\": \"AT1\",\n      \"title\": \"My Test Document\",\n      \"file_size\": null,\n      \"upload_url\": \"https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Test%20File.pdf?some=very&long=url\",\n      \"upload_headers\": [\n        {\n          \"name\": \"Content-Type\",\n          \"value\": \"application/octet-stream\"\n        },\n        {\n          \"name\": \"x-amz-acl\",\n          \"value\": \"private\"\n        },\n        {\n          \"name\": \"x-amz-server-side-encryption\",\n          \"value\": \"AES256\"\n        },\n        {\n          \"name\": \"Content-Disposition\",\n          \"value\": \"attachment\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64903c3d-d290-4c05-9f26-225fc59df3d1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"attachments\",\n    \"attributes\": {\n      \"external_id\": \"AT1\",\n      \"title\": \"My Test Document\",\n      \"file_name\": \"Some Test File.pdf\"\n    },\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"id\": 1,\n          \"type\": \"contracts\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c178c7c-0484-406f-919f-98bf04bd95eb",
+          "name": "Get an Attachment",
+          "request": {
+            "name": "Get an Attachment",
+            "description": {
+              "content": "Retrieves the details of an existing attachment. You need to supply the unique attachment identifier that was returned upon attachment creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique attachment identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9a6dfb2-bf94-4be6-8305-0dc2add60617",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique attachment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"attachments\",\n    \"attributes\": {\n      \"external_id\": \"AT1\",\n      \"title\": \"My Test Document\",\n      \"file_name\": \"my_test_document.pdf\",\n      \"file_size\": \"1023343\",\n      \"uploaded_at\": \"2020-08-18T12:48:42.978Z\",\n      \"uploaded_by\": \"someone@example.com\",\n      \"download_url\": \"https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url\",\n      \"download_url_expires_at\": \"2020-08-21T13:26:59.999Z\"\n    },\n    \"links\": {\n      \"self\": \" https://api.us.workdayspend.com/services/attachments/v1/attachments/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c49188b1-b10f-422e-ae7d-49cf4eb2c2c1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique attachment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "39c32660-aca9-42c2-9bee-108c7a50d296",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique attachment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2f6d0af-d460-44ce-bca2-90c85a1a8f18",
+          "name": "Update an Attachment",
+          "request": {
+            "name": "Update an Attachment",
+            "description": {
+              "content": "Update an attachment for an object. This endpoint represents the first step in the two-step\nupdate upload workflow, described in the [Working with Attachments](#section/Working-with-Attachments)\nsection.\n\nNew `upload_url` and `upload_headers` will be returned when the `file_name` attribute is passed. In this case, the existing `upload_url` will be overridden with a new one that doesn’t have the associated file yet, pending completion of the second step in the described upload process.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique attachment identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"file_name\": \"<string>\",\n      \"external_id\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dad6a678-8a35-487a-a42f-ae879b3cba71",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique attachment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"attachments\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"title\": \"My Updated Test Document\",\n      \"file_name\": \"Some Updated Test File.pdf\",\n      \"external_id\": \"AT2\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"attachments\",\n    \"attributes\": {\n      \"external_id\": \"AT2\",\n      \"title\": \"My Updated Test Document\",\n      \"file_size\": null,\n      \"upload_url\": \"https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url\",\n      \"upload_headers\": [\n        {\n          \"name\": \"Content-Type\",\n          \"value\": \"application/octet-stream\"\n        },\n        {\n          \"name\": \"x-amz-acl\",\n          \"value\": \"private\"\n        },\n        {\n          \"name\": \"x-amz-server-side-encryption\",\n          \"value\": \"AES256\"\n        },\n        {\n          \"name\": \"Content-Disposition\",\n          \"value\": \"attachment\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47c53256-4a3a-4669-8be7-331aed03690e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique attachment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"attachments\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"title\": \"My Updated Test Document\",\n      \"file_name\": \"Some Updated Test File.pdf\",\n      \"external_id\": \"AT2\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "daa6e998-2cf1-4684-bc33-7a77579ea5c9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique attachment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"attachments\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"title\": \"My Updated Test Document\",\n      \"file_name\": \"Some Updated Test File.pdf\",\n      \"external_id\": \"AT2\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "621184cd-9183-4675-8cdc-7063bb688c8b",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique attachment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"attachments\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"title\": \"My Updated Test Document\",\n      \"file_name\": \"Some Updated Test File.pdf\",\n      \"external_id\": \"AT2\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"Missing or invalid 'type' specified, expected 'attachments'\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d2a2094-6d9e-4fbc-ba50-fac8f0945c50",
+          "name": "Get an Attachment by External ID",
+          "request": {
+            "name": "Get an Attachment by External ID",
+            "description": {
+              "content": "Retrieves the details of an existing attachment. You need to supply the unique attachment identifier (external ID) that was set during attachment creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments",
+                ":external_id",
+                "external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) Unique attachment external identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e861faa5-7b03-4578-836f-b2e7503db9c8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Unique attachment external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"attachments\",\n    \"attributes\": {\n      \"external_id\": \"AT1\",\n      \"title\": \"My Test Document\",\n      \"file_name\": \"my_test_document.pdf\",\n      \"file_size\": \"1023343\",\n      \"uploaded_at\": \"2020-08-18T12:48:42.978Z\",\n      \"uploaded_by\": \"someone@example.com\",\n      \"download_url\": \"https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url\",\n      \"download_url_expires_at\": \"2020-08-21T13:26:59.999Z\"\n    },\n    \"links\": {\n      \"self\": \" https://api.us.workdayspend.com/services/attachments/v1/attachments/1\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ffec2b0-6cec-434f-a1e2-5e8bb31a24ca",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Unique attachment external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "60330443-c4f3-4078-b714-b6ff33424029",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Unique attachment external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cc2e5c5-3b65-40ec-bf71-59dc6e66074c",
+          "name": "Update an Attachment by External ID",
+          "request": {
+            "name": "Update an Attachment by External ID",
+            "description": {
+              "content": "Update an attachment for an object. This endpoint represents the first step in the two-step\nupdate upload workflow, described in the [Working with Attachments](#section/Working-with-Attachments)\nsection.\n\nNew `upload_url` and `upload_headers` will be returned when the `file_name` attribute is passed. In this case, the existing `upload_url` will be overridden with a new one that doesn’t have the associated file yet, pending completion of the second step in the described upload process.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments",
+                ":external_id",
+                "external_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_id",
+                  "description": "(Required) Unique attachment external identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"attributes\": {\n      \"title\": \"<string>\",\n      \"file_name\": \"<string>\",\n      \"external_id\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07a96a78-8da4-44c9-a0d5-95764042acee",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Unique attachment external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"attachments\",\n    \"id\": \"AT1\",\n    \"attributes\": {\n      \"title\": \"My Updated Test Document\",\n      \"file_name\": \"Some Updated Test File.pdf\",\n      \"external_id\": \"AT2\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"attachments\",\n    \"attributes\": {\n      \"external_id\": \"AT2\",\n      \"title\": \"My Updated Test Document\",\n      \"file_size\": null,\n      \"upload_url\": \"https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url\",\n      \"upload_headers\": [\n        {\n          \"name\": \"Content-Type\",\n          \"value\": \"application/octet-stream\"\n        },\n        {\n          \"name\": \"x-amz-acl\",\n          \"value\": \"private\"\n        },\n        {\n          \"name\": \"x-amz-server-side-encryption\",\n          \"value\": \"AES256\"\n        },\n        {\n          \"name\": \"Content-Disposition\",\n          \"value\": \"attachment\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3e6accf-808f-4635-aef8-8352b5550fb0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Unique attachment external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"attachments\",\n    \"id\": \"AT1\",\n    \"attributes\": {\n      \"title\": \"My Updated Test Document\",\n      \"file_name\": \"Some Updated Test File.pdf\",\n      \"external_id\": \"AT2\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "52437e5d-8d5b-4d94-8d37-8f4f5d1929d2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Unique attachment external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"attachments\",\n    \"id\": \"AT1\",\n    \"attributes\": {\n      \"title\": \"My Updated Test Document\",\n      \"file_name\": \"Some Updated Test File.pdf\",\n      \"external_id\": \"AT2\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "313a60ff-3bc6-42e7-a84b-117f714c7d05",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments",
+                    ":external_id",
+                    "external_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_id",
+                      "description": "(Required) Unique attachment external identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"attachments\",\n    \"id\": \"AT1\",\n    \"attributes\": {\n      \"title\": \"My Updated Test Document\",\n      \"file_name\": \"Some Updated Test File.pdf\",\n      \"external_id\": \"AT2\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"detail\": \"Missing or invalid 'type' specified, expected 'attachments'\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us.workdayspend.com/services/attachments/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f5f8e168-c334-4b73-b92f-4b4734cb4ee7",
+    "name": "Workday Strategic Sourcing attachments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<span id=\"section/Authentication/api_key\" data-section-id=\"section/Authentication/api_key\"></span>\n<span id=\"section/Authentication/user_token\" data-section-id=\"section/Authentication/user_token\"></span>\n<span id=\"section/Authentication/user_email\" data-section-id=\"section/Authentication/user_email\"></span>\n",
+      "type": "text/plain"
+    }
+  }
+}

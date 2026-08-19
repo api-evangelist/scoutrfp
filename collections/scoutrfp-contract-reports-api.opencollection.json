@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments contract_reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "contract_reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Contract Report Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contract_reports/entries"
+          },
+          "docs": "Returns a list of contract report entries."
+        },
+        {
+          "info": {
+            "name": "Contract Report Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/contract_reports/schema"
+          },
+          "docs": "Returns the contract report schema."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

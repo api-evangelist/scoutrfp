@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments payment_currencies API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "payment_currencies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Payment Currencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_currencies"
+          },
+          "docs": "Returns a list of payment currencies."
+        },
+        {
+          "info": {
+            "name": "Create a Payment Currency",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_currencies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a payment currency with given parameters.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Payment Currency",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_currencies/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique payment currency identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing payment currency. You need to supply the unique\nidentifier that was returned upon payment currency creation.\n\nPlease note, that request body must include an `id` attribute with the value of your payment currency\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Payment Currency",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_currencies/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique payment currency identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a payment currency. You need to supply the unique payment currency\nidentifier that was returned upon payment currency creation.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Payment Currency by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_currencies/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "PAYCUR",
+                "type": "path",
+                "description": "Unique payment currency external identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing payment currency. You need to supply the unique\nexternal identifier assigned to the payment currency on creation.\n\nPlease note, that request body must include an `id` attribute with the value of your payment currency\nunique identifier (the same one you passed in the URL).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Payment Currency by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/payment_currencies/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "PAYCUR",
+                "type": "path",
+                "description": "Unique payment currency external identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a payment currency. You need to supply the unique payment currency\nexternal identifier assigned to the payment currency on creation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

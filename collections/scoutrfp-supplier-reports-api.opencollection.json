@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments supplier_reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "supplier_reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Supplier Report Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_reports/entries"
+          },
+          "docs": "Returns a list of supplier entries."
+        },
+        {
+          "info": {
+            "name": "Supplier Report Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_reports/schema"
+          },
+          "docs": "Returns the supplier report schema."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

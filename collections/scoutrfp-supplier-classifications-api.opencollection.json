@@ -1,0 +1,220 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Workday Strategic Sourcing attachments supplier_classifications API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "supplier_classifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Supplier Classifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_classifications",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "To reduce the number of HTTP requests, related resources can be requested along with the\nrequested primary resources. Such responses are called \"compound documents\". In a compound\ndocument, all included resources will be represented as an array of resource objects in a\ntop-level `included` member.\n\nThe value of the `include` parameter must be a comma-separated list of relationships from\nthe list of available relationships.\n\n\n\n```\n/supplier_classifications?include=supplier_classification_fields\n```\n\nIn the response, relationships will be represented as normal linkage objects (containing\n`id` and `type`), and related resource details will be presented in the `included`\nsection as resource objects (with `attributes` that have a corresponding `external_id`).\n"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter supplier classifications by codename.\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of supplier classifications."
+        },
+        {
+          "info": {
+            "name": "Create a Supplier Classification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_classifications",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a supplier classifications with given attributes, relationships, and related complex resources.\n\n```json\n{\n  \"data\": {\n    \"type\": \"supplier_classifications\",\n    \"attributes\": {\n      \"name\": \"Classification 1\",\n      \"order\": 1,\n      \"country_alpha2\": \"CA\",\n      \"codename\": \"diversity\",\n      \"active\": true,\n      \"external_id\": \"CLASSIFICATION-1\",\n      \"request_additional_information\": false\n    }\n  }\n}\n```\n\n## Composite Resources\n\nResources that do not exist outside of parent resou"
+        },
+        {
+          "info": {
+            "name": "Get a Supplier Classification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_classifications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier classification identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing supplier classification.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Supplier Classification",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_classifications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique Supplier Classification identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a supplier classification with given attributes, relationships, and related complex resources.\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Supplier Classification",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_classifications/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1",
+                "type": "path",
+                "description": "Unique supplier classification identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a supplier classification.\n"
+        },
+        {
+          "info": {
+            "name": "Get a Supplier Classification by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_classifications/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "CL-1",
+                "type": "path",
+                "description": "Supplier classification external identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing supplier classification. You need to supply the unique supplier\nclassification external identifier (the one you used when created the supplier classification).\n"
+        },
+        {
+          "info": {
+            "name": "Update a Supplier Classification by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_classifications/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "CL-1",
+                "type": "path",
+                "description": "Supplier classification external identifier."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` parameter to request related resources along with the primary resource.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a supplier classification with given attributes, relationships, and related complex resources.\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Supplier Classification by External ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us.workdayspend.com/services/attachments/v1/supplier_classifications/:external_id/external_id",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "CL-1",
+                "type": "path",
+                "description": "Supplier classification external identifier."
+              }
+            ]
+          },
+          "docs": "Deletes a supplier classification.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
