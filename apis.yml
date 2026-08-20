@@ -173,6 +173,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Attachments
+  tags_raw:
   - attachments
   properties:
   - type: OpenAPI
@@ -193,7 +195,8 @@ apis:
     showReadOnly={true} showWriteOnly={true} />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - award_line_items
   properties:
   - type: OpenAPI
@@ -215,6 +218,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Awards
+  tags_raw:
   - awards
   properties:
   - type: OpenAPI
@@ -232,7 +237,8 @@ apis:
     showReadOnly={true} showWriteOnly={true} />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - bid_line_items
   properties:
   - type: OpenAPI
@@ -253,6 +259,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Bids
+  tags_raw:
   - bids
   properties:
   - type: OpenAPI
@@ -271,6 +279,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Contact Types
+  tags_raw:
   - contact_types
   properties:
   - type: OpenAPI
@@ -280,7 +290,8 @@ apis:
   description: This report returns a list of contract milestone report entries.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - contract_milestone_reports
   properties:
   - type: OpenAPI
@@ -290,7 +301,8 @@ apis:
   description: This report returns a list of contract report entries.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - contract_reports
   properties:
   - type: OpenAPI
@@ -314,6 +326,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Contract Types
+  tags_raw:
   - contract_types
   properties:
   - type: OpenAPI
@@ -353,6 +367,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Contracts
+  tags_raw:
   - contracts
   properties:
   - type: OpenAPI
@@ -363,6 +379,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Discovery
+  tags_raw:
   - discovery
   properties:
   - type: OpenAPI
@@ -373,6 +391,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Event Reports
+  tags_raw:
   - event_reports
   properties:
   - type: OpenAPI
@@ -382,7 +402,8 @@ apis:
   description: Use the event supplier companies API to manage event suppliers.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - event_supplier_companies
   properties:
   - type: OpenAPI
@@ -398,7 +419,8 @@ apis:
     - It allows specifying multiple contacts for a given supplier.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - event_supplier_contacts
   properties:
   - type: OpenAPI
@@ -420,6 +442,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Event Templates
+  tags_raw:
   - event_templates
   properties:
   - type: OpenAPI
@@ -438,6 +462,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Event
+  tags_raw:
   - events
   properties:
   - type: OpenAPI
@@ -459,7 +485,8 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - field_groups
   properties:
   - type: OpenAPI
@@ -479,7 +506,8 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - field_options
   properties:
   - type: OpenAPI
@@ -498,6 +526,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Fields
+  tags_raw:
   - fields
   properties:
   - type: OpenAPI
@@ -517,6 +547,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Line Items
+  tags_raw:
   - line_items
   properties:
   - type: OpenAPI
@@ -535,7 +567,8 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - payment_currencies
   properties:
   - type: OpenAPI
@@ -554,6 +587,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Payment Terms
+  tags_raw:
   - payment_terms
   properties:
   - type: OpenAPI
@@ -572,6 +607,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Payment Types
+  tags_raw:
   - payment_types
   properties:
   - type: OpenAPI
@@ -581,7 +618,8 @@ apis:
   description: This report returns a list of Performance Review Answer report entries.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - performance_review_answer_reports
   properties:
   - type: OpenAPI
@@ -591,7 +629,8 @@ apis:
   description: This report returns a list of Performance Review report entries.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - performance_review_reports
   properties:
   - type: OpenAPI
@@ -601,7 +640,8 @@ apis:
   description: This report returns a list of Project Milestone report entries.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - project_milestone_reports
   properties:
   - type: OpenAPI
@@ -612,6 +652,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Project Reports
+  tags_raw:
   - project_reports
   properties:
   - type: OpenAPI
@@ -621,7 +663,8 @@ apis:
   description: Use the project supplier companies API to manage project suppliers.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - project_supplier_companies
   properties:
   - type: OpenAPI
@@ -637,7 +680,8 @@ apis:
     - It allows specifying multiple contacts for a given supplier.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - project_supplier_contacts
   properties:
   - type: OpenAPI
@@ -661,6 +705,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Project Types
+  tags_raw:
   - project_types
   properties:
   - type: OpenAPI
@@ -679,6 +725,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Project
+  tags_raw:
   - projects
   properties:
   - type: OpenAPI
@@ -688,7 +736,8 @@ apis:
   description: This report returns a list of Savings report entries.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - savings_reports
   properties:
   - type: OpenAPI
@@ -713,6 +762,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Spend Categories
+  tags_raw:
   - spend_categories
   properties:
   - type: OpenAPI
@@ -731,7 +782,8 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - supplier_categories
   properties:
   - type: OpenAPI
@@ -746,7 +798,8 @@ apis:
     showReadOnly={true} showWriteOnly={true} />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - supplier_classifications
   properties:
   - type: OpenAPI
@@ -780,7 +833,8 @@ apis:
     showReadOnly={true} showWriteOnly={true} />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - supplier_companies
   properties:
   - type: OpenAPI
@@ -799,7 +853,8 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - supplier_company_risks
   properties:
   - type: OpenAPI
@@ -818,7 +873,8 @@ apis:
     showWriteOnly={true} />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - supplier_company_segmentation_statuses
   properties:
   - type: OpenAPI
@@ -837,7 +893,8 @@ apis:
     showWriteOnly={true} />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - supplier_company_segmentations
   properties:
   - type: OpenAPI
@@ -853,6 +910,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - supplier contacts
+  tags_raw:
   - supplier_contacts
   properties:
   - type: OpenAPI
@@ -871,7 +930,8 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - supplier_groups
   properties:
   - type: OpenAPI
@@ -881,7 +941,8 @@ apis:
   description: This report returns a list of Supplier report entries.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - supplier_reports
   properties:
   - type: OpenAPI
@@ -891,7 +952,8 @@ apis:
   description: This report returns a list of Supplier Review report entries.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
+  tags: []
+  tags_raw:
   - supplier_review_reports
   properties:
   - type: OpenAPI
@@ -902,6 +964,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Suppliers
+  tags_raw:
   - suppliers
   properties:
   - type: OpenAPI
@@ -920,6 +984,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
@@ -938,6 +1004,8 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
+  - Worksheets
+  tags_raw:
   - worksheets
   properties:
   - type: OpenAPI
