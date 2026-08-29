@@ -17,6 +17,17 @@ x-backed-by:
 - gv
 x-tier: profiled
 x-tier-reason: enriched-from-public-developer-platform
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
@@ -1011,6 +1022,9 @@ apis:
   - type: OpenAPI
     url: openapi/scoutrfp-worksheets-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/scoutrfp-capability-edges.yml
+  name: Scout RFP (Workday Strategic Sourcing) Business Capability Map
 - type: Website
   url: https://www.workday.com/en-us/products/spend-management/strategic-sourcing.html
 - type: DeveloperPortal
