@@ -229,7 +229,7 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
-  - Awards
+  - awards
   tags_raw:
   - awards
   properties:
@@ -270,7 +270,7 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
-  - Bids
+  - bids
   tags_raw:
   - bids
   properties:
@@ -289,8 +289,7 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
-  - Contact Types
+  tags: []
   tags_raw:
   - contact_types
   properties:
@@ -336,8 +335,7 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
-  - Contract Types
+  tags: []
   tags_raw:
   - contract_types
   properties:
@@ -378,7 +376,7 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
-  - Contracts
+  - contracts
   tags_raw:
   - contracts
   properties:
@@ -401,8 +399,7 @@ apis:
   description: This report returns a list of event report entries.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
-  - Event Reports
+  tags: []
   tags_raw:
   - event_reports
   properties:
@@ -452,8 +449,7 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
-  - Event Templates
+  tags: []
   tags_raw:
   - event_templates
   properties:
@@ -557,8 +553,7 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
-  - Line Items
+  tags: []
   tags_raw:
   - line_items
   properties:
@@ -597,8 +592,7 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
-  - Payment Terms
+  tags: []
   tags_raw:
   - payment_terms
   properties:
@@ -617,8 +611,7 @@ apis:
     />      ```
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
-  - Payment Types
+  tags: []
   tags_raw:
   - payment_types
   properties:
@@ -662,8 +655,7 @@ apis:
   description: This report returns a list of Project report entries.
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
-  - Project Reports
+  tags: []
   tags_raw:
   - project_reports
   properties:
@@ -715,8 +707,7 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
-  - Project Types
+  tags: []
   tags_raw:
   - project_types
   properties:
@@ -772,8 +763,7 @@ apis:
     />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
-  - Spend Categories
+  tags: []
   tags_raw:
   - spend_categories
   properties:
@@ -920,8 +910,7 @@ apis:
     showReadOnly={true} showWriteOnly={true} />
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
-  tags:
-  - supplier contacts
+  tags: []
   tags_raw:
   - supplier_contacts
   properties:
@@ -1015,13 +1004,18 @@ apis:
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
-  - Worksheets
+  - worksheets
   tags_raw:
   - worksheets
   properties:
   - type: OpenAPI
     url: openapi/scoutrfp-worksheets-api-openapi.yml
 common:
+- type: ParentCompany
+  url: https://apis.io/providers/workday/
+  name: Workday
+  x-relationship: acquired
+  x-evidence: "Scout RFP is a strategic sourcing and supplier engagement platform founded in 2014 and acquired by Workday in 2019, where it now ships as Workday Strategic Sourcing."
 - type: CapabilityMap
   url: capabilities/scoutrfp-capability-edges.yml
   name: Scout RFP (Workday Strategic Sourcing) Business Capability Map
