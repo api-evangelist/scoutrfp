@@ -1,15 +1,14 @@
 aid: scoutrfp
 name: Scout RFP (Workday Strategic Sourcing)
-description: >-
-  Scout RFP is a strategic sourcing and supplier engagement platform founded in 2014 and acquired by
-  Workday in 2019, where it now ships as Workday Strategic Sourcing. The product covers sourcing events
-  (RFPs/RFIs/RFQs and auctions), supplier management, contracts, projects, spend categories, awards, and
-  supplier payments. Its public developer platform exposes a JSON:API-conformant REST API across eleven
-  versioned services — Suppliers, Events, Reports, Contracts, Projects, Payments, Fields, Awards,
-  Attachments, and Spend Categories — plus a SCIM 2.0 user-provisioning API. Authentication is by
-  company API key plus a per-user personal token, all calls are HTTPS/JSON:API, cursor paginated, and
-  rate limited to five requests per second. The legacy v3 API on api.scoutrfp.com was sunset April 18, 2025
-  in favor of the versioned services on api.us.workdayspend.com (with EU and CA regional hosts).
+description: Scout RFP is a strategic sourcing and supplier engagement platform founded in 2014 and acquired by
+  Workday in 2019, where it now ships as Workday Strategic Sourcing. The product covers sourcing events (RFPs/RFIs/RFQs
+  and auctions), supplier management, contracts, projects, spend categories, awards, and supplier payments. Its
+  public developer platform exposes a JSON:API-conformant REST API across eleven versioned services — Suppliers,
+  Events, Reports, Contracts, Projects, Payments, Fields, Awards, Attachments, and Spend Categories — plus a SCIM
+  2.0 user-provisioning API. Authentication is by company API key plus a per-user personal token, all calls are
+  HTTPS/JSON:API, cursor paginated, and rate limited to five requests per second. The legacy v3 API on api.scoutrfp.com
+  was sunset April 18, 2025 in favor of the versioned services on api.us.workdayspend.com (with EU and CA regional
+  hosts).
 url: https://raw.githubusercontent.com/api-evangelist/scoutrfp/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -65,124 +64,39 @@ maintainers:
 apis:
 - aid: scoutrfp:scoutrfp-attachments-api
   name: Scout RFP (Workday Strategic Sourcing) attachments API
-  description: >-
-    Use the attachments API to create, update, and delete the attachments in Workday Strategic Sourcing.
-
-
-    ## Working with Attachments
-
-
-    Creating attachments for Workday Strategic Sourcing objects is a two-step process. First, you need
-    to inform
-
-    the system about your intention to upload an attachment by issuing a "Create an Attachment" request,
-
-    consisting of the file name and a link to the object to which you are adding an attachment. The link
-
-    is represented by a relationship object containing an object ID and its type.
-
-
-    In the response you will receive a link in the `upload_url` attributes, along with required HTTP headers
-
-    to send with your file. You will need to upload your file as a binary stream in a PUT request into
-    the
-
-    specified URL, making sure the required headers are present. Here is how the workflow might look
-
-    like when triggered from a console:
-
-
-    ```bash
-
-    $ curl -H "X-Api-Key: ${COMPANY_KEY}" \
-           -H "X-User-Token: ${USER_TOKEN}" \
-           -H "X-User-Email: ${USER_EMAIL}" \
-           -H "Content-Type: application/vnd.api+json" \
-           -X POST \
-           -d '
-             {
-               "data": {
-                 "type": "attachments",
-                 "attributes": {
-                   "title": "My Interesting Document",
-                   "file_name": "Some Interesting File.pdf"
-                 },
-                 "relationships": {
-                   "contract": {
-                     "data": {
-                       "id": 1,
-                       "type": "contracts"
-                     }
-                   }
-                 }
-               }
-             }
-           ' \
-           "https://api.us.workdayspend.com/services/attachments/v1/attachments"
-
-    {
-        "data": {
-            "id": "1",
-            "type": "attachments",
-            "attributes": {
-                "title": "My Interesting Document",
-                "file_size": null,
-                "upload_url": "https://upload.s3.amazonaws.com/uploads/contract/1/hex/file.pdf?some=very&long=url",
-                "upload_headers": [
-                    {
-                        "name": "Content-Type",
-                        "value": "application/octet-stream"
-                    },
-                    {
-                        "name": "x-amz-acl",
-                        "value": "private"
-                    },
-                    {
-                        "name": "x-amz-server-side-encryption",
-                        "value": "AES256"
-                    },
-                    {
-                        "name": "Content-Disposition",
-                        "value": "attachment"
-                    }
-                ]
-            }
-        }
-    }
-
-
-    $ curl -X PUT \
-        --data "@file.pdf" \
-        -H "Content-Type: application/octet-stream" \
-        -H "x-amz-acl: private" \
-        -H "x-amz-server-side-encryption: AES256" \
-        -H "Content-Disposition: attachment" \
-        https://upload.s3.amazonaws.com/uploads/contract/1/hex/file.pdf?some=very&long=url
-    ```
-
-
-    The upload URL expires within 15 minutes after issuing. Please note that you will not be able to upload
-
-    the data file to the attachment object after that. An automated system will purge all partial uploads
-
-    after a certain period (usually within 30-60 minutes after creation) to prevent orphan records from
-
-    overflowing the system.
-
-
-    **Please Note**: The list of headers and their values might change at any time, so when you're
-
-    implementing an integration with the Workday Strategic Sourcing system, make sure to include all of
-    the HTTP headers
-
-    returned from the attachments endpoint.
-
-
-    ## Attachment Object
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/Attachment" showReadOnly={true} showWriteOnly={true}
-    />
+  description: "Use the attachments API to create, update, and delete the attachments in Workday Strategic Sourcing.\n\
+    \n## Working with Attachments\n\nCreating attachments for Workday Strategic Sourcing objects is a two-step process.\
+    \ First, you need to inform\nthe system about your intention to upload an attachment by issuing a \"Create an\
+    \ Attachment\" request,\nconsisting of the file name and a link to the object to which you are adding an attachment.\
+    \ The link\nis represented by a relationship object containing an object ID and its type.\n\nIn the response\
+    \ you will receive a link in the `upload_url` attributes, along with required HTTP headers\nto send with your\
+    \ file. You will need to upload your file as a binary stream in a PUT request into the\nspecified URL, making\
+    \ sure the required headers are present. Here is how the workflow might look\nlike when triggered from a console:\n\
+    \n```bash\n$ curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n       -H \"X-User-Token: ${USER_TOKEN}\" \\\n      \
+    \ -H \"X-User-Email: ${USER_EMAIL}\" \\\n       -H \"Content-Type: application/vnd.api+json\" \\\n       -X\
+    \ POST \\\n       -d '\n         {\n           \"data\": {\n             \"type\": \"attachments\",\n      \
+    \       \"attributes\": {\n               \"title\": \"My Interesting Document\",\n               \"file_name\"\
+    : \"Some Interesting File.pdf\"\n             },\n             \"relationships\": {\n               \"contract\"\
+    : {\n                 \"data\": {\n                   \"id\": 1,\n                   \"type\": \"contracts\"\
+    \n                 }\n               }\n             }\n           }\n         }\n       ' \\\n       \"https://api.us.workdayspend.com/services/attachments/v1/attachments\"\
+    \n\n{\n    \"data\": {\n        \"id\": \"1\",\n        \"type\": \"attachments\",\n        \"attributes\":\
+    \ {\n            \"title\": \"My Interesting Document\",\n            \"file_size\": null,\n            \"upload_url\"\
+    : \"https://upload.s3.amazonaws.com/uploads/contract/1/hex/file.pdf?some=very&long=url\",\n            \"upload_headers\"\
+    : [\n                {\n                    \"name\": \"Content-Type\",\n                    \"value\": \"application/octet-stream\"\
+    \n                },\n                {\n                    \"name\": \"x-amz-acl\",\n                    \"\
+    value\": \"private\"\n                },\n                {\n                    \"name\": \"x-amz-server-side-encryption\"\
+    ,\n                    \"value\": \"AES256\"\n                },\n                {\n                    \"\
+    name\": \"Content-Disposition\",\n                    \"value\": \"attachment\"\n                }\n       \
+    \     ]\n        }\n    }\n}\n\n$ curl -X PUT \\\n    --data \"@file.pdf\" \\\n    -H \"Content-Type: application/octet-stream\"\
+    \ \\\n    -H \"x-amz-acl: private\" \\\n    -H \"x-amz-server-side-encryption: AES256\" \\\n    -H \"Content-Disposition:\
+    \ attachment\" \\\n    https://upload.s3.amazonaws.com/uploads/contract/1/hex/file.pdf?some=very&long=url\n\
+    ```\n\nThe upload URL expires within 15 minutes after issuing. Please note that you will not be able to upload\n\
+    the data file to the attachment object after that. An automated system will purge all partial uploads\nafter\
+    \ a certain period (usually within 30-60 minutes after creation) to prevent orphan records from\noverflowing\
+    \ the system.\n\n**Please Note**: The list of headers and their values might change at any time, so when you're\n\
+    implementing an integration with the Workday Strategic Sourcing system, make sure to include all of the HTTP\
+    \ headers\nreturned from the attachments endpoint.\n\n## Attachment Object\n\n<SchemaDefinition schemaRef=\"\
+    #/components/schemas/Attachment\" showReadOnly={true} showWriteOnly={true} />"
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -194,8 +108,7 @@ apis:
     url: openapi/scoutrfp-attachments-api-openapi.yml
 - aid: scoutrfp:scoutrfp-award-line-items-api
   name: Scout RFP (Workday Strategic Sourcing) award_line_items API
-  description: >-
-    Use the Award Line Items API to query the Award Line Items in Workday Strategic Sourcing.
+  description: 'Use the Award Line Items API to query the Award Line Items in Workday Strategic Sourcing.
 
 
     Award Line Items are used for procurement.
@@ -205,7 +118,7 @@ apis:
 
 
     <SchemaDefinition schemaRef="#/components/schemas/AwardLineItem" exampleRef="#/components/examples/AwardLineItem"
-    showReadOnly={true} showWriteOnly={true} />
+    showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -216,8 +129,7 @@ apis:
     url: openapi/scoutrfp-award-line-items-api-openapi.yml
 - aid: scoutrfp:scoutrfp-awards-api
   name: Scout RFP (Workday Strategic Sourcing) awards API
-  description: >-
-    Use the Awards API to query the Awards in Workday Strategic Sourcing.
+  description: 'Use the Awards API to query the Awards in Workday Strategic Sourcing.
 
 
     Awards are used for procurement.
@@ -226,8 +138,7 @@ apis:
     ## Award Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/Award" showReadOnly={true} showWriteOnly={true}
-    />
+    <SchemaDefinition schemaRef="#/components/schemas/Award" showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -239,15 +150,14 @@ apis:
     url: openapi/scoutrfp-awards-api-openapi.yml
 - aid: scoutrfp:scoutrfp-bid-line-items-api
   name: Scout RFP (Workday Strategic Sourcing) bid_line_items API
-  description: >-
-    Use the bid line items API to query the bid line items in Workday Strategic Sourcing.
+  description: 'Use the bid line items API to query the bid line items in Workday Strategic Sourcing.
 
 
     ## Bid Line Item Object
 
 
     <SchemaDefinition schemaRef="#/components/schemas/BidLineItem" exampleRef="#/components/examples/BidLineItem"
-    showReadOnly={true} showWriteOnly={true} />
+    showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -258,8 +168,7 @@ apis:
     url: openapi/scoutrfp-bid-line-items-api-openapi.yml
 - aid: scoutrfp:scoutrfp-bids-api
   name: Scout RFP (Workday Strategic Sourcing) bids API
-  description: >-
-    Use the bids API to query the bids in Workday Strategic Sourcing.
+  description: 'Use the bids API to query the bids in Workday Strategic Sourcing.
 
     Only bids for events of type `RFP` are supported.
 
@@ -268,7 +177,7 @@ apis:
 
 
     <SchemaDefinition schemaRef="#/components/schemas/Bid" exampleRef="#/components/examples/Bid" showReadOnly={true}
-    showWriteOnly={true} />
+    showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -280,15 +189,13 @@ apis:
     url: openapi/scoutrfp-bids-api-openapi.yml
 - aid: scoutrfp:scoutrfp-contact-types-api
   name: Scout RFP (Workday Strategic Sourcing) contact_types API
-  description: >-
-    Use the contact types API to create, update, and query the contact types in Workday Strategic Sourcing.
+  description: 'Use the contact types API to create, update, and query the contact types in Workday Strategic Sourcing.
 
 
     ## ContactType Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/ContactType" showReadOnly={true} showWriteOnly={true}
-    />
+    <SchemaDefinition schemaRef="#/components/schemas/ContactType" showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -322,20 +229,18 @@ apis:
     url: openapi/scoutrfp-contract-reports-api-openapi.yml
 - aid: scoutrfp:scoutrfp-contract-types-api
   name: Scout RFP (Workday Strategic Sourcing) contract_types API
-  description: >-
-    Use the contract types API to query the contract types in Workday Strategic Sourcing.
+  description: 'Use the contract types API to query the contract types in Workday Strategic Sourcing.
 
 
-    Contract Types are used in the contract resource. On POST and PATCH related endpoints for this resource
-    a contract_type_id can be added to set the contract type. The contract_type_id is a foreign key for
-    the contract_types resource's id.
+    Contract Types are used in the contract resource. On POST and PATCH related endpoints for this resource a contract_type_id
+    can be added to set the contract type. The contract_type_id is a foreign key for the contract_types resource''s
+    id.
 
 
     ## Contract Type Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/ContractType" showReadOnly={true} showWriteOnly={true}
-    />
+    <SchemaDefinition schemaRef="#/components/schemas/ContractType" showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -347,15 +252,14 @@ apis:
     url: openapi/scoutrfp-contract-types-api-openapi.yml
 - aid: scoutrfp:scoutrfp-contracts-api
   name: Scout RFP (Workday Strategic Sourcing) contracts API
-  description: >-
-    Use the contracts API to create, update, and query the contracts in Workday Strategic Sourcing.
+  description: 'Use the contracts API to create, update, and query the contracts in Workday Strategic Sourcing.
 
 
     ## Contract Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/Contract" exampleRef="#/components/examples/Contract"
-    showReadOnly={true} showWriteOnly={true} />
+    <SchemaDefinition schemaRef="#/components/schemas/Contract" exampleRef="#/components/examples/Contract" showReadOnly={true}
+    showWriteOnly={true} />
 
 
     ## Docusign Envelope Object
@@ -376,7 +280,7 @@ apis:
 
 
     <SchemaDefinition schemaRef="#/components/schemas/AdobeSignDocument" showReadOnly={true} showWriteOnly={true}
-    />
+    />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -423,13 +327,12 @@ apis:
     url: openapi/scoutrfp-event-supplier-companies-api-openapi.yml
 - aid: scoutrfp:scoutrfp-event-supplier-contacts-api
   name: Scout RFP (Workday Strategic Sourcing) event_supplier_contacts API
-  description: >-
-    Use the event supplier contacts API to manage event suppliers. This API provides 2 advantages over
+  description: 'Use the event supplier contacts API to manage event suppliers. This API provides 2 advantages over
     the event supplier companies APIs:
 
     - It allows specifying the supplier contact to be associated/removed from an event.
 
-    - It allows specifying multiple contacts for a given supplier.
+    - It allows specifying multiple contacts for a given supplier.'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -440,8 +343,7 @@ apis:
     url: openapi/scoutrfp-event-supplier-contacts-api-openapi.yml
 - aid: scoutrfp:scoutrfp-event-templates-api
   name: Scout RFP (Workday Strategic Sourcing) event_templates API
-  description: >-
-    Use the contract types API to query the event templates in Workday Strategic Sourcing.
+  description: 'Use the contract types API to query the event templates in Workday Strategic Sourcing.
 
 
     Event Templates are used as a blueprint for newly created events.
@@ -451,7 +353,7 @@ apis:
 
 
     <SchemaDefinition schemaRef="#/components/schemas/EventTemplateModel" showReadOnly={true} showWriteOnly={true}
-    />
+    />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -463,15 +365,14 @@ apis:
     url: openapi/scoutrfp-event-templates-api-openapi.yml
 - aid: scoutrfp:scoutrfp-events-api
   name: Scout RFP (Workday Strategic Sourcing) events API
-  description: >-
-    Use the events API to create, update, and query the events in Workday Strategic Sourcing.
+  description: 'Use the events API to create, update, and query the events in Workday Strategic Sourcing.
 
 
     ## Event Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/Event" exampleRef="#/components/examples/Event"
-    showReadOnly={true} showWriteOnly={true} />
+    <SchemaDefinition schemaRef="#/components/schemas/Event" exampleRef="#/components/examples/Event" showReadOnly={true}
+    showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -483,8 +384,7 @@ apis:
     url: openapi/scoutrfp-events-api-openapi.yml
 - aid: scoutrfp:scoutrfp-field-groups-api
   name: Scout RFP (Workday Strategic Sourcing) field_groups API
-  description: >-
-    Use the fields API to create, update, and query the custom fields groups in Workday Strategic Sourcing.
+  description: 'Use the fields API to create, update, and query the custom fields groups in Workday Strategic Sourcing.
 
     Custom field groups act as a collection of custom fields. Every newly made custom field
 
@@ -494,8 +394,7 @@ apis:
     ## Field Group Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/FieldGroup" showReadOnly={true} showWriteOnly={true}
-    />
+    <SchemaDefinition schemaRef="#/components/schemas/FieldGroup" showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -507,8 +406,7 @@ apis:
     url: openapi/scoutrfp-field-groups-api-openapi.yml
 - aid: scoutrfp:scoutrfp-field-options-api
   name: Scout RFP (Workday Strategic Sourcing) field_options API
-  description: >-
-    Use the fields API to create, update, and query the custom fields options in Workday Strategic Sourcing.
+  description: 'Use the fields API to create, update, and query the custom fields options in Workday Strategic Sourcing.
 
     Custom field options exist for single select and multiple select field types.
 
@@ -516,8 +414,7 @@ apis:
     ## Field Option Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/FieldOption" showReadOnly={true} showWriteOnly={true}
-    />
+    <SchemaDefinition schemaRef="#/components/schemas/FieldOption" showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -528,15 +425,13 @@ apis:
     url: openapi/scoutrfp-field-options-api-openapi.yml
 - aid: scoutrfp:scoutrfp-fields-api
   name: Scout RFP (Workday Strategic Sourcing) fields API
-  description: >-
-    Use the fields API to create, update, and query the custom fields in Workday Strategic Sourcing.
+  description: 'Use the fields API to create, update, and query the custom fields in Workday Strategic Sourcing.
 
 
     ## Field Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/Field" showReadOnly={true} showWriteOnly={true}
-    />
+    <SchemaDefinition schemaRef="#/components/schemas/Field" showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -548,16 +443,14 @@ apis:
     url: openapi/scoutrfp-fields-api-openapi.yml
 - aid: scoutrfp:scoutrfp-line-items-api
   name: Scout RFP (Workday Strategic Sourcing) line_items API
-  description: >-
-    Use the line items API to create, update, and query the worksheet line items in Workday Strategic
+  description: 'Use the line items API to create, update, and query the worksheet line items in Workday Strategic
     Sourcing.
 
 
     ## Line Item Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/LineItem" showReadOnly={true} showWriteOnly={true}
-    />
+    <SchemaDefinition schemaRef="#/components/schemas/LineItem" showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -569,8 +462,7 @@ apis:
     url: openapi/scoutrfp-line-items-api-openapi.yml
 - aid: scoutrfp:scoutrfp-payment-currencies-api
   name: Scout RFP (Workday Strategic Sourcing) payment_currencies API
-  description: >-
-    Use the payment currencies API to create, update, and query the payment currencies in Workday Strategic
+  description: 'Use the payment currencies API to create, update, and query the payment currencies in Workday Strategic
     Sourcing.
 
 
@@ -578,7 +470,7 @@ apis:
 
 
     <SchemaDefinition schemaRef="#/components/schemas/PaymentCurrency" showReadOnly={true} showWriteOnly={true}
-    />
+    />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -589,15 +481,13 @@ apis:
     url: openapi/scoutrfp-payment-currencies-api-openapi.yml
 - aid: scoutrfp:scoutrfp-payment-terms-api
   name: Scout RFP (Workday Strategic Sourcing) payment_terms API
-  description: >-
-    Use the payment terms API to create, update, and query the payment terms in Workday Strategic Sourcing.
+  description: 'Use the payment terms API to create, update, and query the payment terms in Workday Strategic Sourcing.
 
 
     ## Payment Term Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/PaymentTerm" showReadOnly={true} showWriteOnly={true}
-    />
+    <SchemaDefinition schemaRef="#/components/schemas/PaymentTerm" showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -609,15 +499,13 @@ apis:
     url: openapi/scoutrfp-payment-terms-api-openapi.yml
 - aid: scoutrfp:scoutrfp-payment-types-api
   name: Scout RFP (Workday Strategic Sourcing) payment_types API
-  description: >-
-    Use the payment types API to create, update, and query the payment types in Workday Strategic Sourcing.
+  description: 'Use the payment types API to create, update, and query the payment types in Workday Strategic Sourcing.
 
 
     ## Payment Type Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/PaymentType" showReadOnly={true} showWriteOnly={true}
-    />      ```
+    <SchemaDefinition schemaRef="#/components/schemas/PaymentType" showReadOnly={true} showWriteOnly={true} />      ```'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -685,13 +573,12 @@ apis:
     url: openapi/scoutrfp-project-supplier-companies-api-openapi.yml
 - aid: scoutrfp:scoutrfp-project-supplier-contacts-api
   name: Scout RFP (Workday Strategic Sourcing) project_supplier_contacts API
-  description: >-
-    Use the project supplier contacts API to manage project suppliers. This API provides 2 advantages
+  description: 'Use the project supplier contacts API to manage project suppliers. This API provides 2 advantages
     over the project supplier companies APIs:
 
     - It allows specifying the supplier contact to be associated/removed from a project.
 
-    - It allows specifying multiple contacts for a given supplier.
+    - It allows specifying multiple contacts for a given supplier.'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -702,20 +589,19 @@ apis:
     url: openapi/scoutrfp-project-supplier-contacts-api-openapi.yml
 - aid: scoutrfp:scoutrfp-project-types-api
   name: Scout RFP (Workday Strategic Sourcing) project_types API
-  description: >-
-    Use the project types API to query the project types in Workday Strategic Sourcing.
+  description: 'Use the project types API to query the project types in Workday Strategic Sourcing.
 
 
-    Project Types are used in the project resource. On POST and PATCH related endpoints for this resource
-    a project_type_id can be added to set the project type. The project_type_id is a foreign key for the
-    project_types resource's id.
+    Project Types are used in the project resource. On POST and PATCH related endpoints for this resource a project_type_id
+    can be added to set the project type. The project_type_id is a foreign key for the project_types resource''s
+    id.
 
 
     ## Project Type Object
 
 
     <SchemaDefinition schemaRef="#/components/schemas/ProjectTypeModel" showReadOnly={true} showWriteOnly={true}
-    />
+    />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -727,15 +613,14 @@ apis:
     url: openapi/scoutrfp-project-types-api-openapi.yml
 - aid: scoutrfp:scoutrfp-projects-api
   name: Scout RFP (Workday Strategic Sourcing) projects API
-  description: >-
-    Use the projects API to create, update, and query the projects in Workday Strategic Sourcing.
+  description: 'Use the projects API to create, update, and query the projects in Workday Strategic Sourcing.
 
 
     ## Project Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/Project" exampleRef="#/components/examples/Project"
-    showReadOnly={true} showWriteOnly={true} />
+    <SchemaDefinition schemaRef="#/components/schemas/Project" exampleRef="#/components/examples/Project" showReadOnly={true}
+    showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -758,21 +643,19 @@ apis:
     url: openapi/scoutrfp-savings-reports-api-openapi.yml
 - aid: scoutrfp:scoutrfp-spend-categories-api
   name: Scout RFP (Workday Strategic Sourcing) spend_categories API
-  description: >-
-    Use the Spend Categories API to create, update, and query the Spend Categories in Workday Strategic
+  description: 'Use the Spend Categories API to create, update, and query the Spend Categories in Workday Strategic
     Sourcing.
 
 
-    Spend Categories are used in both the project and contract resources. On POST and PATCH related endpoints
-    for those resources a spend_category_id can be added to attach a spend category. The spend_category_id
-    is a foreign key for the spend_categories resource's id.
+    Spend Categories are used in both the project and contract resources. On POST and PATCH related endpoints for
+    those resources a spend_category_id can be added to attach a spend category. The spend_category_id is a foreign
+    key for the spend_categories resource''s id.
 
 
     ## Spend Category Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/SpendCategory" showReadOnly={true} showWriteOnly={true}
-    />
+    <SchemaDefinition schemaRef="#/components/schemas/SpendCategory" showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -784,16 +667,15 @@ apis:
     url: openapi/scoutrfp-spend-categories-api-openapi.yml
 - aid: scoutrfp:scoutrfp-supplier-categories-api
   name: Scout RFP (Workday Strategic Sourcing) supplier_categories API
-  description: >-
-    Use the supplier categories API to create, update, and query the supplier categories in Workday Strategic
-    Sourcing.
+  description: 'Use the supplier categories API to create, update, and query the supplier categories in Workday
+    Strategic Sourcing.
 
 
     ## Supplier Category Object
 
 
     <SchemaDefinition schemaRef="#/components/schemas/SupplierCategory" showReadOnly={true} showWriteOnly={true}
-    />
+    />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -804,12 +686,11 @@ apis:
     url: openapi/scoutrfp-supplier-categories-api-openapi.yml
 - aid: scoutrfp:scoutrfp-supplier-classifications-api
   name: Scout RFP (Workday Strategic Sourcing) supplier_classifications API
-  description: >-
-    ## Supplier Classification Object
+  description: '## Supplier Classification Object
 
 
     <SchemaDefinition schemaRef="#/components/schemas/SupplierClassification" exampleRef="#/components/examples/SupplierClassification"
-    showReadOnly={true} showWriteOnly={true} />
+    showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -820,8 +701,7 @@ apis:
     url: openapi/scoutrfp-supplier-classifications-api-openapi.yml
 - aid: scoutrfp:scoutrfp-supplier-companies-api
   name: Scout RFP (Workday Strategic Sourcing) supplier_companies API
-  description: >-
-    Use the supplier companies API to create, update, and query the suppliers in Workday Strategic Sourcing.
+  description: 'Use the supplier companies API to create, update, and query the suppliers in Workday Strategic Sourcing.
 
 
     ## Supplier Company Object
@@ -844,7 +724,7 @@ apis:
 
 
     <SchemaDefinition schemaRef="#/components/schemas/SupplierClassificationFieldValue" exampleRef="#/components/examples/SupplierClassificationFieldValue"
-    showReadOnly={true} showWriteOnly={true} />
+    showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -855,8 +735,7 @@ apis:
     url: openapi/scoutrfp-supplier-companies-api-openapi.yml
 - aid: scoutrfp:scoutrfp-supplier-company-risks-api
   name: Scout RFP (Workday Strategic Sourcing) supplier_company_risks API
-  description: >-
-    Use the supplier company risks API to create, update, and query the supplier company risks in Workday
+  description: 'Use the supplier company risks API to create, update, and query the supplier company risks in Workday
     Strategic Sourcing.
 
 
@@ -864,7 +743,7 @@ apis:
 
 
     <SchemaDefinition schemaRef="#/components/schemas/SupplierCompanyRisk" showReadOnly={true} showWriteOnly={true}
-    />
+    />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -875,16 +754,15 @@ apis:
     url: openapi/scoutrfp-supplier-company-risks-api-openapi.yml
 - aid: scoutrfp:scoutrfp-supplier-company-segmentation-statuses-api
   name: Scout RFP (Workday Strategic Sourcing) supplier_company_segmentation_statuses API
-  description: >-
-    Use the supplier company segmentation statuses API to create, update, and query the supplier company
+  description: 'Use the supplier company segmentation statuses API to create, update, and query the supplier company
     segmentation statuses in Workday Strategic Sourcing.
 
 
     ## Supplier Company Segmentation Status Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/SupplierCompanySegmentationStatus" showReadOnly={true}
-    showWriteOnly={true} />
+    <SchemaDefinition schemaRef="#/components/schemas/SupplierCompanySegmentationStatus" showReadOnly={true} showWriteOnly={true}
+    />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -895,16 +773,15 @@ apis:
     url: openapi/scoutrfp-supplier-company-segmentation-statuses-api-openapi.yml
 - aid: scoutrfp:scoutrfp-supplier-company-segmentations-api
   name: Scout RFP (Workday Strategic Sourcing) supplier_company_segmentations API
-  description: >-
-    Use the supplier company segmentations API to create, update, and query the supplier company segmentations
+  description: 'Use the supplier company segmentations API to create, update, and query the supplier company segmentations
     in Workday Strategic Sourcing.
 
 
     ## Supplier Company Segmentation Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/SupplierCompanySegmentation" showReadOnly={true}
-    showWriteOnly={true} />
+    <SchemaDefinition schemaRef="#/components/schemas/SupplierCompanySegmentation" showReadOnly={true} showWriteOnly={true}
+    />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -915,12 +792,11 @@ apis:
     url: openapi/scoutrfp-supplier-company-segmentations-api-openapi.yml
 - aid: scoutrfp:scoutrfp-supplier-contacts-api
   name: Scout RFP (Workday Strategic Sourcing) supplier_contacts API
-  description: >-
-    ## Supplier Contact Object
+  description: '## Supplier Contact Object
 
 
     <SchemaDefinition schemaRef="#/components/schemas/SupplierContact" exampleRef="#/components/examples/SupplierContact"
-    showReadOnly={true} showWriteOnly={true} />
+    showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -932,16 +808,14 @@ apis:
     url: openapi/scoutrfp-supplier-contacts-api-openapi.yml
 - aid: scoutrfp:scoutrfp-supplier-groups-api
   name: Scout RFP (Workday Strategic Sourcing) supplier_groups API
-  description: >-
-    Use the supplier groups API to create, update, and query the supplier groups in Workday Strategic
+  description: 'Use the supplier groups API to create, update, and query the supplier groups in Workday Strategic
     Sourcing.
 
 
     ## Supplier Group Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/SupplierGroup" showReadOnly={true} showWriteOnly={true}
-    />
+    <SchemaDefinition schemaRef="#/components/schemas/SupplierGroup" showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags: []
@@ -986,15 +860,14 @@ apis:
     url: openapi/scoutrfp-suppliers-api-openapi.yml
 - aid: scoutrfp:scoutrfp-user-api
   name: Scout RFP (Workday Strategic Sourcing) user API
-  description: >-
-    Use the users API to create, update, and query the users in Workday Strategic Sourcing.
+  description: 'Use the users API to create, update, and query the users in Workday Strategic Sourcing.
 
 
     ## User Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/UserResource" exampleRef="#/components/examples/User"
-    showReadOnly={true} showWriteOnly={true} />
+    <SchemaDefinition schemaRef="#/components/schemas/UserResource" exampleRef="#/components/examples/User" showReadOnly={true}
+    showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -1006,15 +879,13 @@ apis:
     url: openapi/scoutrfp-user-api-openapi.yml
 - aid: scoutrfp:scoutrfp-worksheets-api
   name: Scout RFP (Workday Strategic Sourcing) worksheets API
-  description: >-
-    Use the worksheets API to create, update, and query the worksheets in Workday Strategic Sourcing.
+  description: 'Use the worksheets API to create, update, and query the worksheets in Workday Strategic Sourcing.
 
 
     ## Worksheet Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/WorksheetModel" showReadOnly={true} showWriteOnly={true}
-    />
+    <SchemaDefinition schemaRef="#/components/schemas/WorksheetModel" showReadOnly={true} showWriteOnly={true} />'
   humanURL: https://apidocs.workdayspend.com/services/suppliers/v1.html
   baseURL: https://api.us.workdayspend.com/services/suppliers/v1
   tags:
@@ -1024,12 +895,289 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/scoutrfp-worksheets-api-openapi.yml
+- aid: scoutrfp:events-api
+  name: Events API
+  description: Manage sourcing events including RFPs, RFIs, and reverse auctions. Supports creating events from
+    templates, updating event details, managing supplier invitations, worksheets, line items, and bid collection.
+    Version 1.3 is the latest stable release.
+  humanURL: https://apidocs.workdayspend.com/services/events/v1.html
+  tags:
+  - Event
+  - RFP
+  - Procurement
+  - Sourcing
+  tags_raw:
+  - Events
+  - RFP
+  - Procurement
+  - Sourcing
+  properties:
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/services/events/v1.html
+- aid: scoutrfp:contracts-api
+  name: Contracts API
+  description: Manage contracts within the strategic sourcing platform, including creation, retrieval, and updates.
+    Version 1.1 of the API.
+  humanURL: https://apidocs.workdayspend.com/services/contracts/v1.html
+  tags:
+  - Contracts
+  - Procurement
+  - Legal
+  properties:
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/services/contracts/v1.html
+- aid: scoutrfp:awards-api
+  name: Awards API
+  description: Manage sourcing award decisions for completed events, tracking supplier selection outcomes and award
+    values. Version 1.1.
+  humanURL: https://apidocs.workdayspend.com/services/awards/v1.html
+  tags:
+  - Awards
+  - Procurement
+  - Sourcing
+  properties:
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/services/awards/v1.html
+- aid: scoutrfp:attachments-api
+  name: Attachments API
+  description: Upload and manage file attachments associated with sourcing events, contracts, and other procurement
+    objects. Version 1.0.
+  humanURL: https://apidocs.workdayspend.com/services/attachments/v1.html
+  tags:
+  - Attachments
+  - File
+  - Procurement
+  tags_raw:
+  - Attachments
+  - Files
+  - Procurement
+  properties:
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/services/attachments/v1.html
+- aid: scoutrfp:payments-api
+  name: Payments API
+  description: Manage payment records associated with procurement transactions and contract fulfillment. Version
+    1.0.
+  humanURL: https://apidocs.workdayspend.com/services/payments/v1.html
+  tags:
+  - Payments
+  - Procurement
+  - Finance
+  properties:
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/services/payments/v1.html
+- aid: scoutrfp:projects-api
+  name: Projects API
+  description: Manage procurement projects that organize and group related sourcing events and activities. Version
+    1.0.
+  humanURL: https://apidocs.workdayspend.com/services/projects/v1.html
+  tags:
+  - Project
+  - Procurement
+  - Organization
+  tags_raw:
+  - Projects
+  - Procurement
+  - Organization
+  properties:
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/services/projects/v1.html
+- aid: scoutrfp:reports-api
+  name: Reports API
+  description: Access procurement analytics and reporting data from the Workday Strategic Sourcing platform. Version
+    1.0.
+  humanURL: https://apidocs.workdayspend.com/services/reports/v1.html
+  tags:
+  - Reports
+  - Analytics
+  - Procurement
+  properties:
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/services/reports/v1.html
+- aid: scoutrfp:scim-api
+  name: SCIM Users API
+  description: Manage users in the Workday Strategic Sourcing platform using the SCIM 2.0 standard, enabling integration
+    with identity providers for automated user provisioning and deprovisioning.
+  humanURL: https://apidocs.workdayspend.com/services/scim/v2.html
+  tags:
+  - SCIM
+  - User Management
+  - Identity
+  - SSO
+  properties:
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/services/scim/v2.html
+- aid: scoutrfp:spend-categories-api
+  name: Spend Categories API
+  description: Manage spend category taxonomies used to classify procurement spending within the Workday Strategic
+    Sourcing platform. Version 1.0.
+  humanURL: https://apidocs.workdayspend.com/services/spend_categories/v1.html
+  tags:
+  - Spend Categories
+  - Procurement
+  - Classification
+  properties:
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/services/spend_categories/v1.html
+- aid: scoutrfp:scout-rfp-bids-api
+  name: Scout RFP Bids API
+  description: The Bids API from Scout RFP — 5 operation(s) for bids.
+  humanURL: https://apidocs.workdayspend.com/
+  tags:
+  - Bids
+  properties:
+  - type: OpenAPI
+    url: openapi/scout-rfp-bids-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/
+  - type: GettingStarted
+    url: https://apidocs.workdayspend.com/
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/rules/scout-rfp-rules.yml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-schema/scout-rfp-event-schema.json
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-ld/scout-rfp-context.jsonld
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-structure/scout-rfp-event-structure.json
+  - type: Examples
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/examples/scout-rfp-list-events-example.json
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/vocabulary/scout-rfp-vocabulary.yml
+- aid: scoutrfp:scout-rfp-event-suppliers-api
+  name: Scout RFP Event Suppliers API
+  description: The Event Suppliers API from Scout RFP — 2 operation(s) for event suppliers.
+  humanURL: https://apidocs.workdayspend.com/
+  tags:
+  - Event Suppliers
+  properties:
+  - type: OpenAPI
+    url: openapi/scout-rfp-event-suppliers-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/
+  - type: GettingStarted
+    url: https://apidocs.workdayspend.com/
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/rules/scout-rfp-rules.yml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-schema/scout-rfp-event-schema.json
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-ld/scout-rfp-context.jsonld
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-structure/scout-rfp-event-structure.json
+  - type: Examples
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/examples/scout-rfp-list-events-example.json
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/vocabulary/scout-rfp-vocabulary.yml
+- aid: scoutrfp:scout-rfp-event-templates-api
+  name: Scout RFP Event Templates API
+  description: The Event Templates API from Scout RFP — 2 operation(s) for event templates.
+  humanURL: https://apidocs.workdayspend.com/
+  tags:
+  - Event Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/scout-rfp-event-templates-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/
+  - type: GettingStarted
+    url: https://apidocs.workdayspend.com/
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/rules/scout-rfp-rules.yml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-schema/scout-rfp-event-schema.json
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-ld/scout-rfp-context.jsonld
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-structure/scout-rfp-event-structure.json
+  - type: Examples
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/examples/scout-rfp-list-events-example.json
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/vocabulary/scout-rfp-vocabulary.yml
+- aid: scoutrfp:scout-rfp-events-api
+  name: Scout RFP Events API
+  description: The Events API from Scout RFP — 3 operation(s) for events.
+  humanURL: https://apidocs.workdayspend.com/
+  tags:
+  - Event
+  tags_raw:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/scout-rfp-events-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/
+  - type: GettingStarted
+    url: https://apidocs.workdayspend.com/
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/rules/scout-rfp-rules.yml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-schema/scout-rfp-event-schema.json
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-ld/scout-rfp-context.jsonld
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-structure/scout-rfp-event-structure.json
+  - type: Examples
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/examples/scout-rfp-list-events-example.json
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/vocabulary/scout-rfp-vocabulary.yml
+- aid: scoutrfp:scout-rfp-line-items-api
+  name: Scout RFP Line Items API
+  description: The Line Items API from Scout RFP — 3 operation(s) for line items.
+  humanURL: https://apidocs.workdayspend.com/
+  tags:
+  - Line Items
+  properties:
+  - type: OpenAPI
+    url: openapi/scout-rfp-line-items-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/
+  - type: GettingStarted
+    url: https://apidocs.workdayspend.com/
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/rules/scout-rfp-rules.yml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-schema/scout-rfp-event-schema.json
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-ld/scout-rfp-context.jsonld
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-structure/scout-rfp-event-structure.json
+  - type: Examples
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/examples/scout-rfp-list-events-example.json
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/vocabulary/scout-rfp-vocabulary.yml
+- aid: scoutrfp:scout-rfp-worksheets-api
+  name: Scout RFP Worksheets API
+  description: The Worksheets API from Scout RFP — 2 operation(s) for worksheets.
+  humanURL: https://apidocs.workdayspend.com/
+  tags:
+  - Worksheets
+  properties:
+  - type: OpenAPI
+    url: openapi/scout-rfp-worksheets-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.workdayspend.com/
+  - type: GettingStarted
+    url: https://apidocs.workdayspend.com/
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/rules/scout-rfp-rules.yml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-schema/scout-rfp-event-schema.json
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-ld/scout-rfp-context.jsonld
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/json-structure/scout-rfp-event-structure.json
+  - type: Examples
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/examples/scout-rfp-list-events-example.json
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/scout-rfp/refs/heads/main/vocabulary/scout-rfp-vocabulary.yml
 common:
 - type: ParentCompany
   url: https://apis.io/providers/workday/
   name: Workday
   x-relationship: acquired
-  x-evidence: "Scout RFP is a strategic sourcing and supplier engagement platform founded in 2014 and acquired by Workday in 2019, where it now ships as Workday Strategic Sourcing."
+  x-evidence: Scout RFP is a strategic sourcing and supplier engagement platform founded in 2014 and acquired by
+    Workday in 2019, where it now ships as Workday Strategic Sourcing.
 - type: CapabilityMap
   url: capabilities/scoutrfp-capability-edges.yml
   name: Scout RFP (Workday Strategic Sourcing) Business Capability Map
@@ -1071,7 +1219,10 @@ common:
   url: agentic-access/scoutrfp-agentic-access.yml
 - type: X-MCPServerCandidate
   url: mcp/scoutrfp-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool
+    list derived from the published API contracts, not an existing server. The scorer already read the manifest
+    and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server
+    that does not exist.'
 - type: LLMsTxt
   url: llms/scoutrfp-llms.txt
 - type: AgentSkill
@@ -1094,6 +1245,8 @@ common:
   url: overlays/scoutrfp-payments-v1-overlay.yaml
 - type: Overlay
   url: overlays/scoutrfp-scim-v2-overlay.yaml
+- type: GitHubOrganization
+  url: https://github.com/ScoutRFP
 x-enrichment:
   date: '2026-07-21'
   status: enriched
