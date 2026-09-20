@@ -2,16 +2,16 @@
 kin_checks:
   slug: scoutrfp
   schema_version: 0.22.0
-  scored_at: '2026-09-18'
-  run_ts: 2026-09-18T231945
+  scored_at: '2026-09-19'
+  run_ts: 2026-09-19T193153
   note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
     apply in `na`. Everything else in rubric/scoring-0.22.0.yml was earned; counts
     below let you verify that.
   counts:
     total: 136
-    earned: 45
-    partial: 7
-    missed: 58
+    earned: 43
+    partial: 8
+    missed: 59
     na: 26
   checks:
   - id: human_url_per_api
@@ -52,6 +52,9 @@ kin_checks:
     status: missed
   - id: balanced_severities
     status: missed
+  - id: vocabulary_published
+    status: missed
+    detail: pointer liveness 0.0
   - id: overlay_published
     status: missed
   - id: status_page_present
@@ -143,6 +146,10 @@ kin_checks:
   - id: conformance_declared
     status: partial
     earned: 1.5
+  - id: github_org_present
+    status: partial
+    earned: 1.0
+    detail: pointer liveness 0.5
   - id: agent_skill_present
     status: partial
     earned: 0.75
