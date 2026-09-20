@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 16
+edge_count: 20
 edges:
 - tag: bids
   spec_file: scoutrfp-bids-api-openapi.yml
@@ -116,6 +116,28 @@ edges:
   reason: CRUD over spend category master data in a strategic sourcing platform; spend categories are
     the taxonomy underpinning procurement category management. Some ambiguity vs spend analysis, but category
     taxonomy is the closer fit.
+- tag: contract_milestone_reports
+  spec_file: scoutrfp-contract-milestone-reports-api-openapi.yml
+  capability_id: BC-500.20
+  capability_id_l1: BC-500
+  capability_name: Procurement Contract Management
+  confidence: 0.7
+  evidence: GET /contract_milestone_reports/entries "Contract Milestone Report Entries"; schema ContractMilestoneReportEntryAttributes
+  reason: Reporting over milestones of procurement contracts held in the sourcing platform — contract
+    lifecycle tracking. Confidence tempered because the surface is a generic report-entries/schema reader
+    rather than contract management operations.
+  recovered_from: sweep-20260829T005356Z-edges.json
+- tag: contract_reports
+  spec_file: scoutrfp-contract-reports-api-openapi.yml
+  capability_id: BC-500.20
+  capability_id_l1: BC-500
+  capability_name: Procurement Contract Management
+  confidence: 0.7
+  evidence: GET /contract_reports/entries "Contract Report Entries"; schema ContractReportEntryAttributes
+  reason: Report extraction over the platform's procurement contract records (vendor covers 'supplier
+    management, contracts'). Mapped to Procurement Contract Management, discounted because it is a reporting/export
+    surface that could also be read as analytics.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: event_templates
   spec_file: scoutrfp-event-templates-api-openapi.yml
   capability_id: BC-500.10
@@ -125,6 +147,28 @@ edges:
   evidence: GET /event_templates  List Event Templates; schema EventTypeEnum
   reason: Templates for sourcing events (event types such as RFP/RFI/auction) used to launch RFx processes;
     read-only template catalogue so slightly weaker evidence.
+- tag: performance_review_answer_reports
+  spec_file: scoutrfp-performance-review-answer-reports-api-openapi.yml
+  capability_id: BC-510.20
+  capability_id_l1: BC-510
+  capability_name: Supplier Performance Management
+  confidence: 0.7
+  evidence: GET /performance_review_answer_reports/entries  Performance Review Answer Report Entries
+  reason: In a strategic sourcing / supplier engagement platform (vendor covers "supplier management"),
+    performance reviews are supplier performance scorecards, not HR appraisals; reporting on review answers
+    realises Supplier Performance Management. Some residual ambiguity about the review subject keeps confidence
+    at 0.7.
+  recovered_from: sweep-20260829T005356Z-edges.json
+- tag: performance_review_reports
+  spec_file: scoutrfp-performance-review-reports-api-openapi.yml
+  capability_id: BC-510.20
+  capability_id_l1: BC-510
+  capability_name: Supplier Performance Management
+  confidence: 0.7
+  evidence: GET /performance_review_reports/entries  Performance Review Report Entries
+  reason: 'Same surface as the answer report: reporting on supplier performance reviews within a sourcing/supplier
+    management product, mapping to Supplier Performance Management rather than any HR capability.'
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: supplier_classifications
   spec_file: scoutrfp-supplier-classifications-api-openapi.yml
   capability_id: BC-510
