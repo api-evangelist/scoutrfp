@@ -1,0 +1,167 @@
+slug: scoutrfp
+provider: Scout RFP (Workday Strategic Sourcing)
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 16
+edges:
+- tag: bids
+  spec_file: scoutrfp-bids-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.85
+  evidence: GET /events/{event_id}/bids "List Bids"; schemas BidAttributes, SupplierCompanyBase, EventExternal
+  reason: Bids submitted by supplier companies against sourcing events are the RFx response data underpinning
+    supplier selection — Sourcing Management.
+- tag: contracts
+  spec_file: scoutrfp-contracts-api-openapi.yml
+  capability_id: BC-500.20
+  capability_id_l1: BC-500
+  capability_name: Procurement Contract Management
+  confidence: 0.85
+  evidence: POST /contracts  Create a Contract; schemas SupplierCompany, SpendCategoryName, ContractTypeId,
+    StakeholderEmail
+  reason: CRUD over contracts tied to supplier companies and spend categories in a sourcing/supplier engagement
+    platform — procurement contract lifecycle management rather than general legal contracting.
+- tag: events
+  spec_file: scoutrfp-events-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.85
+  evidence: POST /events  Create an Event; schemas EventInputFilter, SpendCategoryBase, EventUpdate
+  reason: '''Events'' here are sourcing events (RFPs/RFIs/RFQs and auctions) per the vendor description,
+    with spend-category linkage — strategic sourcing / RFx execution.'
+- tag: supplier_company_risks
+  spec_file: scoutrfp-supplier-company-risks-api-openapi.yml
+  capability_id: BC-510.30
+  capability_id_l1: BC-510
+  capability_name: Supplier Risk Management
+  confidence: 0.85
+  evidence: POST /supplier_company_risks  Create a Supplier Company Risk; schemas SupplierCompanyRiskAttributes
+  reason: Operations explicitly create and manage risk records attached to supplier companies, which is
+    supplier risk management.
+- tag: awards
+  spec_file: scoutrfp-awards-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.8
+  evidence: GET /awards "List Awards"; schemas AwardState, AwardTitle, StakeholderId, ProjectBase
+  reason: Awards in this sourcing platform capture the supplier-selection decision arising from RFx events,
+    which is part of Sourcing Management (RFx, supplier selection).
+- tag: event_supplier_companies
+  spec_file: scoutrfp-event-supplier-companies-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.8
+  evidence: POST /events/{event_id}/relationships/supplier_companies  Add Suppliers
+  reason: Attaching and removing supplier companies to a sourcing event is RFx participant management,
+    core to strategic sourcing and supplier selection.
+- tag: bid_line_items
+  spec_file: scoutrfp-bid-line-items-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.78
+  evidence: GET /bids/{bid_id}/bid_line_items "List Bid Line Items"; schemas BidLineItemInputFilter, LineItemBase,
+    EventBase
+  reason: Supplier bid responses at line-item level within sourcing events are RFx bid collection, i.e.
+    Sourcing Management.
+- tag: savings_reports
+  spec_file: scoutrfp-savings-reports-api-openapi.yml
+  capability_id: BC-500.60
+  capability_id_l1: BC-500
+  capability_name: Procurement Spend Analysis Management
+  confidence: 0.78
+  evidence: GET /savings_reports/entries  Savings Report Entries; SavingsReportEntryAttributes
+  reason: Reports realised sourcing savings, matching Procurement Spend Analysis Management's explicit
+    scope of "spend visibility, reporting, savings tracking".
+- tag: award_line_items
+  spec_file: scoutrfp-award-line-items-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.75
+  evidence: GET /awards/{award_id}/award_line_items "List Award Line Items"; schemas AwardLineItemAttributes,
+    SupplierCompanyBase, WorksheetBase
+  reason: Award line items record which supplier won which sourcing-event line — the supplier-selection
+    outcome of the sourcing process. Read-only detail surface, hence moderate confidence.
+- tag: event_supplier_contacts
+  spec_file: scoutrfp-event-supplier-contacts-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.75
+  evidence: POST /events/{event_id}/relationships/supplier_contacts  Add Suppliers using Contacts
+  reason: Adds suppliers to a sourcing event via their contacts — RFx invitation/participation management
+    within strategic sourcing.
+- tag: spend_categories
+  spec_file: scoutrfp-spend-categories-api-openapi.yml
+  capability_id: BC-500.50
+  capability_id_l1: BC-500
+  capability_name: Procurement Category Management
+  confidence: 0.75
+  evidence: GET /spend_categories  List Spend Categories; schemas SpendCategoryAttributes, SpendCategoryUsages
+  reason: CRUD over spend category master data in a strategic sourcing platform; spend categories are
+    the taxonomy underpinning procurement category management. Some ambiguity vs spend analysis, but category
+    taxonomy is the closer fit.
+- tag: event_templates
+  spec_file: scoutrfp-event-templates-api-openapi.yml
+  capability_id: BC-500.10
+  capability_id_l1: BC-500
+  capability_name: Sourcing Management
+  confidence: 0.7
+  evidence: GET /event_templates  List Event Templates; schema EventTypeEnum
+  reason: Templates for sourcing events (event types such as RFP/RFI/auction) used to launch RFx processes;
+    read-only template catalogue so slightly weaker evidence.
+- tag: supplier_classifications
+  spec_file: scoutrfp-supplier-classifications-api-openapi.yml
+  capability_id: BC-510
+  capability_id_l1: BC-510
+  capability_name: Supplier Management
+  confidence: 0.7
+  evidence: POST /supplier_classifications  Create a Supplier Classification; schemas SupplierClassificationFieldOptionAttributes
+  reason: Manages supplier classification attributes and field options (e.g. diversity/qualification classifications)
+    used in supplier qualification and management; sub-capability ambiguous between onboarding and relationship
+    management.
+- tag: supplier_companies
+  spec_file: scoutrfp-supplier-companies-api-openapi.yml
+  capability_id: BC-510.10
+  capability_id_l1: BC-510
+  capability_name: Supplier Onboarding Management
+  confidence: 0.7
+  evidence: POST /supplier_companies  Create a Supplier Company; schemas SupplierCompany, PaymentTerm,
+    SupplierClassificationValueRelationship
+  reason: Full CRUD over supplier company records including payment terms and classifications — supplier
+    master registration/onboarding in a sourcing platform. L2 onboarding/registration is the best fit
+    though supplier data management overlaps.
+- tag: supplier_contacts
+  spec_file: scoutrfp-supplier-contacts-api-openapi.yml
+  capability_id: BC-510
+  capability_id_l1: BC-510
+  capability_name: Supplier Management
+  confidence: 0.7
+  evidence: GET /supplier_companies/{company_id}/supplier_contacts  List Supplier Contacts; schemas SupplierContactBase,
+    ContactTypeBase
+  reason: Maintains contact persons against supplier company records — supplier master data within supplier
+    management. Specific L2 not evidenced.
+- tag: suppliers
+  spec_file: scoutrfp-suppliers-api-openapi.yml
+  capability_id: BC-510
+  capability_id_l1: BC-510
+  capability_name: Supplier Management
+  confidence: 0.7
+  evidence: GET /suppliers  All suppliers; schemas Supplier, SupplierAttributes, SupplierContactReference
+  reason: Read access to the supplier register in a supplier engagement platform — supplier master/relationship
+    data. No specific sub-capability evidenced.
