@@ -1,25 +1,19 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Workday Strategic Sourcing attachments payment_types API
+  title: Workday Strategic Sourcing Payments Payment Types API
   version: '1.0'
-  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
-
-    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
-
-    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
-
-    '
+  description: ''
 servers:
-- url: https://api.us.workdayspend.com/services/attachments/v1
+- url: https://api.us.workdayspend.com/services/payments/v1
   description: Production Server
-- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+- url: https://api.sandbox.us.workdayspend.com/services/payments/v1
   description: Sandbox Server
 security:
 - api_key: []
   user_token: []
   user_email: []
 tags:
-- name: payment_types
+- name: Payment Types
   x-displayName: Payment Types
   description: 'Use the payment types API to create, update, and query the payment types in Workday Strategic Sourcing.
 
@@ -27,14 +21,12 @@ tags:
     ## Payment Type Object
 
 
-    <SchemaDefinition schemaRef="#/components/schemas/PaymentType" showReadOnly={true} showWriteOnly={true} />      ```
-
-    '
+    ```'
 paths:
   /payment_types:
     get:
       tags:
-      - payment_types
+      - Payment Types
       description: Returns a list of payment types.
       operationId: List Payment Types
       summary: List Payment Types
@@ -60,10 +52,8 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_types\"\n"
     post:
       tags:
-      - payment_types
-      description: 'Create a payment type with given parameters.
-
-        '
+      - Payment Types
+      description: Create a payment type with given parameters.
       operationId: Create a Payment Type
       summary: Create a Payment Type
       requestBody:
@@ -98,7 +88,7 @@ paths:
   /payment_types/{id}:
     patch:
       tags:
-      - payment_types
+      - Payment Types
       description: 'Updates the details of an existing payment type. You need to supply the unique
 
         identifier that was returned upon payment type creation.
@@ -106,9 +96,7 @@ paths:
 
         Please note, that request body must include an `id` attribute with the value of your payment type
 
-        unique identifier (the same one you passed in the URL).
-
-        '
+        unique identifier (the same one you passed in the URL).'
       operationId: Update a Payment Type
       summary: Update a Payment Type
       parameters:
@@ -167,12 +155,10 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"payment_types\",\"id\":\"2\",\"attributes\":{\"name\":\"Updated Field Payment Type\"}}}' \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_types/2\"\n"
     delete:
       tags:
-      - payment_types
+      - Payment Types
       description: 'Deletes a payment type. You need to supply the unique payment type
 
-        identifier that was returned upon payment type creation.
-
-        '
+        identifier that was returned upon payment type creation.'
       operationId: Delete a Payment Type
       summary: Delete a Payment Type
       parameters:
@@ -196,7 +182,7 @@ paths:
   /payment_types/{external_id}/external_id:
     patch:
       tags:
-      - payment_types
+      - Payment Types
       description: 'Updates the details of an existing payment type. You need to supply the unique
 
         external identifier assigned to the payment type on creation.
@@ -204,9 +190,7 @@ paths:
 
         Please note, that request body must include an `id` attribute with the value of your payment type
 
-        unique identifier (the same one you passed in the URL).
-
-        '
+        unique identifier (the same one you passed in the URL).'
       operationId: Update a Payment Type by External ID
       summary: Update a Payment Type by External ID
       parameters:
@@ -250,12 +234,10 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"payment_types\",\"id\":\"PAYTYPE\",\"attributes\":{\"name\":\"Updated Field Payment Type\"}}}' \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_types/PAYTYPE/external_id\"\n"
     delete:
       tags:
-      - payment_types
+      - Payment Types
       description: 'Deletes a payment type. You need to supply the unique payment type
 
-        external identifier assigned to the payment type on creation.
-
-        '
+        external identifier assigned to the payment type on creation.'
       operationId: Delete a Payment Type by External ID
       summary: Delete a Payment Type by External ID
       parameters:
@@ -307,10 +289,6 @@ components:
           - PayPal
           - EFT with Reference
           example: Cash
-    PaymentTypeId:
-      type: integer
-      description: Payment type identifier string.
-      example: 1
     PaymentType:
       allOf:
       - $ref: '#/components/schemas/PaymentTypeBase'
@@ -318,33 +296,17 @@ components:
         properties:
           attributes:
             $ref: '#/components/schemas/PaymentTypeAttributes'
-    PaymentTypeBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/PaymentTypeType'
-        id:
-          $ref: '#/components/schemas/PaymentTypeId'
     PaymentTypeType:
       type: string
       description: Object type, should always be `payment_types`.
       example: payment_types
-    PaymentTypeUpdate:
+    Errors:
       type: object
-      required:
-      - type
-      - id
       properties:
-        type:
-          $ref: '#/components/schemas/PaymentTypeType'
-        id:
-          $ref: '#/components/schemas/PaymentTypeId'
-        attributes:
-          $ref: '#/components/schemas/PaymentTypeAttributes'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     PaymentTypeCreate:
       type: object
       required:
@@ -358,28 +320,40 @@ components:
           - type: object
             required:
             - payment_method
-    Errors:
+    PaymentTypeBase:
+      title: Field
       type: object
+      required:
+      - type
+      - id
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
+        type:
+          $ref: '#/components/schemas/PaymentTypeType'
+        id:
+          $ref: '#/components/schemas/PaymentTypeId'
+    PaymentTypeUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentTypeType'
+        id:
+          $ref: '#/components/schemas/PaymentTypeId'
+        attributes:
+          $ref: '#/components/schemas/PaymentTypeAttributes'
     Error:
       type: object
       properties:
         detail:
           type: string
           description: A human-readable explanation specific to this occurrence of the problem.
+    PaymentTypeId:
+      type: integer
+      description: Payment type identifier string.
+      example: 1
   examples:
-    create_request-2:
-      value:
-        data:
-          type: payment_types
-          attributes:
-            name: 'Payment Type #1'
-            external_id: PAYTYPE-1
-            payment_method: Cash
     external_update_request-2:
       value:
         data:
@@ -388,14 +362,14 @@ components:
           attributes:
             name: Payment Type Updated
             payment_method: Cash
-    external_update_response-2:
+    create_response-2:
       value:
         data:
           id: '1'
           type: payment_types
           attributes:
-            name: Payment Type Updated
-            external_id: PAYTYPE
+            name: 'Payment Type #1'
+            external_id: PAYTYPE-1
             payment_method: Cash
           links:
             self: https://api.us.workdayspend.com/services/payments/v1/payment_types/1
@@ -408,17 +382,6 @@ components:
             name: Payment Type Updated
             external_id: PAYTYPE-UPD
             payment_method: Cash
-    update_response-2:
-      value:
-        data:
-          id: '1'
-          type: payment_types
-          attributes:
-            name: Payment Type Updated
-            external_id: PAYTYPE-UPD
-            payment_method: Cash
-          links:
-            self: https://api.us.workdayspend.com/services/payments/v1/payment_types/1
     index_response-2:
       value:
         data:
@@ -440,17 +403,36 @@ components:
             self: https://api.us.workdayspend.com/services/payments/v1/payment_types/2
         links:
           self: https://api.us.workdayspend.com/services/payments/v1/payment_types
-    create_response-2:
+    update_response-2:
       value:
         data:
           id: '1'
           type: payment_types
           attributes:
-            name: 'Payment Type #1'
-            external_id: PAYTYPE-1
+            name: Payment Type Updated
+            external_id: PAYTYPE-UPD
             payment_method: Cash
           links:
             self: https://api.us.workdayspend.com/services/payments/v1/payment_types/1
+    external_update_response-2:
+      value:
+        data:
+          id: '1'
+          type: payment_types
+          attributes:
+            name: Payment Type Updated
+            external_id: PAYTYPE
+            payment_method: Cash
+          links:
+            self: https://api.us.workdayspend.com/services/payments/v1/payment_types/1
+    create_request-2:
+      value:
+        data:
+          type: payment_types
+          attributes:
+            name: 'Payment Type #1'
+            external_id: PAYTYPE-1
+            payment_method: Cash
   securitySchemes:
     api_key:
       type: apiKey
@@ -473,8 +455,13 @@ x-tagGroups:
   - support
   - servers
   - api_specification
+  - date_and_time_fields
   - authentication
   - rate_limiting
-- name: Attachments
+  - external_ids
+  - filters
+- name: Payments
   tags:
-  - attachments
+  - payment_currencies
+  - payment_types
+  - payment_terms

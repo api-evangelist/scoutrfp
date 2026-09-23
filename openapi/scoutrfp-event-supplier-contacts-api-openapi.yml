@@ -1,18 +1,12 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Workday Strategic Sourcing attachments event_supplier_contacts API
-  version: '1.0'
-  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
-
-    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
-
-    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
-
-    '
+  title: Workday Strategic Sourcing Events Event Supplier Contacts…
+  version: '1.2'
+  description: ''
 servers:
-- url: https://api.us.workdayspend.com/services/attachments/v1
+- url: https://api.us.workdayspend.com/services/events/v1
   description: Production Server
-- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+- url: https://api.sandbox.us.workdayspend.com/services/events/v1
   description: Sandbox Server
 security:
 - api_key: []
@@ -25,9 +19,7 @@ tags:
 
     - It allows specifying the supplier contact to be associated/removed from an event.
 
-    - It allows specifying multiple contacts for a given supplier.
-
-    '
+    - It allows specifying multiple contacts for a given supplier.'
 paths:
   /events/{event_id}/relationships/supplier_contacts:
     post:
@@ -36,9 +28,7 @@ paths:
       description: 'Add suppliers to an event using supplier contacts. Only events of type `RFP` are supported.
 
 
-        For best performance, we recommend inviting 10 or less supplier contacts in a single request.
-
-        '
+        For best performance, we recommend inviting 10 or less supplier contacts in a single request.'
       operationId: Add Suppliers using Contacts
       summary: Add Suppliers using Contacts
       parameters:
@@ -78,9 +68,7 @@ paths:
       description: 'Remove suppliers from an event using supplier contacts. Only events of type `RFP` are supported.
 
 
-        For best performance, we recommend removing 10 or less supplier contacts in a single request.
-
-        '
+        For best performance, we recommend removing 10 or less supplier contacts in a single request.'
       operationId: Remove Suppliers using Contacts
       summary: Remove Suppliers using Contacts
       parameters:
@@ -130,9 +118,7 @@ paths:
         The operation will be rolled back upon any failure, and invitations won''t be sent.
 
 
-        For best performance, we recommend inviting 10 or less supplier contacts in a single request.
-
-        '
+        For best performance, we recommend inviting 10 or less supplier contacts in a single request.'
       operationId: Add Suppliers using Contacts External IDs
       summary: Add Suppliers using Contacts External IDs
       parameters:
@@ -181,9 +167,7 @@ paths:
         The operation will be rolled back upon any failure, and invitations won''t be removed.
 
 
-        For best performance, we recommend removing 10 or less supplier contacts in a single request.
-
-        '
+        For best performance, we recommend removing 10 or less supplier contacts in a single request.'
       operationId: Remove Suppliers using Contacts External IDs
       summary: Remove Suppliers using Contacts External IDs
       parameters:
@@ -230,6 +214,10 @@ components:
           $ref: '#/components/schemas/SupplierContactType'
         id:
           $ref: '#/components/schemas/SupplierContactExternalId'
+    SupplierContactExternalId:
+      type: string
+      description: Supplier contact external identifier.
+      example: 1234-5678-abcd-efgh
     SupplierContactBase:
       title: SupplierContact
       type: object
@@ -241,26 +229,15 @@ components:
           $ref: '#/components/schemas/SupplierContactType'
         id:
           $ref: '#/components/schemas/SupplierContactId'
-    SupplierContactId:
-      type: integer
-      description: Supplier contact identifier string.
-      example: 1
-    SupplierContactExternalId:
-      type: string
-      description: Supplier contact external identifier.
-      example: 1234-5678-abcd-efgh
     SupplierContactType:
       type: string
       description: Object type, should always be `supplier_contacts`.
       example: supplier_contacts
+    SupplierContactId:
+      type: integer
+      description: Supplier contact identifier string.
+      example: 1
   examples:
-    external_create_request-2:
-      value:
-        data:
-        - type: supplier_contacts
-          id: SUPC10
-        - type: supplier_contacts
-          id: SUPC17
     create_request-4:
       value:
         data:
@@ -268,7 +245,7 @@ components:
           id: '10'
         - type: supplier_contacts
           id: '17'
-    external_delete_request-2:
+    external_create_request-2:
       value:
         data:
         - type: supplier_contacts
@@ -282,6 +259,13 @@ components:
           id: '10'
         - type: supplier_contacts
           id: '17'
+    external_delete_request-2:
+      value:
+        data:
+        - type: supplier_contacts
+          id: SUPC10
+        - type: supplier_contacts
+          id: SUPC17
   securitySchemes:
     api_key:
       type: apiKey
@@ -304,8 +288,23 @@ x-tagGroups:
   - support
   - servers
   - api_specification
+  - date_and_time_fields
   - authentication
   - rate_limiting
-- name: Attachments
+  - external_ids
+  - pagination
+  - filters
+- name: Events
   tags:
-  - attachments
+  - events
+  - event_supplier_companies
+  - event_supplier_contacts
+  - event_templates
+- name: Worksheets
+  tags:
+  - worksheets
+  - line_items
+- name: Bids
+  tags:
+  - bids
+  - bid_line_items

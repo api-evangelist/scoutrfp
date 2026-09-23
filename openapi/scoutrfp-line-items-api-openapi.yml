@@ -1,40 +1,29 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Workday Strategic Sourcing attachments line_items API
-  version: '1.0'
-  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
-
-    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
-
-    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
-
-    '
+  title: Workday Strategic Sourcing Events Line Items API
+  version: '1.2'
+  description: ''
 servers:
-- url: https://api.us.workdayspend.com/services/attachments/v1
+- url: https://api.us.workdayspend.com/services/events/v1
   description: Production Server
-- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+- url: https://api.sandbox.us.workdayspend.com/services/events/v1
   description: Sandbox Server
 security:
 - api_key: []
   user_token: []
   user_email: []
 tags:
-- name: line_items
+- name: Line Items
   x-displayName: Line Items
   description: 'Use the line items API to create, update, and query the worksheet line items in Workday Strategic Sourcing.
 
 
-    ## Line Item Object
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/LineItem" showReadOnly={true} showWriteOnly={true} />
-
-    '
+    ## Line Item Object'
 paths:
   /events/{event_id}/worksheets/{worksheet_id}/line_items:
     get:
       tags:
-      - line_items
+      - Line Items
       description: Returns a list of line items for the specified criteria.
       operationId: List Line Items
       summary: List Line Items
@@ -78,10 +67,8 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1/line_items\"\n"
     post:
       tags:
-      - line_items
-      description: 'Create a line item with given cell values.
-
-        '
+      - Line Items
+      description: Create a line item with given cell values.
       operationId: Create a Line Item
       summary: Create a Line Item
       parameters:
@@ -131,12 +118,10 @@ paths:
   /events/{event_id}/worksheets/{worksheet_id}/line_items/bulk:
     post:
       tags:
-      - line_items
+      - Line Items
       description: 'Create multiple line items in a given worksheet. You can create up to 200 line items in
 
-        a single request.
-
-        '
+        a single request.'
       operationId: Bulk Create Line Items
       summary: Bulk Create Line Items
       parameters:
@@ -196,12 +181,10 @@ paths:
   /events/{event_id}/worksheets/{worksheet_id}/line_items/{id}:
     get:
       tags:
-      - line_items
+      - Line Items
       description: 'Retrieves the details of an existing line item. You need to supply the unique line item
 
-        identifier that was returned upon line item creation.
-
-        '
+        identifier that was returned upon line item creation.'
       operationId: Get a Line Item
       summary: Get a Line Item
       parameters:
@@ -248,7 +231,7 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1/line_items/1\"\n"
     patch:
       tags:
-      - line_items
+      - Line Items
       description: 'Updates the details of an existing line item. You need to supply the unique
 
         line item that was returned upon line item creation.
@@ -256,9 +239,7 @@ paths:
 
         Please note, that request body must include the `id` attribute with the value of your
 
-        line item unique identifier (the same one you passed in the URL).
-
-        '
+        line item unique identifier (the same one you passed in the URL).'
       operationId: Update a Line Item
       summary: Update a Line Item
       parameters:
@@ -331,12 +312,10 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"line_items\",\"attributes\":{\"data\":{\"c1\":\"Product One\",\"c2\":\"items\",\"c3\": 14}}}}' \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1/line_items/2\"\n"
     delete:
       tags:
-      - line_items
+      - Line Items
       description: 'Deletes a line item. You need to supply the unique line item
 
-        identifier that was returned upon line item creation.
-
-        '
+        identifier that was returned upon line item creation.'
       operationId: Delete a Line Item
       summary: Delete a Line Item
       parameters:
@@ -371,42 +350,36 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1/line_items/1\"\n"
 components:
   schemas:
-    LineItemBase:
-      title: LineItem
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    WorksheetId:
+      type: integer
+      description: Worksheet identifier string.
+      example: 1
+    LineItemType:
+      type: string
+      description: Object type, should always be `line_items`.
+      example: line_items
+    WorksheetType:
+      type: string
+      description: Object type, should always be `worksheets`.
+      example: worksheets
+    LineItemCreate:
       type: object
       required:
       - type
-      - id
       properties:
         type:
           $ref: '#/components/schemas/LineItemType'
-        id:
-          $ref: '#/components/schemas/LineItemId'
-    LineItemRelationship:
-      type: object
-      description: Line item relationship.
-      properties:
-        worksheet:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/WorksheetBase'
-    PaginationLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type: string
-          format: url
-          description: Link to the previous results page.
-          nullable: true
-          deprecated: true
+        attributes:
+          $ref: '#/components/schemas/LineItemAttributes'
+        relationships:
+          $ref: '#/components/schemas/LineItemRelationship'
     LineItemUpdate:
       type: object
       required:
@@ -421,51 +394,19 @@ components:
           $ref: '#/components/schemas/LineItemAttributes'
         relationships:
           $ref: '#/components/schemas/LineItemRelationship'
-    Pagination:
+    PaginationLinks:
       type: object
-      properties:
-        meta:
-          type: object
-          description: Result set metadata.
-          properties:
-            count:
-              type: integer
-              description: Number of pages in the result set.
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    WorksheetType:
-      type: string
-      description: Object type, should always be `worksheets`.
-      example: worksheets
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
     Error:
       type: object
       properties:
         detail:
           type: string
           description: A human-readable explanation specific to this occurrence of the problem.
-    LineItemType:
-      type: string
-      description: Object type, should always be `line_items`.
-      example: line_items
-    LineItemId:
-      type: integer
-      description: LineItem identifier string.
-      example: 1
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type: string
-          format: url
-          description: Link to the next results page.
-          nullable: true
-    SelfLink:
-      type: object
-      properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
     LineItem:
       allOf:
       - $ref: '#/components/schemas/LineItemBase'
@@ -473,9 +414,9 @@ components:
         properties:
           attributes:
             $ref: '#/components/schemas/LineItemAttributes'
-    WorksheetId:
+    LineItemId:
       type: integer
-      description: Worksheet identifier string.
+      description: LineItem identifier string.
       example: 1
     LineItemAttributes:
       type: object
@@ -497,17 +438,24 @@ components:
             and values are cell values.
 
             '
-    LineItemCreate:
+    NextPageLink:
       type: object
-      required:
-      - type
       properties:
-        type:
-          $ref: '#/components/schemas/LineItemType'
-        attributes:
-          $ref: '#/components/schemas/LineItemAttributes'
-        relationships:
-          $ref: '#/components/schemas/LineItemRelationship'
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    LineItemRelationship:
+      type: object
+      description: Line item relationship.
+      properties:
+        worksheet:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/WorksheetBase'
     Errors:
       type: object
       properties:
@@ -515,6 +463,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
+    LineItemBase:
+      title: LineItem
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/LineItemType'
+        id:
+          $ref: '#/components/schemas/LineItemId'
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     WorksheetBase:
       title: Worksheet
       type: object
@@ -526,82 +497,17 @@ components:
           $ref: '#/components/schemas/WorksheetType'
         id:
           $ref: '#/components/schemas/WorksheetId'
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
   examples:
-    update_request-2:
-      value:
-        data:
-          id: '1'
-          type: line_items
-          attributes:
-            data:
-              c1: Painfully Amazing Product
-              c2: 24
-              c3: items
-          relationships:
-            worksheet:
-              data:
-                type: worksheets
-                id: '1'
-    index_response-4:
-      value:
-        data:
-        - id: '1'
-          type: line_items
-          attributes:
-            data:
-              c1: Product One
-              c2: 11
-              c3: items
-        - id: '2'
-          type: line_items
-          attributes:
-            data:
-              c1: Product Two
-              c2: 1
-              c3: items
-        links:
-          self: https://api.us.workdayspend.com/services/events/v1/events/8/worksheets/1/line_items
-    create_response-2:
-      value:
-        data:
-          id: '1'
-          type: line_items
-          attributes:
-            data:
-              c1: Amazing Product
-              c2: items
-              c3: 14
-              c4: 0
-    bulk_create_response:
-      value:
-        data:
-        - id: '1'
-          type: line_items
-          attributes:
-            data:
-              c1: Product One
-              c2: items
-              c3: 14
-              c4: 0
-        - id: '2'
-          type: line_items
-          attributes:
-            data:
-              c1: Product Two
-              c2: items
-              c3: 1
-              c4: 0
-    update_response-2:
-      value:
-        data:
-          id: '1'
-          type: line_items
-          attributes:
-            data:
-              c1: Painfully Amazing Product
-              c2: 24
-              c3: items
-              c4: 0
     show_response-4:
       value:
         data:
@@ -641,6 +547,81 @@ components:
               c1: Product Two
               c2: items
               c3: 1
+    create_response-2:
+      value:
+        data:
+          id: '1'
+          type: line_items
+          attributes:
+            data:
+              c1: Amazing Product
+              c2: items
+              c3: 14
+              c4: 0
+    update_response-2:
+      value:
+        data:
+          id: '1'
+          type: line_items
+          attributes:
+            data:
+              c1: Painfully Amazing Product
+              c2: 24
+              c3: items
+              c4: 0
+    update_request-2:
+      value:
+        data:
+          id: '1'
+          type: line_items
+          attributes:
+            data:
+              c1: Painfully Amazing Product
+              c2: 24
+              c3: items
+          relationships:
+            worksheet:
+              data:
+                type: worksheets
+                id: '1'
+    index_response-4:
+      value:
+        data:
+        - id: '1'
+          type: line_items
+          attributes:
+            data:
+              c1: Product One
+              c2: 11
+              c3: items
+        - id: '2'
+          type: line_items
+          attributes:
+            data:
+              c1: Product Two
+              c2: 1
+              c3: items
+        links:
+          self: https://api.us.workdayspend.com/services/events/v1/events/8/worksheets/1/line_items
+    bulk_create_response:
+      value:
+        data:
+        - id: '1'
+          type: line_items
+          attributes:
+            data:
+              c1: Product One
+              c2: items
+              c3: 14
+              c4: 0
+        - id: '2'
+          type: line_items
+          attributes:
+            data:
+              c1: Product Two
+              c2: items
+              c3: 1
+              c4: 0
   securitySchemes:
     api_key:
       type: apiKey
@@ -663,8 +644,23 @@ x-tagGroups:
   - support
   - servers
   - api_specification
+  - date_and_time_fields
   - authentication
   - rate_limiting
-- name: Attachments
+  - external_ids
+  - pagination
+  - filters
+- name: Events
   tags:
-  - attachments
+  - events
+  - event_supplier_companies
+  - event_supplier_contacts
+  - event_templates
+- name: Worksheets
+  tags:
+  - worksheets
+  - line_items
+- name: Bids
+  tags:
+  - bids
+  - bid_line_items

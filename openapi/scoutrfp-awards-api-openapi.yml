@@ -1,25 +1,19 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Workday Strategic Sourcing attachments awards API
+  title: Workday Strategic Sourcing Awards API
   version: '1.0'
-  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
-
-    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
-
-    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
-
-    '
+  description: ''
 servers:
-- url: https://api.us.workdayspend.com/services/attachments/v1
+- url: https://api.us.workdayspend.com/services/awards/v1
   description: Production Server
-- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+- url: https://api.sandbox.us.workdayspend.com/services/awards/v1
   description: Sandbox Server
 security:
 - api_key: []
   user_token: []
   user_email: []
 tags:
-- name: awards
+- name: Awards
   x-displayName: Awards
   description: 'Use the Awards API to query the Awards in Workday Strategic Sourcing.
 
@@ -27,17 +21,12 @@ tags:
     Awards are used for procurement.
 
 
-    ## Award Object
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/Award" showReadOnly={true} showWriteOnly={true} />
-
-    '
+    ## Award Object'
 paths:
   /awards:
     get:
       tags:
-      - awards
+      - Awards
       description: Returns a list of awards.
       operationId: List Awards
       summary: List Awards
@@ -74,37 +63,39 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/awards/v1/awards\"\n"
 components:
   schemas:
-    AwardState:
-      type: string
-      description: Award state. The default value is `draft` when the award is created.
-      enum:
-      - draft
-      - confirmed
-      - awaiting_requisition_sync
-      - requisition_created
-    StakeholderType:
-      type: string
-      description: Object type, should always be `stakeholders`.
-      example: stakeholders
-    AwardTitle:
-      type: string
-      maxLength: 255
-      description: Award title.
-    AwardType:
-      type: string
-      description: Object type, should always be `awards`.
-      example: awards
-    ProjectId:
-      type: integer
-      description: Project identifier string.
-      example: 1
-    PaginationLinks:
+    AwardRelationship:
       type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
+      description: Award relationships.
+      properties:
+        creator:
+          type: object
+          description: Project creator is the user whose API keys are used for authentication.
+          properties:
+            data:
+              $ref: '#/components/schemas/StakeholderBase'
+        project:
+          type: object
+          description: Project associated with this award.
+          properties:
+            data:
+              $ref: '#/components/schemas/ProjectBase'
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
     StakeholderBase:
       title: Stakeholder
       type: object
@@ -116,15 +107,65 @@ components:
           $ref: '#/components/schemas/StakeholderType'
         id:
           $ref: '#/components/schemas/StakeholderId'
-    PrevPageLink:
+    AwardState:
+      type: string
+      description: Award state. The default value is `draft` when the award is created.
+      enum:
+      - draft
+      - confirmed
+      - awaiting_requisition_sync
+      - requisition_created
+    AwardId:
+      type: integer
+      description: Award identifier string.
+      example: 1
+    ProjectBase:
+      title: Project
       type: object
+      required:
+      - type
+      - id
       properties:
-        prev:
-          type: string
-          format: url
-          description: Link to the previous results page.
-          nullable: true
-          deprecated: true
+        type:
+          $ref: '#/components/schemas/ProjectType'
+        id:
+          $ref: '#/components/schemas/ProjectId'
+    AwardTitle:
+      type: string
+      maxLength: 255
+      description: Award title.
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    AwardCons:
+      type: string
+      description: Cons associated with award option
+      example: <p>Expensive company</p>
+    AwardUpdatedAt:
+      type: string
+      format: date-time
+      readOnly: true
+      description: Last modification date.
+      example: '2021-05-29T21:28:46.790Z'
+    ProjectId:
+      type: integer
+      description: Project identifier string.
+      example: 1
+    Award:
+      allOf:
+      - $ref: '#/components/schemas/AwardBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/AwardAttributes'
+          relationships:
+            $ref: '#/components/schemas/AwardRelationship'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
     ProjectType:
       type: string
       description: Object type, should always be `projects`.
@@ -148,6 +189,63 @@ components:
           format: date-time
           description: Return awards updated on or before the specified timestamp.
           example: '2021-05-29T21:28:46.790Z'
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    AwardType:
+      type: string
+      description: Object type, should always be `awards`.
+      example: awards
+    AwardBase:
+      title: Award
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/AwardType'
+        id:
+          $ref: '#/components/schemas/AwardId'
+    AwardExternalId:
+      type: string
+      maxLength: 255
+      description: Award ID in your internal database.
+    StakeholderId:
+      type: integer
+      description: Stakeholder identifier string.
+      example: 1
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    AwardPros:
+      type: string
+      description: Pros associated with award option
+      example: <p>Reliable company</p>
+    StakeholderType:
+      type: string
+      description: Object type, should always be `stakeholders`.
+      example: stakeholders
     AwardAttributes:
       type: object
       description: Award attributes.
@@ -166,113 +264,6 @@ components:
           $ref: '#/components/schemas/AwardPros'
         cons:
           $ref: '#/components/schemas/AwardCons'
-    Award:
-      allOf:
-      - $ref: '#/components/schemas/AwardBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/AwardAttributes'
-          relationships:
-            $ref: '#/components/schemas/AwardRelationship'
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
-    AwardId:
-      type: integer
-      description: Award identifier string.
-      example: 1
-    AwardCons:
-      type: string
-      description: Cons associated with award option
-      example: <p>Expensive company</p>
-    Pagination:
-      type: object
-      properties:
-        meta:
-          type: object
-          description: Result set metadata.
-          properties:
-            count:
-              type: integer
-              description: Number of pages in the result set.
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    AwardRelationship:
-      type: object
-      description: Award relationships.
-      properties:
-        creator:
-          type: object
-          description: Project creator is the user whose API keys are used for authentication.
-          properties:
-            data:
-              $ref: '#/components/schemas/StakeholderBase'
-        project:
-          type: object
-          description: Project associated with this award.
-          properties:
-            data:
-              $ref: '#/components/schemas/ProjectBase'
-    StakeholderId:
-      type: integer
-      description: Stakeholder identifier string.
-      example: 1
-    SelfLink:
-      type: object
-      properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type: string
-          format: url
-          description: Link to the next results page.
-          nullable: true
-    ProjectBase:
-      title: Project
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ProjectType'
-        id:
-          $ref: '#/components/schemas/ProjectId'
-    AwardPros:
-      type: string
-      description: Pros associated with award option
-      example: <p>Reliable company</p>
-    ResourceLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-    AwardExternalId:
-      type: string
-      maxLength: 255
-      description: Award ID in your internal database.
-    AwardBase:
-      title: Award
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/AwardType'
-        id:
-          $ref: '#/components/schemas/AwardId'
-    AwardUpdatedAt:
-      type: string
-      format: date-time
-      readOnly: true
-      description: Last modification date.
-      example: '2021-05-29T21:28:46.790Z'
   examples:
     index_response:
       value:
@@ -341,8 +332,13 @@ x-tagGroups:
   - support
   - servers
   - api_specification
+  - date_and_time_fields
   - authentication
   - rate_limiting
-- name: Attachments
+  - external_ids
+  - pagination
+  - filters
+- name: Awards
   tags:
-  - attachments
+  - awards
+  - award_line_items

@@ -1,40 +1,29 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Workday Strategic Sourcing attachments projects API
+  title: Workday Strategic Sourcing Projects API
   version: '1.0'
-  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
-
-    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
-
-    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
-
-    '
+  description: ''
 servers:
-- url: https://api.us.workdayspend.com/services/attachments/v1
+- url: https://api.us.workdayspend.com/services/projects/v1
   description: Production Server
-- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+- url: https://api.sandbox.us.workdayspend.com/services/projects/v1
   description: Sandbox Server
 security:
 - api_key: []
   user_token: []
   user_email: []
 tags:
-- name: projects
+- name: Projects
   x-displayName: Projects
   description: 'Use the projects API to create, update, and query the projects in Workday Strategic Sourcing.
 
 
-    ## Project Object
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/Project" exampleRef="#/components/examples/Project" showReadOnly={true} showWriteOnly={true} />
-
-    '
+    ## Project Object'
 paths:
   /projects:
     get:
       tags:
-      - projects
+      - Projects
       description: Returns a list of projects for the specified criteria.
       operationId: List Projects
       summary: List Projects
@@ -80,10 +69,8 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects\"\n"
     post:
       tags:
-      - projects
-      description: 'Create a project with given attributes.
-
-        '
+      - Projects
+      description: Create a project with given attributes.
       operationId: Create a Project
       summary: Create a Project
       requestBody:
@@ -120,12 +107,10 @@ paths:
   /projects/{id}:
     get:
       tags:
-      - projects
+      - Projects
       description: 'Retrieves the details of an existing project. You need to supply the unique project
 
-        identifier that was returned upon project creation.
-
-        '
+        identifier that was returned upon project creation.'
       operationId: Get a Project
       summary: Get a Project
       parameters:
@@ -158,7 +143,7 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/1\"\n"
     patch:
       tags:
-      - projects
+      - Projects
       description: 'Updates the details of an existing project. You need to supply the unique supplier
 
         project that was returned upon project creation.
@@ -166,9 +151,7 @@ paths:
 
         Please note, that request body must include an `id` attribute with the value of your project
 
-        unique identifier (the same one you passed in the URL).
-
-        '
+        unique identifier (the same one you passed in the URL).'
       operationId: Update a Project
       summary: Update a Project
       parameters:
@@ -227,12 +210,10 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"projects\",\"id\":\"1\",\"attributes\":{\"segmentation_status\": \"out_of_compliance\"}}}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/1\"\n"
     delete:
       tags:
-      - projects
+      - Projects
       description: 'Deletes a project. You need to supply the unique project
 
-        identifier that was returned upon project creation.
-
-        '
+        identifier that was returned upon project creation.'
       operationId: Delete a Project
       summary: Delete a Project
       parameters:
@@ -256,12 +237,10 @@ paths:
   /projects/{external_id}/external_id:
     get:
       tags:
-      - projects
+      - Projects
       description: 'Retrieves the details of an existing project. You need to supply the unique
 
-        project external identifier (the one you used when created the project).
-
-        '
+        project external identifier (the one you used when created the project).'
       operationId: Get a Project by External ID
       summary: Get a Project by External ID
       parameters:
@@ -294,7 +273,7 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/SUP-1234/external_id\"\n"
     patch:
       tags:
-      - projects
+      - Projects
       description: 'Updates the details of an existing project. You need to supply the unique project
 
         external identifier (the one you used when created the project).
@@ -302,9 +281,7 @@ paths:
 
         Please note, that request body must include an `id` attribute with the value of your project
 
-        external identifier (the same one you passed in the URL).
-
-        '
+        external identifier (the same one you passed in the URL).'
       operationId: Update a Project by External ID
       summary: Update a Project by External ID
       parameters:
@@ -348,12 +325,10 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"projects\",\"id\":\"SUP-1234\",attributes\":{\"segmentation_status\": \"out_of_compliance\"}}}' \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/SUP-1234/external_id\"\n"
     delete:
       tags:
-      - projects
+      - Projects
       description: 'Deletes a project. You need to supply the unique project
 
-        external identifier (the one you used when created the project).
-
-        '
+        external identifier (the one you used when created the project).'
       operationId: Delete a Project by External ID
       summary: Delete a Project by External ID
       parameters:
@@ -377,7 +352,7 @@ paths:
   /projects/describe:
     get:
       tags:
-      - projects
+      - Projects
       description: Returns a list of fields for the project object.
       operationId: Describe Project object
       summary: Describe Project object
@@ -403,10 +378,49 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/projects/v1/projects/describe\"\n"
 components:
   schemas:
+    PageInput:
+      type: object
+      properties:
+        size:
+          type: number
+          format: integer
+          description: The number of results returned per page. Default is `10` and max is `100`.
+          example: '25'
     StakeholderType:
       type: string
       description: Object type, should always be `stakeholders`.
       example: stakeholders
+    AttachmentId:
+      type: integer
+      description: Attachment identifier string.
+      example: 1
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    ProjectFieldModel:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            description: Object type, should always be `project_fields`.
+            example: project_fields
+      - $ref: '#/components/schemas/DescribeFieldModel'
+    StakeholderBase:
+      title: Stakeholder
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/StakeholderType'
+        id:
+          $ref: '#/components/schemas/StakeholderId'
     CustomFieldURL:
       title: URL
       allOf:
@@ -417,6 +431,26 @@ components:
             type: string
             format: url
             description: URL string.
+    ProjectBase:
+      title: Project
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ProjectType'
+        id:
+          $ref: '#/components/schemas/ProjectId'
+    CustomFieldRelated:
+      title: Related
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A value related to the lookup custom field value, retrieved from the same data source object.
     DescribeFieldModel:
       allOf:
       - $ref: '#/components/schemas/DescribeFieldBase'
@@ -424,72 +458,6 @@ components:
         properties:
           attributes:
             $ref: '#/components/schemas/DescribeFieldAttributes'
-    AttachmentId:
-      type: integer
-      description: Attachment identifier string.
-      example: 1
-    ProjectTypeType:
-      type: string
-      description: Object type, should always be `project_types`.
-      example: project_types
-    CustomFieldSingleSelect:
-      title: Single Select
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: A single value from a predefined list of possible options.
-    ProjectId:
-      type: integer
-      description: Project identifier string.
-      example: 1
-    DescribeFieldBase:
-      title: DescribeFieldModel
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/DescribeFieldType'
-        id:
-          $ref: '#/components/schemas/DescribeFieldId'
-    StakeholderLookup:
-      oneOf:
-      - $ref: '#/components/schemas/StakeholderBaseData'
-      - $ref: '#/components/schemas/StakeholderMetaIdLookup'
-      - $ref: '#/components/schemas/StakeholderMetaEmailLookup'
-    CustomFieldDecimal:
-      title: Decimal
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: string
-            format: decimal
-            description: A decimal value represented as a number with floating point.
-    StakeholderBaseData:
-      title: Stakeholder Data
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/StakeholderBase'
-    OpenApiEnum:
-      type: string
-      enum:
-      - string
-      - number
-      - integer
-      - boolean
-      - array
-      - object
-      description: OpenAPI data type.
-      example: string
     CustomField:
       oneOf:
       - $ref: '#/components/schemas/CustomFieldCheckbox'
@@ -504,71 +472,20 @@ components:
       - $ref: '#/components/schemas/CustomFieldURL'
       - $ref: '#/components/schemas/CustomFieldLookup'
       - $ref: '#/components/schemas/CustomFieldRelated'
-    PaginationLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    Project:
-      allOf:
-      - $ref: '#/components/schemas/ProjectBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/ProjectAttributes'
-          relationships:
-            $ref: '#/components/schemas/ProjectRelationship'
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
-    CustomFieldInteger:
-      title: Integer
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: integer
-            description: An integer value. The maximum value is 9,007,199,254,740,991.
-    StakeholderBase:
-      title: Stakeholder
+    StakeholderMetaIdLookup:
+      title: Stakeholder Meta by ID
       type: object
       required:
-      - type
-      - id
+      - meta
       properties:
-        type:
-          $ref: '#/components/schemas/StakeholderType'
-        id:
-          $ref: '#/components/schemas/StakeholderId'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type: string
-          format: url
-          description: Link to the previous results page.
-          nullable: true
-          deprecated: true
-    ProjectType:
-      type: string
-      description: Object type, should always be `projects`.
-      example: projects
-    CustomFieldLookup:
-      title: Lookup
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: A value from a customer-provided lookup data source.
-    StakeholderEmail:
-      type: string
-      format: email
-      description: Stakeholder's email.
-      example: stakeholder.email@example.com
+        meta:
+          type: object
+          description: Search for a stakeholder by ID.
+          required:
+          - id
+          properties:
+            id:
+              $ref: '#/components/schemas/StakeholderId'
     ProjectTypeBase:
       title: ProjectType
       type: object
@@ -580,6 +497,96 @@ components:
           $ref: '#/components/schemas/ProjectTypeType'
         id:
           $ref: '#/components/schemas/ProjectTypeId'
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    StakeholderEmail:
+      type: string
+      format: email
+      description: Stakeholder's email.
+      example: stakeholder.email@example.com
+    ProjectTypeId:
+      type: integer
+      description: Project type identifier string.
+      example: 1
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    ProjectId:
+      type: integer
+      description: Project identifier string.
+      example: 1
+    ProjectCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/ProjectType'
+        attributes:
+          $ref: '#/components/schemas/ProjectAttributes'
+        relationships:
+          $ref: '#/components/schemas/ProjectRequestRelationship'
+    ProjectState:
+      type: string
+      enum:
+      - draft
+      - requested
+      - planned
+      - active
+      - completed
+      - canceled
+      - on_hold
+      description: Current project state.
+    CustomFieldShortText:
+      title: Short Text
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A short text (usually under 255 characters).
+    ProjectType:
+      type: string
+      description: Object type, should always be `projects`.
+      example: projects
+    CustomFieldSingleSelect:
+      title: Single Select
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A single value from a predefined list of possible options.
+    CustomFieldLookup:
+      title: Lookup
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A value from a customer-provided lookup data source.
+    AttachmentBase:
+      title: Attachment
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/AttachmentType'
+        id:
+          $ref: '#/components/schemas/AttachmentId'
     CustomFieldMultipleSelect:
       title: Multiple Select
       allOf:
@@ -591,62 +598,53 @@ components:
             description: A list of values from a predefined list of possible options.
             items:
               type: string
-    ProjectTypeId:
-      type: integer
-      description: Project type identifier string.
-      example: 1
-    CustomFieldCheckbox:
-      title: Checkbox
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: boolean
-            example: true
-    ProjectFieldModel:
-      allOf:
-      - type: object
-        properties:
-          type:
-            type: string
-            description: Object type, should always be `project_fields`.
-            example: project_fields
-      - $ref: '#/components/schemas/DescribeFieldModel'
-    Pagination:
+    CustomFieldEnum:
+      type: string
+      enum:
+      - Checkbox
+      - File
+      - Short Text
+      - Paragraph
+      - Date
+      - Integer
+      - Currency
+      - Decimal
+      - Single Select
+      - Multiple Select
+      - URL
+      - Lookup
+      - Related
+      description: Internal name and meaning of each field.
+      example: Short Text
+    ProjectUpdate:
       type: object
+      required:
+      - type
+      - id
       properties:
-        meta:
-          type: object
-          description: Result set metadata.
-          properties:
-            count:
-              type: integer
-              description: Number of pages in the result set.
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    ProjectRequestRelationship:
-      type: object
-      description: Project relationship.
-      properties:
-        owner:
-          $ref: '#/components/schemas/StakeholderLookup'
-        requester:
-          $ref: '#/components/schemas/StakeholderLookup'
+        type:
+          $ref: '#/components/schemas/ProjectType'
+        id:
+          $ref: '#/components/schemas/ProjectId'
+        attributes:
+          $ref: '#/components/schemas/ProjectAttributes'
+        relationships:
+          $ref: '#/components/schemas/ProjectRequestRelationship'
     DescribeFieldType:
       type: string
       description: Object type, should always be `describe_fields`.
       example: describe_fields
-    DescribeFieldId:
-      type: string
-      description: Field identifier string.
-      example: field_name
+    Project:
+      allOf:
+      - $ref: '#/components/schemas/ProjectBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/ProjectAttributes'
+          relationships:
+            $ref: '#/components/schemas/ProjectRelationship'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
     ProjectAttributes:
       type: object
       description: Project attributes.
@@ -758,61 +756,115 @@ components:
           type: string
           format: date-time
           description: Date and time when the project was sent for approval.
-    CustomFieldRelated:
-      title: Related
+    CustomFieldBase:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Custom field name.
+          example: My Custom Field
+    CustomFieldParagraph:
+      title: Paragraph
       allOf:
       - $ref: '#/components/schemas/CustomFieldBase'
       - type: object
         properties:
           value:
             type: string
-            description: A value related to the lookup custom field value, retrieved from the same data source object.
-    StakeholderId:
-      type: integer
-      description: Stakeholder identifier string.
-      example: 1
+            description: A longer text paragraph.
+    AttachmentType:
+      type: string
+      description: Object type, should always be `attachments`.
+      example: attachments
+    CustomFieldDate:
+      title: Date
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            format: date
+            description: A date value.
+    StakeholderMetaEmailLookup:
+      title: Stakeholder Meta by Email
+      type: object
+      required:
+      - meta
+      properties:
+        meta:
+          type: object
+          description: Search for a stakeholder by email.
+          required:
+          - email
+          properties:
+            email:
+              $ref: '#/components/schemas/StakeholderEmail'
     NextPageLink:
       type: object
       properties:
         next:
-          type: string
+          type:
+          - string
+          - 'null'
           format: url
           description: Link to the next results page.
-          nullable: true
-    CustomFieldShortText:
-      title: Short Text
+    CustomFieldInteger:
+      title: Integer
       allOf:
       - $ref: '#/components/schemas/CustomFieldBase'
       - type: object
         properties:
           value:
-            type: string
-            description: A short text (usually under 255 characters).
-    SelfLink:
+            type: integer
+            description: An integer value. The maximum value is 9,007,199,254,740,991.
+    ProjectRequestRelationship:
       type: object
+      description: Project relationship.
       properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    CustomFieldEnum:
+        owner:
+          $ref: '#/components/schemas/StakeholderLookup'
+        requester:
+          $ref: '#/components/schemas/StakeholderLookup'
+    DescribeFieldId:
+      type: string
+      description: Field identifier string.
+      example: field_name
+    OpenApiEnum:
       type: string
       enum:
-      - Checkbox
-      - File
-      - Short Text
-      - Paragraph
-      - Date
-      - Integer
-      - Currency
-      - Decimal
-      - Single Select
-      - Multiple Select
-      - URL
-      - Lookup
-      - Related
-      description: Internal name and meaning of each field.
-      example: Short Text
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    CustomFieldCheckbox:
+      title: Checkbox
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: boolean
+            example: true
+    StakeholderBaseData:
+      title: Stakeholder Data
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/StakeholderBase'
     ProjectRelationship:
       type: object
       description: Project relationships.
@@ -844,104 +896,11 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/ProjectTypeBase'
-    AttachmentBase:
-      title: Attachment
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/AttachmentType'
-        id:
-          $ref: '#/components/schemas/AttachmentId'
-    CustomFieldCurrency:
-      title: Currency
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            format: integer
-            description: A currency value represented as an integer. The maximum value is 9,007,199,254,740,991.
-    AttachmentType:
-      type: string
-      description: Object type, should always be `attachments`.
-      example: attachments
-    StakeholderMetaEmailLookup:
-      title: Stakeholder Meta by Email
-      type: object
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          description: Search for a stakeholder by email.
-          required:
-          - email
-          properties:
-            email:
-              $ref: '#/components/schemas/StakeholderEmail'
-    ProjectBase:
-      title: Project
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ProjectType'
-        id:
-          $ref: '#/components/schemas/ProjectId'
-    ResourceLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-    StakeholderMetaIdLookup:
-      title: Stakeholder Meta by ID
-      type: object
-      required:
-      - meta
-      properties:
-        meta:
-          type: object
-          description: Search for a stakeholder by ID.
-          required:
-          - id
-          properties:
-            id:
-              $ref: '#/components/schemas/StakeholderId'
-    ProjectUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ProjectType'
-        id:
-          $ref: '#/components/schemas/ProjectId'
-        attributes:
-          $ref: '#/components/schemas/ProjectAttributes'
-        relationships:
-          $ref: '#/components/schemas/ProjectRequestRelationship'
-    CustomFieldBase:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Custom field name.
-          example: My Custom Field
-    CustomFieldParagraph:
-      title: Paragraph
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: A longer text paragraph.
+    StakeholderLookup:
+      oneOf:
+      - $ref: '#/components/schemas/StakeholderBaseData'
+      - $ref: '#/components/schemas/StakeholderMetaIdLookup'
+      - $ref: '#/components/schemas/StakeholderMetaEmailLookup'
     ProjectInputFilter:
       type: object
       properties:
@@ -1149,24 +1108,48 @@ components:
         needs_attention_reason_not_empty:
           type: string
           description: Return projects with a non-empty "needs attention" reason.
-    Errors:
+    Pagination:
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    ProjectState:
-      type: string
-      enum:
-      - draft
-      - requested
-      - planned
-      - active
-      - completed
-      - canceled
-      - on_hold
-      description: Current project state.
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    StakeholderId:
+      type: integer
+      description: Stakeholder identifier string.
+      example: 1
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    CustomFieldDecimal:
+      title: Decimal
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            format: decimal
+            description: A decimal value represented as a number with floating point.
+    DescribeFieldBase:
+      title: DescribeFieldModel
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/DescribeFieldType'
+        id:
+          $ref: '#/components/schemas/DescribeFieldId'
     DescribeFieldAttributes:
       type: object
       description: Describe field attributes.
@@ -1184,116 +1167,65 @@ components:
           type: boolean
           description: Flag for determining if this is a user created custom field or an internal system field.
           example: false
-    PageInput:
+    PrevPageLink:
       type: object
       properties:
-        size:
-          type: number
-          format: integer
-          description: The number of results returned per page. Default is `10` and max is `100`.
-          example: '25'
-    ProjectCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/ProjectType'
-        attributes:
-          $ref: '#/components/schemas/ProjectAttributes'
-        relationships:
-          $ref: '#/components/schemas/ProjectRequestRelationship'
-    CustomFieldDate:
-      title: Date
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
+    ProjectTypeType:
+      type: string
+      description: Object type, should always be `project_types`.
+      example: project_types
+    CustomFieldCurrency:
+      title: Currency
       allOf:
       - $ref: '#/components/schemas/CustomFieldBase'
       - type: object
         properties:
           value:
-            type: string
-            format: date
-            description: A date value.
+            format: integer
+            description: A currency value represented as an integer. The maximum value is 9,007,199,254,740,991.
   examples:
-    update_request:
+    create_response:
       value:
         data:
           type: projects
           id: '1'
           attributes:
             actual_end_date: '2031-12-30'
-            actual_spend_amount: '223.45'
-            approved_spend_amount: '255.55'
-            actual_start_date: '2019-01-20'
-            canceled_note: null
-            canceled_reason: null
-            description: Project Description Updated
-            estimated_savings_amount: '211.33'
-            estimated_spend_amount: '221.12'
-            external_id: 1234-5678-abcd-efgh
-            needs_attention: false
-            needs_attention_note: null
-            needs_attention_reason: null
-            on_hold_note: null
-            on_hold_reason: null
-            state: active
-            state_label: Sourcing
-            target_end_date: '2032-12-31'
-            target_start_date: '2019-01-15'
-            title: Project Title Updated
-            custom_fields:
-            - name: Custom Field Currency
-              value: 987654321
-            - name: Custom Field Integer
-              value: 987654321
-            - name: Custom Field Checkbox
-              value: false
-            - name: Custom Field Decimal
-              value: 876543.21
-            - name: Custom Field Date
-              value: '2018-12-25T00:00:00.000Z'
-            - name: Custom Field Select
-              value: Select Option
-            - name: Custom Field Multiple
-              value:
-              - Multiple Select Option 2
-            - name: Custom Field Short Text
-              value: some short text updated
-            - name: Custom Field Paragraph
-              value: longer text than short text updated
-            - name: Custom Field URL
-              value: http://www.example.com/updated
-          relationships:
-            owner:
-              meta:
-                email: contract.owner@example.com
-            requester:
-              meta:
-                email: requester@example.com
-    create_compound_request:
-      value:
-        data:
-          type: projects
-          attributes:
-            actual_end_date: '2031-12-30'
-            actual_spend_amount: '23.45'
-            approved_spend_amount: '55.55'
+            actual_spend_amount: 23.45
+            approved_spend_amount: 55.55
             actual_start_date: '2018-01-20'
+            approved_at: null
+            approval_rounds: 0
             canceled_note: null
             canceled_reason: null
             description: Project Description
-            estimated_savings_amount: '11.33'
-            estimated_spend_amount: '21.12'
+            estimated_savings_amount: 11.33
+            estimated_spend_amount: 21.12
             external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
             needs_attention: false
             needs_attention_note: null
             needs_attention_reason: null
+            number: 1
             on_hold_note: null
             on_hold_reason: null
+            first_sent_for_approval_at: null
+            sent_for_approval_at: null
             state: active
             state_label: Sourcing
             target_end_date: '2031-12-31'
             target_start_date: '2018-01-15'
             title: Project Title
+            updated_at: '2019-10-29T21:28:46.790Z'
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
             custom_fields:
             - name: Custom Field Currency
               value: 1234567890
@@ -1318,21 +1250,30 @@ components:
             - name: Custom Field URL
               value: http://www.example.com
           relationships:
-            owner:
-              meta:
-                email: contract.owner@example.com
-            requester:
-              meta:
-                email: requester@example.com
-            requisition_currency:
+            attachments:
+              data: []
+            project_type:
               data:
-                id: USD
-                type: requisition_currencies
-          included:
-          - id: USD
-            type: requisition_currencies
-            attributes:
-              abbreviation: USD
+                id: '1'
+                type: project_types
+            spend_category:
+              data:
+                id: '1'
+                type: spend_categories
+            creator:
+              data:
+                id: '2'
+                type: stakeholders
+            requester:
+              data:
+                id: '3'
+                type: stakeholders
+            owner:
+              data:
+                id: '2'
+                type: stakeholders
+          links:
+            self: https://api.us.workdayspend.com/services/projects/v1/projects/1
     index_response:
       value:
         meta:
@@ -1506,7 +1447,213 @@ components:
           self: https://api.us.workdayspend.com/services/projects/v1/projects?page%5Bsize%5D=10
           next: https://api.us.workdayspend.com/services/projects/v1/projects?page%5Bcursor%5D=WzgzXQ%3D%3D&page%5Bdirection%5D=next&page%5Bsize%5D=10
           prev: https://api.us.workdayspend.com/services/projects/v1/projects?page%5Bcursor%5D=WzgyXQ%3D%3D&page%5Bdirection%5D=prev&page%5Bsize%5D=10
-    external_update_response:
+    show_response:
+      value:
+        data:
+          type: projects
+          id: '1'
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: 23.45
+            approved_spend_amount: 55.55
+            actual_start_date: '2018-01-20'
+            approved_at: '2019-10-11T09:12:31.080Z'
+            approval_rounds: 1
+            canceled_note: null
+            canceled_reason: null
+            description: Project Description
+            estimated_savings_amount: 11.33
+            estimated_spend_amount: 21.12
+            external_id: 1234-5678-abcd-efgh
+            marked_as_needs_attention_at: null
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            number: 1
+            on_hold_note: null
+            on_hold_reason: null
+            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
+            state: active
+            state_label: Sourcing
+            target_end_date: '2031-12-31'
+            target_start_date: '2018-01-15'
+            title: Project Title
+            updated_at: '2019-10-29T21:28:46.790Z'
+            request_submitted_at: '2019-10-28T21:28:46.790Z'
+            request_opened_at: null
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+              - id: '2'
+                type: attachments
+            project_type:
+              data:
+                id: '1'
+                type: project_types
+            spend_category:
+              data:
+                id: '1'
+                type: spend_categories
+            creator:
+              data:
+                id: '1'
+                type: stakeholders
+            requester:
+              data:
+                id: '3'
+                type: stakeholders
+            owner:
+              data:
+                id: '1'
+                type: stakeholders
+          links:
+            self: https://api.us.workdayspend.com/services/projects/v1/projects/1
+    create_compound_request:
+      value:
+        data:
+          type: projects
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: '23.45'
+            approved_spend_amount: '55.55'
+            actual_start_date: '2018-01-20'
+            canceled_note: null
+            canceled_reason: null
+            description: Project Description
+            estimated_savings_amount: '11.33'
+            estimated_spend_amount: '21.12'
+            external_id: 1234-5678-abcd-efgh
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            on_hold_note: null
+            on_hold_reason: null
+            state: active
+            state_label: Sourcing
+            target_end_date: '2031-12-31'
+            target_start_date: '2018-01-15'
+            title: Project Title
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            owner:
+              meta:
+                email: contract.owner@example.com
+            requester:
+              meta:
+                email: requester@example.com
+            requisition_currency:
+              data:
+                id: USD
+                type: requisition_currencies
+          included:
+          - id: USD
+            type: requisition_currencies
+            attributes:
+              abbreviation: USD
+    create_request:
+      value:
+        data:
+          type: projects
+          attributes:
+            actual_end_date: '2031-12-30'
+            actual_spend_amount: '23.45'
+            approved_spend_amount: '55.55'
+            actual_start_date: '2018-01-20'
+            canceled_note: null
+            canceled_reason: null
+            description: Project Description
+            estimated_savings_amount: '11.33'
+            estimated_spend_amount: '21.12'
+            external_id: 1234-5678-abcd-efgh
+            needs_attention: false
+            needs_attention_note: null
+            needs_attention_reason: null
+            on_hold_note: null
+            on_hold_reason: null
+            state: active
+            state_label: Sourcing
+            target_end_date: '2031-12-31'
+            target_start_date: '2018-01-15'
+            title: Project Title
+            custom_fields:
+            - name: Custom Field Currency
+              value: 1234567890
+            - name: Custom Field Integer
+              value: 1234567890
+            - name: Custom Field Checkbox
+              value: true
+            - name: Custom Field Decimal
+              value: 123456.78
+            - name: Custom Field Date
+              value: '2018-12-31T00:00:00.000Z'
+            - name: Custom Field Select
+              value: Select Option
+            - name: Custom Field Multiple
+              value:
+              - Multiple Select Option 1
+              - Multiple Select Option 2
+            - name: Custom Field Short Text
+              value: some short text
+            - name: Custom Field Paragraph
+              value: longer text than short text
+            - name: Custom Field URL
+              value: http://www.example.com
+          relationships:
+            owner:
+              meta:
+                email: contract.owner@example.com
+            requester:
+              meta:
+                email: requester@example.com
+    update_response:
       value:
         data:
           type: projects
@@ -1576,7 +1723,7 @@ components:
                 type: project_types
             spend_category:
               data:
-                id: '2'
+                id: '1'
                 type: spend_categories
             creator:
               data:
@@ -1592,7 +1739,7 @@ components:
                 type: stakeholders
           links:
             self: https://api.us.workdayspend.com/services/projects/v1/projects/1
-    show_response:
+    external_show_response:
       value:
         data:
           type: projects
@@ -1921,78 +2068,23 @@ components:
             type_description: URL
           type: project_fields
         links: {}
-    create_request:
-      value:
-        data:
-          type: projects
-          attributes:
-            actual_end_date: '2031-12-30'
-            actual_spend_amount: '23.45'
-            approved_spend_amount: '55.55'
-            actual_start_date: '2018-01-20'
-            canceled_note: null
-            canceled_reason: null
-            description: Project Description
-            estimated_savings_amount: '11.33'
-            estimated_spend_amount: '21.12'
-            external_id: 1234-5678-abcd-efgh
-            needs_attention: false
-            needs_attention_note: null
-            needs_attention_reason: null
-            on_hold_note: null
-            on_hold_reason: null
-            state: active
-            state_label: Sourcing
-            target_end_date: '2031-12-31'
-            target_start_date: '2018-01-15'
-            title: Project Title
-            custom_fields:
-            - name: Custom Field Currency
-              value: 1234567890
-            - name: Custom Field Integer
-              value: 1234567890
-            - name: Custom Field Checkbox
-              value: true
-            - name: Custom Field Decimal
-              value: 123456.78
-            - name: Custom Field Date
-              value: '2018-12-31T00:00:00.000Z'
-            - name: Custom Field Select
-              value: Select Option
-            - name: Custom Field Multiple
-              value:
-              - Multiple Select Option 1
-              - Multiple Select Option 2
-            - name: Custom Field Short Text
-              value: some short text
-            - name: Custom Field Paragraph
-              value: longer text than short text
-            - name: Custom Field URL
-              value: http://www.example.com
-          relationships:
-            owner:
-              meta:
-                email: contract.owner@example.com
-            requester:
-              meta:
-                email: requester@example.com
-    external_show_response:
+    external_update_response:
       value:
         data:
           type: projects
           id: '1'
           attributes:
             actual_end_date: '2031-12-30'
-            actual_spend_amount: 23.45
-            approved_spend_amount: 55.55
-            actual_start_date: '2018-01-20'
+            actual_spend_amount: 223.45
+            approved_spend_amount: 255.55
+            actual_start_date: '2019-01-20'
             approved_at: '2019-10-11T09:12:31.080Z'
             approval_rounds: 1
             canceled_note: null
             canceled_reason: null
-            description: Project Description
-            estimated_savings_amount: 11.33
-            estimated_spend_amount: 21.12
+            description: Project Description Updated
+            estimated_savings_amount: 211.33
+            estimated_spend_amount: 221.12
             external_id: 1234-5678-abcd-efgh
             marked_as_needs_attention_at: null
             needs_attention: false
@@ -2005,35 +2097,34 @@ components:
             sent_for_approval_at: '2019-10-05T05:24:12.000Z'
             state: active
             state_label: Sourcing
-            target_end_date: '2031-12-31'
-            target_start_date: '2018-01-15'
-            title: Project Title
+            target_end_date: '2032-12-31'
+            target_start_date: '2019-01-15'
+            title: Project Title Updated
             updated_at: '2019-10-29T21:28:46.790Z'
             request_submitted_at: '2019-10-28T21:28:46.790Z'
             request_opened_at: null
             custom_fields:
             - name: Custom Field Currency
-              value: 1234567890
+              value: 987654321
             - name: Custom Field Integer
-              value: 1234567890
+              value: 987654321
             - name: Custom Field Checkbox
-              value: true
+              value: false
             - name: Custom Field Decimal
-              value: 123456.78
+              value: 876543.21
             - name: Custom Field Date
-              value: '2018-12-31T00:00:00.000Z'
+              value: '2018-12-25T00:00:00.000Z'
             - name: Custom Field Select
               value: Select Option
             - name: Custom Field Multiple
               value:
-              - Multiple Select Option 1
               - Multiple Select Option 2
             - name: Custom Field Short Text
-              value: some short text
+              value: some short text updated
             - name: Custom Field Paragraph
-              value: longer text than short text
+              value: longer text than short text updated
             - name: Custom Field URL
-              value: http://www.example.com
+              value: http://www.example.com/updated
           relationships:
             attachments:
               data:
@@ -2047,7 +2138,7 @@ components:
                 type: project_types
             spend_category:
               data:
-                id: '1'
+                id: '2'
                 type: spend_categories
             creator:
               data:
@@ -2122,124 +2213,32 @@ components:
             requester:
               meta:
                 email: requester@example.com
-    create_response:
+    update_request:
       value:
         data:
           type: projects
           id: '1'
           attributes:
             actual_end_date: '2031-12-30'
-            actual_spend_amount: 23.45
-            approved_spend_amount: 55.55
-            actual_start_date: '2018-01-20'
-            approved_at: null
-            approval_rounds: 0
-            canceled_note: null
-            canceled_reason: null
-            description: Project Description
-            estimated_savings_amount: 11.33
-            estimated_spend_amount: 21.12
-            external_id: 1234-5678-abcd-efgh
-            marked_as_needs_attention_at: null
-            needs_attention: false
-            needs_attention_note: null
-            needs_attention_reason: null
-            number: 1
-            on_hold_note: null
-            on_hold_reason: null
-            first_sent_for_approval_at: null
-            sent_for_approval_at: null
-            state: active
-            state_label: Sourcing
-            target_end_date: '2031-12-31'
-            target_start_date: '2018-01-15'
-            title: Project Title
-            updated_at: '2019-10-29T21:28:46.790Z'
-            request_submitted_at: '2019-10-28T21:28:46.790Z'
-            request_opened_at: null
-            custom_fields:
-            - name: Custom Field Currency
-              value: 1234567890
-            - name: Custom Field Integer
-              value: 1234567890
-            - name: Custom Field Checkbox
-              value: true
-            - name: Custom Field Decimal
-              value: 123456.78
-            - name: Custom Field Date
-              value: '2018-12-31T00:00:00.000Z'
-            - name: Custom Field Select
-              value: Select Option
-            - name: Custom Field Multiple
-              value:
-              - Multiple Select Option 1
-              - Multiple Select Option 2
-            - name: Custom Field Short Text
-              value: some short text
-            - name: Custom Field Paragraph
-              value: longer text than short text
-            - name: Custom Field URL
-              value: http://www.example.com
-          relationships:
-            attachments:
-              data: []
-            project_type:
-              data:
-                id: '1'
-                type: project_types
-            spend_category:
-              data:
-                id: '1'
-                type: spend_categories
-            creator:
-              data:
-                id: '2'
-                type: stakeholders
-            requester:
-              data:
-                id: '3'
-                type: stakeholders
-            owner:
-              data:
-                id: '2'
-                type: stakeholders
-          links:
-            self: https://api.us.workdayspend.com/services/projects/v1/projects/1
-    update_response:
-      value:
-        data:
-          type: projects
-          id: '1'
-          attributes:
-            actual_end_date: '2031-12-30'
-            actual_spend_amount: 223.45
-            approved_spend_amount: 255.55
+            actual_spend_amount: '223.45'
+            approved_spend_amount: '255.55'
             actual_start_date: '2019-01-20'
-            approved_at: '2019-10-11T09:12:31.080Z'
-            approval_rounds: 1
             canceled_note: null
             canceled_reason: null
             description: Project Description Updated
-            estimated_savings_amount: 211.33
-            estimated_spend_amount: 221.12
+            estimated_savings_amount: '211.33'
+            estimated_spend_amount: '221.12'
             external_id: 1234-5678-abcd-efgh
-            marked_as_needs_attention_at: null
             needs_attention: false
             needs_attention_note: null
             needs_attention_reason: null
-            number: 1
             on_hold_note: null
             on_hold_reason: null
-            first_sent_for_approval_at: '2019-10-05T05:24:12.000Z'
-            sent_for_approval_at: '2019-10-05T05:24:12.000Z'
             state: active
             state_label: Sourcing
             target_end_date: '2032-12-31'
             target_start_date: '2019-01-15'
             title: Project Title Updated
-            updated_at: '2019-10-29T21:28:46.790Z'
-            request_submitted_at: '2019-10-28T21:28:46.790Z'
-            request_opened_at: null
             custom_fields:
             - name: Custom Field Currency
               value: 987654321
@@ -2263,34 +2262,12 @@ components:
             - name: Custom Field URL
               value: http://www.example.com/updated
           relationships:
-            attachments:
-              data:
-              - id: '1'
-                type: attachments
-              - id: '2'
-                type: attachments
-            project_type:
-              data:
-                id: '1'
-                type: project_types
-            spend_category:
-              data:
-                id: '1'
-                type: spend_categories
-            creator:
-              data:
-                id: '1'
-                type: stakeholders
-            requester:
-              data:
-                id: '3'
-                type: stakeholders
             owner:
-              data:
-                id: '1'
-                type: stakeholders
-          links:
-            self: https://api.us.workdayspend.com/services/projects/v1/projects/1
+              meta:
+                email: contract.owner@example.com
+            requester:
+              meta:
+                email: requester@example.com
   securitySchemes:
     api_key:
       type: apiKey
@@ -2313,8 +2290,15 @@ x-tagGroups:
   - support
   - servers
   - api_specification
+  - date_and_time_fields
   - authentication
   - rate_limiting
-- name: Attachments
+  - external_ids
+  - pagination
+  - filters
+- name: Projects
   tags:
-  - attachments
+  - projects
+  - project_types
+  - project_supplier_companies
+  - project_supplier_contacts

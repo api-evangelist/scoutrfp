@@ -1,40 +1,29 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Workday Strategic Sourcing attachments payment_terms API
+  title: Workday Strategic Sourcing Payments Payment Terms API
   version: '1.0'
-  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
-
-    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
-
-    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
-
-    '
+  description: ''
 servers:
-- url: https://api.us.workdayspend.com/services/attachments/v1
+- url: https://api.us.workdayspend.com/services/payments/v1
   description: Production Server
-- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+- url: https://api.sandbox.us.workdayspend.com/services/payments/v1
   description: Sandbox Server
 security:
 - api_key: []
   user_token: []
   user_email: []
 tags:
-- name: payment_terms
+- name: Payment Terms
   x-displayName: Payment Terms
   description: 'Use the payment terms API to create, update, and query the payment terms in Workday Strategic Sourcing.
 
 
-    ## Payment Term Object
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/PaymentTerm" showReadOnly={true} showWriteOnly={true} />
-
-    '
+    ## Payment Term Object'
 paths:
   /payment_terms:
     get:
       tags:
-      - payment_terms
+      - Payment Terms
       description: Returns a list of payment terms.
       operationId: List Payment Terms
       summary: List Payment Terms
@@ -60,10 +49,8 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_terms\"\n"
     post:
       tags:
-      - payment_terms
-      description: 'Create a payment term with given parameters.
-
-        '
+      - Payment Terms
+      description: Create a payment term with given parameters.
       operationId: Create a Payment Term
       summary: Create a Payment Term
       requestBody:
@@ -98,7 +85,7 @@ paths:
   /payment_terms/{id}:
     patch:
       tags:
-      - payment_terms
+      - Payment Terms
       description: 'Updates the details of an existing payment term. You need to supply the unique
 
         identifier that was returned upon payment term creation.
@@ -106,9 +93,7 @@ paths:
 
         Please note, that request body must include an `id` attribute with the value of your payment term
 
-        unique identifier (the same one you passed in the URL).
-
-        '
+        unique identifier (the same one you passed in the URL).'
       operationId: Update a Payment Term
       summary: Update a Payment Term
       parameters:
@@ -167,12 +152,10 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"payment_terms\",\"id\":\"2\",\"attributes\":{\"name\":\"Updated Field Payment Term\"}}}' \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_terms/2\"\n"
     delete:
       tags:
-      - payment_terms
+      - Payment Terms
       description: 'Deletes a payment term. You need to supply the unique payment term
 
-        identifier that was returned upon payment term creation.
-
-        '
+        identifier that was returned upon payment term creation.'
       operationId: Delete a Payment Term
       summary: Delete a Payment Term
       parameters:
@@ -196,7 +179,7 @@ paths:
   /payment_terms/{external_id}/external_id:
     patch:
       tags:
-      - payment_terms
+      - Payment Terms
       description: 'Updates the details of an existing payment term. You need to supply the unique
 
         external identifier assigned to the payment term on creation.
@@ -204,9 +187,7 @@ paths:
 
         Please note, that request body must include an `id` attribute with the value of your payment term
 
-        unique identifier (the same one you passed in the URL).
-
-        '
+        unique identifier (the same one you passed in the URL).'
       operationId: Update a Payment Term by External ID
       summary: Update a Payment Term by External ID
       parameters:
@@ -250,12 +231,10 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"payment_terms\",\"id\":\"PAYTERM\",\"attributes\":{\"name\":\"Updated Field Payment Term\"}}}' \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_terms/PAYTERM/external_id\"\n"
     delete:
       tags:
-      - payment_terms
+      - Payment Terms
       description: 'Deletes a payment term. You need to supply the unique payment term
 
-        external identifier assigned to the payment term on creation.
-
-        '
+        external identifier assigned to the payment term on creation.'
       operationId: Delete a Payment Term by External ID
       summary: Delete a Payment Term by External ID
       parameters:
@@ -277,99 +256,7 @@ paths:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/payments/v1/payment_terms/PAYTERM/external_id\"\n"
 components:
-  schemas:
-    PaymentTermCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/PaymentTermType'
-        attributes:
-          $ref: '#/components/schemas/PaymentTermAttributes'
-    PaymentTermUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/PaymentTermType'
-        id:
-          $ref: '#/components/schemas/PaymentTermId'
-        attributes:
-          $ref: '#/components/schemas/PaymentTermAttributes'
-    PaymentTerm:
-      allOf:
-      - $ref: '#/components/schemas/PaymentTermBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/PaymentTermAttributes'
-    PaymentTermBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/PaymentTermType'
-        id:
-          $ref: '#/components/schemas/PaymentTermId'
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    PaymentTermType:
-      type: string
-      description: Object type, should always be `payment_terms`.
-      example: payment_terms
-    PaymentTermId:
-      type: integer
-      description: Payment term identifier string.
-      example: 1
-    PaymentTermAttributes:
-      type: object
-      description: Payment term attributes.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          maxLength: 255
-          description: Payment term name.
-        external_id:
-          type: string
-          maxLength: 255
-          description: Payment term external identifier.
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
   examples:
-    external_update_response:
-      value:
-        data:
-          id: '1'
-          type: payment_terms
-          attributes:
-            name: Payment Term Updated
-            external_id: PAYTERM
-          links:
-            self: https://api.us.workdayspend.com/services/payments/v1/payment_terms/1
-    external_update_request:
-      value:
-        data:
-          type: payment_terms
-          id: PAYTERM
-          attributes:
-            name: Payment Term Updated
     create_response:
       value:
         data:
@@ -399,14 +286,6 @@ components:
             self: https://api.us.workdayspend.com/services/payments/v1/payment_terms/2
         links:
           self: https://api.us.workdayspend.com/services/payments/v1/payment_terms
-    update_request:
-      value:
-        data:
-          type: payment_terms
-          id: '1'
-          attributes:
-            name: Payment Term Updated
-            external_id: PAYTERM-UPD
     update_response:
       value:
         data:
@@ -417,6 +296,13 @@ components:
             external_id: PAYTERM-UPD
           links:
             self: https://api.us.workdayspend.com/services/payments/v1/payment_terms/1
+    external_update_request:
+      value:
+        data:
+          type: payment_terms
+          id: PAYTERM
+          attributes:
+            name: Payment Term Updated
     create_request:
       value:
         data:
@@ -424,6 +310,99 @@ components:
           attributes:
             name: 'Payment Term #1'
             external_id: PAYTERM-1
+    update_request:
+      value:
+        data:
+          type: payment_terms
+          id: '1'
+          attributes:
+            name: Payment Term Updated
+            external_id: PAYTERM-UPD
+    external_update_response:
+      value:
+        data:
+          id: '1'
+          type: payment_terms
+          attributes:
+            name: Payment Term Updated
+            external_id: PAYTERM
+          links:
+            self: https://api.us.workdayspend.com/services/payments/v1/payment_terms/1
+  schemas:
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    PaymentTermAttributes:
+      type: object
+      description: Payment term attributes.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Payment term name.
+        external_id:
+          type: string
+          maxLength: 255
+          description: Payment term external identifier.
+    PaymentTerm:
+      allOf:
+      - $ref: '#/components/schemas/PaymentTermBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/PaymentTermAttributes'
+    PaymentTermType:
+      type: string
+      description: Object type, should always be `payment_terms`.
+      example: payment_terms
+    PaymentTermCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentTermType'
+        attributes:
+          $ref: '#/components/schemas/PaymentTermAttributes'
+    PaymentTermUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentTermType'
+        id:
+          $ref: '#/components/schemas/PaymentTermId'
+        attributes:
+          $ref: '#/components/schemas/PaymentTermAttributes'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    PaymentTermId:
+      type: integer
+      description: Payment term identifier string.
+      example: 1
+    PaymentTermBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentTermType'
+        id:
+          $ref: '#/components/schemas/PaymentTermId'
   securitySchemes:
     api_key:
       type: apiKey
@@ -446,8 +425,13 @@ x-tagGroups:
   - support
   - servers
   - api_specification
+  - date_and_time_fields
   - authentication
   - rate_limiting
-- name: Attachments
+  - external_ids
+  - filters
+- name: Payments
   tags:
-  - attachments
+  - payment_currencies
+  - payment_types
+  - payment_terms

@@ -1,19 +1,15 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Workday Strategic Sourcing attachments contract_reports API
+  title: Workday Strategic Sourcing Reports Contract Reports API
   version: '1.0'
-  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
-
-    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
-
-    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
-
-    '
+  description: ''
 servers:
-- url: https://api.us.workdayspend.com/services/attachments/v1
-  description: Production Server
-- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
-  description: Sandbox Server
+- url: https://api.us.workdayspend.com
+  description: US Region
+- url: https://api.ca.workdayspend.com
+  description: Canada Region
+- url: https://api.eu.workdayspend.com
+  description: Europe/EU Region
 security:
 - api_key: []
   user_token: []
@@ -21,9 +17,7 @@ security:
 tags:
 - name: contract_reports
   x-displayName: Contract Reports
-  description: 'This report returns a list of contract report entries.
-
-    '
+  description: This report returns a list of contract report entries.
 paths:
   /contract_reports/entries:
     get:
@@ -82,22 +76,6 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/contract_reports/schema\"\n"
 components:
   schemas:
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
-    ContractReportEntryType:
-      description: Object type, should always be `contract_report_entries`.
-      example: contract_report_entries
-    ContractReportEntryId:
-      description: Contract Report identifier string.
-      example: 1
     ReportSchemaField:
       type: object
       properties:
@@ -107,43 +85,37 @@ components:
           type: string
           description: Field name
           example: Scout-System ID
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type: string
-          format: url
-          description: Link to the next results page.
-          nullable: true
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type: string
-          format: url
-          description: Link to the previous results page.
-          nullable: true
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
+    ContractReportEntryAttributes:
+      description: Contract Report Entry attributes. See example response and schema.
+      properties: {}
+    ContractReportEntryId:
+      description: Contract Report identifier string.
+      example: 1
+    ContractReportEntryType:
+      description: Object type, should always be `contract_report_entries`.
+      example: contract_report_entries
     PaginationLinks:
       type: object
       description: List of pagination links.
       allOf:
       - $ref: '#/components/schemas/NextPageLink'
       - $ref: '#/components/schemas/PrevPageLink'
+    ContractReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `contract_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `contract_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
     Pagination:
       type: object
       properties:
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    ContractReportEntryAttributes:
-      description: Contract Report Entry attributes. See example response and schema.
-      properties: {}
     ContractReportEntry:
       type: object
       required:
@@ -156,17 +128,41 @@ components:
           $ref: '#/components/schemas/ContractReportEntryId'
         attributes:
           $ref: '#/components/schemas/ContractReportEntryAttributes'
-    ContractReportEntryFieldModel:
+    ReportSchemaFieldModel:
       type: object
       properties:
-        id:
-          type: string
-          description: Object ID, should always be `contract_schemas`.
-        type:
-          type: string
-          description: Object type, should always be `contract_schemas`.
-        attributes:
-          $ref: '#/components/schemas/ReportSchemaFieldModel'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
   examples:
     index_response-2:
       value:
@@ -561,6 +557,40 @@ x-tagGroups:
   - api_specification
   - authentication
   - rate_limiting
-- name: Attachments
+  - versioning
+  - pagination
+  - sorting
+  - including_relationships
+- name: Contract Milestone Reports
   tags:
-  - attachments
+  - contract_milestone_reports
+- name: Contract Reports
+  tags:
+  - contract_reports
+- name: Event Reports
+  tags:
+  - event_reports
+- name: Performance Review Answer Reports
+  tags:
+  - performance_review_answer_reports
+- name: Performance Review Reports
+  tags:
+  - performance_review_reports
+- name: Project Milestone Reports
+  tags:
+  - project_milestone_reports
+- name: Project Reports
+  tags:
+  - project_reports
+- name: Savings Reports
+  tags:
+  - savings_reports
+- name: Supplier Reports
+  tags:
+  - supplier_reports
+- name: Supplier Review Reports
+  tags:
+  - supplier_review_reports
+- name: Suppliers
+  tags:
+  - suppliers

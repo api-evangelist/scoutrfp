@@ -1,40 +1,29 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Workday Strategic Sourcing attachments worksheets API
-  version: '1.0'
-  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
-
-    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
-
-    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
-
-    '
+  title: Workday Strategic Sourcing Events Worksheets API
+  version: '1.2'
+  description: ''
 servers:
-- url: https://api.us.workdayspend.com/services/attachments/v1
+- url: https://api.us.workdayspend.com/services/events/v1
   description: Production Server
-- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+- url: https://api.sandbox.us.workdayspend.com/services/events/v1
   description: Sandbox Server
 security:
 - api_key: []
   user_token: []
   user_email: []
 tags:
-- name: worksheets
+- name: Worksheets
   x-displayName: Worksheets
   description: 'Use the worksheets API to create, update, and query the worksheets in Workday Strategic Sourcing.
 
 
-    ## Worksheet Object
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/WorksheetModel" showReadOnly={true} showWriteOnly={true} />
-
-    '
+    ## Worksheet Object'
 paths:
   /events/{event_id}/worksheets:
     get:
       tags:
-      - worksheets
+      - Worksheets
       description: Returns a list of all worksheets.
       operationId: List Worksheets
       summary: List Worksheets
@@ -79,12 +68,10 @@ paths:
   /events/{event_id}/worksheets/{id}:
     get:
       tags:
-      - worksheets
+      - Worksheets
       description: 'Retrieves the details of an existing worksheet. You need to supply the unique worksheet
 
-        identifier that was returned upon worksheet creation.
-
-        '
+        identifier that was returned upon worksheet creation.'
       operationId: Get a Worksheet
       summary: Get a Worksheet
       parameters:
@@ -125,7 +112,7 @@ paths:
   /worksheets/describe:
     get:
       tags:
-      - worksheets
+      - Worksheets
       description: Returns a list of fields for the worksheet object.
       operationId: Describe Worksheet object
       summary: Describe Worksheet object
@@ -153,35 +140,21 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/worksheets/describe\"\n"
 components:
   schemas:
-    DescribeFieldModel:
-      allOf:
-      - $ref: '#/components/schemas/DescribeFieldBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/DescribeFieldAttributes'
-    DescribeFieldBase:
-      title: DescribeFieldModel
+    SelfLink:
       type: object
-      required:
-      - type
-      - id
       properties:
-        type:
-          $ref: '#/components/schemas/DescribeFieldType'
-        id:
-          $ref: '#/components/schemas/DescribeFieldId'
-    OpenApiEnum:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    WorksheetId:
+      type: integer
+      description: Worksheet identifier string.
+      example: 1
+    WorksheetType:
       type: string
-      enum:
-      - string
-      - number
-      - integer
-      - boolean
-      - array
-      - object
-      description: OpenAPI data type.
-      example: string
+      description: Object type, should always be `worksheets`.
+      example: worksheets
     WorksheetColumnModel:
       type: object
       properties:
@@ -199,19 +172,6 @@ components:
           type: string
           description: Column field mapping key.
           example: TITLE
-    WorksheetColumnId:
-      type: string
-      description: Column identifier string.
-      example: 1
-    WorksheetModel:
-      allOf:
-      - $ref: '#/components/schemas/WorksheetBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/WorksheetAttributes'
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
     WorksheetFieldModel:
       allOf:
       - type: object
@@ -221,6 +181,10 @@ components:
             description: Object type, should always be `worksheet_fields`.
             example: worksheet_fields
       - $ref: '#/components/schemas/DescribeFieldModel'
+    WorksheetColumnId:
+      type: string
+      description: Column identifier string.
+      example: 1
     WorksheetAttributes:
       type: object
       description: Worksheet attributes.
@@ -257,18 +221,6 @@ components:
           items:
             $ref: '#/components/schemas/WorksheetColumnModel'
           description: Column field values.
-    WorksheetType:
-      type: string
-      description: Object type, should always be `worksheets`.
-      example: worksheets
-    DescribeFieldType:
-      type: string
-      description: Object type, should always be `describe_fields`.
-      example: describe_fields
-    DescribeFieldId:
-      type: string
-      description: Field identifier string.
-      example: field_name
     CustomFieldEnum:
       type: string
       enum:
@@ -287,13 +239,50 @@ components:
       - Related
       description: Internal name and meaning of each field.
       example: Short Text
-    SelfLink:
+    DescribeFieldType:
+      type: string
+      description: Object type, should always be `describe_fields`.
+      example: describe_fields
+    OpenApiEnum:
+      type: string
+      enum:
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
+    DescribeFieldId:
+      type: string
+      description: Field identifier string.
+      example: field_name
+    WorksheetModel:
+      allOf:
+      - $ref: '#/components/schemas/WorksheetBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/WorksheetAttributes'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    DescribeFieldBase:
+      title: DescribeFieldModel
       type: object
+      required:
+      - type
+      - id
       properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
+        type:
+          $ref: '#/components/schemas/DescribeFieldType'
+        id:
+          $ref: '#/components/schemas/DescribeFieldId'
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
     WorksheetBase:
       title: Worksheet
       type: object
@@ -305,15 +294,6 @@ components:
           $ref: '#/components/schemas/WorksheetType'
         id:
           $ref: '#/components/schemas/WorksheetId'
-    ResourceLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-    WorksheetId:
-      type: integer
-      description: Worksheet identifier string.
-      example: 1
     DescribeFieldAttributes:
       type: object
       description: Describe field attributes.
@@ -331,41 +311,14 @@ components:
           type: boolean
           description: Flag for determining if this is a user created custom field or an internal system field.
           example: false
+    DescribeFieldModel:
+      allOf:
+      - $ref: '#/components/schemas/DescribeFieldBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/DescribeFieldAttributes'
   examples:
-    describe_response-2:
-      value:
-        meta:
-          count: 4
-        data:
-        - id: title
-          type: worksheet_fields
-          attributes:
-            name: title
-            data_type: string
-            type_description: Short Text
-            custom_field: false
-        - id: budget
-          type: worksheet_fields
-          attributes:
-            name: budget
-            data_type: number
-            type_description: Decimal
-            custom_field: false
-        - id: notes
-          type: worksheet_fields
-          attributes:
-            name: notes
-            data_type: string
-            type_description: Paragraph
-            custom_field: false
-        - id: updated_at
-          type: worksheet_fields
-          attributes:
-            name: updated_at
-            data_type: string
-            type_description: Date
-            custom_field: false
-        links: {}
     show_response-3:
       value:
         data:
@@ -400,6 +353,40 @@ components:
               mapping_key: EXTENDED_PRICE
           links:
             self: https://api.us.workdayspend.com/services/events/v1/events/3/worksheets/1
+    describe_response-2:
+      value:
+        meta:
+          count: 4
+        data:
+        - id: title
+          type: worksheet_fields
+          attributes:
+            name: title
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: budget
+          type: worksheet_fields
+          attributes:
+            name: budget
+            data_type: number
+            type_description: Decimal
+            custom_field: false
+        - id: notes
+          type: worksheet_fields
+          attributes:
+            name: notes
+            data_type: string
+            type_description: Paragraph
+            custom_field: false
+        - id: updated_at
+          type: worksheet_fields
+          attributes:
+            name: updated_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        links: {}
     index_response-3:
       value:
         meta:
@@ -491,8 +478,23 @@ x-tagGroups:
   - support
   - servers
   - api_specification
+  - date_and_time_fields
   - authentication
   - rate_limiting
-- name: Attachments
+  - external_ids
+  - pagination
+  - filters
+- name: Events
   tags:
-  - attachments
+  - events
+  - event_supplier_companies
+  - event_supplier_contacts
+  - event_templates
+- name: Worksheets
+  tags:
+  - worksheets
+  - line_items
+- name: Bids
+  tags:
+  - bids
+  - bid_line_items

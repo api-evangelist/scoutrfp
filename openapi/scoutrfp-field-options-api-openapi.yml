@@ -1,18 +1,12 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Workday Strategic Sourcing attachments field_options API
+  title: Workday Strategic Sourcing Fields Field Options API
   version: '1.0'
-  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
-
-    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
-
-    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
-
-    '
+  description: ''
 servers:
-- url: https://api.us.workdayspend.com/services/attachments/v1
+- url: https://api.us.workdayspend.com/services/fields/v1
   description: Production Server
-- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+- url: https://api.sandbox.us.workdayspend.com/services/fields/v1
   description: Sandbox Server
 security:
 - api_key: []
@@ -26,12 +20,7 @@ tags:
     Custom field options exist for single select and multiple select field types.
 
 
-    ## Field Option Object
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/FieldOption" showReadOnly={true} showWriteOnly={true} />
-
-    '
+    ## Field Option Object'
 paths:
   /fields/{field_id}/field_options:
     get:
@@ -72,9 +61,7 @@ paths:
     post:
       tags:
       - field_options
-      description: 'Create a field options with given parameters.
-
-        '
+      description: Create a field options with given parameters.
       operationId: Create a Field Option
       summary: Create a Field Option
       requestBody:
@@ -110,9 +97,7 @@ paths:
     patch:
       tags:
       - field_options
-      description: 'Update a field options with given parameters.
-
-        '
+      description: Update a field options with given parameters.
       operationId: Update a Field Option
       summary: Update a Field Option
       parameters:
@@ -157,9 +142,7 @@ paths:
       - field_options
       description: 'Deletes a field option. You need to supply the unique field option
 
-        identifier that was returned upon field creation.
-
-        '
+        identifier that was returned upon field creation.'
       operationId: Delete a Field Option
       summary: Delete a Field Option
       parameters:
@@ -182,32 +165,17 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/fields/v1/field_options/1\"\n"
 components:
   schemas:
-    FieldType:
-      type: string
-      description: Object type, should always be `fields`.
-      example: fields
-    FieldOptionType:
-      type: string
-      description: Object type, should always be `fields`.
-      example: fields
-    FieldOption:
-      allOf:
-      - $ref: '#/components/schemas/FieldOptionBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/FieldOptionAttributes'
-    FieldOptionCreate:
+    FieldBase:
+      title: Field
       type: object
       required:
       - type
+      - id
       properties:
         type:
-          $ref: '#/components/schemas/FieldOptionType'
-        attributes:
-          $ref: '#/components/schemas/FieldOptionAttributes'
-        relationships:
-          $ref: '#/components/schemas/FieldOptionRelationship'
+          $ref: '#/components/schemas/FieldType'
+        id:
+          $ref: '#/components/schemas/FieldId'
     FieldOptionUpdate:
       type: object
       required:
@@ -220,6 +188,44 @@ components:
           $ref: '#/components/schemas/FieldOptionId'
         attributes:
           $ref: '#/components/schemas/FieldOptionAttributes'
+    FieldOptionType:
+      type: string
+      description: Object type, should always be `fields`.
+      example: fields
+    FieldOptionBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldOptionType'
+        id:
+          $ref: '#/components/schemas/FieldOptionId'
+    FieldOptionId:
+      type: integer
+      description: Field identifier string.
+      example: 1
+    FieldId:
+      type: integer
+      description: Field identifier string.
+      example: 1
+    FieldOptionCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldOptionType'
+        attributes:
+          $ref: '#/components/schemas/FieldOptionAttributes'
+        relationships:
+          $ref: '#/components/schemas/FieldOptionRelationship'
+    FieldType:
+      type: string
+      description: Object type, should always be `fields`.
+      example: fields
     FieldOptionRelationship:
       type: object
       description: Field option relationship.
@@ -231,14 +237,13 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/FieldBase'
-    FieldOptionId:
-      type: integer
-      description: Field identifier string.
-      example: 1
-    FieldId:
-      type: integer
-      description: Field identifier string.
-      example: 1
+    FieldOption:
+      allOf:
+      - $ref: '#/components/schemas/FieldOptionBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/FieldOptionAttributes'
     FieldOptionAttributes:
       type: object
       description: Field attributes.
@@ -253,40 +258,15 @@ components:
           type: integer
           description: Field order position on the UI.
           readOnly: true
-    FieldBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldType'
-        id:
-          $ref: '#/components/schemas/FieldId'
-    FieldOptionBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldOptionType'
-        id:
-          $ref: '#/components/schemas/FieldOptionId'
   examples:
-    create_request-2:
+    create_response-2:
       value:
         data:
+          id: '1'
           type: field_options
           attributes:
             label: Field Option One
-          relationships:
-            field:
-              data:
-                type: fields
-                id: '1'
+            position: null
     update_request-2:
       value:
         data:
@@ -294,14 +274,6 @@ components:
           type: field_options
           attributes:
             label: Updated Field Option
-    update_response-2:
-      value:
-        data:
-          id: '1'
-          type: field_options
-          attributes:
-            label: Updated Field Option
-            position: 1
     index_response-2:
       value:
         data:
@@ -316,14 +288,25 @@ components:
             label: Option Two
             position: 2
         links: {}
-    create_response-2:
+    update_response-2:
       value:
         data:
           id: '1'
           type: field_options
           attributes:
+            label: Updated Field Option
+            position: 1
+    create_request-2:
+      value:
+        data:
+          type: field_options
+          attributes:
             label: Field Option One
-            position: null
+          relationships:
+            field:
+              data:
+                type: fields
+                id: '1'
   securitySchemes:
     api_key:
       type: apiKey
@@ -346,8 +329,12 @@ x-tagGroups:
   - support
   - servers
   - api_specification
+  - date_and_time_fields
   - authentication
   - rate_limiting
-- name: Attachments
+  - external_ids
+- name: Fields
   tags:
-  - attachments
+  - field_groups
+  - fields
+  - field_options

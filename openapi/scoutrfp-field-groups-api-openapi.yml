@@ -1,25 +1,19 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Workday Strategic Sourcing attachments field_groups API
+  title: Workday Strategic Sourcing Fields Field Groups API
   version: '1.0'
-  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
-
-    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
-
-    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
-
-    '
+  description: ''
 servers:
-- url: https://api.us.workdayspend.com/services/attachments/v1
+- url: https://api.us.workdayspend.com/services/fields/v1
   description: Production Server
-- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
+- url: https://api.sandbox.us.workdayspend.com/services/fields/v1
   description: Sandbox Server
 security:
 - api_key: []
   user_token: []
   user_email: []
 tags:
-- name: field_groups
+- name: Field groups
   x-displayName: Field Groups
   description: 'Use the fields API to create, update, and query the custom fields groups in Workday Strategic Sourcing.
 
@@ -28,17 +22,12 @@ tags:
     with requires a custom field group (except for the fields with `target_object` set to `RFP`).
 
 
-    ## Field Group Object
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/FieldGroup" showReadOnly={true} showWriteOnly={true} />
-
-    '
+    ## Field Group Object'
 paths:
   /field_groups:
     get:
       tags:
-      - field_groups
+      - Field groups
       description: Returns a list of field groups.
       operationId: List Field Groups
       summary: List Field Groups
@@ -64,10 +53,8 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/fields/v1/field_groups\"\n"
     post:
       tags:
-      - field_groups
-      description: 'Create a field group with given parameters.
-
-        '
+      - Field groups
+      description: Create a field group with given parameters.
       operationId: Create a Field Group
       summary: Create a Field Group
       requestBody:
@@ -102,12 +89,10 @@ paths:
   /field_groups/{id}:
     get:
       tags:
-      - field_groups
+      - Field groups
       description: 'Retrieves the details of an existing field group. You need to supply the unique
 
-        field group identifier that was returned upon group creation.
-
-        '
+        field group identifier that was returned upon group creation.'
       operationId: Get a Field Group
       summary: Get a Field Group
       parameters:
@@ -140,7 +125,7 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/fields/v1/field_groups/1\"\n"
     patch:
       tags:
-      - field_groups
+      - Field groups
       description: 'Updates the details of an existing field group. You need to supply the unique
 
         identifier that was returned upon field group creation.
@@ -148,9 +133,7 @@ paths:
 
         Please note, that request body must include an `id` attribute with the value of your field
 
-        unique identifier (the same one you passed in the URL).
-
-        '
+        unique identifier (the same one you passed in the URL).'
       operationId: Update a Field Group
       summary: Update a Field Group
       parameters:
@@ -209,12 +192,10 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"field_groups\",\"id\":\"2\",\"attributes\":{\"name\":\"Updated Field Group Name\"}}}' \\\n     \"https://api.us.workdayspend.com/services/fields/v1/field_groups/2\"\n"
     delete:
       tags:
-      - field_groups
+      - Field groups
       description: 'Deletes a field group. You need to supply the unique field group
 
-        identifier that was returned upon field group creation.
-
-        '
+        identifier that was returned upon field group creation.'
       operationId: Delete a Field Group
       summary: Delete a Field Group
       parameters:
@@ -236,14 +217,107 @@ paths:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/fields/v1/field_groups/1\"\n"
 components:
+  schemas:
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    FieldGroupUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldGroupType'
+        id:
+          $ref: '#/components/schemas/FieldGroupId'
+        attributes:
+          $ref: '#/components/schemas/FieldGroupAttributes'
+    FieldGroupBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldGroupType'
+        id:
+          $ref: '#/components/schemas/FieldGroupId'
+    FieldGroupAttributes:
+      type: object
+      description: Field group attributes.
+      required:
+      - name
+      properties:
+        target_object:
+          type: string
+          enum:
+          - PROJECT
+          - SUPPLIER_COMPANY
+          - RFP
+          description: Field group object type string.
+        name:
+          type: string
+          maxLength: 255
+          description: Field group name.
+        position:
+          type: integer
+          description: Field group position on the UI.
+          readOnly: true
+    FieldGroupCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldGroupType'
+        attributes:
+          $ref: '#/components/schemas/FieldGroupAttributes'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    FieldGroupId:
+      type: integer
+      description: Field group identifier string.
+      example: 1
+    FieldGroupType:
+      type: string
+      description: Object type, should always be `field_groups`.
+      example: field_groups
+    FieldGroup:
+      allOf:
+      - $ref: '#/components/schemas/FieldGroupBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/FieldGroupAttributes'
   examples:
-    create_request-3:
+    update_request-3:
       value:
         data:
+          id: '1'
+          type: field_groups
+          attributes:
+            name: Updated Field Group
+    create_response-3:
+      value:
+        data:
+          id: '1'
           type: field_groups
           attributes:
             target_object: PROJECT
             name: Custom Group
+            position: null
+          links:
+            self: https://api.us.workdayspend.com/services/fields/v1/field_groups/1
     show_response-2:
       value:
         data:
@@ -263,24 +337,6 @@ components:
           attributes:
             target_object: PROJECT
             name: Updated Field Group
-            position: null
-          links:
-            self: https://api.us.workdayspend.com/services/fields/v1/field_groups/1
-    update_request-3:
-      value:
-        data:
-          id: '1'
-          type: field_groups
-          attributes:
-            name: Updated Field Group
-    create_response-3:
-      value:
-        data:
-          id: '1'
-          type: field_groups
-          attributes:
-            target_object: PROJECT
-            name: Custom Group
             position: null
           links:
             self: https://api.us.workdayspend.com/services/fields/v1/field_groups/1
@@ -305,88 +361,13 @@ components:
             self: https://api.us.workdayspend.com/services/fields/v1/field_groups/2
         links:
           self: https://api.us.workdayspend.com/services/fields/v1/field_groups
-  schemas:
-    FieldGroupType:
-      type: string
-      description: Object type, should always be `field_groups`.
-      example: field_groups
-    FieldGroupAttributes:
-      type: object
-      description: Field group attributes.
-      required:
-      - name
-      properties:
-        target_object:
-          type: string
-          enum:
-          - PROJECT
-          - SUPPLIER_COMPANY
-          - RFP
-          description: Field group object type string.
-        name:
-          type: string
-          maxLength: 255
-          description: Field group name.
-        position:
-          type: integer
-          description: Field group position on the UI.
-          readOnly: true
-    FieldGroupBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldGroupType'
-        id:
-          $ref: '#/components/schemas/FieldGroupId'
-    FieldGroup:
-      allOf:
-      - $ref: '#/components/schemas/FieldGroupBase'
-      - type: object
-        properties:
+    create_request-3:
+      value:
+        data:
+          type: field_groups
           attributes:
-            $ref: '#/components/schemas/FieldGroupAttributes'
-    FieldGroupCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldGroupType'
-        attributes:
-          $ref: '#/components/schemas/FieldGroupAttributes'
-    FieldGroupUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldGroupType'
-        id:
-          $ref: '#/components/schemas/FieldGroupId'
-        attributes:
-          $ref: '#/components/schemas/FieldGroupAttributes'
-    FieldGroupId:
-      type: integer
-      description: Field group identifier string.
-      example: 1
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
+            target_object: PROJECT
+            name: Custom Group
   securitySchemes:
     api_key:
       type: apiKey
@@ -409,8 +390,12 @@ x-tagGroups:
   - support
   - servers
   - api_specification
+  - date_and_time_fields
   - authentication
   - rate_limiting
-- name: Attachments
+  - external_ids
+- name: Fields
   tags:
-  - attachments
+  - field_groups
+  - fields
+  - field_options

@@ -1,19 +1,15 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Workday Strategic Sourcing attachments performance_review_reports API
+  title: Workday Strategic Sourcing Reports Performance Review…
   version: '1.0'
-  description: '<span id="section/Authentication/api_key" data-section-id="section/Authentication/api_key"></span>
-
-    <span id="section/Authentication/user_token" data-section-id="section/Authentication/user_token"></span>
-
-    <span id="section/Authentication/user_email" data-section-id="section/Authentication/user_email"></span>
-
-    '
+  description: ''
 servers:
-- url: https://api.us.workdayspend.com/services/attachments/v1
-  description: Production Server
-- url: https://api.sandbox.us.workdayspend.com/services/attachments/v1
-  description: Sandbox Server
+- url: https://api.us.workdayspend.com
+  description: US Region
+- url: https://api.ca.workdayspend.com
+  description: Canada Region
+- url: https://api.eu.workdayspend.com
+  description: Europe/EU Region
 security:
 - api_key: []
   user_token: []
@@ -21,9 +17,7 @@ security:
 tags:
 - name: performance_review_reports
   x-displayName: Performance Review Reports
-  description: 'This report returns a list of Performance Review report entries.
-
-    '
+  description: This report returns a list of Performance Review report entries.
 paths:
   /performance_review_reports/entries:
     get:
@@ -82,16 +76,15 @@ paths:
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/performance_review_reports/schema\"\n"
 components:
   schemas:
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
     PerformanceReviewReportEntry:
       type: object
       required:
@@ -104,44 +97,19 @@ components:
           $ref: '#/components/schemas/PerformanceReviewReportEntryId'
         attributes:
           $ref: '#/components/schemas/PerformanceReviewReportEntryAttributes'
-    ReportSchemaField:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type: string
-          format: url
-          description: Link to the next results page.
-          nullable: true
-    PerformanceReviewReportEntryType:
-      description: Object type, should always be `performance_review_report_entries`.
-      example: performance_review_report_entries
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type: string
-          format: url
-          description: Link to the previous results page.
-          nullable: true
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
     PerformanceReviewReportEntryId:
       description: Performance Review Report identifier string.
       example: 1
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
     PaginationLinks:
       type: object
       description: List of pagination links.
@@ -153,9 +121,6 @@ components:
       properties:
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    PerformanceReviewReportEntryAttributes:
-      description: Performance Review Report Entry attributes. See example response and schema.
-      properties: {}
     PerformanceReviewReportEntryFieldModel:
       type: object
       properties:
@@ -167,38 +132,38 @@ components:
           description: Object type, should always be `performance_review_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    PerformanceReviewReportEntryType:
+      description: Object type, should always be `performance_review_report_entries`.
+      example: performance_review_report_entries
+    PerformanceReviewReportEntryAttributes:
+      description: Performance Review Report Entry attributes. See example response and schema.
+      properties: {}
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
   examples:
-    schema_response-5:
-      value:
-        data:
-          id: performance_review_schemas
-          type: performance_review_schemas
-          attributes:
-            fields:
-            - type: text
-              name: Scout-Supplier Name
-            - type: text
-              name: Scout-Project ID
-            - type: text
-              name: Scout-Performance Review Title
-            - type: integer
-              name: Scout-Total Score
-            - type: integer
-              name: Scout-High
-            - type: integer
-              name: Scout-Low
-            - type: integer
-              name: Scout-Median
-            - type: text
-              name: Scout-Executive Summary
-            - type: date
-              name: Scout-Scorecard Completed Date
-            - type: select
-              name: Scout-Category
-            - type: select
-              name: Scout-Sourcing Owner
-            - type: string
-              name: 'Field #13'
     index_response-4:
       value:
         data:
@@ -280,6 +245,37 @@ components:
         links:
           prev: null
           next: null
+    schema_response-5:
+      value:
+        data:
+          id: performance_review_schemas
+          type: performance_review_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-Supplier Name
+            - type: text
+              name: Scout-Project ID
+            - type: text
+              name: Scout-Performance Review Title
+            - type: integer
+              name: Scout-Total Score
+            - type: integer
+              name: Scout-High
+            - type: integer
+              name: Scout-Low
+            - type: integer
+              name: Scout-Median
+            - type: text
+              name: Scout-Executive Summary
+            - type: date
+              name: Scout-Scorecard Completed Date
+            - type: select
+              name: Scout-Category
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: string
+              name: 'Field #13'
   securitySchemes:
     api_key:
       type: apiKey
@@ -304,6 +300,40 @@ x-tagGroups:
   - api_specification
   - authentication
   - rate_limiting
-- name: Attachments
+  - versioning
+  - pagination
+  - sorting
+  - including_relationships
+- name: Contract Milestone Reports
   tags:
-  - attachments
+  - contract_milestone_reports
+- name: Contract Reports
+  tags:
+  - contract_reports
+- name: Event Reports
+  tags:
+  - event_reports
+- name: Performance Review Answer Reports
+  tags:
+  - performance_review_answer_reports
+- name: Performance Review Reports
+  tags:
+  - performance_review_reports
+- name: Project Milestone Reports
+  tags:
+  - project_milestone_reports
+- name: Project Reports
+  tags:
+  - project_reports
+- name: Savings Reports
+  tags:
+  - savings_reports
+- name: Supplier Reports
+  tags:
+  - supplier_reports
+- name: Supplier Review Reports
+  tags:
+  - supplier_review_reports
+- name: Suppliers
+  tags:
+  - suppliers
