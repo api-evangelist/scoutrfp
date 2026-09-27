@@ -22,7 +22,7 @@ paths:
       tags:
       - supplier_classifications
       description: Returns a list of supplier classifications.
-      operationId: List Supplier Classifications
+      operationId: ListSupplierClassifications
       summary: List Supplier Classifications
       parameters:
       - name: include
@@ -90,6 +90,8 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: List Supplier Classifications
     post:
       tags:
       - supplier_classifications
@@ -285,7 +287,7 @@ paths:
         }
 
         ```'
-      operationId: Create a Supplier Classification
+      operationId: CreateASupplierClassification
       summary: Create a Supplier Classification
       parameters:
       - name: include
@@ -332,12 +334,14 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":{\"type\":\"supplier_classifications\",\"attributes\":{\"name\":\"Classif 1\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Create a Supplier Classification
   /supplier_classifications/{id}:
     get:
       tags:
       - supplier_classifications
       description: Retrieves the details of an existing supplier classification.
-      operationId: Get a Supplier Classification
+      operationId: GetASupplierClassification
       summary: Get a Supplier Classification
       parameters:
       - name: id
@@ -378,11 +382,13 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Get a Supplier Classification
     patch:
       tags:
       - supplier_classifications
       description: Update a supplier classification with given attributes, relationships, and related complex resources.
-      operationId: Update a Supplier Classification
+      operationId: UpdateASupplierClassification
       summary: Update a Supplier Classification
       parameters:
       - name: id
@@ -453,11 +459,13 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"id\": 1,\"type\":\"supplier_classifications\",\"attributes\":{\"name\":\"Classif 1\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Update a Supplier Classification
     delete:
       tags:
       - supplier_classifications
       description: Deletes a supplier classification.
-      operationId: Delete a Supplier Classification
+      operationId: DeleteASupplierClassification
       summary: Delete a Supplier Classification
       parameters:
       - name: id
@@ -477,6 +485,8 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete a Supplier Classification
   /supplier_classifications/{external_id}/external_id:
     get:
       tags:
@@ -484,7 +494,7 @@ paths:
       description: 'Retrieves the details of an existing supplier classification. You need to supply the unique supplier
 
         classification external identifier (the one you used when created the supplier classification).'
-      operationId: Get a Supplier Classification by External ID
+      operationId: GetASupplierClassificationByExternalID
       summary: Get a Supplier Classification by External ID
       parameters:
       - name: external_id
@@ -523,11 +533,13 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/CL-1/external_id\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Get a Supplier Classification by External ID
     patch:
       tags:
       - supplier_classifications
       description: Update a supplier classification with given attributes, relationships, and related complex resources.
-      operationId: Update a Supplier Classification by External ID
+      operationId: UpdateASupplierClassificationByExternalID
       summary: Update a Supplier Classification by External ID
       parameters:
       - name: external_id
@@ -579,11 +591,13 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"id\":\"CL-1\",\"type\":\"supplier_classifications\",\"attributes\":{\"name\":\"Classif 1\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/CL-1/external_id\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Update a Supplier Classification by External ID
     delete:
       tags:
       - supplier_classifications
       description: Deletes a supplier classification.
-      operationId: Delete a Supplier Classification by External ID
+      operationId: DeleteASupplierClassificationByExternalID
       summary: Delete a Supplier Classification by External ID
       parameters:
       - name: external_id
@@ -603,27 +617,10 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/CL-1/external_id\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete a Supplier Classification by External ID
 components:
   schemas:
-    SupplierClassificationInputFilter:
-      type: object
-      properties:
-        codename:
-          type: string
-          description: Return supplier classifications with given codename.
-          example: diversity
-    SupplierClassificationFieldCreate:
-      title: SupplierClassificationField
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierClassificationFieldType'
-        attributes:
-          $ref: '#/components/schemas/SupplierClassificationFieldAttributes'
-        relationships:
-          $ref: '#/components/schemas/SupplierClassificationFieldMutationRelationship'
     SupplierClassificationRelationship:
       type: object
       description: Supplier classification relationships.
@@ -636,47 +633,122 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/SupplierClassificationFieldBase'
+    SupplierClassificationMutationRelationship:
+      allOf:
+      - $ref: '#/components/schemas/SupplierClassificationRelationship'
+      - type: object
+        properties:
+          external_supplier_classification_fields:
+            type: object
+            description: Supplier classification field assigned to the supplier classification, referenced by external ID.
+            properties:
+              data:
+                $ref: '#/components/schemas/SupplierClassificationFieldBase'
+          external_supplier_classification_field_options:
+            type: object
+            description: Supplier classification field options assigned to the supplier classification fields, referenced by external ID.
+            properties:
+              data:
+                $ref: '#/components/schemas/SupplierClassificationFieldOptionBase'
+    SupplierClassificationFieldOptionAttributes:
+      type: object
+      description: SupplierClassificationFieldOption attributes.
+      required:
+      - label
+      properties:
+        label:
+          type: string
+          description: Supplier classification field option label.
+          example: Option 1
+        order:
+          type: number
+          description: Supplier classification field option order.
+        external_id:
+          type: string
+          maxLength: 255
+          description: Supplier classification field option external identifier.
+          example: 1234-5678-abcd-efgh
+    SupplierClassificationIncludedMutationResources:
+      type: array
+      items:
+        anyOf:
+        - $ref: '#/components/schemas/SupplierClassificationFieldCreate'
+        - $ref: '#/components/schemas/SupplierClassificationFieldOptionCreate'
+    SupplierClassificationFieldOptionType:
+      type: string
+      description: Object type, should always be `supplier_classification_field_options`.
+      example: supplier_classification_field_options
+    SupplierClassificationFieldId:
+      type: integer
+      description: Supplier classification field identifier string.
+      example: 1
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    SupplierClassificationFieldRelationship:
+      type: object
+      description: Supplier classification field relationships.
+      properties:
+        supplier_classification_field_options:
+          description: Supplier classification field options assigned to the field.
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/SupplierClassificationFieldOptionBase'
+    SupplierClassificationFieldEnum:
+      type: string
+      enum:
+      - TEXT
+      - ATTACHMENT
+      - SELECT
+      - MULTIPLE
+      - NUMBER
+      - EFFECTIVE_DATE
+      - EXPIRY_DATE
+      description: Internal name and meaning of each field.
+      example: TEXT
+    SupplierClassificationInputFilter:
+      type: object
+      properties:
+        codename:
+          type: string
+          description: Return supplier classifications with given codename.
+          example: diversity
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    SupplierClassificationType:
+      type: string
+      description: Object type, should always be `supplier_classifications`.
+      example: supplier_classifications
+    SupplierClassificationId:
+      type: integer
+      description: Supplier classification identifier string.
+      example: 1
+    SupplierClassificationFieldOptionId:
+      type: integer
+      description: Supplier classification field option identifier string.
+      example: 1
+    SupplierClassification:
+      allOf:
+      - $ref: '#/components/schemas/SupplierClassificationBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierClassificationAttributes'
+          relationships:
+            $ref: '#/components/schemas/SupplierClassificationRelationship'
     SupplierClassificationFieldType:
       type: string
       description: Object type, should always be `supplier_classification_fields`.
       example: supplier_classification_fields
-    SupplierClassificationFieldBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierClassificationFieldType'
-        id:
-          $ref: '#/components/schemas/SupplierClassificationFieldId'
-    SupplierClassificationUpdate:
-      title: SupplierClassification
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierClassificationType'
-        id:
-          $ref: '#/components/schemas/SupplierClassificationId'
-        attributes:
-          $ref: '#/components/schemas/SupplierClassificationAttributes'
-        relationships:
-          $ref: '#/components/schemas/SupplierClassificationMutationRelationship'
-    SupplierClassificationFieldOptionBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierClassificationFieldOptionType'
-        id:
-          $ref: '#/components/schemas/SupplierClassificationFieldOptionId'
     SupplierClassificationAttributes:
       type: object
       description: SupplierClassification attributes.
@@ -717,30 +789,55 @@ components:
           maxLength: 255
           description: Supplier Classification external identifier.
           example: 1234-5678-abcd-efgh
-    Error:
+    SupplierClassificationFieldCreate:
+      title: SupplierClassificationField
       type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    SupplierClassificationFieldOptionAttributes:
-      type: object
-      description: SupplierClassificationFieldOption attributes.
       required:
-      - label
+      - type
       properties:
-        label:
-          type: string
-          description: Supplier classification field option label.
-          example: Option 1
-        order:
-          type: number
-          description: Supplier classification field option order.
-        external_id:
-          type: string
-          maxLength: 255
-          description: Supplier classification field option external identifier.
-          example: 1234-5678-abcd-efgh
+        type:
+          $ref: '#/components/schemas/SupplierClassificationFieldType'
+        attributes:
+          $ref: '#/components/schemas/SupplierClassificationFieldAttributes'
+        relationships:
+          $ref: '#/components/schemas/SupplierClassificationFieldMutationRelationship'
+    SupplierClassificationFieldMutationRelationship:
+      allOf:
+      - $ref: '#/components/schemas/SupplierClassificationFieldRelationship'
+      - type: object
+        properties:
+          external_supplier_classification_field_options:
+            type: array
+            description: Supplier classification field options assigned to the supplier classification field, referenced by external ID.
+            properties:
+              data:
+                $ref: '#/components/schemas/SupplierClassificationFieldOptionBase'
+    SupplierClassificationFieldBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierClassificationFieldType'
+        id:
+          $ref: '#/components/schemas/SupplierClassificationFieldId'
+    SupplierClassificationUpdate:
+      title: SupplierClassification
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierClassificationType'
+        id:
+          $ref: '#/components/schemas/SupplierClassificationId'
+        attributes:
+          $ref: '#/components/schemas/SupplierClassificationAttributes'
+        relationships:
+          $ref: '#/components/schemas/SupplierClassificationMutationRelationship'
     SupplierClassificationFieldOptionCreate:
       title: SupplierClassificationFieldOption
       type: object
@@ -751,44 +848,17 @@ components:
           $ref: '#/components/schemas/SupplierClassificationFieldOptionType'
         attributes:
           $ref: '#/components/schemas/SupplierClassificationFieldOptionAttributes'
-    SupplierClassificationFieldEnum:
-      type: string
-      enum:
-      - TEXT
-      - ATTACHMENT
-      - SELECT
-      - MULTIPLE
-      - NUMBER
-      - EFFECTIVE_DATE
-      - EXPIRY_DATE
-      description: Internal name and meaning of each field.
-      example: TEXT
-    SupplierClassificationMutationRelationship:
-      allOf:
-      - $ref: '#/components/schemas/SupplierClassificationRelationship'
-      - type: object
-        properties:
-          external_supplier_classification_fields:
-            type: object
-            description: Supplier classification field assigned to the supplier classification, referenced by external ID.
-            properties:
-              data:
-                $ref: '#/components/schemas/SupplierClassificationFieldBase'
-          external_supplier_classification_field_options:
-            type: object
-            description: Supplier classification field options assigned to the supplier classification fields, referenced by external ID.
-            properties:
-              data:
-                $ref: '#/components/schemas/SupplierClassificationFieldOptionBase'
-    SupplierClassification:
-      allOf:
-      - $ref: '#/components/schemas/SupplierClassificationBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/SupplierClassificationAttributes'
-          relationships:
-            $ref: '#/components/schemas/SupplierClassificationRelationship'
+    SupplierClassificationFieldOptionBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierClassificationFieldOptionType'
+        id:
+          $ref: '#/components/schemas/SupplierClassificationFieldOptionId'
     SupplierClassificationCreate:
       title: SupplierClassification
       type: object
@@ -801,17 +871,22 @@ components:
           $ref: '#/components/schemas/SupplierClassificationAttributes'
         relationships:
           $ref: '#/components/schemas/SupplierClassificationMutationRelationship'
-    SupplierClassificationFieldMutationRelationship:
+    SupplierClassificationRelatedResources:
       allOf:
-      - $ref: '#/components/schemas/SupplierClassificationFieldRelationship'
-      - type: object
-        properties:
-          external_supplier_classification_field_options:
-            type: array
-            description: Supplier classification field options assigned to the supplier classification field, referenced by external ID.
-            properties:
-              data:
-                $ref: '#/components/schemas/SupplierClassificationFieldOptionBase'
+      - type: string
+        enum:
+        - supplier_classification_fields
+    SupplierClassificationBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierClassificationType'
+        id:
+          $ref: '#/components/schemas/SupplierClassificationId'
     SupplierClassificationFieldAttributes:
       type: object
       description: SupplierClassificationField attributes.
@@ -830,67 +905,205 @@ components:
           example: 1234-5678-abcd-efgh
         kind:
           $ref: '#/components/schemas/SupplierClassificationFieldEnum'
-    SupplierClassificationIncludedMutationResources:
-      type: array
-      items:
-        anyOf:
-        - $ref: '#/components/schemas/SupplierClassificationFieldCreate'
-        - $ref: '#/components/schemas/SupplierClassificationFieldOptionCreate'
-    SupplierClassificationRelatedResources:
-      allOf:
-      - type: string
-        enum:
-        - supplier_classification_fields
-    SupplierClassificationFieldId:
-      type: integer
-      description: Supplier classification field identifier string.
-      example: 1
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    SupplierClassificationFieldRelationship:
-      type: object
-      description: Supplier classification field relationships.
-      properties:
-        supplier_classification_field_options:
-          description: Supplier classification field options assigned to the field.
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/SupplierClassificationFieldOptionBase'
-    SupplierClassificationType:
-      type: string
-      description: Object type, should always be `supplier_classifications`.
-      example: supplier_classifications
-    SupplierClassificationBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierClassificationType'
-        id:
-          $ref: '#/components/schemas/SupplierClassificationId'
-    SupplierClassificationFieldOptionType:
-      type: string
-      description: Object type, should always be `supplier_classification_field_options`.
-      example: supplier_classification_field_options
-    SupplierClassificationId:
-      type: integer
-      description: Supplier classification identifier string.
-      example: 1
-    SupplierClassificationFieldOptionId:
-      type: integer
-      description: Supplier classification field option identifier string.
-      example: 1
   examples:
-    index_response-11:
+    show_response-3:
+      value:
+        data:
+          id: '1'
+          type: supplier_classifications
+          attributes:
+            name: SBE - Small Business Enterprise
+            order: 1
+            active: true
+            country_alpha2: CA
+            external_id: CL-1
+            request_additional_information: true
+            codename: diversity
+          relationships:
+            supplier_classification_fields:
+              data:
+              - id: '100'
+                type: supplier_classification_fields
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/17
+    update_request-11:
+      value:
+        data:
+          type: supplier_classifications
+          id: '1'
+          attributes:
+            name: Veteran Business
+            order: 1
+            country_alpha2: CA
+            external_id: SC-2
+            codename: diversity
+            active: true
+            request_additional_information: false
+    create_compound_response-3:
+      value:
+        data:
+          id: '1'
+          type: supplier_classifications
+          attributes:
+            name: Veteran Business
+            order: 1
+            country_alpha2: CA
+            external_id: SC-1
+            request_additional_information: true
+            codename: diversity
+          relationships:
+            supplier_classification_fields:
+              data:
+              - id: '1'
+                type: supplier_classification_fields
+              - id: '2'
+                type: supplier_classification_fields
+              - id: '3'
+                type: supplier_classification_fields
+              - id: '4'
+                type: supplier_classification_fields
+              - id: '5'
+                type: supplier_classification_fields
+              - id: '6'
+                type: supplier_classification_fields
+              - id: '7'
+                type: supplier_classification_fields
+              - id: '8'
+                type: supplier_classification_fields
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
+        included:
+        - id: '1'
+          type: supplier_classification_fields
+          attributes:
+            name: test
+            order: 1
+            kind: SELECT
+            external_id: SCF-1
+          relationships:
+            supplier_classification_field_options:
+              data:
+              - id: '1'
+                type: supplier_classification_field_options
+              - id: '2'
+                type: supplier_classification_field_options
+        - id: '1'
+          type: supplier_classification_field_options
+          attributes:
+            label: option 1
+            order: 1
+            external_id: SCFO-1
+        - id: '2'
+          type: supplier_classification_field_options
+          attributes:
+            label: option 2
+            order: 2
+            external_id: SCFO-2
+        - id: '2'
+          type: supplier_classification_fields
+          attributes:
+            name: Text field
+            order: 1
+            kind: TEXT
+            external_id: SCF-2
+          relationships:
+            supplier_classification_field_options:
+              data: []
+        - id: '3'
+          type: supplier_classification_fields
+          attributes:
+            name: Date field
+            order: 3
+            kind: DATE
+            external_id: SCF-3
+          relationships:
+            supplier_classification_field_options:
+              data: []
+        - id: '4'
+          type: supplier_classification_fields
+          attributes:
+            name: Multiple select
+            order: 4
+            kind: MULTIPLE
+            external_id: SCF-4
+          relationships:
+            supplier_classification_field_options:
+              data:
+              - id: '3'
+                type: supplier_classification_field_options
+              - id: '4'
+                type: supplier_classification_field_options
+              - id: '5'
+                type: supplier_classification_field_options
+              - id: '6'
+                type: supplier_classification_field_options
+        - id: '3'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 1
+            order: 1
+            external_id: SCFO-3
+        - id: '4'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 2
+            order: 2
+            external_id: SCFO-4
+        - id: '5'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 3
+            order: 3
+            external_id: SCFO-5
+        - id: '6'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 4
+            order: 4
+            external_id: SCFO-6
+        - id: '5'
+          type: supplier_classification_fields
+          attributes:
+            name: Number field
+            order: 5
+            kind: NUMBER
+            external_id: SCF-5
+          relationships:
+            supplier_classification_field_options:
+              data: []
+        - id: '6'
+          type: supplier_classification_fields
+          attributes:
+            name: Effective date field
+            order: 6
+            kind: EFFECTIVE_DATE
+            external_id: SCF-6
+          relationships:
+            supplier_classification_field_options:
+              data: []
+        - id: '7'
+          type: supplier_classification_fields
+          attributes:
+            name: Expiry date field
+            order: 7
+            kind: EXPIRY_DATE
+            external_id: SCF-7
+          relationships:
+            supplier_classification_field_options:
+              data: []
+        - id: '8'
+          type: supplier_classification_fields
+          attributes:
+            name: Attachment field
+            order: 8
+            kind: ATTACHMENT
+            external_id: SCF-8
+          relationships:
+            supplier_classification_field_options:
+              data: []
+        links:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
+    index_preview_response-7:
       value:
         data:
         - id: '100'
@@ -898,14 +1111,17 @@ components:
           attributes:
             name: Minority Business
             order: 1
-            active: true
-            country_alpha2: CA
+            country_alpha2: US
             external_id: CLS-1
             request_additional_information: false
             codename: diversity
           relationships:
             supplier_classification_fields:
               data: []
+            wday_identifier:
+              data:
+                id: supplier_classifications-100
+                type: wday_identifiers
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/100
         - id: '200'
@@ -913,41 +1129,445 @@ components:
           attributes:
             name: Veteran Business
             order: 2
-            active: true
-            country_alpha2: CA
+            country_alpha2: US
             external_id: CLS-2
             request_additional_information: true
             codename: diversity
           relationships:
             supplier_classification_fields:
               data:
-              - id: '148'
+              - id: '100'
                 type: supplier_classification_fields
-              - id: '149'
+              - id: '200'
                 type: supplier_classification_fields
+            wday_identifier:
+              data:
+                id: supplier_classifications-200
+                type: wday_identifiers
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/200
+        included:
+        - id: supplier_classifications-100
+          type: wday_identifiers
+          attributes:
+            wid: supplier_classifications-100-wid
+        - id: '100'
+          type: supplier_classification_fields
+          attributes:
+            name: Select field
+            order: 1
+            kind: SELECT
+            external_id: CLSF-1
+          relationships:
+            supplier_classification_field_options:
+              data:
+              - id: '100'
+                type: supplier_classification_field_options
+              - id: '200'
+                type: supplier_classification_field_options
+              - id: '300'
+                type: supplier_classification_field_options
+            wday_identifier:
+              data:
+                id: supplier_classification_fields-100
+                type: wday_identifiers
+        - id: '100'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 1
+            order: 1
+            external_id: CLSFO-1
+          relationships:
+            wday_identifier:
+              data:
+                id: supplier_classification_field_options-100
+                type: wday_identifiers
+        - id: supplier_classification_field_options-100
+          type: wday_identifiers
+          attributes:
+            wid: supplier_classification_field_options-100-wid
+        - id: '200'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 2
+            order: 2
+            external_id: CLSFO-2
+          relationships:
+            wday_identifier:
+              data:
+                id: supplier_classification_field_options-200
+                type: wday_identifiers
+        - id: supplier_classification_field_options-200
+          type: wday_identifiers
+          attributes:
+            wid: supplier_classification_field_options-200-wid
         - id: '300'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 1
+            order: 3
+            external_id: CLSFO-3
+          relationships:
+            wday_identifier:
+              data:
+                id: supplier_classification_field_options-300
+                type: wday_identifiers
+        - id: supplier_classification_field_options-300
+          type: wday_identifiers
+          attributes:
+            wid: supplier_classification_field_options-300-wid
+        - id: supplier_classification_fields-100
+          type: wday_identifiers
+          attributes:
+            wid: supplier_classification_fields-100-wid
+        - id: '200'
+          type: supplier_classification_fields
+          attributes:
+            name: Text field
+            order: 2
+            kind: TEXT
+            external_id: CLSF-3
+          relationships:
+            supplier_classification_field_options:
+              data: []
+            wday_identifier:
+              data:
+                id: supplier_classification_fields-200
+                type: wday_identifiers
+        - id: supplier_classification_fields-200
+          type: wday_identifiers
+          attributes:
+            wid: supplier_classification_fields-200-wid
+        links:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications
+    update_compound_request-2:
+      value:
+        data:
+          type: supplier_classifications
+          id: 1
+          attributes:
+            name: SBE - Small Business Enterprise
+            order: 1
+            country_alpha2: CA
+            external_id: SC-1
+            codename: diversity
+            active: true
+            request_additional_information: true
+          relationships:
+            external_supplier_classification_fields:
+              data:
+              - id: SCF-1
+                type: supplier_classification_fields
+          included:
+          - id: SCF-1
+            type: supplier_classification_fields
+            attributes:
+              name: Field 1
+              order: 1
+              required: false
+              kind: SELECT
+              external_id: SCF-1
+            relationships:
+              external_supplier_classification_field_options:
+                data:
+                - id: SCFO-1
+                  type: supplier_classification_field_options
+                - id: SCFO-2
+                  type: supplier_classification_field_options
+          - id: SCFO-1
+            type: supplier_classification_field_options
+            attributes:
+              label: Option 1
+              order: 1
+              external_id: SCFO-1
+          - id: SCFO-2
+            type: supplier_classification_field_options
+            attributes:
+              label: option 2
+              order: 2
+              external_id: SCFO-2
+    update_response-11:
+      value:
+        data:
+          id: '1'
           type: supplier_classifications
           attributes:
-            name: Small Business
-            order: 3
-            active: true
+            name: Veteran Business
+            order: 1
             country_alpha2: CA
-            external_id: CLS-3
-            request_additional_information: true
+            external_id: SC-2
             codename: diversity
+            active: true
+            request_additional_information: false
+          relationships:
+            supplier_classification_fields:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
+    show_compound_response-2:
+      value:
+        data:
+          type: supplier_classifications
+          id: 1
+          attributes:
+            name: SBE - Small Business Enterprise
+            order: 1
+            country_alpha2: CA
+            external_id: SC-1
+            codename: diversity
+            active: true
+            request_additional_information: true
           relationships:
             supplier_classification_fields:
               data:
-              - id: '150'
+              - id: '1'
                 type: supplier_classification_fields
-              - id: '154'
-                type: supplier_classification_fields
+          included:
+          - id: '1'
+            type: supplier_classification_fields
+            attributes:
+              name: Field 1
+              order: 1
+              required: false
+              kind: SELECT
+              external_id: SCF-1
+            relationships:
+              supplier_classification_field_options:
+                data:
+                - id: '1'
+                  type: supplier_classification_field_options
+                - id: '2'
+                  type: supplier_classification_field_options
+          - id: '1'
+            type: supplier_classification_field_options
+            attributes:
+              label: Option 1
+              order: 1
+              external_id: '2'
+          - id: '2'
+            type: supplier_classification_field_options
+            attributes:
+              label: option 2
+              order: 2
+              external_id: SCFO-2
           links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/300
-        links:
-          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
+    external_update_response-8:
+      value:
+        data:
+          id: '1'
+          type: supplier_classifications
+          attributes:
+            name: SBE - Small Business Enterprise
+            order: 1
+            country_alpha2: CA
+            external_id: CL-1
+            codename: diversity
+            active: true
+            request_additional_information: false
+          relationships:
+            supplier_classification_fields:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
+    create_compound_request-2:
+      value:
+        data:
+          type: supplier_classifications
+          attributes:
+            name: Veteran Business
+            order: 1
+            country_alpha2: CA
+            external_id: SC-1
+            codename: diversity
+            active: true
+            request_additional_information: true
+          relationships:
+            supplier_classification_fields:
+              data:
+              - id: '1'
+                type: supplier_classification_fields
+              - id: '2'
+                type: supplier_classification_fields
+              - id: '3'
+                type: supplier_classification_fields
+              - id: '4'
+                type: supplier_classification_fields
+              - id: '5'
+                type: supplier_classification_fields
+              - id: '6'
+                type: supplier_classification_fields
+              - id: '7'
+                type: supplier_classification_fields
+              - id: '8'
+                type: supplier_classification_fields
+        included:
+        - id: '1'
+          type: supplier_classification_fields
+          attributes:
+            name: Select field
+            order: 1
+            required: false
+            kind: SELECT
+            external_id: SCF-1
+          relationships:
+            supplier_classification_field_options:
+              data:
+              - id: '1'
+                type: supplier_classification_field_options
+              - id: '2'
+                type: supplier_classification_field_options
+        - id: '1'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 1
+            order: 1
+            external_id: SCFO-1
+        - id: S2
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 2
+            order: 2
+            external_id: SCFO-2
+        - id: '2'
+          type: supplier_classification_fields
+          attributes:
+            name: Text field
+            order: 1
+            required: false
+            kind: TEXT
+            external_id: SCF-2
+        - id: '3'
+          type: supplier_classification_fields
+          attributes:
+            name: Date field
+            order: 3
+            required: false
+            kind: DATE
+            external_id: SCF-3
+        - id: '4'
+          type: supplier_classification_fields
+          attributes:
+            name: Multiple select
+            order: 4
+            required: false
+            kind: MULTIPLE
+            external_id: SCF-4
+          relationships:
+            supplier_classification_field_options:
+              data:
+              - id: '3'
+                type: supplier_classification_field_options
+              - id: '4'
+                type: supplier_classification_field_options
+              - id: '5'
+                type: supplier_classification_field_options
+              - id: '6'
+                type: supplier_classification_field_options
+        - id: '3'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 1
+            order: 1
+            external_id: SCFO-3
+        - id: '4'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 2
+            order: 2
+            external_id: SCFO-4
+        - id: '5'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 3
+            order: 3
+            external_id: SCFO-5
+        - id: '6'
+          type: supplier_classification_field_options
+          attributes:
+            label: Option 4
+            order: 4
+            external_id: SCFO-6
+        - id: '5'
+          type: supplier_classification_fields
+          attributes:
+            name: Number field
+            order: 5
+            required: false
+            kind: NUMBER
+            external_id: SCF-5
+        - id: '6'
+          type: supplier_classification_fields
+          attributes:
+            name: Effective date field
+            order: 6
+            required: false
+            kind: EFFECTIVE_DATE
+            external_id: SCF-6
+        - id: '7'
+          type: supplier_classification_fields
+          attributes:
+            name: Expiry date field
+            order: 7
+            required: false
+            kind: EXPIRY_DATE
+            external_id: SCF-7
+        - id: '8'
+          type: supplier_classification_fields
+          attributes:
+            name: Attachment field
+            order: 8
+            required: false
+            kind: ATTACHMENT
+            external_id: SCF-8
+    external_show_compound_response-2:
+      value:
+        data:
+          type: supplier_classifications
+          id: 1
+          attributes:
+            name: SBE - Small Business Enterprise
+            order: 1
+            country_alpha2: CA
+            external_id: SC-1
+            codename: diversity
+            active: true
+            request_additional_information: true
+          relationships:
+            supplier_classification_fields:
+              data:
+              - id: '1'
+                type: supplier_classification_fields
+          included:
+          - id: '1'
+            type: supplier_classification_fields
+            attributes:
+              name: Field 1
+              order: 1
+              required: false
+              kind: SELECT
+              external_id: SCF-1
+            relationships:
+              supplier_classification_field_options:
+                data:
+                - id: '1'
+                  type: supplier_classification_field_options
+                - id: '2'
+                  type: supplier_classification_field_options
+          - id: '1'
+            type: supplier_classification_field_options
+            attributes:
+              label: Option 1
+              order: 1
+              external_id: '2'
+          - id: '2'
+            type: supplier_classification_field_options
+            attributes:
+              label: option 2
+              order: 2
+              external_id: SCFO-2
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
     index_compound_response-3:
       value:
         data:
@@ -1030,69 +1650,6 @@ components:
               data: []
         links:
           self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications
-    update_response-11:
-      value:
-        data:
-          id: '1'
-          type: supplier_classifications
-          attributes:
-            name: Veteran Business
-            order: 1
-            country_alpha2: CA
-            external_id: SC-2
-            codename: diversity
-            active: true
-            request_additional_information: false
-          relationships:
-            supplier_classification_fields:
-              data: []
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
-    update_request-11:
-      value:
-        data:
-          type: supplier_classifications
-          id: '1'
-          attributes:
-            name: Veteran Business
-            order: 1
-            country_alpha2: CA
-            external_id: SC-2
-            codename: diversity
-            active: true
-            request_additional_information: false
-    show_response-3:
-      value:
-        data:
-          id: '1'
-          type: supplier_classifications
-          attributes:
-            name: SBE - Small Business Enterprise
-            order: 1
-            active: true
-            country_alpha2: CA
-            external_id: CL-1
-            request_additional_information: true
-            codename: diversity
-          relationships:
-            supplier_classification_fields:
-              data:
-              - id: '100'
-                type: supplier_classification_fields
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/17
-    create_request-9:
-      value:
-        data:
-          type: supplier_classifications
-          attributes:
-            name: SBE - Small Business Enterprise
-            order: 1
-            country_alpha2: CA
-            external_id: SC-1
-            codename: diversity
-            active: true
-            request_additional_information: false
     update_preview_response-6:
       value:
         data:
@@ -1175,11 +1732,31 @@ components:
               wid: supplier_classification_fields-1-wid
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
-    external_update_response-8:
+    external_show_response-3:
       value:
         data:
           id: '1'
           type: supplier_classifications
+          attributes:
+            name: SBE - Small Business Enterprise
+            order: 1
+            active: true
+            country_alpha2: CA
+            external_id: CL-1
+            request_additional_information: true
+            codename: diversity
+          relationships:
+            supplier_classification_fields:
+              data:
+              - id: '100'
+                type: supplier_classification_fields
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/17
+    external_update_request-8:
+      value:
+        data:
+          type: supplier_classifications
+          id: CL-1
           attributes:
             name: SBE - Small Business Enterprise
             order: 1
@@ -1188,139 +1765,6 @@ components:
             codename: diversity
             active: true
             request_additional_information: false
-          relationships:
-            supplier_classification_fields:
-              data: []
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
-    update_compound_request-2:
-      value:
-        data:
-          type: supplier_classifications
-          id: 1
-          attributes:
-            name: SBE - Small Business Enterprise
-            order: 1
-            country_alpha2: CA
-            external_id: SC-1
-            codename: diversity
-            active: true
-            request_additional_information: true
-          relationships:
-            external_supplier_classification_fields:
-              data:
-              - id: SCF-1
-                type: supplier_classification_fields
-          included:
-          - id: SCF-1
-            type: supplier_classification_fields
-            attributes:
-              name: Field 1
-              order: 1
-              required: false
-              kind: SELECT
-              external_id: SCF-1
-            relationships:
-              external_supplier_classification_field_options:
-                data:
-                - id: SCFO-1
-                  type: supplier_classification_field_options
-                - id: SCFO-2
-                  type: supplier_classification_field_options
-          - id: SCFO-1
-            type: supplier_classification_field_options
-            attributes:
-              label: Option 1
-              order: 1
-              external_id: SCFO-1
-          - id: SCFO-2
-            type: supplier_classification_field_options
-            attributes:
-              label: option 2
-              order: 2
-              external_id: SCFO-2
-    show_preview_response-2:
-      value:
-        data:
-          type: supplier_classifications
-          id: 1
-          attributes:
-            name: SBE - Small Business Enterprise
-            order: 1
-            country_alpha2: CA
-            external_id: SC-1
-            codename: diversity
-            active: true
-            request_additional_information: true
-          relationships:
-            supplier_classification_fields:
-              data:
-              - id: '1'
-                type: supplier_classification_fields
-            wday_identifier:
-              data:
-                id: supplier_classifications-1
-                type: wday_identifiers
-          included:
-          - id: supplier_classifications-1
-            type: wday_identifiers
-            attributes:
-              wid: supplier_classifications-1-wid
-          - id: '1'
-            type: supplier_classification_fields
-            attributes:
-              name: Field 1
-              order: 1
-              required: false
-              kind: SELECT
-              external_id: SCF-1
-            relationships:
-              supplier_classification_field_options:
-                data:
-                - id: '1'
-                  type: supplier_classification_field_options
-                - id: '2'
-                  type: supplier_classification_field_options
-              wday_identifier:
-                data:
-                  id: supplier_classification_fields-1
-                  type: wday_identifiers
-          - id: '1'
-            type: supplier_classification_field_options
-            attributes:
-              label: Option 1
-              order: 1
-              external_id: '2'
-            relationships:
-              wday_identifier:
-                data:
-                  id: supplier_classification_field_options-1
-                  type: wday_identifiers
-          - id: supplier_classification_field_options-1
-            type: wday_identifiers
-            attributes:
-              wid: supplier_classification_field_options-1-wid
-          - id: '2'
-            type: supplier_classification_field_options
-            attributes:
-              label: option 2
-              order: 2
-              external_id: SCFO-2
-            relationships:
-              wday_identifier:
-                data:
-                  id: supplier_classification_field_options-2
-                  type: wday_identifiers
-          - id: supplier_classification_field_options-2
-            type: wday_identifiers
-            attributes:
-              wid: supplier_classification_field_options-2-wid
-          - id: supplier_classification_fields-1
-            type: wday_identifiers
-            attributes:
-              wid: supplier_classification_fields-1-wid
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
     create_response-11:
       value:
         data:
@@ -1595,143 +2039,6 @@ components:
             wid: supplier_classification_fields_wid_8
         links:
           self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
-    index_preview_response-7:
-      value:
-        data:
-        - id: '100'
-          type: supplier_classifications
-          attributes:
-            name: Minority Business
-            order: 1
-            country_alpha2: US
-            external_id: CLS-1
-            request_additional_information: false
-            codename: diversity
-          relationships:
-            supplier_classification_fields:
-              data: []
-            wday_identifier:
-              data:
-                id: supplier_classifications-100
-                type: wday_identifiers
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/100
-        - id: '200'
-          type: supplier_classifications
-          attributes:
-            name: Veteran Business
-            order: 2
-            country_alpha2: US
-            external_id: CLS-2
-            request_additional_information: true
-            codename: diversity
-          relationships:
-            supplier_classification_fields:
-              data:
-              - id: '100'
-                type: supplier_classification_fields
-              - id: '200'
-                type: supplier_classification_fields
-            wday_identifier:
-              data:
-                id: supplier_classifications-200
-                type: wday_identifiers
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/200
-        included:
-        - id: supplier_classifications-100
-          type: wday_identifiers
-          attributes:
-            wid: supplier_classifications-100-wid
-        - id: '100'
-          type: supplier_classification_fields
-          attributes:
-            name: Select field
-            order: 1
-            kind: SELECT
-            external_id: CLSF-1
-          relationships:
-            supplier_classification_field_options:
-              data:
-              - id: '100'
-                type: supplier_classification_field_options
-              - id: '200'
-                type: supplier_classification_field_options
-              - id: '300'
-                type: supplier_classification_field_options
-            wday_identifier:
-              data:
-                id: supplier_classification_fields-100
-                type: wday_identifiers
-        - id: '100'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 1
-            order: 1
-            external_id: CLSFO-1
-          relationships:
-            wday_identifier:
-              data:
-                id: supplier_classification_field_options-100
-                type: wday_identifiers
-        - id: supplier_classification_field_options-100
-          type: wday_identifiers
-          attributes:
-            wid: supplier_classification_field_options-100-wid
-        - id: '200'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 2
-            order: 2
-            external_id: CLSFO-2
-          relationships:
-            wday_identifier:
-              data:
-                id: supplier_classification_field_options-200
-                type: wday_identifiers
-        - id: supplier_classification_field_options-200
-          type: wday_identifiers
-          attributes:
-            wid: supplier_classification_field_options-200-wid
-        - id: '300'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 1
-            order: 3
-            external_id: CLSFO-3
-          relationships:
-            wday_identifier:
-              data:
-                id: supplier_classification_field_options-300
-                type: wday_identifiers
-        - id: supplier_classification_field_options-300
-          type: wday_identifiers
-          attributes:
-            wid: supplier_classification_field_options-300-wid
-        - id: supplier_classification_fields-100
-          type: wday_identifiers
-          attributes:
-            wid: supplier_classification_fields-100-wid
-        - id: '200'
-          type: supplier_classification_fields
-          attributes:
-            name: Text field
-            order: 2
-            kind: TEXT
-            external_id: CLSF-3
-          relationships:
-            supplier_classification_field_options:
-              data: []
-            wday_identifier:
-              data:
-                id: supplier_classification_fields-200
-                type: wday_identifiers
-        - id: supplier_classification_fields-200
-          type: wday_identifiers
-          attributes:
-            wid: supplier_classification_fields-200-wid
-        links:
-          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications
     external_update_compound_response-2:
       value:
         data:
@@ -1780,401 +2087,18 @@ components:
               external_id: SCFO-2
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
-    external_update_request-8:
+    create_request-9:
       value:
         data:
           type: supplier_classifications
-          id: CL-1
           attributes:
             name: SBE - Small Business Enterprise
             order: 1
             country_alpha2: CA
-            external_id: CL-1
+            external_id: SC-1
             codename: diversity
             active: true
             request_additional_information: false
-    show_compound_response-2:
-      value:
-        data:
-          type: supplier_classifications
-          id: 1
-          attributes:
-            name: SBE - Small Business Enterprise
-            order: 1
-            country_alpha2: CA
-            external_id: SC-1
-            codename: diversity
-            active: true
-            request_additional_information: true
-          relationships:
-            supplier_classification_fields:
-              data:
-              - id: '1'
-                type: supplier_classification_fields
-          included:
-          - id: '1'
-            type: supplier_classification_fields
-            attributes:
-              name: Field 1
-              order: 1
-              required: false
-              kind: SELECT
-              external_id: SCF-1
-            relationships:
-              supplier_classification_field_options:
-                data:
-                - id: '1'
-                  type: supplier_classification_field_options
-                - id: '2'
-                  type: supplier_classification_field_options
-          - id: '1'
-            type: supplier_classification_field_options
-            attributes:
-              label: Option 1
-              order: 1
-              external_id: '2'
-          - id: '2'
-            type: supplier_classification_field_options
-            attributes:
-              label: option 2
-              order: 2
-              external_id: SCFO-2
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
-    create_compound_response-3:
-      value:
-        data:
-          id: '1'
-          type: supplier_classifications
-          attributes:
-            name: Veteran Business
-            order: 1
-            country_alpha2: CA
-            external_id: SC-1
-            request_additional_information: true
-            codename: diversity
-          relationships:
-            supplier_classification_fields:
-              data:
-              - id: '1'
-                type: supplier_classification_fields
-              - id: '2'
-                type: supplier_classification_fields
-              - id: '3'
-                type: supplier_classification_fields
-              - id: '4'
-                type: supplier_classification_fields
-              - id: '5'
-                type: supplier_classification_fields
-              - id: '6'
-                type: supplier_classification_fields
-              - id: '7'
-                type: supplier_classification_fields
-              - id: '8'
-                type: supplier_classification_fields
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
-        included:
-        - id: '1'
-          type: supplier_classification_fields
-          attributes:
-            name: test
-            order: 1
-            kind: SELECT
-            external_id: SCF-1
-          relationships:
-            supplier_classification_field_options:
-              data:
-              - id: '1'
-                type: supplier_classification_field_options
-              - id: '2'
-                type: supplier_classification_field_options
-        - id: '1'
-          type: supplier_classification_field_options
-          attributes:
-            label: option 1
-            order: 1
-            external_id: SCFO-1
-        - id: '2'
-          type: supplier_classification_field_options
-          attributes:
-            label: option 2
-            order: 2
-            external_id: SCFO-2
-        - id: '2'
-          type: supplier_classification_fields
-          attributes:
-            name: Text field
-            order: 1
-            kind: TEXT
-            external_id: SCF-2
-          relationships:
-            supplier_classification_field_options:
-              data: []
-        - id: '3'
-          type: supplier_classification_fields
-          attributes:
-            name: Date field
-            order: 3
-            kind: DATE
-            external_id: SCF-3
-          relationships:
-            supplier_classification_field_options:
-              data: []
-        - id: '4'
-          type: supplier_classification_fields
-          attributes:
-            name: Multiple select
-            order: 4
-            kind: MULTIPLE
-            external_id: SCF-4
-          relationships:
-            supplier_classification_field_options:
-              data:
-              - id: '3'
-                type: supplier_classification_field_options
-              - id: '4'
-                type: supplier_classification_field_options
-              - id: '5'
-                type: supplier_classification_field_options
-              - id: '6'
-                type: supplier_classification_field_options
-        - id: '3'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 1
-            order: 1
-            external_id: SCFO-3
-        - id: '4'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 2
-            order: 2
-            external_id: SCFO-4
-        - id: '5'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 3
-            order: 3
-            external_id: SCFO-5
-        - id: '6'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 4
-            order: 4
-            external_id: SCFO-6
-        - id: '5'
-          type: supplier_classification_fields
-          attributes:
-            name: Number field
-            order: 5
-            kind: NUMBER
-            external_id: SCF-5
-          relationships:
-            supplier_classification_field_options:
-              data: []
-        - id: '6'
-          type: supplier_classification_fields
-          attributes:
-            name: Effective date field
-            order: 6
-            kind: EFFECTIVE_DATE
-            external_id: SCF-6
-          relationships:
-            supplier_classification_field_options:
-              data: []
-        - id: '7'
-          type: supplier_classification_fields
-          attributes:
-            name: Expiry date field
-            order: 7
-            kind: EXPIRY_DATE
-            external_id: SCF-7
-          relationships:
-            supplier_classification_field_options:
-              data: []
-        - id: '8'
-          type: supplier_classification_fields
-          attributes:
-            name: Attachment field
-            order: 8
-            kind: ATTACHMENT
-            external_id: SCF-8
-          relationships:
-            supplier_classification_field_options:
-              data: []
-        links:
-          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
-    external_show_response-3:
-      value:
-        data:
-          id: '1'
-          type: supplier_classifications
-          attributes:
-            name: SBE - Small Business Enterprise
-            order: 1
-            active: true
-            country_alpha2: CA
-            external_id: CL-1
-            request_additional_information: true
-            codename: diversity
-          relationships:
-            supplier_classification_fields:
-              data:
-              - id: '100'
-                type: supplier_classification_fields
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/17
-    create_compound_request-2:
-      value:
-        data:
-          type: supplier_classifications
-          attributes:
-            name: Veteran Business
-            order: 1
-            country_alpha2: CA
-            external_id: SC-1
-            codename: diversity
-            active: true
-            request_additional_information: true
-          relationships:
-            supplier_classification_fields:
-              data:
-              - id: '1'
-                type: supplier_classification_fields
-              - id: '2'
-                type: supplier_classification_fields
-              - id: '3'
-                type: supplier_classification_fields
-              - id: '4'
-                type: supplier_classification_fields
-              - id: '5'
-                type: supplier_classification_fields
-              - id: '6'
-                type: supplier_classification_fields
-              - id: '7'
-                type: supplier_classification_fields
-              - id: '8'
-                type: supplier_classification_fields
-        included:
-        - id: '1'
-          type: supplier_classification_fields
-          attributes:
-            name: Select field
-            order: 1
-            required: false
-            kind: SELECT
-            external_id: SCF-1
-          relationships:
-            supplier_classification_field_options:
-              data:
-              - id: '1'
-                type: supplier_classification_field_options
-              - id: '2'
-                type: supplier_classification_field_options
-        - id: '1'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 1
-            order: 1
-            external_id: SCFO-1
-        - id: S2
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 2
-            order: 2
-            external_id: SCFO-2
-        - id: '2'
-          type: supplier_classification_fields
-          attributes:
-            name: Text field
-            order: 1
-            required: false
-            kind: TEXT
-            external_id: SCF-2
-        - id: '3'
-          type: supplier_classification_fields
-          attributes:
-            name: Date field
-            order: 3
-            required: false
-            kind: DATE
-            external_id: SCF-3
-        - id: '4'
-          type: supplier_classification_fields
-          attributes:
-            name: Multiple select
-            order: 4
-            required: false
-            kind: MULTIPLE
-            external_id: SCF-4
-          relationships:
-            supplier_classification_field_options:
-              data:
-              - id: '3'
-                type: supplier_classification_field_options
-              - id: '4'
-                type: supplier_classification_field_options
-              - id: '5'
-                type: supplier_classification_field_options
-              - id: '6'
-                type: supplier_classification_field_options
-        - id: '3'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 1
-            order: 1
-            external_id: SCFO-3
-        - id: '4'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 2
-            order: 2
-            external_id: SCFO-4
-        - id: '5'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 3
-            order: 3
-            external_id: SCFO-5
-        - id: '6'
-          type: supplier_classification_field_options
-          attributes:
-            label: Option 4
-            order: 4
-            external_id: SCFO-6
-        - id: '5'
-          type: supplier_classification_fields
-          attributes:
-            name: Number field
-            order: 5
-            required: false
-            kind: NUMBER
-            external_id: SCF-5
-        - id: '6'
-          type: supplier_classification_fields
-          attributes:
-            name: Effective date field
-            order: 6
-            required: false
-            kind: EFFECTIVE_DATE
-            external_id: SCF-6
-        - id: '7'
-          type: supplier_classification_fields
-          attributes:
-            name: Expiry date field
-            order: 7
-            required: false
-            kind: EXPIRY_DATE
-            external_id: SCF-7
-        - id: '8'
-          type: supplier_classification_fields
-          attributes:
-            name: Attachment field
-            order: 8
-            required: false
-            kind: ATTACHMENT
-            external_id: SCF-8
     update_compound_response-3:
       value:
         data:
@@ -2223,7 +2147,65 @@ components:
               external_id: SCFO-2
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
-    external_show_compound_response-2:
+    index_response-11:
+      value:
+        data:
+        - id: '100'
+          type: supplier_classifications
+          attributes:
+            name: Minority Business
+            order: 1
+            active: true
+            country_alpha2: CA
+            external_id: CLS-1
+            request_additional_information: false
+            codename: diversity
+          relationships:
+            supplier_classification_fields:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/100
+        - id: '200'
+          type: supplier_classifications
+          attributes:
+            name: Veteran Business
+            order: 2
+            active: true
+            country_alpha2: CA
+            external_id: CLS-2
+            request_additional_information: true
+            codename: diversity
+          relationships:
+            supplier_classification_fields:
+              data:
+              - id: '148'
+                type: supplier_classification_fields
+              - id: '149'
+                type: supplier_classification_fields
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/200
+        - id: '300'
+          type: supplier_classifications
+          attributes:
+            name: Small Business
+            order: 3
+            active: true
+            country_alpha2: CA
+            external_id: CLS-3
+            request_additional_information: true
+            codename: diversity
+          relationships:
+            supplier_classification_fields:
+              data:
+              - id: '150'
+                type: supplier_classification_fields
+              - id: '154'
+                type: supplier_classification_fields
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/300
+        links:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications
+    show_preview_response-2:
       value:
         data:
           type: supplier_classifications
@@ -2241,7 +2223,15 @@ components:
               data:
               - id: '1'
                 type: supplier_classification_fields
+            wday_identifier:
+              data:
+                id: supplier_classifications-1
+                type: wday_identifiers
           included:
+          - id: supplier_classifications-1
+            type: wday_identifiers
+            attributes:
+              wid: supplier_classifications-1-wid
           - id: '1'
             type: supplier_classification_fields
             attributes:
@@ -2257,18 +2247,44 @@ components:
                   type: supplier_classification_field_options
                 - id: '2'
                   type: supplier_classification_field_options
+              wday_identifier:
+                data:
+                  id: supplier_classification_fields-1
+                  type: wday_identifiers
           - id: '1'
             type: supplier_classification_field_options
             attributes:
               label: Option 1
               order: 1
               external_id: '2'
+            relationships:
+              wday_identifier:
+                data:
+                  id: supplier_classification_field_options-1
+                  type: wday_identifiers
+          - id: supplier_classification_field_options-1
+            type: wday_identifiers
+            attributes:
+              wid: supplier_classification_field_options-1-wid
           - id: '2'
             type: supplier_classification_field_options
             attributes:
               label: option 2
               order: 2
               external_id: SCFO-2
+            relationships:
+              wday_identifier:
+                data:
+                  id: supplier_classification_field_options-2
+                  type: wday_identifiers
+          - id: supplier_classification_field_options-2
+            type: wday_identifiers
+            attributes:
+              wid: supplier_classification_field_options-2-wid
+          - id: supplier_classification_fields-1
+            type: wday_identifiers
+            attributes:
+              wid: supplier_classification_fields-1-wid
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_classifications/1
   securitySchemes:

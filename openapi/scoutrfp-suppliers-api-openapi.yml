@@ -36,7 +36,7 @@ paths:
         | `include` | Include supplier contacts with `include=contacts` |
 
         | `sort` | Sort the suppliers. Supported values: `name`, `-name`, `created_at`, `-created_at`. |'
-      operationId: All suppliers
+      operationId: AllSuppliers
       summary: All suppliers
       responses:
         '200':
@@ -61,6 +61,8 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2018-04-01\"\n     \"https://api.us.workdayspend.com/suppliers\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: All suppliers
   /suppliers/{supplier_id}:
     get:
       tags:
@@ -72,7 +74,7 @@ paths:
 
 
         `suppliers/1?include=contacts`'
-      operationId: Single supplier
+      operationId: SingleSupplier
       summary: Single supplier
       parameters:
       - name: supplier_id
@@ -100,8 +102,27 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2018-04-01\"\n     \"https://api.us.workdayspend.com/suppliers/{supplier_id}\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Single supplier
 components:
   schemas:
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    SupplierContactId:
+      description: Supplier contact identifier string.
+      example: 1
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SupplierType:
+      description: Object type, should always be `suppliers`.
+      example: suppliers
     SupplierContactReference:
       type: object
       required:
@@ -114,6 +135,30 @@ components:
               $ref: '#/components/schemas/SupplierContactType'
             id:
               $ref: '#/components/schemas/SupplierContactId'
+    SupplierId:
+      description: Supplier identifier string.
+      example: 1
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    SupplierContactType:
+      description: Object type, should always be `supplier_contacts`.
+      example: supplier_contacts
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
     SupplierAttributes:
       description: Supplier attributes. See example response.
       properties:
@@ -127,29 +172,6 @@ components:
                 description: Name of custom field
               value:
                 description: Value of custom field
-    SupplierId:
-      description: Supplier identifier string.
-      example: 1
-    SupplierContactId:
-      description: Supplier contact identifier string.
-      example: 1
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    SupplierType:
-      description: Object type, should always be `suppliers`.
-      example: suppliers
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    SupplierContactType:
-      description: Object type, should always be `supplier_contacts`.
-      example: supplier_contacts
     Supplier:
       type: object
       required:
@@ -168,24 +190,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/SupplierContactReference'
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
   examples:
     show_response:
       value:

@@ -25,7 +25,7 @@ paths:
       tags:
       - Contact Types
       description: Returns a list of contact types.
-      operationId: List Contact Types
+      operationId: ListContactTypes
       summary: List Contact Types
       responses:
         '200':
@@ -47,11 +47,13 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: List Contact Types
     post:
       tags:
       - Contact Types
       description: Create a contact type with given parameters.
-      operationId: Create a Contact Type
+      operationId: CreateAContactType
       summary: Create a Contact Type
       requestBody:
         content:
@@ -82,6 +84,8 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":{\"type\":\"contact_types\",\"attributes\":{\"name\":\"Contact Type\"}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Create a Contact Type
   /contact_types/{id}:
     patch:
       tags:
@@ -94,7 +98,7 @@ paths:
         Please note, that request body must include an `id` attribute with the value of your contact type
 
         unique identifier (the same one you passed in the URL).'
-      operationId: Update a Contact Type
+      operationId: UpdateAContactType
       summary: Update a Contact Type
       parameters:
       - name: id
@@ -150,13 +154,15 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"contact_types\",\"id\":\"2\",\"attributes\":{\"name\":\"Updated Field Contact Type\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types/2\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Update a Contact Type
     delete:
       tags:
       - Contact Types
       description: 'Deletes a contact type. You need to supply the unique contact type
 
         identifier that was returned upon contact type creation.'
-      operationId: Delete a Contact Type
+      operationId: DeleteAContactType
       summary: Delete a Contact Type
       parameters:
       - name: id
@@ -176,6 +182,8 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete a Contact Type
   /contact_types/{external_id}/external_id:
     patch:
       tags:
@@ -188,7 +196,7 @@ paths:
         Please note, that request body must include an `id` attribute with the value of your contact type
 
         unique identifier (the same one you passed in the URL).'
-      operationId: Update a Contact Type by External ID
+      operationId: UpdateAContactTypeByExternalID
       summary: Update a Contact Type by External ID
       parameters:
       - name: external_id
@@ -229,13 +237,15 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"contact_types\",\"id\":\"CTYPE\",\"attributes\":{\"name\":\"Updated Field Contact Type\"}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types/CTYPE/external_id\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Update a Contact Type by External ID
     delete:
       tags:
       - Contact Types
       description: 'Deletes a contact type. You need to supply the unique contact type
 
         external identifier assigned to the contact type on creation.'
-      operationId: Delete a Contact Type by External ID
+      operationId: DeleteAContactTypeByExternalID
       summary: Delete a Contact Type by External ID
       parameters:
       - name: external_id
@@ -255,68 +265,14 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/contact_types/CTYPE/external_id\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete a Contact Type by External ID
 components:
   schemas:
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    ContactTypeUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ContactTypeType'
-        id:
-          $ref: '#/components/schemas/ContactTypeId'
-        attributes:
-          $ref: '#/components/schemas/ContactTypeAttributes'
-    ContactType:
-      allOf:
-      - $ref: '#/components/schemas/ContactTypeBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/ContactTypeAttributes'
-    ContactTypeBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ContactTypeType'
-        id:
-          $ref: '#/components/schemas/ContactTypeId'
-    ContactTypeId:
-      type: integer
-      description: Contact type identifier string.
-      example: 1
-    ContactTypeCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/ContactTypeType'
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/ContactTypeAttributes'
-          - type: object
-            required:
-            - name
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
+    ContactTypeType:
+      type: string
+      description: Object type, should always be `contact_types`.
+      example: contact_types
     ContactTypeAttributes:
       type: object
       description: Contact type attributes.
@@ -332,10 +288,66 @@ components:
           type: string
           maxLength: 255
           description: Contact type external identifier.
-    ContactTypeType:
-      type: string
-      description: Object type, should always be `contact_types`.
-      example: contact_types
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    ContactType:
+      allOf:
+      - $ref: '#/components/schemas/ContactTypeBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/ContactTypeAttributes'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    ContactTypeId:
+      type: integer
+      description: Contact type identifier string.
+      example: 1
+    ContactTypeBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContactTypeType'
+        id:
+          $ref: '#/components/schemas/ContactTypeId'
+    ContactTypeCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/ContactTypeType'
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContactTypeAttributes'
+          - type: object
+            required:
+            - name
+    ContactTypeUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContactTypeType'
+        id:
+          $ref: '#/components/schemas/ContactTypeId'
+        attributes:
+          $ref: '#/components/schemas/ContactTypeAttributes'
   examples:
     update_request-3:
       value:
@@ -345,6 +357,50 @@ components:
           attributes:
             name: Contact Type Updated
             external_id: CTYPE-UPD
+    external_update_request-3:
+      value:
+        data:
+          type: contact_types
+          id: CTYPE
+          attributes:
+            name: Contact Type Updated
+    external_update_response-3:
+      value:
+        data:
+          id: '1'
+          type: contact_types
+          attributes:
+            name: Contact Type Updated
+            external_id: CTYPE
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
+    update_response-3:
+      value:
+        data:
+          id: '1'
+          type: contact_types
+          attributes:
+            name: Contact Type Updated
+            external_id: CTYPE-UPD
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
+    create_response-3:
+      value:
+        data:
+          id: '1'
+          type: contact_types
+          attributes:
+            name: 'Contact Type #1'
+            external_id: CTYPE-1
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
+    create_request-2:
+      value:
+        data:
+          type: contact_types
+          attributes:
+            name: 'Contact Type #1'
+            external_id: CTYPE-1
     index_response-3:
       value:
         data:
@@ -364,50 +420,6 @@ components:
             self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/2
         links:
           self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types
-    create_response-3:
-      value:
-        data:
-          id: '1'
-          type: contact_types
-          attributes:
-            name: 'Contact Type #1'
-            external_id: CTYPE-1
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
-    external_update_request-3:
-      value:
-        data:
-          type: contact_types
-          id: CTYPE
-          attributes:
-            name: Contact Type Updated
-    update_response-3:
-      value:
-        data:
-          id: '1'
-          type: contact_types
-          attributes:
-            name: Contact Type Updated
-            external_id: CTYPE-UPD
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
-    create_request-2:
-      value:
-        data:
-          type: contact_types
-          attributes:
-            name: 'Contact Type #1'
-            external_id: CTYPE-1
-    external_update_response-3:
-      value:
-        data:
-          id: '1'
-          type: contact_types
-          attributes:
-            name: Contact Type Updated
-            external_id: CTYPE
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
   securitySchemes:
     api_key:
       type: apiKey

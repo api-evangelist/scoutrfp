@@ -23,7 +23,7 @@ paths:
     get:
       tags:
       - User
-      operationId: List Users
+      operationId: ListUsers
       summary: List Users
       description: Returns a list of users for the specified criteria. The pagination size is 100 results per request.
       parameters:
@@ -81,10 +81,12 @@ paths:
                   status: '400'
                   scimType: invalidValue
                   detail: 'Invalid resource: Name is missing'
+      x-operation-id-source: normalized
+      x-operation-id-original: List Users
     post:
       tags:
       - User
-      operationId: Create a User
+      operationId: CreateAUser
       summary: Create a User
       description: Create a user with given attributes
       parameters:
@@ -140,11 +142,13 @@ paths:
                   scimType: uniqueness
                   detail: joined_errors
       x-codegen-request-body-name: user
+      x-operation-id-source: normalized
+      x-operation-id-original: Create a User
   /Users/{id}:
     get:
       tags:
       - User
-      operationId: Get a user
+      operationId: GetAUser
       summary: Get a user
       description: Retrieves a User resource by Id (see section 3.4.1 of RFC 7644)
       parameters:
@@ -186,10 +190,12 @@ paths:
                   - urn:ietf:params:scim:api:messages:2.0:Error
                   status: '404'
                   detail: Resource "User" not found
+      x-operation-id-source: normalized
+      x-operation-id-original: Get a user
     patch:
       tags:
       - User
-      operationId: Patch a User
+      operationId: PatchAUser
       summary: Patch a User
       description: 'Updates one or more attributes of a User resource using a sequence of additions, removals,
 
@@ -276,10 +282,12 @@ paths:
                   status: '404'
                   detail: Resource "User" not found
       x-codegen-request-body-name: request
+      x-operation-id-source: normalized
+      x-operation-id-original: Patch a User
     put:
       tags:
       - User
-      operationId: Replace a User
+      operationId: ReplaceAUser
       summary: Replace a User
       description: 'Updates a User resource (see section 3.5.1 of RFC 7644). Update works in a replacement fashion;
 
@@ -379,10 +387,12 @@ paths:
                   scimType: uniqueness
                   detail: joined_errors
       x-codegen-request-body-name: user
+      x-operation-id-source: normalized
+      x-operation-id-original: Replace a User
     delete:
       tags:
       - User
-      operationId: Deactivate a user
+      operationId: DeactivateAUser
       summary: Deactivate a user
       description: 'Deactivates a user. You need to supply the unique user
 
@@ -425,169 +435,44 @@ paths:
                   - urn:ietf:params:scim:api:messages:2.0:Error
                   status: '404'
                   detail: Resource "User" not found
+      x-operation-id-source: normalized
+      x-operation-id-original: Deactivate a user
 components:
-  examples:
-    replace_request:
-      value:
-        schemas:
-        - urn:ietf:params:scim:schemas:core:2.0:User
-        externalId: EXT701984
-        userName: bjensen@example.com
-        name:
-          givenName: Barbara
-          familyName: Johnson
-        active: true
-    create_response:
-      value:
-        schemas:
-        - urn:ietf:params:scim:schemas:core:2.0:User
-        id: 2819c223-7f76-453a-919d-413861904646
-        externalId: '701984'
-        userName: bjensen@example.com
-        name:
-          givenName: Barbara
-          familyName: Jensen
-        active: true
-        roles:
-        - value: company_admin
-          display: Company Admin
-          primary: true
-          type: primary
-        meta:
-          resourceType: User
-          created: '2010-01-23T04:56:22Z'
-          lastModified: '2011-05-13T04:42:34Z'
-          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
-    index_response:
-      value:
-        schemas:
-        - urn:ietf:params:scim:api:messages:2.0:ListResponse
-        totalResults: 2
-        startIndex: 1
-        itemsPerPage: 100
-        Resources:
-        - userName: john.doe@example.com
-          name:
-            givenName: John
-            familyName: Doe
-          active: true
-          roles:
-          - value: company_user
-            display: Stakeholder
-            primary: true
-            type: primary
-          id: '552232'
-          externalId: EXT1234
-          meta:
-            resourceType: User
-            created: '2021-05-11T14:51:17Z'
-            lastModified: '2021-05-31T17:34:20Z'
-            location: https://api.us.workdayspend.com/scim/v2/Users/552232
-          schemas:
-          - urn:ietf:params:scim:schemas:core:2.0:User
-        - userName: bjensen@example.com
-          name:
-            givenName: Barbara
-            familyName: Johnson
-          active: true
-          roles:
-          - value: company_admin
-            display: Company Admin
-            primary: true
-            type: primary
-          id: '552245'
-          externalId: EXT789
-          meta:
-            resourceType: User
-            created: '2021-06-16T15:56:19Z'
-            lastModified: '2021-07-26T13:34:25Z'
-            location: https://api.us.workdayspend.com/scim/v2/Users/552245
-          schemas:
-          - urn:ietf:params:scim:schemas:core:2.0:User
-    replace_response:
-      value:
-        schemas:
-        - urn:ietf:params:scim:schemas:core:2.0:User
-        id: 2819c223-7f76-453a-919d-413861904646
-        externalId: EXT701984
-        userName: bjensen@example.com
-        name:
-          givenName: Barbara
-          familyName: Johnson
-        active: true
-        roles:
-        - value: company_admin
-          display: Company Admin
-          primary: true
-          type: primary
-        meta:
-          resourceType: User
-          created: '2010-01-23T04:56:22Z'
-          lastModified: '2011-06-13T04:42:34Z'
-          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
-    show_response:
-      value:
-        schemas:
-        - urn:ietf:params:scim:schemas:core:2.0:User
-        id: 2819c223-7f76-453a-919d-413861904646
-        externalId: '701984'
-        userName: bjensen@example.com
-        name:
-          givenName: Barbara
-          familyName: Jensen
-        active: true
-        roles:
-        - value: company_admin
-          display: Company Admin
-          primary: true
-          type: primary
-        meta:
-          resourceType: User
-          created: '2010-01-23T04:56:22Z'
-          lastModified: '2011-05-13T04:42:34Z'
-          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
-    create_request:
-      value:
-        schemas:
-        - urn:ietf:params:scim:schemas:core:2.0:User
-        externalId: '701984'
-        userName: bjensen@example.com
-        name:
-          givenName: Barbara
-          familyName: Jensen
-        active: true
-    patch_response:
-      value:
-        schemas:
-        - urn:ietf:params:scim:schemas:core:2.0:User
-        id: 2819c223-7f76-453a-919d-413861904646
-        externalId: EXT701984
-        userName: bjensen@example.com
-        name:
-          givenName: Barbara
-          familyName: Johnson
-        active: true
-        roles:
-        - value: company_admin
-          display: Company Admin
-          primary: true
-          type: primary
-        meta:
-          resourceType: User
-          created: '2010-01-23T04:56:22Z'
-          lastModified: '2011-06-13T04:42:34Z'
-          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
-    patch_request:
-      value:
-        schemas:
-        - urn:ietf:params:scim:api:messages:2.0:PatchOp
-        Operations:
-        - op: replace
-          value:
-            externalId: EXT701984
-            name:
-              familyName: Johnson
   schemas:
+    PatchOperation:
+      required:
+      - op
+      type: object
+      properties:
+        op:
+          type: string
+          description: The kind of operation to perform
+          enum:
+          - add
+          - remove
+          - replace
+        path:
+          type: string
+          description: Required when op is remove, optional otherwise
+        value:
+          $ref: '#/components/schemas/AnyValue'
+          description: Only required when op is add or replace
+      description: See section 3.5.2 of RFC 7644
+    AnyValue:
+      description: Can be any value - string, number, boolean, array or object
+    BaseResource:
+      type: object
+      properties:
+        schemas:
+          type: array
+          description: URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present in the current structure
+          items:
+            type: string
+        id:
+          type: string
+          description: A unique identifier for a SCIM resource. It should be treated as a non-sequential opaque string of varying length.
+        meta:
+          $ref: '#/components/schemas/Meta'
     Role:
       type: object
       properties:
@@ -600,6 +485,26 @@ components:
         primary:
           type: boolean
       description: Role. See section 4.1 of RFC 7643
+    UserResource:
+      description: Represents a user resource. See section 4.1 of RFC 7643
+      allOf:
+      - $ref: '#/components/schemas/BaseResource'
+      - $ref: '#/components/schemas/UserBase'
+    PatchRequest:
+      description: Stores one or more patch operations
+      required:
+      - Operations
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatchOperation'
     BasicListResponse:
       type: object
       properties:
@@ -629,37 +534,16 @@ components:
         location:
           type: string
       description: Descriptive information about a resource.
-    PatchRequest:
-      description: Stores one or more patch operations
-      required:
-      - Operations
-      type: object
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-            example: urn:ietf:params:scim:api:messages:2.0:PatchOp
-        Operations:
-          type: array
-          items:
-            $ref: '#/components/schemas/PatchOperation'
-    UserResource:
-      description: Represents a user resource. See section 4.1 of RFC 7643
+    UserListResponse:
+      description: Results for users search. See section 3.4.2.4 of RFC 7644
       allOf:
-      - $ref: '#/components/schemas/BaseResource'
-      - $ref: '#/components/schemas/UserBase'
-    Name:
-      type: object
-      required:
-      - familyName
-      - givenName
-      properties:
-        familyName:
-          type: string
-        givenName:
-          type: string
-      description: Name compound object
+      - $ref: '#/components/schemas/BasicListResponse'
+      - type: object
+        properties:
+          Resources:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserResource'
     UserListInputFilter:
       type: object
       properties:
@@ -713,72 +597,6 @@ components:
               type: string
               description: Logical "not"
           description: Operators to filter with.
-    ErrorResponse:
-      required:
-      - status
-      type: object
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-            example: urn:ietf:params:scim:api:messages:2.0:Error
-        status:
-          type: string
-          description: HTTP status code as string
-        scimType:
-          type: string
-          description: 'A detail error keyword. See [table 9](https://datatracker.ietf.org/doc/html/rfc7644#section-3.12) of RFC 7644
-
-            '
-        detail:
-          type: string
-          description: A detailed human-readable message of the error
-      description: See section 3.12 of RFC 7644
-    UserListResponse:
-      description: Results for users search. See section 3.4.2.4 of RFC 7644
-      allOf:
-      - $ref: '#/components/schemas/BasicListResponse'
-      - type: object
-        properties:
-          Resources:
-            type: array
-            items:
-              $ref: '#/components/schemas/UserResource'
-    AnyValue:
-      description: Can be any value - string, number, boolean, array or object
-    BaseResource:
-      type: object
-      properties:
-        schemas:
-          type: array
-          description: URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present in the current structure
-          items:
-            type: string
-        id:
-          type: string
-          description: A unique identifier for a SCIM resource. It should be treated as a non-sequential opaque string of varying length.
-        meta:
-          $ref: '#/components/schemas/Meta'
-    PatchOperation:
-      required:
-      - op
-      type: object
-      properties:
-        op:
-          type: string
-          description: The kind of operation to perform
-          enum:
-          - add
-          - remove
-          - replace
-        path:
-          type: string
-          description: Required when op is remove, optional otherwise
-        value:
-          $ref: '#/components/schemas/AnyValue'
-          description: Only required when op is add or replace
-      description: See section 3.5.2 of RFC 7644
     UserBase:
       type: object
       required:
@@ -801,6 +619,200 @@ components:
           readOnly: true
         active:
           type: boolean
+    ErrorResponse:
+      required:
+      - status
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:Error
+        status:
+          type: string
+          description: HTTP status code as string
+        scimType:
+          type: string
+          description: 'A detail error keyword. See [table 9](https://datatracker.ietf.org/doc/html/rfc7644#section-3.12) of RFC 7644
+
+            '
+        detail:
+          type: string
+          description: A detailed human-readable message of the error
+      description: See section 3.12 of RFC 7644
+    Name:
+      type: object
+      required:
+      - familyName
+      - givenName
+      properties:
+        familyName:
+          type: string
+        givenName:
+          type: string
+      description: Name compound object
+  examples:
+    create_request:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        externalId: '701984'
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Jensen
+        active: true
+    show_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        id: 2819c223-7f76-453a-919d-413861904646
+        externalId: '701984'
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Jensen
+        active: true
+        roles:
+        - value: company_admin
+          display: Company Admin
+          primary: true
+          type: primary
+        meta:
+          resourceType: User
+          created: '2010-01-23T04:56:22Z'
+          lastModified: '2011-05-13T04:42:34Z'
+          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
+    replace_request:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        externalId: EXT701984
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Johnson
+        active: true
+    index_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults: 2
+        startIndex: 1
+        itemsPerPage: 100
+        Resources:
+        - userName: john.doe@example.com
+          name:
+            givenName: John
+            familyName: Doe
+          active: true
+          roles:
+          - value: company_user
+            display: Stakeholder
+            primary: true
+            type: primary
+          id: '552232'
+          externalId: EXT1234
+          meta:
+            resourceType: User
+            created: '2021-05-11T14:51:17Z'
+            lastModified: '2021-05-31T17:34:20Z'
+            location: https://api.us.workdayspend.com/scim/v2/Users/552232
+          schemas:
+          - urn:ietf:params:scim:schemas:core:2.0:User
+        - userName: bjensen@example.com
+          name:
+            givenName: Barbara
+            familyName: Johnson
+          active: true
+          roles:
+          - value: company_admin
+            display: Company Admin
+            primary: true
+            type: primary
+          id: '552245'
+          externalId: EXT789
+          meta:
+            resourceType: User
+            created: '2021-06-16T15:56:19Z'
+            lastModified: '2021-07-26T13:34:25Z'
+            location: https://api.us.workdayspend.com/scim/v2/Users/552245
+          schemas:
+          - urn:ietf:params:scim:schemas:core:2.0:User
+    patch_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        id: 2819c223-7f76-453a-919d-413861904646
+        externalId: EXT701984
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Johnson
+        active: true
+        roles:
+        - value: company_admin
+          display: Company Admin
+          primary: true
+          type: primary
+        meta:
+          resourceType: User
+          created: '2010-01-23T04:56:22Z'
+          lastModified: '2011-06-13T04:42:34Z'
+          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
+    create_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        id: 2819c223-7f76-453a-919d-413861904646
+        externalId: '701984'
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Jensen
+        active: true
+        roles:
+        - value: company_admin
+          display: Company Admin
+          primary: true
+          type: primary
+        meta:
+          resourceType: User
+          created: '2010-01-23T04:56:22Z'
+          lastModified: '2011-05-13T04:42:34Z'
+          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
+    replace_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        id: 2819c223-7f76-453a-919d-413861904646
+        externalId: EXT701984
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Johnson
+        active: true
+        roles:
+        - value: company_admin
+          display: Company Admin
+          primary: true
+          type: primary
+        meta:
+          resourceType: User
+          created: '2010-01-23T04:56:22Z'
+          lastModified: '2011-06-13T04:42:34Z'
+          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
+    patch_request:
+      value:
+        schemas:
+        - urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+        - op: replace
+          value:
+            externalId: EXT701984
+            name:
+              familyName: Johnson
   securitySchemes:
     api_key:
       type: apiKey

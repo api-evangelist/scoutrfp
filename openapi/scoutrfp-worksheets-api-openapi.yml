@@ -25,7 +25,7 @@ paths:
       tags:
       - Worksheets
       description: Returns a list of all worksheets.
-      operationId: List Worksheets
+      operationId: ListWorksheets
       summary: List Worksheets
       parameters:
       - name: event_id
@@ -65,6 +65,8 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: List Worksheets
   /events/{event_id}/worksheets/{id}:
     get:
       tags:
@@ -72,7 +74,7 @@ paths:
       description: 'Retrieves the details of an existing worksheet. You need to supply the unique worksheet
 
         identifier that was returned upon worksheet creation.'
-      operationId: Get a Worksheet
+      operationId: GetAWorksheet
       summary: Get a Worksheet
       parameters:
       - name: event_id
@@ -109,12 +111,14 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Get a Worksheet
   /worksheets/describe:
     get:
       tags:
       - Worksheets
       description: Returns a list of fields for the worksheet object.
-      operationId: Describe Worksheet object
+      operationId: DescribeWorksheetObject
       summary: Describe Worksheet object
       responses:
         '200':
@@ -138,8 +142,21 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/worksheets/describe\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Describe Worksheet object
 components:
   schemas:
+    OpenApiEnum:
+      type: string
+      enum:
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
     SelfLink:
       type: object
       properties:
@@ -147,14 +164,6 @@ components:
           type: string
           format: url
           description: Normalized link to the resource.
-    WorksheetId:
-      type: integer
-      description: Worksheet identifier string.
-      example: 1
-    WorksheetType:
-      type: string
-      description: Object type, should always be `worksheets`.
-      example: worksheets
     WorksheetColumnModel:
       type: object
       properties:
@@ -181,10 +190,14 @@ components:
             description: Object type, should always be `worksheet_fields`.
             example: worksheet_fields
       - $ref: '#/components/schemas/DescribeFieldModel'
-    WorksheetColumnId:
+    DescribeFieldType:
       type: string
-      description: Column identifier string.
-      example: 1
+      description: Object type, should always be `describe_fields`.
+      example: describe_fields
+    DescribeFieldId:
+      type: string
+      description: Field identifier string.
+      example: field_name
     WorksheetAttributes:
       type: object
       description: Worksheet attributes.
@@ -221,6 +234,30 @@ components:
           items:
             $ref: '#/components/schemas/WorksheetColumnModel'
           description: Column field values.
+    WorksheetBase:
+      title: Worksheet
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/WorksheetType'
+        id:
+          $ref: '#/components/schemas/WorksheetId'
+    WorksheetColumnId:
+      type: string
+      description: Column identifier string.
+      example: 1
+    WorksheetId:
+      type: integer
+      description: Worksheet identifier string.
+      example: 1
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
     CustomFieldEnum:
       type: string
       enum:
@@ -239,34 +276,6 @@ components:
       - Related
       description: Internal name and meaning of each field.
       example: Short Text
-    DescribeFieldType:
-      type: string
-      description: Object type, should always be `describe_fields`.
-      example: describe_fields
-    OpenApiEnum:
-      type: string
-      enum:
-      - string
-      - number
-      - integer
-      - boolean
-      - array
-      - object
-      description: OpenAPI data type.
-      example: string
-    DescribeFieldId:
-      type: string
-      description: Field identifier string.
-      example: field_name
-    WorksheetModel:
-      allOf:
-      - $ref: '#/components/schemas/WorksheetBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/WorksheetAttributes'
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
     DescribeFieldBase:
       title: DescribeFieldModel
       type: object
@@ -278,22 +287,22 @@ components:
           $ref: '#/components/schemas/DescribeFieldType'
         id:
           $ref: '#/components/schemas/DescribeFieldId'
-    ResourceLinks:
-      type: object
-      description: List of related links.
+    DescribeFieldModel:
       allOf:
-      - $ref: '#/components/schemas/SelfLink'
-    WorksheetBase:
-      title: Worksheet
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/WorksheetType'
-        id:
-          $ref: '#/components/schemas/WorksheetId'
+      - $ref: '#/components/schemas/DescribeFieldBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/DescribeFieldAttributes'
+    WorksheetModel:
+      allOf:
+      - $ref: '#/components/schemas/WorksheetBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/WorksheetAttributes'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
     DescribeFieldAttributes:
       type: object
       description: Describe field attributes.
@@ -311,13 +320,10 @@ components:
           type: boolean
           description: Flag for determining if this is a user created custom field or an internal system field.
           example: false
-    DescribeFieldModel:
-      allOf:
-      - $ref: '#/components/schemas/DescribeFieldBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/DescribeFieldAttributes'
+    WorksheetType:
+      type: string
+      description: Object type, should always be `worksheets`.
+      example: worksheets
   examples:
     show_response-3:
       value:

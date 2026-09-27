@@ -25,7 +25,7 @@ paths:
       tags:
       - Line Items
       description: Returns a list of line items for the specified criteria.
-      operationId: List Line Items
+      operationId: ListLineItems
       summary: List Line Items
       parameters:
       - name: event_id
@@ -65,11 +65,13 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1/line_items\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: List Line Items
     post:
       tags:
       - Line Items
       description: Create a line item with given cell values.
-      operationId: Create a Line Item
+      operationId: CreateALineItem
       summary: Create a Line Item
       parameters:
       - name: event_id
@@ -115,6 +117,8 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":{\"type\":\"line_items\",\"attributes\":{\"data\":{\"c1\":\"Product One\",\"c2\":\"items\",\"c3\":14}}}}' \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1/line_items\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Create a Line Item
   /events/{event_id}/worksheets/{worksheet_id}/line_items/bulk:
     post:
       tags:
@@ -122,7 +126,7 @@ paths:
       description: 'Create multiple line items in a given worksheet. You can create up to 200 line items in
 
         a single request.'
-      operationId: Bulk Create Line Items
+      operationId: BulkCreateLineItems
       summary: Bulk Create Line Items
       parameters:
       - name: event_id
@@ -178,6 +182,8 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":[{\"type\":\"line_items\",\"attributes\":{\"data\":{\"c1\":\"Product One\",\"c2\":\"items\",\"c3\":14}}}]}' \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1/line_items/bulk\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Bulk Create Line Items
   /events/{event_id}/worksheets/{worksheet_id}/line_items/{id}:
     get:
       tags:
@@ -185,7 +191,7 @@ paths:
       description: 'Retrieves the details of an existing line item. You need to supply the unique line item
 
         identifier that was returned upon line item creation.'
-      operationId: Get a Line Item
+      operationId: GetALineItem
       summary: Get a Line Item
       parameters:
       - name: event_id
@@ -229,6 +235,8 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1/line_items/1\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Get a Line Item
     patch:
       tags:
       - Line Items
@@ -240,7 +248,7 @@ paths:
         Please note, that request body must include the `id` attribute with the value of your
 
         line item unique identifier (the same one you passed in the URL).'
-      operationId: Update a Line Item
+      operationId: UpdateALineItem
       summary: Update a Line Item
       parameters:
       - name: event_id
@@ -310,13 +318,15 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"line_items\",\"attributes\":{\"data\":{\"c1\":\"Product One\",\"c2\":\"items\",\"c3\": 14}}}}' \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1/line_items/2\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Update a Line Item
     delete:
       tags:
       - Line Items
       description: 'Deletes a line item. You need to supply the unique line item
 
         identifier that was returned upon line item creation.'
-      operationId: Delete a Line Item
+      operationId: DeleteALineItem
       summary: Delete a Line Item
       parameters:
       - name: event_id
@@ -348,8 +358,20 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/events/v1/events/1/worksheets/1/line_items/1\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete a Line Item
 components:
   schemas:
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
     SelfLink:
       type: object
       properties:
@@ -357,29 +379,12 @@ components:
           type: string
           format: url
           description: Normalized link to the resource.
-    WorksheetId:
-      type: integer
-      description: Worksheet identifier string.
-      example: 1
-    LineItemType:
-      type: string
-      description: Object type, should always be `line_items`.
-      example: line_items
-    WorksheetType:
-      type: string
-      description: Object type, should always be `worksheets`.
-      example: worksheets
-    LineItemCreate:
+    Error:
       type: object
-      required:
-      - type
       properties:
-        type:
-          $ref: '#/components/schemas/LineItemType'
-        attributes:
-          $ref: '#/components/schemas/LineItemAttributes'
-        relationships:
-          $ref: '#/components/schemas/LineItemRelationship'
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
     LineItemUpdate:
       type: object
       required:
@@ -394,6 +399,48 @@ components:
           $ref: '#/components/schemas/LineItemAttributes'
         relationships:
           $ref: '#/components/schemas/LineItemRelationship'
+    LineItemCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/LineItemType'
+        attributes:
+          $ref: '#/components/schemas/LineItemAttributes'
+        relationships:
+          $ref: '#/components/schemas/LineItemRelationship'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    WorksheetBase:
+      title: Worksheet
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/WorksheetType'
+        id:
+          $ref: '#/components/schemas/WorksheetId'
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    LineItemType:
+      type: string
+      description: Object type, should always be `line_items`.
+      example: line_items
     PaginationLinks:
       type: object
       description: List of related links.
@@ -401,12 +448,30 @@ components:
       - $ref: '#/components/schemas/SelfLink'
       - $ref: '#/components/schemas/NextPageLink'
       - $ref: '#/components/schemas/PrevPageLink'
-    Error:
+    WorksheetId:
+      type: integer
+      description: Worksheet identifier string.
+      example: 1
+    LineItemBase:
+      title: LineItem
       type: object
+      required:
+      - type
+      - id
       properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
+        type:
+          $ref: '#/components/schemas/LineItemType'
+        id:
+          $ref: '#/components/schemas/LineItemId'
+    LineItemRelationship:
+      type: object
+      description: Line item relationship.
+      properties:
+        worksheet:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/WorksheetBase'
     LineItem:
       allOf:
       - $ref: '#/components/schemas/LineItemBase'
@@ -418,6 +483,18 @@ components:
       type: integer
       description: LineItem identifier string.
       example: 1
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     LineItemAttributes:
       type: object
       description: LineItem attributes.
@@ -438,137 +515,11 @@ components:
             and values are cell values.
 
             '
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    LineItemRelationship:
-      type: object
-      description: Line item relationship.
-      properties:
-        worksheet:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/WorksheetBase'
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    LineItemBase:
-      title: LineItem
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/LineItemType'
-        id:
-          $ref: '#/components/schemas/LineItemId'
-    Pagination:
-      type: object
-      properties:
-        meta:
-          type: object
-          description: Result set metadata.
-          properties:
-            count:
-              type: integer
-              description: Number of pages in the result set.
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    WorksheetBase:
-      title: Worksheet
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/WorksheetType'
-        id:
-          $ref: '#/components/schemas/WorksheetId'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-          deprecated: true
+    WorksheetType:
+      type: string
+      description: Object type, should always be `worksheets`.
+      example: worksheets
   examples:
-    show_response-4:
-      value:
-        data:
-          id: '1'
-          type: line_items
-          attributes:
-            data:
-              c1: Amazing Product
-              c2: 10
-              c3: items
-    create_request-2:
-      value:
-        data:
-          type: line_items
-          attributes:
-            data:
-              c1: Amazing Product
-              c2: items
-              c3: 14
-          relationships:
-            worksheet:
-              data:
-                type: worksheets
-                id: '1'
-    bulk_create_request:
-      value:
-        data:
-        - type: line_items
-          attributes:
-            data:
-              c1: Product One
-              c2: items
-              c3: 14
-        - type: line_items
-          attributes:
-            data:
-              c1: Product Two
-              c2: items
-              c3: 1
-    create_response-2:
-      value:
-        data:
-          id: '1'
-          type: line_items
-          attributes:
-            data:
-              c1: Amazing Product
-              c2: items
-              c3: 14
-              c4: 0
-    update_response-2:
-      value:
-        data:
-          id: '1'
-          type: line_items
-          attributes:
-            data:
-              c1: Painfully Amazing Product
-              c2: 24
-              c3: items
-              c4: 0
     update_request-2:
       value:
         data:
@@ -622,6 +573,67 @@ components:
               c2: items
               c3: 1
               c4: 0
+    update_response-2:
+      value:
+        data:
+          id: '1'
+          type: line_items
+          attributes:
+            data:
+              c1: Painfully Amazing Product
+              c2: 24
+              c3: items
+              c4: 0
+    bulk_create_request:
+      value:
+        data:
+        - type: line_items
+          attributes:
+            data:
+              c1: Product One
+              c2: items
+              c3: 14
+        - type: line_items
+          attributes:
+            data:
+              c1: Product Two
+              c2: items
+              c3: 1
+    create_request-2:
+      value:
+        data:
+          type: line_items
+          attributes:
+            data:
+              c1: Amazing Product
+              c2: items
+              c3: 14
+          relationships:
+            worksheet:
+              data:
+                type: worksheets
+                id: '1'
+    create_response-2:
+      value:
+        data:
+          id: '1'
+          type: line_items
+          attributes:
+            data:
+              c1: Amazing Product
+              c2: items
+              c3: 14
+              c4: 0
+    show_response-4:
+      value:
+        data:
+          id: '1'
+          type: line_items
+          attributes:
+            data:
+              c1: Amazing Product
+              c2: 10
+              c3: items
   securitySchemes:
     api_key:
       type: apiKey

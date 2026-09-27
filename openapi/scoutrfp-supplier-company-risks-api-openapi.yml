@@ -25,7 +25,7 @@ paths:
       tags:
       - supplier_company_risks
       description: Returns a list of supplier company risks.
-      operationId: List Supplier Company Risks
+      operationId: ListSupplierCompanyRisks
       summary: List Supplier Company Risks
       responses:
         '200':
@@ -47,11 +47,13 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_risks\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: List Supplier Company Risks
     post:
       tags:
       - supplier_company_risks
       description: Create a supplier company risk with given parameters.
-      operationId: Create a Supplier Company Risk
+      operationId: CreateASupplierCompanyRisk
       summary: Create a Supplier Company Risk
       requestBody:
         content:
@@ -108,6 +110,8 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X POST \\\n     -d '{\"data\":{\"type\":\"supplier_company_risks\",\"attributes\":{\"label\":\"Super High!\",\"color\": \"red\",\"order\":4}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_risks\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Create a Supplier Company Risk
   /supplier_company_risks/{id}:
     patch:
       tags:
@@ -120,7 +124,7 @@ paths:
         Please note, that request body must include an `id` attribute with the value of your supplier company risk
 
         unique identifier (the same one you passed in the URL).'
-      operationId: Update a Supplier Company Risk
+      operationId: UpdateASupplierCompanyRisk
       summary: Update a Supplier Company Risk
       parameters:
       - name: id
@@ -187,13 +191,15 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X PATCH \\\n     -d '{\"data\":{\"type\":\"supplier_company_risks\",\"id\":\"2\",\"attributes\":{\"label\":\"Very High\",\"color\":\"red\",\"order\":1}}}' \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_risks/2\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Update a Supplier Company Risk
     delete:
       tags:
       - supplier_company_risks
       description: 'Deletes a supplier company risk. You need to supply the unique supplier company risk
 
         identifier that was returned upon supplier company risk creation.'
-      operationId: Delete a Supplier Company Risk
+      operationId: DeleteASupplierCompanyRisk
       summary: Delete a Supplier Company Risk
       parameters:
       - name: id
@@ -213,27 +219,126 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -X DELETE \\\n     \"https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_risks/1\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete a Supplier Company Risk
 components:
+  schemas:
+    SupplierCompanyRisk:
+      allOf:
+      - $ref: '#/components/schemas/SupplierCompanyRiskBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierCompanyRiskCreateAttributes'
+    SupplierCompanyRiskBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyRiskType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyRiskId'
+    SupplierCompanyRiskType:
+      type: string
+      description: Object type, should always be `supplier_company_risks`.
+      example: supplier_company_risks
+    SupplierCompanyRiskUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyRiskType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyRiskId'
+        attributes:
+          $ref: '#/components/schemas/SupplierCompanyRiskAttributes'
+    SupplierCompanyRiskId:
+      type: integer
+      description: Supplier company risk identifier string.
+      example: 1
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    SupplierCompanyRiskAttributes:
+      type: object
+      description: Supplier company risk attributes.
+      required:
+      - label
+      - color
+      properties:
+        label:
+          type: string
+          maxLength: 255
+          description: Supplier company risk label.
+          example: Low
+        order:
+          type: integer
+          description: Supplier company risk order
+          example: 1
+        color:
+          type: string
+          description: Supplier company risk color
+          enum:
+          - gray
+          - green
+          - yellow
+          - orange
+          - red
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    SupplierCompanyRiskCreateAttributes:
+      type: object
+      description: Supplier company risk attributes.
+      required:
+      - label
+      - color
+      properties:
+        label:
+          type: string
+          maxLength: 255
+          description: Supplier company risk label.
+          example: Low
+        order:
+          type: integer
+          description: Supplier company risk order
+          example: 1
+        color:
+          type: string
+          description: Supplier company risk color
+          enum:
+          - gray
+          - green
+          - yellow
+          - orange
+          - red
+    SupplierCompanyRiskCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyRiskType'
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/SupplierCompanyRiskCreateAttributes'
+          - type: object
+            required:
+            - label
+            - color
   examples:
-    update_request-6:
-      value:
-        data:
-          id: '4'
-          type: supplier_company_risks
-          attributes:
-            label: Very High
-            color: red
-            order: 1
-    update_response-6:
-      value:
-        data:
-          id: '4'
-          type: supplier_company_risks
-          attributes:
-            label: Very High
-            slug: super_high_25672734-8f8f-4735-9099-8a4f3c64505a
-            color: red
-            order: 1
     create_response-6:
       value:
         data:
@@ -277,6 +382,25 @@ components:
             order: 4
         links:
           self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_risks
+    update_request-6:
+      value:
+        data:
+          id: '4'
+          type: supplier_company_risks
+          attributes:
+            label: Very High
+            color: red
+            order: 1
+    update_response-6:
+      value:
+        data:
+          id: '4'
+          type: supplier_company_risks
+          attributes:
+            label: Very High
+            slug: super_high_25672734-8f8f-4735-9099-8a4f3c64505a
+            color: red
+            order: 1
     create_request-5:
       value:
         data:
@@ -285,122 +409,6 @@ components:
             label: Super High!
             color: red
             order: 4
-  schemas:
-    SupplierCompanyRiskAttributes:
-      type: object
-      description: Supplier company risk attributes.
-      required:
-      - label
-      - color
-      properties:
-        label:
-          type: string
-          maxLength: 255
-          description: Supplier company risk label.
-          example: Low
-        order:
-          type: integer
-          description: Supplier company risk order
-          example: 1
-        color:
-          type: string
-          description: Supplier company risk color
-          enum:
-          - gray
-          - green
-          - yellow
-          - orange
-          - red
-    SupplierCompanyRisk:
-      allOf:
-      - $ref: '#/components/schemas/SupplierCompanyRiskBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/SupplierCompanyRiskCreateAttributes'
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    SupplierCompanyRiskBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanyRiskType'
-        id:
-          $ref: '#/components/schemas/SupplierCompanyRiskId'
-    SupplierCompanyRiskUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanyRiskType'
-        id:
-          $ref: '#/components/schemas/SupplierCompanyRiskId'
-        attributes:
-          $ref: '#/components/schemas/SupplierCompanyRiskAttributes'
-    SupplierCompanyRiskId:
-      type: integer
-      description: Supplier company risk identifier string.
-      example: 1
-    SupplierCompanyRiskCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanyRiskType'
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/SupplierCompanyRiskCreateAttributes'
-          - type: object
-            required:
-            - label
-            - color
-    SupplierCompanyRiskCreateAttributes:
-      type: object
-      description: Supplier company risk attributes.
-      required:
-      - label
-      - color
-      properties:
-        label:
-          type: string
-          maxLength: 255
-          description: Supplier company risk label.
-          example: Low
-        order:
-          type: integer
-          description: Supplier company risk order
-          example: 1
-        color:
-          type: string
-          description: Supplier company risk color
-          enum:
-          - gray
-          - green
-          - yellow
-          - orange
-          - red
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    SupplierCompanyRiskType:
-      type: string
-      description: Object type, should always be `supplier_company_risks`.
-      example: supplier_company_risks
   securitySchemes:
     api_key:
       type: apiKey

@@ -24,7 +24,7 @@ paths:
       tags:
       - contract_reports
       description: Returns a list of contract report entries.
-      operationId: Contract Report Entries
+      operationId: ContractReportEntries
       summary: Contract Report Entries
       responses:
         '200':
@@ -49,12 +49,14 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/contract_reports/entries\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Contract Report Entries
   /contract_reports/schema:
     get:
       tags:
       - contract_reports
       description: Returns the contract report schema.
-      operationId: Contract Report Schema
+      operationId: ContractReportSchema
       summary: Contract Report Schema
       responses:
         '200':
@@ -74,8 +76,19 @@ paths:
       x-codeSamples:
       - label: Curl
         source: "curl -H \"X-Api-Key: ${COMPANY_KEY}\" \\\n     -H \"X-User-Token: ${USER_TOKEN}\" \\\n     -H \"X-User-Email: ${USER_EMAIL}\" \\\n     -H \"Content-Type: application/vnd.api+json\" \\\n     -H \"Accept: application/vnd.api+json,application/vnd.api+json; com.workdayspend.api.version=2019-01-01\"\n     \"https://api.us.workdayspend.com/contract_reports/schema\"\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: Contract Report Schema
 components:
   schemas:
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    ContractReportEntryType:
+      description: Object type, should always be `contract_report_entries`.
+      example: contract_report_entries
     ReportSchemaField:
       type: object
       properties:
@@ -85,21 +98,43 @@ components:
           type: string
           description: Field name
           example: Scout-System ID
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     ContractReportEntryAttributes:
       description: Contract Report Entry attributes. See example response and schema.
       properties: {}
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
     ContractReportEntryId:
       description: Contract Report identifier string.
       example: 1
-    ContractReportEntryType:
-      description: Object type, should always be `contract_report_entries`.
-      example: contract_report_entries
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
     ContractReportEntryFieldModel:
       type: object
       properties:
@@ -111,11 +146,6 @@ components:
           description: Object type, should always be `contract_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
     ContractReportEntry:
       type: object
       required:
@@ -128,23 +158,6 @@ components:
           $ref: '#/components/schemas/ContractReportEntryId'
         attributes:
           $ref: '#/components/schemas/ContractReportEntryAttributes'
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
     NextPageLink:
       type: object
       properties:
@@ -154,15 +167,6 @@ components:
           - 'null'
           format: url
           description: Link to the next results page.
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
   examples:
     index_response-2:
       value:

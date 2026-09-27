@@ -20,7 +20,7 @@ paths:
     get:
       tags:
       - Discovery
-      operationId: List Schemas
+      operationId: ListSchemas
       summary: List Schemas
       description: Endpoint used to retrieve information about schemas supported. See section 3.4 of RFC 7644
       responses:
@@ -33,11 +33,13 @@ paths:
               examples:
                 success:
                   $ref: '#/components/examples/schemas_response'
+      x-operation-id-source: normalized
+      x-operation-id-original: List Schemas
   /Schemas/{uri}:
     get:
       tags:
       - Discovery
-      operationId: Get a Schema
+      operationId: GetASchema
       summary: Get a Schema
       description: Retrieves information about a specific resource
       parameters:
@@ -68,11 +70,13 @@ paths:
               examples:
                 error:
                   $ref: '#/components/examples/404'
+      x-operation-id-source: normalized
+      x-operation-id-original: Get a Schema
   /ResourceTypes:
     get:
       tags:
       - Discovery
-      operationId: List Resource Types
+      operationId: ListResourceTypes
       summary: List Resource Types
       description: This endpoint is used to discover the types of resources available (see section 4 of RFC 7644)
       responses:
@@ -85,11 +89,13 @@ paths:
               examples:
                 success:
                   $ref: '#/components/examples/resource_types_response'
+      x-operation-id-source: normalized
+      x-operation-id-original: List Resource Types
   /ResourceTypes/{resource}:
     get:
       tags:
       - Discovery
-      operationId: Get a Resource Type
+      operationId: GetAResourceType
       summary: Get a Resource Type
       description: 'Describes the endpoint, schemas and extensions supported by a specific kind of resource.
 
@@ -112,11 +118,13 @@ paths:
               examples:
                 success:
                   $ref: '#/components/examples/resource_type_response'
+      x-operation-id-source: normalized
+      x-operation-id-original: Get a Resource Type
   /ServiceProviderConfig:
     get:
       tags:
       - Discovery
-      operationId: List Service Provider Configs
+      operationId: ListServiceProviderConfigs
       summary: List Service Provider Configs
       description: Describes the SCIM specification features available (see section 5 of RFC 7643)
       responses:
@@ -129,30 +137,10 @@ paths:
               examples:
                 success:
                   $ref: '#/components/examples/service_provider_configuration_response'
+      x-operation-id-source: normalized
+      x-operation-id-original: List Service Provider Configs
 components:
   schemas:
-    ErrorResponse:
-      required:
-      - status
-      type: object
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-            example: urn:ietf:params:scim:api:messages:2.0:Error
-        status:
-          type: string
-          description: HTTP status code as string
-        scimType:
-          type: string
-          description: 'A detail error keyword. See [table 9](https://datatracker.ietf.org/doc/html/rfc7644#section-3.12) of RFC 7644
-
-            '
-        detail:
-          type: string
-          description: A detailed human-readable message of the error
-      description: See section 3.12 of RFC 7644
     ResourceType:
       type: object
       properties:
@@ -186,40 +174,24 @@ components:
             required:
               type: boolean
       description: See section 6 of RFC 7643
-    SchemaAttribute:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-        subAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SchemaAttribute'
-        multiValued:
-          type: boolean
-        description:
-          type: string
-        required:
-          type: string
-        canonicalValues:
-          type: array
-          items:
-            type: string
-        caseExact:
-          type: boolean
-        mutability:
-          type: string
-        returned:
-          type: string
-        uniqueness:
-          type: string
-        referenceTypes:
-          type: array
-          items:
-            type: string
-      description: A recursive definition. Note how property subAttributes reuses SchemaAttribute for its definition
+    ResourceTypeListResponse:
+      allOf:
+      - $ref: '#/components/schemas/BasicListResponse'
+      - type: object
+        properties:
+          Resources:
+            type: array
+            items:
+              $ref: '#/components/schemas/ResourceType'
+    SchemaListResponse:
+      allOf:
+      - $ref: '#/components/schemas/BasicListResponse'
+      - type: object
+        properties:
+          Resources:
+            type: array
+            items:
+              $ref: '#/components/schemas/SchemaResource'
     ServiceProviderConfigResponse:
       type: object
       properties:
@@ -297,41 +269,62 @@ components:
             primary:
               type: boolean
       description: See section 5 of RFC 7643
-    SchemaListResponse:
-      allOf:
-      - $ref: '#/components/schemas/BasicListResponse'
-      - type: object
-        properties:
-          Resources:
-            type: array
-            items:
-              $ref: '#/components/schemas/SchemaResource'
-    BasicListResponse:
+    SchemaAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        subAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SchemaAttribute'
+        multiValued:
+          type: boolean
+        description:
+          type: string
+        required:
+          type: string
+        canonicalValues:
+          type: array
+          items:
+            type: string
+        caseExact:
+          type: boolean
+        mutability:
+          type: string
+        returned:
+          type: string
+        uniqueness:
+          type: string
+        referenceTypes:
+          type: array
+          items:
+            type: string
+      description: A recursive definition. Note how property subAttributes reuses SchemaAttribute for its definition
+    ErrorResponse:
+      required:
+      - status
       type: object
       properties:
         schemas:
           type: array
           items:
             type: string
-            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
-        totalResults:
-          type: integer
-          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
-        startIndex:
-          type: integer
-          description: The 1-based index of the first result in the current set of search results
-        itemsPerPage:
-          type: integer
-          description: The number of resources returned in a results page
-    ResourceTypeListResponse:
-      allOf:
-      - $ref: '#/components/schemas/BasicListResponse'
-      - type: object
-        properties:
-          Resources:
-            type: array
-            items:
-              $ref: '#/components/schemas/ResourceType'
+            example: urn:ietf:params:scim:api:messages:2.0:Error
+        status:
+          type: string
+          description: HTTP status code as string
+        scimType:
+          type: string
+          description: 'A detail error keyword. See [table 9](https://datatracker.ietf.org/doc/html/rfc7644#section-3.12) of RFC 7644
+
+            '
+        detail:
+          type: string
+          description: A detailed human-readable message of the error
+      description: See section 3.12 of RFC 7644
     SchemaResource:
       type: object
       properties:
@@ -357,7 +350,41 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SchemaAttribute'
+    BasicListResponse:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
+        startIndex:
+          type: integer
+          description: The 1-based index of the first result in the current set of search results
+        itemsPerPage:
+          type: integer
+          description: The number of resources returned in a results page
   examples:
+    '404':
+      value:
+        schemas:
+        - urn:ietf:params:scim:api:messages:2.0:Error
+        status: '404'
+        detail: Resource "User" not found
+    resource_type_response:
+      value:
+        meta:
+          resourceType: ResourceType
+          location: https://api.us.workdayspend.com/scim/v2/ResourceTypes/User
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:ResourceType
+        endpoint: /Users
+        schema: urn:ietf:params:scim:schemas:core:2.0:User
+        id: User
+        name: User
     schemas_response:
       value:
         schemas:
@@ -903,6 +930,50 @@ components:
               returned: default
               name: primary
               type: boolean
+    service_provider_configuration_response:
+      value:
+        bulk:
+          supported: false
+        changePassword:
+          supported: false
+        sort:
+          supported: true
+        etag:
+          supported: false
+        patch:
+          supported: true
+        filter:
+          supported: true
+          maxResults: 100
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig
+        meta:
+          resourceType: ServiceProviderConfig
+          created: '2021-07-27T13:24:01.182+01:00'
+          lastModified: '2021-07-27T13:24:01.182+01:00'
+          version: '1'
+          location: https://api.us.workdayspend.com/scim/v2/ServiceProviderConfig
+        authenticationSchemes:
+        - type: httpbasic
+          name: HTTP Basic
+          description: Authentication scheme using the HTTP Basic Standard
+    resource_types_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults: 1
+        startIndex: 0
+        itemsPerPage: 100
+        Resources:
+        - meta:
+            resourceType: ResourceType
+            location: /scim/v2/ResourceTypes/User
+          schemas:
+          - urn:ietf:params:scim:schemas:core:2.0:ResourceType
+          endpoint: /Users
+          schema: urn:ietf:params:scim:schemas:core:2.0:User
+          id: User
+          name: User
     schema_response:
       value:
         name: User
@@ -1458,67 +1529,6 @@ components:
             returned: default
             name: primary
             type: boolean
-    resource_type_response:
-      value:
-        meta:
-          resourceType: ResourceType
-          location: https://api.us.workdayspend.com/scim/v2/ResourceTypes/User
-        schemas:
-        - urn:ietf:params:scim:schemas:core:2.0:ResourceType
-        endpoint: /Users
-        schema: urn:ietf:params:scim:schemas:core:2.0:User
-        id: User
-        name: User
-    '404':
-      value:
-        schemas:
-        - urn:ietf:params:scim:api:messages:2.0:Error
-        status: '404'
-        detail: Resource "User" not found
-    resource_types_response:
-      value:
-        schemas:
-        - urn:ietf:params:scim:api:messages:2.0:ListResponse
-        totalResults: 1
-        startIndex: 0
-        itemsPerPage: 100
-        Resources:
-        - meta:
-            resourceType: ResourceType
-            location: /scim/v2/ResourceTypes/User
-          schemas:
-          - urn:ietf:params:scim:schemas:core:2.0:ResourceType
-          endpoint: /Users
-          schema: urn:ietf:params:scim:schemas:core:2.0:User
-          id: User
-          name: User
-    service_provider_configuration_response:
-      value:
-        bulk:
-          supported: false
-        changePassword:
-          supported: false
-        sort:
-          supported: true
-        etag:
-          supported: false
-        patch:
-          supported: true
-        filter:
-          supported: true
-          maxResults: 100
-        schemas:
-        - urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig
-        meta:
-          resourceType: ServiceProviderConfig
-          created: '2021-07-27T13:24:01.182+01:00'
-          lastModified: '2021-07-27T13:24:01.182+01:00'
-          version: '1'
-          location: https://api.us.workdayspend.com/scim/v2/ServiceProviderConfig
-        authenticationSchemes:
-        - type: httpbasic
-          name: HTTP Basic
-          description: Authentication scheme using the HTTP Basic Standard
   securitySchemes:
     api_key:
       type: apiKey
