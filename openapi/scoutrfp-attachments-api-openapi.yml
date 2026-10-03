@@ -318,40 +318,6 @@ paths:
       x-operation-id-original: Update an Attachment by External ID
 components:
   schemas:
-    EventBase:
-      title: Event
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/EventType'
-        id:
-          $ref: '#/components/schemas/EventId'
-    AttachmentContractRelationship:
-      title: Contract
-      type: object
-      description: Contract relationship.
-      required:
-      - contract
-      properties:
-        contract:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/ContractBase'
-    ProjectBase:
-      title: Project
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ProjectType'
-        id:
-          $ref: '#/components/schemas/ProjectId'
     Error:
       type: object
       properties:
@@ -377,70 +343,47 @@ components:
           - $ref: '#/components/schemas/AttachmentEventRelationship'
           - $ref: '#/components/schemas/AttachmentProjectRelationship'
           - $ref: '#/components/schemas/AttachmentSupplierCompanyRelationship'
-    Attachment:
-      allOf:
-      - $ref: '#/components/schemas/AttachmentBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/AttachmentAttributes'
-    AttachmentId:
+    ProjectType:
+      type: string
+      description: Object type, should always be `projects`.
+      example: projects
+    AttachmentEventRelationship:
+      title: Event
+      type: object
+      description: Event relationship.
+      required:
+      - event
+      properties:
+        event:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/EventBase'
+    EventId:
       type: integer
-      description: Attachment identifier string.
+      description: Event identifier string.
       example: 1
-    AttachmentAttributesExtended:
-      allOf:
-      - $ref: '#/components/schemas/AttachmentAttributesBase'
-      - type: object
-        properties:
-          download_url:
-            type: string
-            description: Attachment download URL.
-            readOnly: true
-          download_url_expires_at:
-            format: date-time
-            description: Download URL expiration time.
-            readOnly: true
-            example: '2020-08-21T13:26:59.999Z'
-          uploaded_by:
-            type: string
-            description: Email of the uploader.
-            readOnly: true
-          uploaded_at:
-            format: date-time
-            description: Time of upload.
-            readOnly: true
-            example: '2020-08-18T12:48:42.978Z'
-    SupplierCompanyBase:
-      title: SupplierCompany
+    EventBase:
+      title: Event
       type: object
       required:
       - type
       - id
       properties:
         type:
-          $ref: '#/components/schemas/SupplierCompanyType'
+          $ref: '#/components/schemas/EventType'
         id:
-          $ref: '#/components/schemas/SupplierCompanyId'
-    AttachmentProjectRelationship:
-      title: Project
-      type: object
-      description: Project relationship.
-      required:
-      - project
-      properties:
-        project:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/ProjectBase'
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
+          $ref: '#/components/schemas/EventId'
+    ContractTypeValue:
+      type: string
+      description: Object type, should always be `contracts`.
+      example: contracts
+    AttachmentAttributes:
+      allOf:
+      - $ref: '#/components/schemas/AttachmentAttributesExtended'
+      - type: object
+        required:
+        - file_name
     AttachmentUploadAttributes:
       allOf:
       - $ref: '#/components/schemas/AttachmentAttributesBase'
@@ -471,101 +414,6 @@ components:
                 value:
                   type: string
                   description: HTTP header value.
-    SupplierCompanyType:
-      type: string
-      description: Object type, should always be `supplier_companies`.
-      example: supplier_companies
-    ContractTypeValue:
-      type: string
-      description: Object type, should always be `contracts`.
-      example: contracts
-    AttachmentSupplierCompanyRelationship:
-      title: Supplier Company
-      type: object
-      description: Supplier Company relationship.
-      required:
-      - supplier_company
-      properties:
-        supplier_company:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/SupplierCompanyBase'
-    AttachmentInputFilter:
-      type: object
-      properties:
-        id_equals:
-          type: string
-          description: Find attachments by IDs. A comma separated list of IDs to be provided.
-          example: 2,5,9
-    AttachmentType:
-      type: string
-      description: Object type, should always be `attachments`.
-      example: attachments
-    AttachmentAttributes:
-      allOf:
-      - $ref: '#/components/schemas/AttachmentAttributesExtended'
-      - type: object
-        required:
-        - file_name
-    AttachmentBase:
-      title: Attachment
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/AttachmentType'
-        id:
-          $ref: '#/components/schemas/AttachmentId'
-    SupplierCompanyId:
-      type: integer
-      description: Supplier company identifier string.
-      example: 1
-    AttachmentEventRelationship:
-      title: Event
-      type: object
-      description: Event relationship.
-      required:
-      - event
-      properties:
-        event:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/EventBase'
-    ContractBase:
-      title: Contract
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ContractTypeValue'
-        id:
-          $ref: '#/components/schemas/ContractId'
-    AttachmentUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/AttachmentType'
-        id:
-          $ref: '#/components/schemas/AttachmentId'
-        attributes:
-          $ref: '#/components/schemas/AttachmentAttributesBase'
-    ContractId:
-      type: integer
-      description: Contract identifier string.
-      example: 1
-    ProjectType:
-      type: string
-      description: Object type, should always be `projects`.
-      example: projects
     AttachmentAttributesBase:
       type: object
       description: Attachment attributes.
@@ -589,18 +437,71 @@ components:
           maxLength: 255
           description: Attachment external identifier.
           example: AT1
-    ProjectId:
-      type: integer
-      description: Project identifier string.
-      example: 1
-    EventId:
-      type: integer
-      description: Event identifier string.
-      example: 1
+    AttachmentUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/AttachmentType'
+        id:
+          $ref: '#/components/schemas/AttachmentId'
+        attributes:
+          $ref: '#/components/schemas/AttachmentAttributesBase'
     EventType:
       type: string
       description: Object type, should always be `events`.
       example: events
+    AttachmentId:
+      type: integer
+      description: Attachment identifier string.
+      example: 1
+    ProjectId:
+      type: integer
+      description: Project identifier string.
+      example: 1
+    AttachmentContractRelationship:
+      title: Contract
+      type: object
+      description: Contract relationship.
+      required:
+      - contract
+      properties:
+        contract:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ContractBase'
+    SupplierCompanyBase:
+      title: SupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyId'
+    AttachmentBase:
+      title: Attachment
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/AttachmentType'
+        id:
+          $ref: '#/components/schemas/AttachmentId'
+    AttachmentInputFilter:
+      type: object
+      properties:
+        id_equals:
+          type: string
+          description: Find attachments by IDs. A comma separated list of IDs to be provided.
+          example: 2,5,9
     AttachmentUpload:
       allOf:
       - $ref: '#/components/schemas/AttachmentBase'
@@ -608,16 +509,125 @@ components:
         properties:
           attributes:
             $ref: '#/components/schemas/AttachmentUploadAttributes'
+    SupplierCompanyId:
+      type: integer
+      description: Supplier company identifier string.
+      example: 1
+    ProjectBase:
+      title: Project
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ProjectType'
+        id:
+          $ref: '#/components/schemas/ProjectId'
+    ContractBase:
+      title: Contract
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeValue'
+        id:
+          $ref: '#/components/schemas/ContractId'
+    AttachmentAttributesExtended:
+      allOf:
+      - $ref: '#/components/schemas/AttachmentAttributesBase'
+      - type: object
+        properties:
+          download_url:
+            type: string
+            description: Attachment download URL.
+            readOnly: true
+          download_url_expires_at:
+            format: date-time
+            description: Download URL expiration time.
+            readOnly: true
+            example: '2020-08-21T13:26:59.999Z'
+          uploaded_by:
+            type: string
+            description: Email of the uploader.
+            readOnly: true
+          uploaded_at:
+            format: date-time
+            description: Time of upload.
+            readOnly: true
+            example: '2020-08-18T12:48:42.978Z'
+    AttachmentType:
+      type: string
+      description: Object type, should always be `attachments`.
+      example: attachments
+    Attachment:
+      allOf:
+      - $ref: '#/components/schemas/AttachmentBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/AttachmentAttributes'
+    AttachmentSupplierCompanyRelationship:
+      title: Supplier Company
+      type: object
+      description: Supplier Company relationship.
+      required:
+      - supplier_company
+      properties:
+        supplier_company:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/SupplierCompanyBase'
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    AttachmentProjectRelationship:
+      title: Project
+      type: object
+      description: Project relationship.
+      required:
+      - project
+      properties:
+        project:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ProjectBase'
+    ContractId:
+      type: integer
+      description: Contract identifier string.
+      example: 1
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   examples:
-    external_update_request:
+    external_update_response:
       value:
         data:
+          id: '1'
           type: attachments
-          id: AT1
           attributes:
-            title: My Updated Test Document
-            file_name: Some Updated Test File.pdf
             external_id: AT2
+            title: My Updated Test Document
+            file_size: null
+            upload_url: https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url
+            upload_headers:
+            - name: Content-Type
+              value: application/octet-stream
+            - name: x-amz-acl
+              value: private
+            - name: x-amz-server-side-encryption
+              value: AES256
+            - name: Content-Disposition
+              value: attachment
     create_request:
       value:
         data:
@@ -631,7 +641,26 @@ components:
               data:
                 id: 1
                 type: contracts
-    show_response:
+    update_response:
+      value:
+        data:
+          id: '1'
+          type: attachments
+          attributes:
+            external_id: AT2
+            title: My Updated Test Document
+            file_size: null
+            upload_url: https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url
+            upload_headers:
+            - name: Content-Type
+              value: application/octet-stream
+            - name: x-amz-acl
+              value: private
+            - name: x-amz-server-side-encryption
+              value: AES256
+            - name: Content-Disposition
+              value: attachment
+    external_show_response:
       value:
         data:
           id: '1'
@@ -680,7 +709,7 @@ components:
           self: https://api.us.workdayspend.com/services/attachments/v1/attachments
         meta:
           count: 2
-    external_show_response:
+    show_response:
       value:
         data:
           id: '1'
@@ -696,6 +725,15 @@ components:
             download_url_expires_at: '2020-08-21T13:26:59.999Z'
           links:
             self: ' https://api.us.workdayspend.com/services/attachments/v1/attachments/1'
+    external_update_request:
+      value:
+        data:
+          type: attachments
+          id: AT1
+          attributes:
+            title: My Updated Test Document
+            file_name: Some Updated Test File.pdf
+            external_id: AT2
     update_request:
       value:
         data:
@@ -705,44 +743,6 @@ components:
             title: My Updated Test Document
             file_name: Some Updated Test File.pdf
             external_id: AT2
-    update_response:
-      value:
-        data:
-          id: '1'
-          type: attachments
-          attributes:
-            external_id: AT2
-            title: My Updated Test Document
-            file_size: null
-            upload_url: https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url
-            upload_headers:
-            - name: Content-Type
-              value: application/octet-stream
-            - name: x-amz-acl
-              value: private
-            - name: x-amz-server-side-encryption
-              value: AES256
-            - name: Content-Disposition
-              value: attachment
-    external_update_response:
-      value:
-        data:
-          id: '1'
-          type: attachments
-          attributes:
-            external_id: AT2
-            title: My Updated Test Document
-            file_size: null
-            upload_url: https://upload.s3.amazonaws.com/uploads/contract/1/hex/Some%20Updated%20Test%20File.pdf?some=very&long=url
-            upload_headers:
-            - name: Content-Type
-              value: application/octet-stream
-            - name: x-amz-acl
-              value: private
-            - name: x-amz-server-side-encryption
-              value: AES256
-            - name: Content-Disposition
-              value: attachment
     create_response:
       value:
         data:

@@ -80,22 +80,6 @@ paths:
       x-operation-id-original: Supplier Report Schema
 components:
   schemas:
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
     ReportSchemaField:
       type: object
       properties:
@@ -105,21 +89,12 @@ components:
           type: string
           description: Field name
           example: Scout-System ID
-    Pagination:
+    PaginationLinks:
       type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
-    SupplierReportEntryId:
-      description: Supplier Report identifier string.
-      example: 1
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
     SupplierReportEntryAttributes:
       description: Supplier Report Entry attributes. See example response and schema.
       properties: {}
@@ -146,15 +121,6 @@ components:
           description: Object type, should always be `supplier_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
     NextPageLink:
       type: object
       properties:
@@ -164,9 +130,43 @@ components:
           - 'null'
           format: url
           description: Link to the next results page.
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
     SupplierReportEntryType:
       description: Object type, should always be `supplier_report_entries`.
       example: supplier_report_entries
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    SupplierReportEntryId:
+      description: Supplier Report identifier string.
+      example: 1
   examples:
     schema_response-9:
       value:

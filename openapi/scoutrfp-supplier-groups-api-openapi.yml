@@ -269,6 +269,23 @@ paths:
       x-operation-id-original: Delete a Supplier Group by External ID
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    SupplierGroupBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierGroupType'
+        id:
+          $ref: '#/components/schemas/SupplierGroupId'
     SupplierGroupAttributes:
       type: object
       description: Supplier group attributes.
@@ -283,54 +300,10 @@ components:
           type: string
           maxLength: 255
           description: Supplier group external identifier.
-    SupplierGroupCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierGroupType'
-        attributes:
-          $ref: '#/components/schemas/SupplierGroupAttributes'
     SupplierGroupId:
       type: integer
       description: Supplier group identifier string.
       example: 1
-    SupplierGroupType:
-      type: string
-      description: Object type, should always be `supplier_groups`.
-      example: supplier_groups
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    SupplierGroup:
-      allOf:
-      - $ref: '#/components/schemas/SupplierGroupBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/SupplierGroupAttributes'
-    SupplierGroupBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierGroupType'
-        id:
-          $ref: '#/components/schemas/SupplierGroupId'
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
     SupplierGroupUpdate:
       type: object
       required:
@@ -343,29 +316,34 @@ components:
           $ref: '#/components/schemas/SupplierGroupId'
         attributes:
           $ref: '#/components/schemas/SupplierGroupAttributes'
+    SupplierGroupCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierGroupType'
+        attributes:
+          $ref: '#/components/schemas/SupplierGroupAttributes'
+    SupplierGroup:
+      allOf:
+      - $ref: '#/components/schemas/SupplierGroupBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierGroupAttributes'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    SupplierGroupType:
+      type: string
+      description: Object type, should always be `supplier_groups`.
+      example: supplier_groups
   examples:
-    create_request-8:
-      value:
-        data:
-          type: supplier_groups
-          attributes:
-            name: 'Supplier Group #1'
-            external_id: SUPGROUP-1
-    external_update_request-6:
-      value:
-        data:
-          type: supplier_groups
-          id: SUPGROUP
-          attributes:
-            name: Supplier Group Updated
-    update_request-9:
-      value:
-        data:
-          type: supplier_groups
-          id: '1'
-          attributes:
-            name: Supplier Group Updated
-            external_id: SUPGROUP-UPD
     external_update_response-6:
       value:
         data:
@@ -376,6 +354,28 @@ components:
             external_id: SUPGROUP
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1
+    external_update_request-6:
+      value:
+        data:
+          type: supplier_groups
+          id: SUPGROUP
+          attributes:
+            name: Supplier Group Updated
+    create_request-8:
+      value:
+        data:
+          type: supplier_groups
+          attributes:
+            name: 'Supplier Group #1'
+            external_id: SUPGROUP-1
+    update_request-9:
+      value:
+        data:
+          type: supplier_groups
+          id: '1'
+          attributes:
+            name: Supplier Group Updated
+            external_id: SUPGROUP-UPD
     index_response-9:
       value:
         data:
@@ -395,16 +395,6 @@ components:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/2
         links:
           self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups
-    update_response-9:
-      value:
-        data:
-          id: '1'
-          type: supplier_groups
-          attributes:
-            name: Supplier Group Updated
-            external_id: SUPGROUP-UPD
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1
     create_response-9:
       value:
         data:
@@ -413,6 +403,16 @@ components:
           attributes:
             name: 'Supplier Group #1'
             external_id: SUPGROUP-1
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1
+    update_response-9:
+      value:
+        data:
+          id: '1'
+          type: supplier_groups
+          attributes:
+            name: Supplier Group Updated
+            external_id: SUPGROUP-UPD
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1
   securitySchemes:

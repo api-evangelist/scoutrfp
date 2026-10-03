@@ -274,34 +274,82 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Delete a Supplier Category by External ID
 components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    SupplierCategoryBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCategoryType'
+        id:
+          $ref: '#/components/schemas/SupplierCategoryId'
+    SupplierCategoryCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCategoryType'
+        attributes:
+          $ref: '#/components/schemas/SupplierCategoryAttributes'
+    SupplierCategoryUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCategoryType'
+        id:
+          $ref: '#/components/schemas/SupplierCategoryId'
+        attributes:
+          $ref: '#/components/schemas/SupplierCategoryAttributes'
+    SupplierCategoryId:
+      type: integer
+      description: Supplier category identifier string.
+      example: 1
+    SupplierCategory:
+      allOf:
+      - $ref: '#/components/schemas/SupplierCategoryBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierCategoryAttributes'
+    SupplierCategoryAttributes:
+      type: object
+      description: Supplier category attributes.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Supplier category name.
+        external_id:
+          type: string
+          maxLength: 255
+          description: Supplier category external identifier.
+    SupplierCategoryType:
+      type: string
+      description: Object type, should always be `supplier_categories`.
+      example: supplier_categories
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   examples:
-    create_request-7:
-      value:
-        data:
-          type: supplier_categories
-          attributes:
-            name: 'Supplier Category #1'
-            external_id: SUPCAT-1
-    update_preview_response-4:
-      value:
-        data:
-          id: '1'
-          type: supplier_categories
-          attributes:
-            name: Supplier Category Updated
-            external_id: SUPCAT-UPD
-          relationships:
-            wday_identifier:
-              data:
-                id: supplier_categories-1
-                type: wday_identifiers
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/1
-        included:
-        - id: supplier_categories-1
-          type: wday_identifiers
-          attributes:
-            wid: SUPCAT-WID-UPD
     index_preview_response-4:
       value:
         data:
@@ -340,45 +388,24 @@ components:
           type: wday_identifiers
           attributes:
             wid: SUPCAT-WID-2
-    external_update_response-5:
+    update_request-8:
       value:
         data:
-          id: '1'
           type: supplier_categories
-          attributes:
-            name: Supplier Category Updated
-            external_id: SUPCAT
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/1
-    update_response-8:
-      value:
-        data:
           id: '1'
-          type: supplier_categories
           attributes:
             name: Supplier Category Updated
             external_id: SUPCAT-UPD
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/1
-    index_response-8:
+    create_response-8:
       value:
         data:
-        - id: '1'
+          id: '1'
           type: supplier_categories
           attributes:
             name: 'Supplier Category #1'
             external_id: SUPCAT-1
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/1
-        - id: '2'
-          type: supplier_categories
-          attributes:
-            name: 'Supplier Category #2'
-            external_id: SUPCAT-2
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/2
-        links:
-          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories
     create_preview_response-4:
       value:
         data:
@@ -399,6 +426,23 @@ components:
           type: wday_identifiers
           attributes:
             wid: SUPCAT-WID-1
+    create_request-7:
+      value:
+        data:
+          type: supplier_categories
+          attributes:
+            name: 'Supplier Category #1'
+            external_id: SUPCAT-1
+    update_response-8:
+      value:
+        data:
+          id: '1'
+          type: supplier_categories
+          attributes:
+            name: Supplier Category Updated
+            external_id: SUPCAT-UPD
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/1
     external_update_request-5:
       value:
         data:
@@ -406,99 +450,55 @@ components:
           id: SUPCAT
           attributes:
             name: Supplier Category Updated
-    update_request-8:
+    index_response-8:
       value:
         data:
-          type: supplier_categories
-          id: '1'
-          attributes:
-            name: Supplier Category Updated
-            external_id: SUPCAT-UPD
-    create_response-8:
-      value:
-        data:
-          id: '1'
+        - id: '1'
           type: supplier_categories
           attributes:
             name: 'Supplier Category #1'
             external_id: SUPCAT-1
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/1
-  schemas:
-    SupplierCategory:
-      allOf:
-      - $ref: '#/components/schemas/SupplierCategoryBase'
-      - type: object
-        properties:
+        - id: '2'
+          type: supplier_categories
           attributes:
-            $ref: '#/components/schemas/SupplierCategoryAttributes'
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    SupplierCategoryId:
-      type: integer
-      description: Supplier category identifier string.
-      example: 1
-    SupplierCategoryAttributes:
-      type: object
-      description: Supplier category attributes.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          maxLength: 255
-          description: Supplier category name.
-        external_id:
-          type: string
-          maxLength: 255
-          description: Supplier category external identifier.
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    SupplierCategoryBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCategoryType'
-        id:
-          $ref: '#/components/schemas/SupplierCategoryId'
-    SupplierCategoryCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCategoryType'
-        attributes:
-          $ref: '#/components/schemas/SupplierCategoryAttributes'
-    SupplierCategoryType:
-      type: string
-      description: Object type, should always be `supplier_categories`.
-      example: supplier_categories
-    SupplierCategoryUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCategoryType'
-        id:
-          $ref: '#/components/schemas/SupplierCategoryId'
-        attributes:
-          $ref: '#/components/schemas/SupplierCategoryAttributes'
+            name: 'Supplier Category #2'
+            external_id: SUPCAT-2
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/2
+        links:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories
+    update_preview_response-4:
+      value:
+        data:
+          id: '1'
+          type: supplier_categories
+          attributes:
+            name: Supplier Category Updated
+            external_id: SUPCAT-UPD
+          relationships:
+            wday_identifier:
+              data:
+                id: supplier_categories-1
+                type: wday_identifiers
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/1
+        included:
+        - id: supplier_categories-1
+          type: wday_identifiers
+          attributes:
+            wid: SUPCAT-WID-UPD
+    external_update_response-5:
+      value:
+        data:
+          id: '1'
+          type: supplier_categories
+          attributes:
+            name: Supplier Category Updated
+            external_id: SUPCAT
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_categories/1
   securitySchemes:
     api_key:
       type: apiKey

@@ -269,6 +269,12 @@ paths:
       x-operation-id-original: Delete a Payment Term by External ID
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
     PaymentTermCreate:
       type: object
       required:
@@ -282,6 +288,47 @@ components:
       type: string
       description: Object type, should always be `payment_terms`.
       example: payment_terms
+    PaymentTerm:
+      allOf:
+      - $ref: '#/components/schemas/PaymentTermBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/PaymentTermAttributes'
+    PaymentTermId:
+      type: integer
+      description: Payment term identifier string.
+      example: 1
+    PaymentTermUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentTermType'
+        id:
+          $ref: '#/components/schemas/PaymentTermId'
+        attributes:
+          $ref: '#/components/schemas/PaymentTermAttributes'
+    PaymentTermBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PaymentTermType'
+        id:
+          $ref: '#/components/schemas/PaymentTermId'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     PaymentTermAttributes:
       type: object
       description: Payment term attributes.
@@ -296,53 +343,6 @@ components:
           type: string
           maxLength: 255
           description: Payment term external identifier.
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    PaymentTermBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/PaymentTermType'
-        id:
-          $ref: '#/components/schemas/PaymentTermId'
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    PaymentTermId:
-      type: integer
-      description: Payment term identifier string.
-      example: 1
-    PaymentTerm:
-      allOf:
-      - $ref: '#/components/schemas/PaymentTermBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/PaymentTermAttributes'
-    PaymentTermUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/PaymentTermType'
-        id:
-          $ref: '#/components/schemas/PaymentTermId'
-        attributes:
-          $ref: '#/components/schemas/PaymentTermAttributes'
   examples:
     index_response:
       value:
@@ -363,21 +363,6 @@ components:
             self: https://api.us.workdayspend.com/services/payments/v1/payment_terms/2
         links:
           self: https://api.us.workdayspend.com/services/payments/v1/payment_terms
-    external_update_request:
-      value:
-        data:
-          type: payment_terms
-          id: PAYTERM
-          attributes:
-            name: Payment Term Updated
-    update_request:
-      value:
-        data:
-          type: payment_terms
-          id: '1'
-          attributes:
-            name: Payment Term Updated
-            external_id: PAYTERM-UPD
     update_response:
       value:
         data:
@@ -388,6 +373,31 @@ components:
             external_id: PAYTERM-UPD
           links:
             self: https://api.us.workdayspend.com/services/payments/v1/payment_terms/1
+    external_update_request:
+      value:
+        data:
+          type: payment_terms
+          id: PAYTERM
+          attributes:
+            name: Payment Term Updated
+    external_update_response:
+      value:
+        data:
+          id: '1'
+          type: payment_terms
+          attributes:
+            name: Payment Term Updated
+            external_id: PAYTERM
+          links:
+            self: https://api.us.workdayspend.com/services/payments/v1/payment_terms/1
+    update_request:
+      value:
+        data:
+          type: payment_terms
+          id: '1'
+          attributes:
+            name: Payment Term Updated
+            external_id: PAYTERM-UPD
     create_request:
       value:
         data:
@@ -403,16 +413,6 @@ components:
           attributes:
             name: 'Payment Term #1'
             external_id: PAYTERM-1
-          links:
-            self: https://api.us.workdayspend.com/services/payments/v1/payment_terms/1
-    external_update_response:
-      value:
-        data:
-          id: '1'
-          type: payment_terms
-          attributes:
-            name: Payment Term Updated
-            external_id: PAYTERM
           links:
             self: https://api.us.workdayspend.com/services/payments/v1/payment_terms/1
   securitySchemes:

@@ -80,12 +80,6 @@ paths:
       x-operation-id-original: Savings Report Schema
 components:
   schemas:
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
     SavingsReportEntryFieldModel:
       type: object
       properties:
@@ -97,9 +91,42 @@ components:
           description: Object type, should always be `savings_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
     SavingsReportEntryAttributes:
       description: Savings Report Entry attributes. See example response and schema.
       properties: {}
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
     ReportSchemaFieldType:
       type: string
       enum:
@@ -122,27 +149,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportSchemaField'
-    ReportSchemaField:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-    SavingsReportEntryType:
-      description: Object type, should always be `savings_report_entries`.
-      example: savings_report_entries
     SavingsReportEntry:
       type: object
       required:
@@ -155,18 +161,12 @@ components:
           $ref: '#/components/schemas/SavingsReportEntryId'
         attributes:
           $ref: '#/components/schemas/SavingsReportEntryAttributes'
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
     SavingsReportEntryId:
       description: Savings Report identifier string.
       example: 1
+    SavingsReportEntryType:
+      description: Object type, should always be `savings_report_entries`.
+      example: savings_report_entries
   examples:
     index_response-7:
       value:

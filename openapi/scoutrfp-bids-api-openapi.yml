@@ -178,65 +178,60 @@ paths:
       x-operation-id-original: Describe Bid object
 components:
   schemas:
-    EventBase:
-      title: Event
+    EventExternal:
+      allOf:
+      - $ref: '#/components/schemas/EventBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/EventExternalAttributes'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    BidAttributes:
+      type: object
+      description: Bid attributes.
+      properties:
+        intend_to_bid:
+          type: boolean
+          description: Identifies whether the supplier intends to bid on the event
+          readOnly: true
+          example: true
+        intend_to_bid_answered_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Identifies the most recent time the supplier updated `intend_to_bid`.
+          example: '2021-02-24T09:12:31.000Z'
+        status:
+          $ref: '#/components/schemas/BidStatusEnum'
+        submitted_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Identifies the first time the supplier submitted their bid.
+          example: '2021-02-25T09:12:31.000Z'
+        resubmitted_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Identifies the most recent time the supplier submitted their bid.
+          example: '2021-02-26T09:12:31.000Z'
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    BidBase:
+      title: Bid
       type: object
       required:
       - type
       - id
       properties:
         type:
-          $ref: '#/components/schemas/EventType'
+          $ref: '#/components/schemas/BidType'
         id:
-          $ref: '#/components/schemas/EventId'
-    OpenApiEnum:
-      type: string
-      enum:
-      - string
-      - number
-      - integer
-      - boolean
-      - array
-      - object
-      description: OpenAPI data type.
-      example: string
-    BidStatusEnum:
-      type: string
-      enum:
-      - award_retracted
-      - awarded
-      - draft
-      - rejected
-      - rejection_retracted
-      - resubmitted
-      - revising
-      - submitted
-      - unclaimed
-      - update_requested
-      description: Current bid status.
-      example: unclaimed
-    BidModel:
-      allOf:
-      - $ref: '#/components/schemas/BidBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/BidAttributes'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-          deprecated: true
-    BidRelatedResources:
-      type: string
-      enum:
-      - event
-      - supplier_company
+          $ref: '#/components/schemas/BidId'
     SelfLink:
       type: object
       properties:
@@ -244,40 +239,6 @@ components:
           type: string
           format: url
           description: Normalized link to the resource.
-    EventExternalAttributes:
-      type: object
-      description: Event attributes.
-      properties:
-        external_id:
-          type: string
-          description: Event ID in your internal database.
-          example: 1234-5678-abcd-efgh
-    SupplierCompanyExternalAttributes:
-      type: object
-      description: Supplier company attributes.
-      properties:
-        external_id:
-          type: string
-          description: Supplier ID in your internal database.
-    SupplierCompanyBase:
-      title: SupplierCompany
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanyType'
-        id:
-          $ref: '#/components/schemas/SupplierCompanyId'
-    DescribeFieldType:
-      type: string
-      description: Object type, should always be `describe_fields`.
-      example: describe_fields
-    DescribeFieldId:
-      type: string
-      description: Field identifier string.
-      example: field_name
     BidInputFilter:
       type: object
       properties:
@@ -339,27 +300,36 @@ components:
           type: string
           description: Find bids by specific Supplier Company External IDs.
           example: SUP-123
-    PageInput:
-      type: object
-      properties:
-        size:
-          type: number
-          format: integer
-          description: The number of results returned per page. Default is `10` and max is `100`.
-          example: '25'
-    SupplierCompanyType:
+    EventId:
+      type: integer
+      description: Event identifier string.
+      example: 1
+    OpenApiEnum:
       type: string
-      description: Object type, should always be `supplier_companies`.
-      example: supplier_companies
-    NextPageLink:
+      enum:
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
+    EventBase:
+      title: Event
       type: object
+      required:
+      - type
+      - id
       properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
+        type:
+          $ref: '#/components/schemas/EventType'
+        id:
+          $ref: '#/components/schemas/EventId'
+    BidId:
+      type: integer
+      description: Bid identifier string.
+      example: 1
     PaginationLinks:
       type: object
       description: List of related links.
@@ -367,6 +337,27 @@ components:
       - $ref: '#/components/schemas/SelfLink'
       - $ref: '#/components/schemas/NextPageLink'
       - $ref: '#/components/schemas/PrevPageLink'
+    BidType:
+      type: string
+      description: Object type, should always be `bids`.
+      example: bids
+    DescribeFieldAttributes:
+      type: object
+      description: Describe field attributes.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Describe field name.
+          example: field_name
+        data_type:
+          $ref: '#/components/schemas/OpenApiEnum'
+        type_description:
+          $ref: '#/components/schemas/CustomFieldEnum'
+        custom_field:
+          type: boolean
+          description: Flag for determining if this is a user created custom field or an internal system field.
+          example: false
     SupplierCompanyExternal:
       allOf:
       - $ref: '#/components/schemas/SupplierCompanyBase'
@@ -376,34 +367,61 @@ components:
             $ref: '#/components/schemas/SupplierCompanyExternalAttributes'
           links:
             $ref: '#/components/schemas/ResourceLinks'
-    BidType:
-      type: string
-      description: Object type, should always be `bids`.
-      example: bids
-    ResourceLinks:
+    PageInput:
       type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-    BidId:
-      type: integer
-      description: Bid identifier string.
-      example: 1
-    SupplierCompanyId:
-      type: integer
-      description: Supplier company identifier string.
-      example: 1
-    BidBase:
-      title: Bid
-      type: object
-      required:
-      - type
-      - id
       properties:
-        type:
-          $ref: '#/components/schemas/BidType'
-        id:
-          $ref: '#/components/schemas/BidId'
+        size:
+          type: number
+          format: integer
+          description: The number of results returned per page. Default is `10` and max is `100`.
+          example: '25'
+    BidStatusEnum:
+      type: string
+      enum:
+      - award_retracted
+      - awarded
+      - draft
+      - rejected
+      - rejection_retracted
+      - resubmitted
+      - revising
+      - submitted
+      - unclaimed
+      - update_requested
+      description: Current bid status.
+      example: unclaimed
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    BidRelatedResources:
+      type: string
+      enum:
+      - event
+      - supplier_company
+    BidModel:
+      allOf:
+      - $ref: '#/components/schemas/BidBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/BidAttributes'
+    EventExternalAttributes:
+      type: object
+      description: Event attributes.
+      properties:
+        external_id:
+          type: string
+          description: Event ID in your internal database.
+          example: 1234-5678-abcd-efgh
     CustomFieldEnum:
       type: string
       enum:
@@ -422,26 +440,21 @@ components:
       - Related
       description: Internal name and meaning of each field.
       example: Short Text
-    DescribeFieldBase:
-      title: DescribeFieldModel
+    EventType:
+      type: string
+      description: Object type, should always be `events`.
+      example: events
+    SupplierCompanyBase:
+      title: SupplierCompany
       type: object
       required:
       - type
       - id
       properties:
         type:
-          $ref: '#/components/schemas/DescribeFieldType'
+          $ref: '#/components/schemas/SupplierCompanyType'
         id:
-          $ref: '#/components/schemas/DescribeFieldId'
-    EventExternal:
-      allOf:
-      - $ref: '#/components/schemas/EventBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/EventExternalAttributes'
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
+          $ref: '#/components/schemas/SupplierCompanyId'
     DescribeFieldModel:
       allOf:
       - $ref: '#/components/schemas/DescribeFieldBase'
@@ -449,81 +462,13 @@ components:
         properties:
           attributes:
             $ref: '#/components/schemas/DescribeFieldAttributes'
-    BidAttributes:
+    SupplierCompanyExternalAttributes:
       type: object
-      description: Bid attributes.
+      description: Supplier company attributes.
       properties:
-        intend_to_bid:
-          type: boolean
-          description: Identifies whether the supplier intends to bid on the event
-          readOnly: true
-          example: true
-        intend_to_bid_answered_at:
+        external_id:
           type: string
-          format: date-time
-          readOnly: true
-          description: Identifies the most recent time the supplier updated `intend_to_bid`.
-          example: '2021-02-24T09:12:31.000Z'
-        status:
-          $ref: '#/components/schemas/BidStatusEnum'
-        submitted_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Identifies the first time the supplier submitted their bid.
-          example: '2021-02-25T09:12:31.000Z'
-        resubmitted_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Identifies the most recent time the supplier submitted their bid.
-          example: '2021-02-26T09:12:31.000Z'
-    Pagination:
-      type: object
-      properties:
-        meta:
-          type: object
-          description: Result set metadata.
-          properties:
-            count:
-              type: integer
-              description: Number of pages in the result set.
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    BidFieldModel:
-      allOf:
-      - type: object
-        properties:
-          type:
-            type: string
-            description: Object type, should always be `bid_fields`.
-            example: bid_fields
-      - $ref: '#/components/schemas/DescribeFieldModel'
-    EventId:
-      type: integer
-      description: Event identifier string.
-      example: 1
-    DescribeFieldAttributes:
-      type: object
-      description: Describe field attributes.
-      properties:
-        name:
-          type: string
-          maxLength: 255
-          description: Describe field name.
-          example: field_name
-        data_type:
-          $ref: '#/components/schemas/OpenApiEnum'
-        type_description:
-          $ref: '#/components/schemas/CustomFieldEnum'
-        custom_field:
-          type: boolean
-          description: Flag for determining if this is a user created custom field or an internal system field.
-          example: false
-    EventType:
-      type: string
-      description: Object type, should always be `events`.
-      example: events
+          description: Supplier ID in your internal database.
     BidIncludedResources:
       type: array
       items:
@@ -536,18 +481,73 @@ components:
           title: Supplier Company
           allOf:
           - $ref: '#/components/schemas/SupplierCompanyExternal'
+    DescribeFieldType:
+      type: string
+      description: Object type, should always be `describe_fields`.
+      example: describe_fields
+    SupplierCompanyId:
+      type: integer
+      description: Supplier company identifier string.
+      example: 1
+    DescribeFieldBase:
+      title: DescribeFieldModel
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/DescribeFieldType'
+        id:
+          $ref: '#/components/schemas/DescribeFieldId'
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    BidFieldModel:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            description: Object type, should always be `bid_fields`.
+            example: bid_fields
+      - $ref: '#/components/schemas/DescribeFieldModel'
+    DescribeFieldId:
+      type: string
+      description: Field identifier string.
+      example: field_name
   examples:
-    show_response-5:
+    show_compound_response:
       value:
         data:
           type: bids
           id: '1'
           attributes:
             intend_to_bid: true
-            intend_to_bid_answered_at: '2020-01-02T03:04:05.000Z'
+            intend_to_bid_answered_at: '2019-10-29T21:28:46.790Z'
             status: resubmitted
-            submitted_at: '2020-01-02T03:04:05.000Z'
-            resubmitted_at: '2020-01-02T03:04:05.000Z'
+            submitted_at: '2019-10-29T21:28:46.790Z'
+            resubmitted_at: '2019-10-29T21:28:46.790Z'
           relationships:
             event:
               data:
@@ -557,8 +557,19 @@ components:
               data:
                 id: '1'
                 type: supplier_companies
-          links:
-            self: https://api.us.workdayspend.com/services/events/v1/bids/1
+          included:
+          - id: '1'
+            type: events
+            attributes:
+              external_id: EVENT1
+            links:
+              self: ' https://api.us.workdayspend.com/services/events/v1/events/1'
+          - id: '1'
+            type: supplier_companies
+            attributes:
+              external_id: SUPPLIER1
+            links:
+              self: ' https://api.us.workdayspend.com/services/events/v1/supplier_companies/1'
     describe_response-3:
       value:
         meta:
@@ -614,6 +625,53 @@ components:
             type_description: Single Relationship
             custom_field: false
         links: {}
+    index_response-5:
+      value:
+        meta:
+          count: 2
+        data:
+        - id: '1'
+          type: bids
+          attributes:
+            intend_to_bid: true
+            intend_to_bid_answered_at: '2020-01-02T03:04:05.000Z'
+            status: resubmitted
+            submitted_at: '2020-01-02T03:04:05.000Z'
+            resubmitted_at: '2020-01-02T03:04:05.000Z'
+          relationships:
+            event:
+              data:
+                id: '1'
+                type: events
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/bids/1
+        - id: '2'
+          type: bids
+          attributes:
+            intend_to_bid: false
+            intend_to_bid_answered_at: '2020-01-02T03:04:05.000Z'
+            status: awarded
+            submitted_at: '2020-01-02T03:04:05.000Z'
+            resubmitted_at: '2020-01-02T03:04:05.000Z'
+          relationships:
+            event:
+              data:
+                id: '1'
+                type: events
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/bids/2
+        links:
+          self: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bsize%5D=10
+          next: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzRd&page%5Bdirection%5D=next&page%5Bsize%5D=10
+          prev: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzFd&page%5Bdirection%5D=prev&page%5Bsize%5D=10
     index_compound_response:
       value:
         meta:
@@ -680,46 +738,11 @@ components:
           self: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bsize%5D=10
           next: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzRd&page%5Bdirection%5D=next&page%5Bsize%5D=10
           prev: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzFd&page%5Bdirection%5D=prev&page%5Bsize%5D=10
-    show_compound_response:
+    show_response-5:
       value:
         data:
           type: bids
           id: '1'
-          attributes:
-            intend_to_bid: true
-            intend_to_bid_answered_at: '2019-10-29T21:28:46.790Z'
-            status: resubmitted
-            submitted_at: '2019-10-29T21:28:46.790Z'
-            resubmitted_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            event:
-              data:
-                id: '1'
-                type: events
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-          included:
-          - id: '1'
-            type: events
-            attributes:
-              external_id: EVENT1
-            links:
-              self: ' https://api.us.workdayspend.com/services/events/v1/events/1'
-          - id: '1'
-            type: supplier_companies
-            attributes:
-              external_id: SUPPLIER1
-            links:
-              self: ' https://api.us.workdayspend.com/services/events/v1/supplier_companies/1'
-    index_response-5:
-      value:
-        meta:
-          count: 2
-        data:
-        - id: '1'
-          type: bids
           attributes:
             intend_to_bid: true
             intend_to_bid_answered_at: '2020-01-02T03:04:05.000Z'
@@ -737,29 +760,6 @@ components:
                 type: supplier_companies
           links:
             self: https://api.us.workdayspend.com/services/events/v1/bids/1
-        - id: '2'
-          type: bids
-          attributes:
-            intend_to_bid: false
-            intend_to_bid_answered_at: '2020-01-02T03:04:05.000Z'
-            status: awarded
-            submitted_at: '2020-01-02T03:04:05.000Z'
-            resubmitted_at: '2020-01-02T03:04:05.000Z'
-          relationships:
-            event:
-              data:
-                id: '1'
-                type: events
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-          links:
-            self: https://api.us.workdayspend.com/services/events/v1/bids/2
-        links:
-          self: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bsize%5D=10
-          next: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzRd&page%5Bdirection%5D=next&page%5Bsize%5D=10
-          prev: https://api.us.workdayspend.com/services/events/v1/events/1/bids?page%5Bcursor%5D=WzFd&page%5Bdirection%5D=prev&page%5Bsize%5D=10
   securitySchemes:
     api_key:
       type: apiKey

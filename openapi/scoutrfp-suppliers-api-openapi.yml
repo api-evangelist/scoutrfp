@@ -112,66 +112,9 @@ components:
       allOf:
       - $ref: '#/components/schemas/NextPageLink'
       - $ref: '#/components/schemas/PrevPageLink'
-    SupplierContactId:
-      description: Supplier contact identifier string.
-      example: 1
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
     SupplierType:
       description: Object type, should always be `suppliers`.
       example: suppliers
-    SupplierContactReference:
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        data:
-          properties:
-            type:
-              $ref: '#/components/schemas/SupplierContactType'
-            id:
-              $ref: '#/components/schemas/SupplierContactId'
-    SupplierId:
-      description: Supplier identifier string.
-      example: 1
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-    SupplierContactType:
-      description: Object type, should always be `supplier_contacts`.
-      example: supplier_contacts
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    SupplierAttributes:
-      description: Supplier attributes. See example response.
-      properties:
-        name:
-          type: string
-        custom_fields:
-          type: array
-          items:
-            properties:
-              name:
-                description: Name of custom field
-              value:
-                description: Value of custom field
     Supplier:
       type: object
       required:
@@ -190,33 +133,64 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/SupplierContactReference'
-  examples:
-    show_response:
-      value:
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    SupplierId:
+      description: Supplier identifier string.
+      example: 1
+    SupplierContactId:
+      description: Supplier contact identifier string.
+      example: 1
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SupplierAttributes:
+      description: Supplier attributes. See example response.
+      properties:
+        name:
+          type: string
+        custom_fields:
+          type: array
+          items:
+            properties:
+              name:
+                description: Name of custom field
+              value:
+                description: Value of custom field
+    SupplierContactType:
+      description: Object type, should always be `supplier_contacts`.
+      example: supplier_contacts
+    SupplierContactReference:
+      type: object
+      required:
+      - name
+      - id
+      properties:
         data:
-          id: '177'
-          type: suppliers
-          attributes:
-            name: Hubschrauber LLC
-            custom_fields:
-            - name: Country of incorporation
-              value: France
-            - name: Supplier options
-              value:
-              - 'Option #1'
-              - 'Option #2'
-            - name: Foundation year
-              value: 2015
-            - name: Logo
-              value:
-              - title: The logo file
-                file_type: img
-                url: /downloads/1
-          relationships:
-            contacts:
-              data:
-              - id: '59'
-                type: supplier_contacts
+          properties:
+            type:
+              $ref: '#/components/schemas/SupplierContactType'
+            id:
+              $ref: '#/components/schemas/SupplierContactId'
+  examples:
     index_response-10:
       value:
         data:
@@ -250,6 +224,32 @@ components:
         links:
           prev: null
           next: null
+    show_response:
+      value:
+        data:
+          id: '177'
+          type: suppliers
+          attributes:
+            name: Hubschrauber LLC
+            custom_fields:
+            - name: Country of incorporation
+              value: France
+            - name: Supplier options
+              value:
+              - 'Option #1'
+              - 'Option #2'
+            - name: Foundation year
+              value: 2015
+            - name: Logo
+              value:
+              - title: The logo file
+                file_type: img
+                url: /downloads/1
+          relationships:
+            contacts:
+              data:
+              - id: '59'
+                type: supplier_contacts
   securitySchemes:
     api_key:
       type: apiKey

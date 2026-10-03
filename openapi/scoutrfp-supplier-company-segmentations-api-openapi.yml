@@ -228,25 +228,110 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Delete a Supplier Company Segmentation
 components:
+  schemas:
+    SupplierCompanySegmentationUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanySegmentationType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanySegmentationId'
+        attributes:
+          $ref: '#/components/schemas/SupplierCompanySegmentationAttributes'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    SupplierCompanySegmentationCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanySegmentationType'
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/SupplierCompanySegmentationCreateAttributes'
+          - type: object
+            required:
+            - label
+            - order
+    SupplierCompanySegmentationAttributes:
+      type: object
+      description: Supplier company segmentation attributes.
+      required:
+      - label
+      - order
+      properties:
+        label:
+          type: string
+          maxLength: 255
+          description: Supplier company segmentation label.
+          example: Tier 1
+        order:
+          type: integer
+          description: Supplier company segmentation order
+          example: 1
+    SupplierCompanySegmentationType:
+      type: string
+      description: Object type, should always be `supplier_company_segmentations`.
+      example: supplier_company_segmentations
+    SupplierCompanySegmentation:
+      allOf:
+      - $ref: '#/components/schemas/SupplierCompanySegmentationBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierCompanySegmentationCreateAttributes'
+    SupplierCompanySegmentationCreateAttributes:
+      type: object
+      description: Supplier company segmentation attributes.
+      required:
+      - label
+      - order
+      properties:
+        label:
+          type: string
+          maxLength: 255
+          description: Supplier company segmentation label.
+          example: Tier 1
+        order:
+          type: integer
+          description: Supplier company segmentation order
+          example: 1
+        slug:
+          type: string
+          maxLength: 255
+          description: Supplier company segmentation slug.
+          example: tier_1
+    SupplierCompanySegmentationId:
+      type: integer
+      description: Supplier company segmentation identifier string.
+      example: 1
+    SupplierCompanySegmentationBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanySegmentationType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanySegmentationId'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   examples:
-    create_response-5:
-      value:
-        data:
-          id: '5'
-          type: supplier_company_segmentations
-          attributes:
-            label: Tier 5
-            order: 5
-            slug: tier_5_25672734-8f8f-4735-9099-8a4f3c64505a
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/5
-    create_request-4:
-      value:
-        data:
-          type: supplier_company_segmentations
-          attributes:
-            label: Tier 5
-            order: 5
     create_with_slug_response:
       value:
         data:
@@ -258,6 +343,44 @@ components:
             slug: tier_5
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/5
+    create_with_slug_request:
+      value:
+        data:
+          type: supplier_company_segmentations
+          attributes:
+            label: Tier 5
+            order: 5
+            slug: tier_5
+    create_response-5:
+      value:
+        data:
+          id: '5'
+          type: supplier_company_segmentations
+          attributes:
+            label: Tier 5
+            order: 5
+            slug: tier_5_25672734-8f8f-4735-9099-8a4f3c64505a
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/5
+    update_response-5:
+      value:
+        data:
+          id: '1'
+          type: supplier_company_segmentations
+          attributes:
+            label: Tier 16
+            order: 1
+            slug: tier_1
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/1
+    update_request-5:
+      value:
+        data:
+          type: supplier_company_segmentations
+          id: '1'
+          attributes:
+            label: Tier 16
+            order: 1
     index_response-5:
       value:
         data:
@@ -303,136 +426,13 @@ components:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/5
         links:
           self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations
-    update_request-5:
-      value:
-        data:
-          type: supplier_company_segmentations
-          id: '1'
-          attributes:
-            label: Tier 16
-            order: 1
-    create_with_slug_request:
+    create_request-4:
       value:
         data:
           type: supplier_company_segmentations
           attributes:
             label: Tier 5
             order: 5
-            slug: tier_5
-    update_response-5:
-      value:
-        data:
-          id: '1'
-          type: supplier_company_segmentations
-          attributes:
-            label: Tier 16
-            order: 1
-            slug: tier_1
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/1
-  schemas:
-    SupplierCompanySegmentationType:
-      type: string
-      description: Object type, should always be `supplier_company_segmentations`.
-      example: supplier_company_segmentations
-    SupplierCompanySegmentationUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanySegmentationType'
-        id:
-          $ref: '#/components/schemas/SupplierCompanySegmentationId'
-        attributes:
-          $ref: '#/components/schemas/SupplierCompanySegmentationAttributes'
-    SupplierCompanySegmentationAttributes:
-      type: object
-      description: Supplier company segmentation attributes.
-      required:
-      - label
-      - order
-      properties:
-        label:
-          type: string
-          maxLength: 255
-          description: Supplier company segmentation label.
-          example: Tier 1
-        order:
-          type: integer
-          description: Supplier company segmentation order
-          example: 1
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    SupplierCompanySegmentationCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanySegmentationType'
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/SupplierCompanySegmentationCreateAttributes'
-          - type: object
-            required:
-            - label
-            - order
-    SupplierCompanySegmentationId:
-      type: integer
-      description: Supplier company segmentation identifier string.
-      example: 1
-    SupplierCompanySegmentationCreateAttributes:
-      type: object
-      description: Supplier company segmentation attributes.
-      required:
-      - label
-      - order
-      properties:
-        label:
-          type: string
-          maxLength: 255
-          description: Supplier company segmentation label.
-          example: Tier 1
-        order:
-          type: integer
-          description: Supplier company segmentation order
-          example: 1
-        slug:
-          type: string
-          maxLength: 255
-          description: Supplier company segmentation slug.
-          example: tier_1
-    SupplierCompanySegmentation:
-      allOf:
-      - $ref: '#/components/schemas/SupplierCompanySegmentationBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/SupplierCompanySegmentationCreateAttributes'
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    SupplierCompanySegmentationBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanySegmentationType'
-        id:
-          $ref: '#/components/schemas/SupplierCompanySegmentationId'
   securitySchemes:
     api_key:
       type: apiKey

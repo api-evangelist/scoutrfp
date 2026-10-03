@@ -84,24 +84,21 @@ paths:
       x-operation-id-original: Project Report Schema
 components:
   schemas:
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
     PaginationLinks:
       type: object
       description: List of pagination links.
       allOf:
       - $ref: '#/components/schemas/NextPageLink'
       - $ref: '#/components/schemas/PrevPageLink'
-    ProjectReportEntry:
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ProjectReportEntryType'
-        id:
-          $ref: '#/components/schemas/ProjectReportEntryId'
-        attributes:
-          $ref: '#/components/schemas/ProjectReportEntryAttributes'
     ReportSchemaFieldType:
       type: string
       enum:
@@ -112,15 +109,24 @@ components:
       - string
       description: Field type
       example: string
-    ReportSchemaField:
+    PrevPageLink:
       type: object
       properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
     Pagination:
       type: object
       properties:
@@ -133,15 +139,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportSchemaField'
-    PrevPageLink:
+    ProjectReportEntryType:
+      description: Object type, should always be `project_report_entries`.
+      example: project_report_entries
+    ProjectReportEntryId:
+      description: Project Report identifier string.
+      example: 1
+    ProjectReportEntryAttributes:
+      description: Project Report Entry attributes. See example response and schema.
+      properties: {}
+    ProjectReportEntry:
       type: object
+      required:
+      - name
+      - id
       properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
+        type:
+          $ref: '#/components/schemas/ProjectReportEntryType'
+        id:
+          $ref: '#/components/schemas/ProjectReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/ProjectReportEntryAttributes'
     ProjectReportEntryFieldModel:
       type: object
       properties:
@@ -153,178 +171,7 @@ components:
           description: Object type, should always be `project_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
-    ProjectReportEntryAttributes:
-      description: Project Report Entry attributes. See example response and schema.
-      properties: {}
-    ProjectReportEntryId:
-      description: Project Report identifier string.
-      example: 1
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    ProjectReportEntryType:
-      description: Object type, should always be `project_report_entries`.
-      example: project_report_entries
   examples:
-    schema_response-7:
-      value:
-        data:
-          id: project_schemas
-          type: project_schemas
-          attributes:
-            fields:
-            - type: text
-              name: Scout-System ID
-            - type: text
-              name: 'Scout-ID #'
-            - type: text
-              name: Scout-Project Title
-            - type: select
-              name: Scout-Project Type
-            - type: select
-              name: Scout-Project Type Short Code
-            - type: text
-              name: Scout-Project Needs Attention
-            - type: select
-              name: Scout-Project State & Status
-            - type: select
-              name: Scout-Sourcing Owner
-            - type: select
-              name: Scout-Project Requester
-            - type: select
-              name: Scout-Category
-            - type: text
-              name: Scout-Project Description
-            - type: integer
-              name: Scout-# of Suppliers on Project
-            - type: select
-              name: Scout-Suppliers on Project
-            - type: date
-              name: Scout-Estimated Start Date
-            - type: integer
-              name: Scout-Estimated Start Date FY
-            - type: integer
-              name: Scout-Estimated Start Date FQ
-            - type: date
-              name: Scout-Estimated End Date
-            - type: integer
-              name: Scout-Estimated End Date FY
-            - type: integer
-              name: Scout-Estimated End Date FQ
-            - type: date
-              name: Scout-Actual Start Date
-            - type: integer
-              name: Scout-Actual Start Date FY
-            - type: integer
-              name: Scout-Actual Start Date FQ
-            - type: date
-              name: Scout-Actual End Date
-            - type: integer
-              name: Scout-Actual End Date FY
-            - type: integer
-              name: Scout-Actual End Date FQ
-            - type: date
-              name: Scout-Request Submitted
-            - type: date
-              name: Scout-Request Opened
-            - type: currency
-              name: Scout-Estimated Spend
-            - type: currency
-              name: Scout-Estimated Savings
-            - type: currency
-              name: Scout-Final Spend
-            - type: select
-              name: Scout-Savings Type
-            - type: currency
-              name: Scout-Recognized Savings
-            - type: currency
-              name: Scout-Projected Recognized Savings
-            - type: currency
-              name: Scout-Unrecognized Savings
-            - type: currency
-              name: Scout-Projected Unrecognized Savings
-            - type: currency
-              name: Scout-Total Savings
-            - type: integer
-              name: Scout-# of Stakeholders
-            - type: select
-              name: Scout-Stakeholders List
-            - type: text
-              name: Scout-Event Names
-            - type: select
-              name: Scout-Event Status
-            - type: integer
-              name: Scout-# of Suppliers Invited to Event(s)
-            - type: select
-              name: Scout-Suppliers Invited to Event(s)
-            - type: text
-              name: Scout-External ID
-            - type: text
-              name: Scout-Canceled Reason
-            - type: date
-              name: Scout-Original Approval Request Date
-            - type: integer
-              name: Scout-Original Approval Request Date FY
-            - type: integer
-              name: Scout-Original Approval Request Date FQ
-            - type: date
-              name: Scout-Approved Date
-            - type: integer
-              name: Scout-Approved FY
-            - type: integer
-              name: Scout-Approved FQ
-            - type: date
-              name: Scout-Sent for Approval
-            - type: integer
-              name: Scout-Sent for Approval FY
-            - type: integer
-              name: Scout-Sent for Approval FQ
-            - type: select
-              name: Scout-Needs Attention Reason
-            - type: date
-              name: Scout-Last Updated Date
-            - type: text
-              name: Scout-Has Attachments
-            - type: text
-              name: 'Scout-Related Project ID #'
-            - type: date
-              name: Scout-First Milestone Assign Date
-            - type: integer
-              name: Scout-Days Requested
-            - type: integer
-              name: Scout-Days Planned
-            - type: integer
-              name: Scout-Days Active
-            - type: integer
-              name: Scout-Days On hold
-            - type: text
-              name: Scout-Milestone Name
-            - type: date
-              name: Scout-Milestone Date
-            - type: select
-              name: Scout-Milestone Status
-            - type: date
-              name: Scout-Milestone Complete Date
-            - type: select
-              name: Scout-Template Milestone
-            - type: select
-              name: Scout-Milestone Created By
-            - type: date
-              name: Scout-Milestone Create Date
-            - type: select
-              name: Scout-Milestone Assignee
-            - type: select
-              name: Scout-Mark Completed By
-            - type: integer
-              name: Scout-# of Days Milestone is Open
-            - type: string
-              name: 'Field #21'
     index_response-6:
       value:
         data:
@@ -592,6 +439,159 @@ components:
         links:
           prev: null
           next: null
+    schema_response-7:
+      value:
+        data:
+          id: project_schemas
+          type: project_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-System ID
+            - type: text
+              name: 'Scout-ID #'
+            - type: text
+              name: Scout-Project Title
+            - type: select
+              name: Scout-Project Type
+            - type: select
+              name: Scout-Project Type Short Code
+            - type: text
+              name: Scout-Project Needs Attention
+            - type: select
+              name: Scout-Project State & Status
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: select
+              name: Scout-Project Requester
+            - type: select
+              name: Scout-Category
+            - type: text
+              name: Scout-Project Description
+            - type: integer
+              name: Scout-# of Suppliers on Project
+            - type: select
+              name: Scout-Suppliers on Project
+            - type: date
+              name: Scout-Estimated Start Date
+            - type: integer
+              name: Scout-Estimated Start Date FY
+            - type: integer
+              name: Scout-Estimated Start Date FQ
+            - type: date
+              name: Scout-Estimated End Date
+            - type: integer
+              name: Scout-Estimated End Date FY
+            - type: integer
+              name: Scout-Estimated End Date FQ
+            - type: date
+              name: Scout-Actual Start Date
+            - type: integer
+              name: Scout-Actual Start Date FY
+            - type: integer
+              name: Scout-Actual Start Date FQ
+            - type: date
+              name: Scout-Actual End Date
+            - type: integer
+              name: Scout-Actual End Date FY
+            - type: integer
+              name: Scout-Actual End Date FQ
+            - type: date
+              name: Scout-Request Submitted
+            - type: date
+              name: Scout-Request Opened
+            - type: currency
+              name: Scout-Estimated Spend
+            - type: currency
+              name: Scout-Estimated Savings
+            - type: currency
+              name: Scout-Final Spend
+            - type: select
+              name: Scout-Savings Type
+            - type: currency
+              name: Scout-Recognized Savings
+            - type: currency
+              name: Scout-Projected Recognized Savings
+            - type: currency
+              name: Scout-Unrecognized Savings
+            - type: currency
+              name: Scout-Projected Unrecognized Savings
+            - type: currency
+              name: Scout-Total Savings
+            - type: integer
+              name: Scout-# of Stakeholders
+            - type: select
+              name: Scout-Stakeholders List
+            - type: text
+              name: Scout-Event Names
+            - type: select
+              name: Scout-Event Status
+            - type: integer
+              name: Scout-# of Suppliers Invited to Event(s)
+            - type: select
+              name: Scout-Suppliers Invited to Event(s)
+            - type: text
+              name: Scout-External ID
+            - type: text
+              name: Scout-Canceled Reason
+            - type: date
+              name: Scout-Original Approval Request Date
+            - type: integer
+              name: Scout-Original Approval Request Date FY
+            - type: integer
+              name: Scout-Original Approval Request Date FQ
+            - type: date
+              name: Scout-Approved Date
+            - type: integer
+              name: Scout-Approved FY
+            - type: integer
+              name: Scout-Approved FQ
+            - type: date
+              name: Scout-Sent for Approval
+            - type: integer
+              name: Scout-Sent for Approval FY
+            - type: integer
+              name: Scout-Sent for Approval FQ
+            - type: select
+              name: Scout-Needs Attention Reason
+            - type: date
+              name: Scout-Last Updated Date
+            - type: text
+              name: Scout-Has Attachments
+            - type: text
+              name: 'Scout-Related Project ID #'
+            - type: date
+              name: Scout-First Milestone Assign Date
+            - type: integer
+              name: Scout-Days Requested
+            - type: integer
+              name: Scout-Days Planned
+            - type: integer
+              name: Scout-Days Active
+            - type: integer
+              name: Scout-Days On hold
+            - type: text
+              name: Scout-Milestone Name
+            - type: date
+              name: Scout-Milestone Date
+            - type: select
+              name: Scout-Milestone Status
+            - type: date
+              name: Scout-Milestone Complete Date
+            - type: select
+              name: Scout-Template Milestone
+            - type: select
+              name: Scout-Milestone Created By
+            - type: date
+              name: Scout-Milestone Create Date
+            - type: select
+              name: Scout-Milestone Assignee
+            - type: select
+              name: Scout-Mark Completed By
+            - type: integer
+              name: Scout-# of Days Milestone is Open
+            - type: string
+              name: 'Field #21'
   securitySchemes:
     api_key:
       type: apiKey

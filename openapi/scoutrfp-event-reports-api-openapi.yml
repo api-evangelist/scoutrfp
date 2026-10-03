@@ -175,25 +175,9 @@ paths:
       x-operation-id-original: Event Report Schema
 components:
   schemas:
-    EventReportEntryAttributes:
-      description: Event Report Entry attributes. See example response and schema.
-      properties: {}
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
+    EventReportEntryId:
+      description: Event Report identifier string.
+      example: 1
     ReportSchemaField:
       type: object
       properties:
@@ -203,18 +187,12 @@ components:
           type: string
           description: Field name
           example: Scout-System ID
-    Pagination:
+    PaginationLinks:
       type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
     EventReportEntryFieldModel:
       type: object
       properties:
@@ -247,12 +225,6 @@ components:
           - 'null'
           format: url
           description: Link to the previous results page.
-    EventReportEntryId:
-      description: Event Report identifier string.
-      example: 1
-    EventReportEntryType:
-      description: Object type, should always be `event_report_entries`.
-      example: event_report_entries
     NextPageLink:
       type: object
       properties:
@@ -262,38 +234,149 @@ components:
           - 'null'
           format: url
           description: Link to the next results page.
+    EventReportEntryType:
+      description: Object type, should always be `event_report_entries`.
+      example: event_report_entries
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    EventReportEntryAttributes:
+      description: Event Report Entry attributes. See example response and schema.
+      properties: {}
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
   examples:
-    all_reports_response_20180401:
+    schema_response-3:
       value:
         data:
-        - id: '1'
-          type: event_reports
+          id: event_schemas
+          type: event_schemas
           attributes:
-            title: Report 1
-            description: Report 1 description
-          links:
-            entries: https://api.us.workdayspend.com/event_reports/1/entries
-            schema: https://api.us.workdayspend.com/event_reports/1/schema
-        - id: '2'
-          type: event_reports
-          attributes:
-            title: Report 2
-            description: Report 2 description
-          links:
-            entries: https://api.us.workdayspend.com/event_reports/2/entries
-            schema: https://api.us.workdayspend.com/event_reports/2/schema
-        - id: '3'
-          type: event_reports
-          attributes:
-            title: Report 3
-            description: Report 3 description
-          links:
-            entries: https://api.us.workdayspend.com/event_reports/3/entries
-            schema: https://api.us.workdayspend.com/event_reports/3/schema
-        links:
-          prev: null
-          next: null
-    index_response_20190101:
+            fields:
+            - type: select
+              name: Scout-Supplier Name
+            - type: text
+              name: Scout-Response ID
+            - type: select
+              name: Scout-Response Status
+            - type: text
+              name: Scout-RSVP Response
+            - type: date
+              name: Scout-Intend to Respond Date
+            - type: date
+              name: Scout-Response Submitted Date
+            - type: integer
+              name: Scout-Response Submitted Date FY
+            - type: integer
+              name: Scout-Response Submitted Date FQ
+            - type: date
+              name: Scout-Response Re-submitted Date
+            - type: integer
+              name: Scout-Response Re-submitted Date FY
+            - type: integer
+              name: Scout-Response Re-submitted Date FQ
+            - type: date
+              name: Scout-Terms Accepted Date
+            - type: text
+              name: Scout-Event ID
+            - type: text
+              name: Scout-Event Title
+            - type: select
+              name: Scout-Event Type
+            - type: select
+              name: Scout-Event Status
+            - type: select
+              name: Scout-Categories
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: currency
+              name: Scout-Savings
+            - type: currency
+              name: Scout-Spend
+            - type: text
+              name: Scout-Currency
+            - type: integer
+              name: Scout-# of Stakeholders
+            - type: text
+              name: Scout-Stakeholders List
+            - type: date
+              name: Scout-Created Date
+            - type: integer
+              name: Scout-Created Date FY
+            - type: integer
+              name: Scout-Created Date FQ
+            - type: date
+              name: Scout-Publish Date
+            - type: integer
+              name: Scout-Publish Date FY
+            - type: integer
+              name: Scout-Publish Date FQ
+            - type: date
+              name: Scout-RSVP Deadline
+            - type: date
+              name: Scout-Message Center Due Date
+            - type: date
+              name: Scout-Submission Due Date
+            - type: date
+              name: Scout-Closed Date
+            - type: integer
+              name: Scout-Closed Date FY
+            - type: integer
+              name: Scout-Closed Date FQ
+            - type: text
+              name: Scout-Construction Request
+            - type: text
+              name: Scout-Sealed Bids
+            - type: text
+              name: Scout-Public
+            - type: integer
+              name: Scout-Days in Draft
+            - type: integer
+              name: Scout-Days in Scheduled
+            - type: integer
+              name: Scout-Days in Publish
+            - type: integer
+              name: Scout-Days in Edit
+            - type: text
+              name: 'Scout-ID #'
+            - type: text
+              name: Scout-Project Title
+            - type: select
+              name: Scout-Project Type
+            - type: select
+              name: Scout-Project State & Status
+            - type: date
+              name: Scout-Estimated Start Date
+            - type: date
+              name: Scout-Estimated End Date
+            - type: date
+              name: Scout-Actual Start Date
+            - type: date
+              name: Scout-Actual End Date
+            - type: date
+              name: Scout-Last Updated Date
+            - type: text
+              name: Scout-Has Attachments
+            - type: string
+              name: 'Field #11'
+    show_response_20190101:
       value:
         data:
         - id: 1-1
@@ -529,124 +612,41 @@ components:
         links:
           prev: null
           next: null
+    all_reports_response_20180401:
+      value:
+        data:
+        - id: '1'
+          type: event_reports
+          attributes:
+            title: Report 1
+            description: Report 1 description
+          links:
+            entries: https://api.us.workdayspend.com/event_reports/1/entries
+            schema: https://api.us.workdayspend.com/event_reports/1/schema
+        - id: '2'
+          type: event_reports
+          attributes:
+            title: Report 2
+            description: Report 2 description
+          links:
+            entries: https://api.us.workdayspend.com/event_reports/2/entries
+            schema: https://api.us.workdayspend.com/event_reports/2/schema
+        - id: '3'
+          type: event_reports
+          attributes:
+            title: Report 3
+            description: Report 3 description
+          links:
+            entries: https://api.us.workdayspend.com/event_reports/3/entries
+            schema: https://api.us.workdayspend.com/event_reports/3/schema
+        links:
+          prev: null
+          next: null
     all_reports_response_20190101:
       value:
         errors:
         - detail: This endpoint has been deprecated
-    schema_response-3:
-      value:
-        data:
-          id: event_schemas
-          type: event_schemas
-          attributes:
-            fields:
-            - type: select
-              name: Scout-Supplier Name
-            - type: text
-              name: Scout-Response ID
-            - type: select
-              name: Scout-Response Status
-            - type: text
-              name: Scout-RSVP Response
-            - type: date
-              name: Scout-Intend to Respond Date
-            - type: date
-              name: Scout-Response Submitted Date
-            - type: integer
-              name: Scout-Response Submitted Date FY
-            - type: integer
-              name: Scout-Response Submitted Date FQ
-            - type: date
-              name: Scout-Response Re-submitted Date
-            - type: integer
-              name: Scout-Response Re-submitted Date FY
-            - type: integer
-              name: Scout-Response Re-submitted Date FQ
-            - type: date
-              name: Scout-Terms Accepted Date
-            - type: text
-              name: Scout-Event ID
-            - type: text
-              name: Scout-Event Title
-            - type: select
-              name: Scout-Event Type
-            - type: select
-              name: Scout-Event Status
-            - type: select
-              name: Scout-Categories
-            - type: select
-              name: Scout-Sourcing Owner
-            - type: currency
-              name: Scout-Savings
-            - type: currency
-              name: Scout-Spend
-            - type: text
-              name: Scout-Currency
-            - type: integer
-              name: Scout-# of Stakeholders
-            - type: text
-              name: Scout-Stakeholders List
-            - type: date
-              name: Scout-Created Date
-            - type: integer
-              name: Scout-Created Date FY
-            - type: integer
-              name: Scout-Created Date FQ
-            - type: date
-              name: Scout-Publish Date
-            - type: integer
-              name: Scout-Publish Date FY
-            - type: integer
-              name: Scout-Publish Date FQ
-            - type: date
-              name: Scout-RSVP Deadline
-            - type: date
-              name: Scout-Message Center Due Date
-            - type: date
-              name: Scout-Submission Due Date
-            - type: date
-              name: Scout-Closed Date
-            - type: integer
-              name: Scout-Closed Date FY
-            - type: integer
-              name: Scout-Closed Date FQ
-            - type: text
-              name: Scout-Construction Request
-            - type: text
-              name: Scout-Sealed Bids
-            - type: text
-              name: Scout-Public
-            - type: integer
-              name: Scout-Days in Draft
-            - type: integer
-              name: Scout-Days in Scheduled
-            - type: integer
-              name: Scout-Days in Publish
-            - type: integer
-              name: Scout-Days in Edit
-            - type: text
-              name: 'Scout-ID #'
-            - type: text
-              name: Scout-Project Title
-            - type: select
-              name: Scout-Project Type
-            - type: select
-              name: Scout-Project State & Status
-            - type: date
-              name: Scout-Estimated Start Date
-            - type: date
-              name: Scout-Estimated End Date
-            - type: date
-              name: Scout-Actual Start Date
-            - type: date
-              name: Scout-Actual End Date
-            - type: date
-              name: Scout-Last Updated Date
-            - type: text
-              name: Scout-Has Attachments
-            - type: string
-              name: 'Field #11'
-    show_response_20190101:
+    index_response_20190101:
       value:
         data:
         - id: 1-1

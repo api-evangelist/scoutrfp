@@ -110,35 +110,15 @@ components:
             $ref: '#/components/schemas/EventTemplateAttributes'
           links:
             $ref: '#/components/schemas/ResourceLinks'
-    EventTemplateType:
-      type: string
-      description: Object type, should always be `event_templates`.
-      example: event_templates
+    EventTemplateId:
+      type: integer
+      description: Event template identifier string.
+      example: 1
     ResourceLinks:
       type: object
       description: List of related links.
       allOf:
       - $ref: '#/components/schemas/SelfLink'
-    SelfLink:
-      type: object
-      properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    EventTypeEnum:
-      type: string
-      enum:
-      - RFP
-      - AUCTION
-      - AUCTION_WITH_LOTS
-      - AUCTION_LOT
-      - PERFORMANCE_REVIEW_EVENT
-      - PERFORMANCE_REVIEW_SCORE_CARD_ONLY_EVENT
-      - SUPPLIER_REVIEW_EVENT
-      - SUPPLIER_REVIEW_MASTER_EVENT
-      description: Event type.
-      example: RFP
     EventTemplateAttributes:
       type: object
       description: Event template attributes.
@@ -153,6 +133,30 @@ components:
           example: My Event Template
         event_type:
           $ref: '#/components/schemas/EventTypeEnum'
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    EventTemplateType:
+      type: string
+      description: Object type, should always be `event_templates`.
+      example: event_templates
+    EventTypeEnum:
+      type: string
+      enum:
+      - RFP
+      - AUCTION
+      - AUCTION_WITH_LOTS
+      - AUCTION_LOT
+      - PERFORMANCE_REVIEW_EVENT
+      - PERFORMANCE_REVIEW_SCORE_CARD_ONLY_EVENT
+      - SUPPLIER_REVIEW_EVENT
+      - SUPPLIER_REVIEW_MASTER_EVENT
+      description: Event type.
+      example: RFP
     EventTemplateBase:
       title: EventTemplate
       type: object
@@ -164,11 +168,17 @@ components:
           $ref: '#/components/schemas/EventTemplateType'
         id:
           $ref: '#/components/schemas/EventTemplateId'
-    EventTemplateId:
-      type: integer
-      description: Event template identifier string.
-      example: 1
   examples:
+    show_response:
+      value:
+        data:
+          type: event_templates
+          id: '1'
+          attributes:
+            title: The Event Template
+            event_type: RFP
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/event_templates/1
     index_response:
       value:
         meta:
@@ -190,16 +200,6 @@ components:
             self: https://api.us.workdayspend.com/services/events/v1/event_templates/2
         links:
           self: https://api.us.workdayspend.com/services/events/v1/event_templates
-    show_response:
-      value:
-        data:
-          type: event_templates
-          id: '1'
-          attributes:
-            title: The Event Template
-            event_type: RFP
-          links:
-            self: https://api.us.workdayspend.com/services/events/v1/event_templates/1
   securitySchemes:
     api_key:
       type: apiKey

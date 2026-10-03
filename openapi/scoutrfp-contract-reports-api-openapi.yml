@@ -80,15 +80,6 @@ paths:
       x-operation-id-original: Contract Report Schema
 components:
   schemas:
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    ContractReportEntryType:
-      description: Object type, should always be `contract_report_entries`.
-      example: contract_report_entries
     ReportSchemaField:
       type: object
       properties:
@@ -98,6 +89,12 @@ components:
           type: string
           description: Field name
           example: Scout-System ID
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
     ReportSchemaFieldType:
       type: string
       enum:
@@ -108,21 +105,6 @@ components:
       - string
       description: Field type
       example: string
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    ContractReportEntryAttributes:
-      description: Contract Report Entry attributes. See example response and schema.
-      properties: {}
     PrevPageLink:
       type: object
       properties:
@@ -132,20 +114,33 @@ components:
           - 'null'
           format: url
           description: Link to the previous results page.
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
     ContractReportEntryId:
       description: Contract Report identifier string.
       example: 1
-    ContractReportEntryFieldModel:
+    Pagination:
       type: object
       properties:
-        id:
-          type: string
-          description: Object ID, should always be `contract_schemas`.
-        type:
-          type: string
-          description: Object type, should always be `contract_schemas`.
-        attributes:
-          $ref: '#/components/schemas/ReportSchemaFieldModel'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    ContractReportEntryAttributes:
+      description: Contract Report Entry attributes. See example response and schema.
+      properties: {}
     ContractReportEntry:
       type: object
       required:
@@ -158,16 +153,168 @@ components:
           $ref: '#/components/schemas/ContractReportEntryId'
         attributes:
           $ref: '#/components/schemas/ContractReportEntryAttributes'
-    NextPageLink:
+    ContractReportEntryFieldModel:
       type: object
       properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
+        id:
+          type: string
+          description: Object ID, should always be `contract_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `contract_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+    ContractReportEntryType:
+      description: Object type, should always be `contract_report_entries`.
+      example: contract_report_entries
   examples:
+    schema_response-2:
+      value:
+        data:
+          id: contract_schemas
+          type: contract_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-Record ID
+            - type: text
+              name: 'Scout-ID #'
+            - type: select
+              name: Scout-Contract Type
+            - type: select
+              name: Scout-Contract Type Short Code
+            - type: select
+              name: Scout-Supplier
+            - type: text
+              name: Scout-Contract Title
+            - type: select
+              name: Scout-Contract State & Status
+            - type: select
+              name: Scout-Auto Renewal
+            - type: date
+              name: Scout-Start Date
+            - type: integer
+              name: Scout-Start Date FY
+            - type: integer
+              name: Scout-Start Date FQ
+            - type: date
+              name: Scout-End Date
+            - type: integer
+              name: Scout-End Date FY
+            - type: integer
+              name: Scout-End Date FQ
+            - type: select
+              name: Scout-Currency
+            - type: currency
+              name: Scout-Spend
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: select
+              name: Scout-Category
+            - type: text
+              name: Scout-Contract Description
+            - type: integer
+              name: Scout-Renewal Number of Times
+            - type: text
+              name: Scout-Renewal Term
+            - type: date
+              name: Scout-Renewal Termination Notice
+            - type: date
+              name: Scout-Renewal Termination Reminder
+            - type: text
+              name: Scout-Attachments
+            - type: text
+              name: 'Scout-Related Contract ID #'
+            - type: text
+              name: Scout-Related Projects
+            - type: text
+              name: 'Scout-Related Project ID #'
+            - type: select
+              name: Scout-Stakeholders
+            - type: text
+              name: Scout-Termination Reason
+            - type: date
+              name: Scout-Original Approval Request Date
+            - type: integer
+              name: Scout-Original Approval Request Date FY
+            - type: integer
+              name: Scout-Original Approval Request Date FQ
+            - type: date
+              name: Scout-Approved Date
+            - type: integer
+              name: Scout-Approved FY
+            - type: integer
+              name: Scout-Approved FQ
+            - type: date
+              name: Scout-Sent for Approval
+            - type: integer
+              name: Scout-Sent for Approval FY
+            - type: integer
+              name: Scout-Sent for Approval FQ
+            - type: select
+              name: Scout-Contract Requester
+            - type: date
+              name: Scout-Contract Request Submitted Date
+            - type: integer
+              name: Scout-Contract Request Submitted FY
+            - type: integer
+              name: Scout-Contract Request Submitted FQ
+            - type: date
+              name: Scout-Contract Request Opened Date
+            - type: integer
+              name: Scout-Contract Request Opened FY
+            - type: integer
+              name: Scout-Contract Request Opened FQ
+            - type: select
+              name: Scout-Record Type
+            - type: text
+              name: 'Scout-Revised Contract ID #'
+            - type: select
+              name: Scout-Creator
+            - type: date
+              name: Scout-Last Updated Date
+            - type: text
+              name: Scout-Has Attachments
+            - type: select
+              name: Scout-Needs Attention Reason
+            - type: text
+              name: Scout-Canceled Reason
+            - type: date
+              name: Scout-First Milestone Assign Date
+            - type: select
+              name: Scout-ESign Platforms
+            - type: select
+              name: Scout-ESign States
+            - type: text
+              name: Scout-External ID
+            - type: select
+              name: Scout-Company
+            - type: select
+              name: Scout-Company Hierarchy
+            - type: integer
+              name: Scout-Days Requested
+            - type: integer
+              name: Scout-Days In Progress - Internal Review
+            - type: integer
+              name: Scout-Days In Progress - External Review
+            - type: integer
+              name: Scout-Days In Progress - Negotiating
+            - type: integer
+              name: Scout-Days In Progress - Out for Signature
+            - type: integer
+              name: Scout-Days Out For Approval
+            - type: integer
+              name: Scout-Days Approved
+            - type: integer
+              name: Scout-Days Active
+            - type: text
+              name: Scout-Milestone Name
+            - type: date
+              name: Scout-Milestone Date
+            - type: select
+              name: Scout-Milestone Assignee
+            - type: string
+              name: Custom field for contract
     index_response-2:
       value:
         data:
@@ -390,153 +537,6 @@ components:
         links:
           prev: null
           next: null
-    schema_response-2:
-      value:
-        data:
-          id: contract_schemas
-          type: contract_schemas
-          attributes:
-            fields:
-            - type: text
-              name: Scout-Record ID
-            - type: text
-              name: 'Scout-ID #'
-            - type: select
-              name: Scout-Contract Type
-            - type: select
-              name: Scout-Contract Type Short Code
-            - type: select
-              name: Scout-Supplier
-            - type: text
-              name: Scout-Contract Title
-            - type: select
-              name: Scout-Contract State & Status
-            - type: select
-              name: Scout-Auto Renewal
-            - type: date
-              name: Scout-Start Date
-            - type: integer
-              name: Scout-Start Date FY
-            - type: integer
-              name: Scout-Start Date FQ
-            - type: date
-              name: Scout-End Date
-            - type: integer
-              name: Scout-End Date FY
-            - type: integer
-              name: Scout-End Date FQ
-            - type: select
-              name: Scout-Currency
-            - type: currency
-              name: Scout-Spend
-            - type: select
-              name: Scout-Sourcing Owner
-            - type: select
-              name: Scout-Category
-            - type: text
-              name: Scout-Contract Description
-            - type: integer
-              name: Scout-Renewal Number of Times
-            - type: text
-              name: Scout-Renewal Term
-            - type: date
-              name: Scout-Renewal Termination Notice
-            - type: date
-              name: Scout-Renewal Termination Reminder
-            - type: text
-              name: Scout-Attachments
-            - type: text
-              name: 'Scout-Related Contract ID #'
-            - type: text
-              name: Scout-Related Projects
-            - type: text
-              name: 'Scout-Related Project ID #'
-            - type: select
-              name: Scout-Stakeholders
-            - type: text
-              name: Scout-Termination Reason
-            - type: date
-              name: Scout-Original Approval Request Date
-            - type: integer
-              name: Scout-Original Approval Request Date FY
-            - type: integer
-              name: Scout-Original Approval Request Date FQ
-            - type: date
-              name: Scout-Approved Date
-            - type: integer
-              name: Scout-Approved FY
-            - type: integer
-              name: Scout-Approved FQ
-            - type: date
-              name: Scout-Sent for Approval
-            - type: integer
-              name: Scout-Sent for Approval FY
-            - type: integer
-              name: Scout-Sent for Approval FQ
-            - type: select
-              name: Scout-Contract Requester
-            - type: date
-              name: Scout-Contract Request Submitted Date
-            - type: integer
-              name: Scout-Contract Request Submitted FY
-            - type: integer
-              name: Scout-Contract Request Submitted FQ
-            - type: date
-              name: Scout-Contract Request Opened Date
-            - type: integer
-              name: Scout-Contract Request Opened FY
-            - type: integer
-              name: Scout-Contract Request Opened FQ
-            - type: select
-              name: Scout-Record Type
-            - type: text
-              name: 'Scout-Revised Contract ID #'
-            - type: select
-              name: Scout-Creator
-            - type: date
-              name: Scout-Last Updated Date
-            - type: text
-              name: Scout-Has Attachments
-            - type: select
-              name: Scout-Needs Attention Reason
-            - type: text
-              name: Scout-Canceled Reason
-            - type: date
-              name: Scout-First Milestone Assign Date
-            - type: select
-              name: Scout-ESign Platforms
-            - type: select
-              name: Scout-ESign States
-            - type: text
-              name: Scout-External ID
-            - type: select
-              name: Scout-Company
-            - type: select
-              name: Scout-Company Hierarchy
-            - type: integer
-              name: Scout-Days Requested
-            - type: integer
-              name: Scout-Days In Progress - Internal Review
-            - type: integer
-              name: Scout-Days In Progress - External Review
-            - type: integer
-              name: Scout-Days In Progress - Negotiating
-            - type: integer
-              name: Scout-Days In Progress - Out for Signature
-            - type: integer
-              name: Scout-Days Out For Approval
-            - type: integer
-              name: Scout-Days Approved
-            - type: integer
-              name: Scout-Days Active
-            - type: text
-              name: Scout-Milestone Name
-            - type: date
-              name: Scout-Milestone Date
-            - type: select
-              name: Scout-Milestone Assignee
-            - type: string
-              name: Custom field for contract
   securitySchemes:
     api_key:
       type: apiKey

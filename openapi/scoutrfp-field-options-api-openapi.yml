@@ -187,10 +187,17 @@ components:
           type: integer
           description: Field order position on the UI.
           readOnly: true
-    FieldOptionId:
-      type: integer
-      description: Field identifier string.
-      example: 1
+    FieldOptionRelationship:
+      type: object
+      description: Field option relationship.
+      required:
+      - field
+      properties:
+        field:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/FieldBase'
     FieldBase:
       title: Field
       type: object
@@ -202,6 +209,10 @@ components:
           $ref: '#/components/schemas/FieldType'
         id:
           $ref: '#/components/schemas/FieldId'
+    FieldOptionId:
+      type: integer
+      description: Field identifier string.
+      example: 1
     FieldOptionUpdate:
       type: object
       required:
@@ -214,28 +225,6 @@ components:
           $ref: '#/components/schemas/FieldOptionId'
         attributes:
           $ref: '#/components/schemas/FieldOptionAttributes'
-    FieldType:
-      type: string
-      description: Object type, should always be `fields`.
-      example: fields
-    FieldOption:
-      allOf:
-      - $ref: '#/components/schemas/FieldOptionBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/FieldOptionAttributes'
-    FieldOptionRelationship:
-      type: object
-      description: Field option relationship.
-      required:
-      - field
-      properties:
-        field:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/FieldBase'
     FieldOptionCreate:
       type: object
       required:
@@ -247,6 +236,21 @@ components:
           $ref: '#/components/schemas/FieldOptionAttributes'
         relationships:
           $ref: '#/components/schemas/FieldOptionRelationship'
+    FieldType:
+      type: string
+      description: Object type, should always be `fields`.
+      example: fields
+    FieldOption:
+      allOf:
+      - $ref: '#/components/schemas/FieldOptionBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/FieldOptionAttributes'
+    FieldOptionType:
+      type: string
+      description: Object type, should always be `fields`.
+      example: fields
     FieldId:
       type: integer
       description: Field identifier string.
@@ -262,25 +266,7 @@ components:
           $ref: '#/components/schemas/FieldOptionType'
         id:
           $ref: '#/components/schemas/FieldOptionId'
-    FieldOptionType:
-      type: string
-      description: Object type, should always be `fields`.
-      example: fields
   examples:
-    index_response-2:
-      value:
-        data:
-        - id: '1'
-          type: field_options
-          attributes:
-            label: Option One
-            position: 1
-        - id: '2'
-          type: field_options
-          attributes:
-            label: Option Two
-            position: 2
-        links: {}
     update_response-2:
       value:
         data:
@@ -315,6 +301,20 @@ components:
           attributes:
             label: Field Option One
             position: null
+    index_response-2:
+      value:
+        data:
+        - id: '1'
+          type: field_options
+          attributes:
+            label: Option One
+            position: 1
+        - id: '2'
+          type: field_options
+          attributes:
+            label: Option Two
+            position: 2
+        links: {}
   securitySchemes:
     api_key:
       type: apiKey

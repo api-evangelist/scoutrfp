@@ -101,10 +101,6 @@ paths:
       x-operation-id-original: Get a Project Type
 components:
   schemas:
-    ProjectTypeId:
-      type: integer
-      description: Project type identifier string.
-      example: 1
     ProjectTypeBase:
       title: ProjectType
       type: object
@@ -116,6 +112,10 @@ components:
           $ref: '#/components/schemas/ProjectTypeType'
         id:
           $ref: '#/components/schemas/ProjectTypeId'
+    ProjectTypeType:
+      type: string
+      description: Object type, should always be `project_types`.
+      example: project_types
     ResourceLinks:
       type: object
       description: List of related links.
@@ -128,19 +128,10 @@ components:
           type: string
           format: url
           description: Normalized link to the resource.
-    ProjectTypeType:
-      type: string
-      description: Object type, should always be `project_types`.
-      example: project_types
-    ProjectTypeModel:
-      allOf:
-      - $ref: '#/components/schemas/ProjectTypeBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/ProjectTypeAttributes'
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
+    ProjectTypeId:
+      type: integer
+      description: Project type identifier string.
+      example: 1
     ProjectTypeAttributes:
       type: object
       description: Project type attributes.
@@ -158,7 +149,26 @@ components:
           maxLength: 4
           description: Contract type short code.
           example: PRJA
+    ProjectTypeModel:
+      allOf:
+      - $ref: '#/components/schemas/ProjectTypeBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/ProjectTypeAttributes'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
   examples:
+    show_response-2:
+      value:
+        data:
+          type: project_types
+          id: '1'
+          attributes:
+            name: The Project Type
+            shortcode: PRJT
+          links:
+            self: https://api.us.workdayspend.com/services/projects/v1/project_types/1
     index_response-2:
       value:
         meta:
@@ -180,16 +190,6 @@ components:
             self: https://api.us.workdayspend.com/services/projects/v1/project_types/2
         links:
           self: https://api.us.workdayspend.com/services/projects/v1/project_types
-    show_response-2:
-      value:
-        data:
-          type: project_types
-          id: '1'
-          attributes:
-            name: The Project Type
-            shortcode: PRJT
-          links:
-            self: https://api.us.workdayspend.com/services/projects/v1/project_types/1
   securitySchemes:
     api_key:
       type: apiKey

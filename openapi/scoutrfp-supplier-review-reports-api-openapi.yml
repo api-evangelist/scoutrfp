@@ -80,18 +80,68 @@ paths:
       x-operation-id-original: Supplier Review Report Schema
 components:
   schemas:
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
     PaginationLinks:
       type: object
       description: List of pagination links.
       allOf:
       - $ref: '#/components/schemas/NextPageLink'
       - $ref: '#/components/schemas/PrevPageLink'
-    SupplierReviewReportEntryAttributes:
-      description: Supplier Review Report Entry attributes. See example response and schema.
-      properties: {}
+    SupplierReviewReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `supplier_review_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `supplier_review_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
     SupplierReviewReportEntryType:
       description: Object type, should always be `supplier_review_report_entries`.
       example: supplier_review_report_entries
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    SupplierReviewReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierReviewReportEntryType'
+        id:
+          $ref: '#/components/schemas/SupplierReviewReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/SupplierReviewReportEntryAttributes'
+    SupplierReviewReportEntryAttributes:
+      description: Supplier Review Report Entry attributes. See example response and schema.
+      properties: {}
     ReportSchemaFieldType:
       type: string
       enum:
@@ -102,15 +152,6 @@ components:
       - string
       description: Field type
       example: string
-    ReportSchemaField:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
     Pagination:
       type: object
       properties:
@@ -126,99 +167,7 @@ components:
     SupplierReviewReportEntryId:
       description: Supplier Review Report identifier string.
       example: 1
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-    SupplierReviewReportEntry:
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierReviewReportEntryType'
-        id:
-          $ref: '#/components/schemas/SupplierReviewReportEntryId'
-        attributes:
-          $ref: '#/components/schemas/SupplierReviewReportEntryAttributes'
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    SupplierReviewReportEntryFieldModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Object ID, should always be `supplier_review_schemas`.
-        type:
-          type: string
-          description: Object type, should always be `supplier_review_schemas`.
-        attributes:
-          $ref: '#/components/schemas/ReportSchemaFieldModel'
   examples:
-    schema_response-10:
-      value:
-        data:
-          id: supplier_review_schemas
-          type: supplier_review_schemas
-          attributes:
-            fields:
-            - type: text
-              name: Scout-Supplier ID
-            - type: text
-              name: Scout-Supplier Name
-            - type: select
-              name: Scout-Category
-            - type: select
-              name: Scout-Sourcing Owner
-            - type: select
-              name: Scout-Review Form Title
-            - type: select
-              name: Scout-Review Status
-            - type: select
-              name: Scout-Decision
-            - type: select
-              name: Scout-Risk Score
-            - type: select
-              name: Scout-Reviewers
-            - type: date
-              name: Scout-Reviewed On Date
-            - type: integer
-              name: 'Scout-Avg. # of Days per Reviewer'
-            - type: integer
-              name: Scout-# Of Days To Review
-            - type: date
-              name: Scout-Valid Until Date
-            - type: date
-              name: Scout-Remind Before Date
-            - type: select
-              name: Scout-Remind
-            - type: date
-              name: Scout-Published Date
-            - type: date
-              name: Scout-Response Submitted Date
-            - type: integer
-              name: Scout-# of Days for Supplier to Respond
-            - type: select
-              name: Scout-Supplier Response Status
-            - type: text
-              name: Scout-Supplier Contact Email
-            - type: text
-              name: Scout-Executive Summary
-            - type: string
-              name: 'Field #25'
     index_response-9:
       value:
         data:
@@ -300,6 +249,57 @@ components:
         links:
           prev: null
           next: null
+    schema_response-10:
+      value:
+        data:
+          id: supplier_review_schemas
+          type: supplier_review_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-Supplier ID
+            - type: text
+              name: Scout-Supplier Name
+            - type: select
+              name: Scout-Category
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: select
+              name: Scout-Review Form Title
+            - type: select
+              name: Scout-Review Status
+            - type: select
+              name: Scout-Decision
+            - type: select
+              name: Scout-Risk Score
+            - type: select
+              name: Scout-Reviewers
+            - type: date
+              name: Scout-Reviewed On Date
+            - type: integer
+              name: 'Scout-Avg. # of Days per Reviewer'
+            - type: integer
+              name: Scout-# Of Days To Review
+            - type: date
+              name: Scout-Valid Until Date
+            - type: date
+              name: Scout-Remind Before Date
+            - type: select
+              name: Scout-Remind
+            - type: date
+              name: Scout-Published Date
+            - type: date
+              name: Scout-Response Submitted Date
+            - type: integer
+              name: Scout-# of Days for Supplier to Respond
+            - type: select
+              name: Scout-Supplier Response Status
+            - type: text
+              name: Scout-Supplier Contact Email
+            - type: text
+              name: Scout-Executive Summary
+            - type: string
+              name: 'Field #25'
   securitySchemes:
     api_key:
       type: apiKey

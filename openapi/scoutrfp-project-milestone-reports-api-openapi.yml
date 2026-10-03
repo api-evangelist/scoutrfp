@@ -79,94 +79,6 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Project Milestone Report Schema
 components:
-  schemas:
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
-    ReportSchemaField:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-    ProjectMilestoneReportEntryAttributes:
-      description: Project Milestone Report Entry attributes. See example response and schema.
-      properties: {}
-    ProjectMilestoneReportEntry:
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ProjectMilestoneReportEntryType'
-        id:
-          $ref: '#/components/schemas/ProjectMilestoneReportEntryId'
-        attributes:
-          $ref: '#/components/schemas/ProjectMilestoneReportEntryAttributes'
-    ProjectMilestoneReportEntryId:
-      description: Project Milestone Report identifier string.
-      example: 1
-    ProjectMilestoneReportEntryType:
-      description: Object type, should always be `project_milestone_report_entries`.
-      example: project_milestone_report_entries
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    ProjectMilestoneReportEntryFieldModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Object ID, should always be `project_milestone_schemas`.
-        type:
-          type: string
-          description: Object type, should always be `project_milestone_schemas`.
-        attributes:
-          $ref: '#/components/schemas/ReportSchemaFieldModel'
   examples:
     schema_response-6:
       value:
@@ -395,6 +307,94 @@ components:
         links:
           prev: null
           next: null
+  schemas:
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    ProjectMilestoneReportEntryAttributes:
+      description: Project Milestone Report Entry attributes. See example response and schema.
+      properties: {}
+    ProjectMilestoneReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ProjectMilestoneReportEntryType'
+        id:
+          $ref: '#/components/schemas/ProjectMilestoneReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/ProjectMilestoneReportEntryAttributes'
+    ProjectMilestoneReportEntryType:
+      description: Object type, should always be `project_milestone_report_entries`.
+      example: project_milestone_report_entries
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    ProjectMilestoneReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `project_milestone_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `project_milestone_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    ProjectMilestoneReportEntryId:
+      description: Project Milestone Report identifier string.
+      example: 1
   securitySchemes:
     api_key:
       type: apiKey

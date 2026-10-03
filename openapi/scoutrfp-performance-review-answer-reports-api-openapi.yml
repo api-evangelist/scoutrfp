@@ -80,28 +80,27 @@ paths:
       x-operation-id-original: Performance Review Answer Schema
 components:
   schemas:
-    PerformanceReviewAnswerReportEntryId:
-      description: Performance Review Answer Report identifier string.
-      example: 1
     PerformanceReviewAnswerReportEntryAttributes:
       description: Performance Review Answer Report Entry attributes. See example response and schema.
       properties: {}
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    PerformanceReviewAnswerReportEntryType:
+      description: Object type, should always be `performance_review_answer_report_entries`.
+      example: performance_review_answer_report_entries
     PaginationLinks:
       type: object
       description: List of pagination links.
       allOf:
       - $ref: '#/components/schemas/NextPageLink'
       - $ref: '#/components/schemas/PrevPageLink'
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
     PerformanceReviewAnswerReportEntryFieldModel:
       type: object
       properties:
@@ -113,27 +112,9 @@ components:
           description: Object type, should always be `performance_review_answer_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
-    ReportSchemaField:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
+    PerformanceReviewAnswerReportEntryId:
+      description: Performance Review Answer Report identifier string.
+      example: 1
     PrevPageLink:
       type: object
       properties:
@@ -143,9 +124,6 @@ components:
           - 'null'
           format: url
           description: Link to the previous results page.
-    PerformanceReviewAnswerReportEntryType:
-      description: Object type, should always be `performance_review_answer_report_entries`.
-      example: performance_review_answer_report_entries
     NextPageLink:
       type: object
       properties:
@@ -155,6 +133,28 @@ components:
           - 'null'
           format: url
           description: Link to the next results page.
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
     PerformanceReviewAnswerReportEntry:
       type: object
       required:
@@ -168,69 +168,6 @@ components:
         attributes:
           $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryAttributes'
   examples:
-    schema_response-4:
-      value:
-        data:
-          id: performance_review_answer_schemas
-          type: performance_review_answer_schemas
-          attributes:
-            fields:
-            - type: text
-              name: Scout-Supplier Name
-            - type: text
-              name: Scout-Supplier Description
-            - type: select
-              name: Scout-Supplier Segmentation Status
-            - type: select
-              name: Scout-Supplier Risk
-            - type: select
-              name: Scout-Supplier Segmentation
-            - type: select
-              name: Scout-Supplier Tags
-            - type: text
-              name: Scout-Supplier Website
-            - type: text
-              name: Scout-System ID
-            - type: text
-              name: Scout-Project ID
-            - type: text
-              name: Scout-Performance Review Title
-            - type: text
-              name: Scout-Project Number
-            - type: text
-              name: Scout-Event ID
-            - type: text
-              name: Scout-Event Title
-            - type: text
-              name: Scout-Section Title
-            - type: integer
-              name: Scout-Section Order
-            - type: decimal
-              name: Scout-Section Weight
-            - type: select
-              name: Scout-Question Type
-            - type: text
-              name: Scout-Question Content
-            - type: decimal
-              name: Scout-Question Weight
-            - type: text
-              name: Scout-Answer Content
-            - type: decimal
-              name: Scout-Answer Score
-            - type: text
-              name: Scout-Answer Selected Options
-            - type: decimal
-              name: Scout-Answer Weighted Score
-            - type: select
-              name: Scout-Answer Not Applicable
-            - type: text
-              name: Scout-Stakeholder Email
-            - type: text
-              name: Scout-Stakeholder Name
-            - type: text
-              name: Scout-Supplier Company ID
-            - type: text
-              name: Scout-Has Attachments
     index_response-3:
       value:
         data:
@@ -330,6 +267,69 @@ components:
         links:
           prev: null
           next: null
+    schema_response-4:
+      value:
+        data:
+          id: performance_review_answer_schemas
+          type: performance_review_answer_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-Supplier Name
+            - type: text
+              name: Scout-Supplier Description
+            - type: select
+              name: Scout-Supplier Segmentation Status
+            - type: select
+              name: Scout-Supplier Risk
+            - type: select
+              name: Scout-Supplier Segmentation
+            - type: select
+              name: Scout-Supplier Tags
+            - type: text
+              name: Scout-Supplier Website
+            - type: text
+              name: Scout-System ID
+            - type: text
+              name: Scout-Project ID
+            - type: text
+              name: Scout-Performance Review Title
+            - type: text
+              name: Scout-Project Number
+            - type: text
+              name: Scout-Event ID
+            - type: text
+              name: Scout-Event Title
+            - type: text
+              name: Scout-Section Title
+            - type: integer
+              name: Scout-Section Order
+            - type: decimal
+              name: Scout-Section Weight
+            - type: select
+              name: Scout-Question Type
+            - type: text
+              name: Scout-Question Content
+            - type: decimal
+              name: Scout-Question Weight
+            - type: text
+              name: Scout-Answer Content
+            - type: decimal
+              name: Scout-Answer Score
+            - type: text
+              name: Scout-Answer Selected Options
+            - type: decimal
+              name: Scout-Answer Weighted Score
+            - type: select
+              name: Scout-Answer Not Applicable
+            - type: text
+              name: Scout-Stakeholder Email
+            - type: text
+              name: Scout-Stakeholder Name
+            - type: text
+              name: Scout-Supplier Company ID
+            - type: text
+              name: Scout-Has Attachments
   securitySchemes:
     api_key:
       type: apiKey

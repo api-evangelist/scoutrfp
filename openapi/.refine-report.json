@@ -77,7 +77,7 @@
     "scoutrfp-scim-v2-openapi.json: upgraded openapi 3.0.2 -> OpenAPI 3.2.0",
     "scoutrfp-spend_categories-v1-openapi.json: upgraded openapi 3.0.2 -> OpenAPI 3.2.0",
     "scoutrfp-suppliers-v1-openapi.json: upgraded openapi 3.0.2 -> OpenAPI 3.2.0",
-    "apis.yml register: written (+0 apis, 55 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "scoutrfp-attachments-api-openapi.yml: previously refined output, superseded by openapi/_original/",

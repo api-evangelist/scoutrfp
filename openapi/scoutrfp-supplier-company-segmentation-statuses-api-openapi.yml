@@ -223,6 +223,67 @@ paths:
       x-operation-id-original: Delete a Supplier Company Segmentation Status
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    SupplierCompanySegmentationStatusType:
+      type: string
+      description: Object type, should always be `supplier_company_segmentation_statuses`.
+      example: supplier_company_segmentation_statuses
+    SupplierCompanySegmentationStatusCreateAttributes:
+      type: object
+      description: Supplier company segmentation status attributes.
+      required:
+      - label
+      - icon
+      properties:
+        label:
+          type: string
+          maxLength: 255
+          description: Supplier company segmentation status label.
+          example: Approved
+        order:
+          type: integer
+          description: Supplier company segmentation status order
+          example: 1
+        color:
+          type: string
+          description: Supplier company segmentation status icon
+          enum:
+          - approved
+          - reviewing
+          - out_of_complience
+          - denied
+          - not_approved
+    SupplierCompanySegmentationStatusCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanySegmentationStatusType'
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/SupplierCompanySegmentationStatusCreateAttributes'
+          - type: object
+            required:
+            - label
+            - icon
+    SupplierCompanySegmentationStatusUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanySegmentationStatusType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanySegmentationStatusId'
+        attributes:
+          $ref: '#/components/schemas/SupplierCompanySegmentationStatusAttributes'
     SupplierCompanySegmentationStatusBase:
       title: Field
       type: object
@@ -266,53 +327,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
-    SupplierCompanySegmentationStatusType:
-      type: string
-      description: Object type, should always be `supplier_company_segmentation_statuses`.
-      example: supplier_company_segmentation_statuses
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    SupplierCompanySegmentationStatusCreateAttributes:
-      type: object
-      description: Supplier company segmentation status attributes.
-      required:
-      - label
-      - icon
-      properties:
-        label:
-          type: string
-          maxLength: 255
-          description: Supplier company segmentation status label.
-          example: Approved
-        order:
-          type: integer
-          description: Supplier company segmentation status order
-          example: 1
-        color:
-          type: string
-          description: Supplier company segmentation status icon
-          enum:
-          - approved
-          - reviewing
-          - out_of_complience
-          - denied
-          - not_approved
-    SupplierCompanySegmentationStatusUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanySegmentationStatusType'
-        id:
-          $ref: '#/components/schemas/SupplierCompanySegmentationStatusId'
-        attributes:
-          $ref: '#/components/schemas/SupplierCompanySegmentationStatusAttributes'
     SupplierCompanySegmentationStatus:
       allOf:
       - $ref: '#/components/schemas/SupplierCompanySegmentationStatusBase'
@@ -320,25 +334,20 @@ components:
         properties:
           attributes:
             $ref: '#/components/schemas/SupplierCompanySegmentationStatusCreateAttributes'
-    SupplierCompanySegmentationStatusCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanySegmentationStatusType'
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/SupplierCompanySegmentationStatusCreateAttributes'
-          - type: object
-            required:
-            - label
-            - icon
     SupplierCompanySegmentationStatusId:
       type: integer
       description: Supplier company segmentation status identifier string.
       example: 1
   examples:
+    update_request-7:
+      value:
+        data:
+          type: supplier_company_segmentation_statuses
+          id: '4'
+          attributes:
+            label: Kinda Approved!
+            icon: reviewing
+            order: 1
     index_response-7:
       value:
         data:
@@ -386,23 +395,6 @@ components:
             order: 6
         links:
           self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentation_statuses
-    create_request-6:
-      value:
-        data:
-          type: supplier_company_segmentation_statuses
-          attributes:
-            label: Super Approved!
-            icon: approved
-            order: 6
-    create_response-7:
-      value:
-        data:
-          type: supplier_company_segmentation_statuses
-          attributes:
-            label: Super Approved!
-            icon: approved
-            order: 6
-            slug: super_approved_25672734-8f8f-4735-9099-8a4f3c64505a
     update_response-7:
       value:
         data:
@@ -412,15 +404,23 @@ components:
             icon: reviewing
             order: 1
             slug: kinda_approved_25672734-8f8f-4735-9099-8a4f3c64505a
-    update_request-7:
+    create_response-7:
       value:
         data:
           type: supplier_company_segmentation_statuses
-          id: '4'
           attributes:
-            label: Kinda Approved!
-            icon: reviewing
-            order: 1
+            label: Super Approved!
+            icon: approved
+            order: 6
+            slug: super_approved_25672734-8f8f-4735-9099-8a4f3c64505a
+    create_request-6:
+      value:
+        data:
+          type: supplier_company_segmentation_statuses
+          attributes:
+            label: Super Approved!
+            icon: approved
+            order: 6
   securitySchemes:
     api_key:
       type: apiKey

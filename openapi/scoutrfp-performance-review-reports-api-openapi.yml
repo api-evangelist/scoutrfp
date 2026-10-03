@@ -80,12 +80,27 @@ paths:
       x-operation-id-original: Performance Review Report Schema
 components:
   schemas:
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    PerformanceReviewReportEntryType:
+      description: Object type, should always be `performance_review_report_entries`.
+      example: performance_review_report_entries
     PaginationLinks:
       type: object
       description: List of pagination links.
       allOf:
       - $ref: '#/components/schemas/NextPageLink'
       - $ref: '#/components/schemas/PrevPageLink'
+    PerformanceReviewReportEntryId:
+      description: Performance Review Report identifier string.
+      example: 1
     ReportSchemaFieldType:
       type: string
       enum:
@@ -96,33 +111,24 @@ components:
       - string
       description: Field type
       example: string
-    ReportSchemaField:
+    PrevPageLink:
       type: object
       properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
-    PerformanceReviewReportEntryId:
-      description: Performance Review Report identifier string.
-      example: 1
-    ReportSchemaFieldModel:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    NextPageLink:
       type: object
       properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
-    PerformanceReviewReportEntryAttributes:
-      description: Performance Review Report Entry attributes. See example response and schema.
-      properties: {}
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
     PerformanceReviewReportEntry:
       type: object
       required:
@@ -135,15 +141,18 @@ components:
           $ref: '#/components/schemas/PerformanceReviewReportEntryId'
         attributes:
           $ref: '#/components/schemas/PerformanceReviewReportEntryAttributes'
-    PrevPageLink:
+    Pagination:
       type: object
       properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
     PerformanceReviewReportEntryFieldModel:
       type: object
       properties:
@@ -155,50 +164,10 @@ components:
           description: Object type, should always be `performance_review_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    PerformanceReviewReportEntryType:
-      description: Object type, should always be `performance_review_report_entries`.
-      example: performance_review_report_entries
+    PerformanceReviewReportEntryAttributes:
+      description: Performance Review Report Entry attributes. See example response and schema.
+      properties: {}
   examples:
-    schema_response-5:
-      value:
-        data:
-          id: performance_review_schemas
-          type: performance_review_schemas
-          attributes:
-            fields:
-            - type: text
-              name: Scout-Supplier Name
-            - type: text
-              name: Scout-Project ID
-            - type: text
-              name: Scout-Performance Review Title
-            - type: integer
-              name: Scout-Total Score
-            - type: integer
-              name: Scout-High
-            - type: integer
-              name: Scout-Low
-            - type: integer
-              name: Scout-Median
-            - type: text
-              name: Scout-Executive Summary
-            - type: date
-              name: Scout-Scorecard Completed Date
-            - type: select
-              name: Scout-Category
-            - type: select
-              name: Scout-Sourcing Owner
-            - type: string
-              name: 'Field #13'
     index_response-4:
       value:
         data:
@@ -280,6 +249,37 @@ components:
         links:
           prev: null
           next: null
+    schema_response-5:
+      value:
+        data:
+          id: performance_review_schemas
+          type: performance_review_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-Supplier Name
+            - type: text
+              name: Scout-Project ID
+            - type: text
+              name: Scout-Performance Review Title
+            - type: integer
+              name: Scout-Total Score
+            - type: integer
+              name: Scout-High
+            - type: integer
+              name: Scout-Low
+            - type: integer
+              name: Scout-Median
+            - type: text
+              name: Scout-Executive Summary
+            - type: date
+              name: Scout-Scorecard Completed Date
+            - type: select
+              name: Scout-Category
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: string
+              name: 'Field #13'
   securitySchemes:
     api_key:
       type: apiKey

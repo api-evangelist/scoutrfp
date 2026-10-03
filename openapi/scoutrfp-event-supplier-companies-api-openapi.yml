@@ -211,48 +211,22 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Remove Suppliers using External IDs
 components:
-  examples:
-    delete_request:
-      value:
-        data:
-        - type: supplier_companies
-          id: '5'
-        - type: supplier_companies
-          id: '11'
-    external_create_request:
-      value:
-        data:
-        - type: supplier_companies
-          id: SUP5
-        - type: supplier_companies
-          id: SUP11
-    create_request-3:
-      value:
-        data:
-        - type: supplier_companies
-          id: '5'
-        - type: supplier_companies
-          id: '11'
-    external_delete_request:
-      value:
-        data:
-        - type: supplier_companies
-          id: SUP5
-        - type: supplier_companies
-          id: SUP11
   schemas:
     SupplierCompanyId:
       type: integer
       description: Supplier company identifier string.
       example: 1
-    ExternalSupplierCompanyType:
-      type: string
-      description: Object type, should always be `supplier_companies`.
-      example: supplier_companies
-    ExternalSupplierCompanyId:
-      type: integer
-      description: Supplier company external identifier string.
-      example: 1
+    SupplierCompanyBase:
+      title: SupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyId'
     SupplierCompanyType:
       type: string
       description: Object type, should always be `supplier_companies`.
@@ -268,17 +242,43 @@ components:
           $ref: '#/components/schemas/ExternalSupplierCompanyType'
         id:
           $ref: '#/components/schemas/ExternalSupplierCompanyId'
-    SupplierCompanyBase:
-      title: SupplierCompany
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanyType'
-        id:
-          $ref: '#/components/schemas/SupplierCompanyId'
+    ExternalSupplierCompanyId:
+      type: integer
+      description: Supplier company external identifier string.
+      example: 1
+    ExternalSupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+  examples:
+    create_request-3:
+      value:
+        data:
+        - type: supplier_companies
+          id: '5'
+        - type: supplier_companies
+          id: '11'
+    external_create_request:
+      value:
+        data:
+        - type: supplier_companies
+          id: SUP5
+        - type: supplier_companies
+          id: SUP11
+    delete_request:
+      value:
+        data:
+        - type: supplier_companies
+          id: '5'
+        - type: supplier_companies
+          id: '11'
+    external_delete_request:
+      value:
+        data:
+        - type: supplier_companies
+          id: SUP5
+        - type: supplier_companies
+          id: SUP11
   securitySchemes:
     api_key:
       type: apiKey
