@@ -175,9 +175,18 @@ paths:
       x-operation-id-original: Event Report Schema
 components:
   schemas:
-    EventReportEntryId:
-      description: Event Report identifier string.
-      example: 1
+    EventReportEntryType:
+      description: Object type, should always be `event_report_entries`.
+      example: event_report_entries
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
     ReportSchemaField:
       type: object
       properties:
@@ -187,6 +196,27 @@ components:
           type: string
           description: Field name
           example: Scout-System ID
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    EventReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/EventReportEntryType'
+        id:
+          $ref: '#/components/schemas/EventReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/EventReportEntryAttributes'
     PaginationLinks:
       type: object
       description: List of pagination links.
@@ -204,47 +234,6 @@ components:
           description: Object type, should always be `event_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
-    EventReportEntry:
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/EventReportEntryType'
-        id:
-          $ref: '#/components/schemas/EventReportEntryId'
-        attributes:
-          $ref: '#/components/schemas/EventReportEntryAttributes'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    EventReportEntryType:
-      description: Object type, should always be `event_report_entries`.
-      example: event_report_entries
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    EventReportEntryAttributes:
-      description: Event Report Entry attributes. See example response and schema.
-      properties: {}
     ReportSchemaFieldModel:
       type: object
       properties:
@@ -252,6 +241,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportSchemaField'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     ReportSchemaFieldType:
       type: string
       enum:
@@ -262,120 +256,13 @@ components:
       - string
       description: Field type
       example: string
+    EventReportEntryAttributes:
+      description: Event Report Entry attributes. See example response and schema.
+      properties: {}
+    EventReportEntryId:
+      description: Event Report identifier string.
+      example: 1
   examples:
-    schema_response-3:
-      value:
-        data:
-          id: event_schemas
-          type: event_schemas
-          attributes:
-            fields:
-            - type: select
-              name: Scout-Supplier Name
-            - type: text
-              name: Scout-Response ID
-            - type: select
-              name: Scout-Response Status
-            - type: text
-              name: Scout-RSVP Response
-            - type: date
-              name: Scout-Intend to Respond Date
-            - type: date
-              name: Scout-Response Submitted Date
-            - type: integer
-              name: Scout-Response Submitted Date FY
-            - type: integer
-              name: Scout-Response Submitted Date FQ
-            - type: date
-              name: Scout-Response Re-submitted Date
-            - type: integer
-              name: Scout-Response Re-submitted Date FY
-            - type: integer
-              name: Scout-Response Re-submitted Date FQ
-            - type: date
-              name: Scout-Terms Accepted Date
-            - type: text
-              name: Scout-Event ID
-            - type: text
-              name: Scout-Event Title
-            - type: select
-              name: Scout-Event Type
-            - type: select
-              name: Scout-Event Status
-            - type: select
-              name: Scout-Categories
-            - type: select
-              name: Scout-Sourcing Owner
-            - type: currency
-              name: Scout-Savings
-            - type: currency
-              name: Scout-Spend
-            - type: text
-              name: Scout-Currency
-            - type: integer
-              name: Scout-# of Stakeholders
-            - type: text
-              name: Scout-Stakeholders List
-            - type: date
-              name: Scout-Created Date
-            - type: integer
-              name: Scout-Created Date FY
-            - type: integer
-              name: Scout-Created Date FQ
-            - type: date
-              name: Scout-Publish Date
-            - type: integer
-              name: Scout-Publish Date FY
-            - type: integer
-              name: Scout-Publish Date FQ
-            - type: date
-              name: Scout-RSVP Deadline
-            - type: date
-              name: Scout-Message Center Due Date
-            - type: date
-              name: Scout-Submission Due Date
-            - type: date
-              name: Scout-Closed Date
-            - type: integer
-              name: Scout-Closed Date FY
-            - type: integer
-              name: Scout-Closed Date FQ
-            - type: text
-              name: Scout-Construction Request
-            - type: text
-              name: Scout-Sealed Bids
-            - type: text
-              name: Scout-Public
-            - type: integer
-              name: Scout-Days in Draft
-            - type: integer
-              name: Scout-Days in Scheduled
-            - type: integer
-              name: Scout-Days in Publish
-            - type: integer
-              name: Scout-Days in Edit
-            - type: text
-              name: 'Scout-ID #'
-            - type: text
-              name: Scout-Project Title
-            - type: select
-              name: Scout-Project Type
-            - type: select
-              name: Scout-Project State & Status
-            - type: date
-              name: Scout-Estimated Start Date
-            - type: date
-              name: Scout-Estimated End Date
-            - type: date
-              name: Scout-Actual Start Date
-            - type: date
-              name: Scout-Actual End Date
-            - type: date
-              name: Scout-Last Updated Date
-            - type: text
-              name: Scout-Has Attachments
-            - type: string
-              name: 'Field #11'
     show_response_20190101:
       value:
         data:
@@ -494,158 +381,6 @@ components:
         links:
           prev: null
           next: null
-    index_response_20180401:
-      value:
-        data:
-        - id: 1-1
-          type: event_report_entries
-          attributes:
-            Scout-Supplier Name: Carolina Fisher's General Store
-            Scout-Response ID: 1
-            Scout-Response Status: Unclaimed
-            Scout-RSVP Response: null
-            Scout-Intend to Respond Date: null
-            Scout-Response Submitted Date: null
-            Scout-Response Submitted Date FY: null
-            Scout-Response Submitted Date FQ: null
-            Scout-Response Re-submitted Date: null
-            Scout-Response Re-submitted Date FY: null
-            Scout-Response Re-submitted Date FQ: null
-            Scout-Terms Accepted Date: null
-            Scout-Event ID: 1
-            Scout-Event Title: Event
-            Scout-Event Type: RFP
-            Scout-Event Status: Draft
-            Scout-Categories: null
-            Scout-Sourcing Owner: Ardella Ernser
-            Scout-Savings: '100.0'
-            Scout-Spend: '1000.0'
-            Scout-Currency: USD $
-            Scout-# of Stakeholders: 1
-            Scout-Stakeholders List: Ardella Ernser
-            Scout-Created Date: '2020-04-14'
-            Scout-Created Date FY: 2020
-            Scout-Created Date FQ: 2
-            Scout-Publish Date: '2020-04-14'
-            Scout-Publish Date FY: 2020
-            Scout-Publish Date FQ: 2
-            Scout-RSVP Deadline: null
-            Scout-Message Center Due Date: null
-            Scout-Submission Due Date: '2020-04-28'
-            Scout-Closed Date: null
-            Scout-Closed Date FY: null
-            Scout-Closed Date FQ: null
-            Scout-Construction Request: false
-            Scout-Sealed Bids: false
-            Scout-Public: false
-            Scout-Days in Draft: '0.0'
-            Scout-Days in Scheduled: '0.0'
-            Scout-Days in Publish: '0.0'
-            Scout-Days in Edit: '0.0'
-            'Scout-ID #': 1
-            Scout-Project Title: Project 1
-            Scout-Project Type: 'Project Type #38'
-            Scout-Project State & Status: Planned
-            Scout-Estimated Start Date: '2020-04-28'
-            Scout-Estimated End Date: '2020-06-14'
-            Scout-Actual Start Date: null
-            Scout-Actual End Date: null
-            Scout-Last Updated Date: '2020-04-14'
-            Scout-Has Attachments: false
-            'Field #5': Some text
-        - id: 2-1
-          type: event_report_entries
-          attributes:
-            Scout-Supplier Name: Priscila Collins's General Store
-            Scout-Response ID: 2
-            Scout-Response Status: Unclaimed
-            Scout-RSVP Response: null
-            Scout-Intend to Respond Date: null
-            Scout-Response Submitted Date: null
-            Scout-Response Submitted Date FY: null
-            Scout-Response Submitted Date FQ: null
-            Scout-Response Re-submitted Date: null
-            Scout-Response Re-submitted Date FY: null
-            Scout-Response Re-submitted Date FQ: null
-            Scout-Terms Accepted Date: null
-            Scout-Event ID: 1
-            Scout-Event Title: Event
-            Scout-Event Type: RFP
-            Scout-Event Status: Draft
-            Scout-Categories: null
-            Scout-Sourcing Owner: Ardella Ernser
-            Scout-Savings: '100.0'
-            Scout-Spend: '1000.0'
-            Scout-Currency: USD $
-            Scout-# of Stakeholders: 1
-            Scout-Stakeholders List: Ardella Ernser
-            Scout-Created Date: '2020-04-14'
-            Scout-Created Date FY: 2020
-            Scout-Created Date FQ: 2
-            Scout-Publish Date: '2020-04-14'
-            Scout-Publish Date FY: 2020
-            Scout-Publish Date FQ: 2
-            Scout-RSVP Deadline: null
-            Scout-Message Center Due Date: null
-            Scout-Submission Due Date: '2020-04-28'
-            Scout-Closed Date: null
-            Scout-Closed Date FY: null
-            Scout-Closed Date FQ: null
-            Scout-Construction Request: false
-            Scout-Sealed Bids: false
-            Scout-Public: false
-            Scout-Days in Draft: '0.0'
-            Scout-Days in Scheduled: '0.0'
-            Scout-Days in Publish: '0.0'
-            Scout-Days in Edit: '0.0'
-            'Scout-ID #': 1
-            Scout-Project Title: Project 1
-            Scout-Project Type: 'Project Type #38'
-            Scout-Project State & Status: Planned
-            Scout-Estimated Start Date: '2020-04-28'
-            Scout-Estimated End Date: '2020-06-14'
-            Scout-Actual Start Date: null
-            Scout-Actual End Date: null
-            Scout-Last Updated Date: '2020-04-14'
-            Scout-Has Attachments: false
-            'Field #5': Some text
-        links:
-          prev: null
-          next: null
-    all_reports_response_20180401:
-      value:
-        data:
-        - id: '1'
-          type: event_reports
-          attributes:
-            title: Report 1
-            description: Report 1 description
-          links:
-            entries: https://api.us.workdayspend.com/event_reports/1/entries
-            schema: https://api.us.workdayspend.com/event_reports/1/schema
-        - id: '2'
-          type: event_reports
-          attributes:
-            title: Report 2
-            description: Report 2 description
-          links:
-            entries: https://api.us.workdayspend.com/event_reports/2/entries
-            schema: https://api.us.workdayspend.com/event_reports/2/schema
-        - id: '3'
-          type: event_reports
-          attributes:
-            title: Report 3
-            description: Report 3 description
-          links:
-            entries: https://api.us.workdayspend.com/event_reports/3/entries
-            schema: https://api.us.workdayspend.com/event_reports/3/schema
-        links:
-          prev: null
-          next: null
-    all_reports_response_20190101:
-      value:
-        errors:
-        - detail: This endpoint has been deprecated
     index_response_20190101:
       value:
         data:
@@ -764,6 +499,271 @@ components:
         links:
           prev: null
           next: null
+    all_reports_response_20180401:
+      value:
+        data:
+        - id: '1'
+          type: event_reports
+          attributes:
+            title: Report 1
+            description: Report 1 description
+          links:
+            entries: https://api.us.workdayspend.com/event_reports/1/entries
+            schema: https://api.us.workdayspend.com/event_reports/1/schema
+        - id: '2'
+          type: event_reports
+          attributes:
+            title: Report 2
+            description: Report 2 description
+          links:
+            entries: https://api.us.workdayspend.com/event_reports/2/entries
+            schema: https://api.us.workdayspend.com/event_reports/2/schema
+        - id: '3'
+          type: event_reports
+          attributes:
+            title: Report 3
+            description: Report 3 description
+          links:
+            entries: https://api.us.workdayspend.com/event_reports/3/entries
+            schema: https://api.us.workdayspend.com/event_reports/3/schema
+        links:
+          prev: null
+          next: null
+    schema_response-3:
+      value:
+        data:
+          id: event_schemas
+          type: event_schemas
+          attributes:
+            fields:
+            - type: select
+              name: Scout-Supplier Name
+            - type: text
+              name: Scout-Response ID
+            - type: select
+              name: Scout-Response Status
+            - type: text
+              name: Scout-RSVP Response
+            - type: date
+              name: Scout-Intend to Respond Date
+            - type: date
+              name: Scout-Response Submitted Date
+            - type: integer
+              name: Scout-Response Submitted Date FY
+            - type: integer
+              name: Scout-Response Submitted Date FQ
+            - type: date
+              name: Scout-Response Re-submitted Date
+            - type: integer
+              name: Scout-Response Re-submitted Date FY
+            - type: integer
+              name: Scout-Response Re-submitted Date FQ
+            - type: date
+              name: Scout-Terms Accepted Date
+            - type: text
+              name: Scout-Event ID
+            - type: text
+              name: Scout-Event Title
+            - type: select
+              name: Scout-Event Type
+            - type: select
+              name: Scout-Event Status
+            - type: select
+              name: Scout-Categories
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: currency
+              name: Scout-Savings
+            - type: currency
+              name: Scout-Spend
+            - type: text
+              name: Scout-Currency
+            - type: integer
+              name: Scout-# of Stakeholders
+            - type: text
+              name: Scout-Stakeholders List
+            - type: date
+              name: Scout-Created Date
+            - type: integer
+              name: Scout-Created Date FY
+            - type: integer
+              name: Scout-Created Date FQ
+            - type: date
+              name: Scout-Publish Date
+            - type: integer
+              name: Scout-Publish Date FY
+            - type: integer
+              name: Scout-Publish Date FQ
+            - type: date
+              name: Scout-RSVP Deadline
+            - type: date
+              name: Scout-Message Center Due Date
+            - type: date
+              name: Scout-Submission Due Date
+            - type: date
+              name: Scout-Closed Date
+            - type: integer
+              name: Scout-Closed Date FY
+            - type: integer
+              name: Scout-Closed Date FQ
+            - type: text
+              name: Scout-Construction Request
+            - type: text
+              name: Scout-Sealed Bids
+            - type: text
+              name: Scout-Public
+            - type: integer
+              name: Scout-Days in Draft
+            - type: integer
+              name: Scout-Days in Scheduled
+            - type: integer
+              name: Scout-Days in Publish
+            - type: integer
+              name: Scout-Days in Edit
+            - type: text
+              name: 'Scout-ID #'
+            - type: text
+              name: Scout-Project Title
+            - type: select
+              name: Scout-Project Type
+            - type: select
+              name: Scout-Project State & Status
+            - type: date
+              name: Scout-Estimated Start Date
+            - type: date
+              name: Scout-Estimated End Date
+            - type: date
+              name: Scout-Actual Start Date
+            - type: date
+              name: Scout-Actual End Date
+            - type: date
+              name: Scout-Last Updated Date
+            - type: text
+              name: Scout-Has Attachments
+            - type: string
+              name: 'Field #11'
+    index_response_20180401:
+      value:
+        data:
+        - id: 1-1
+          type: event_report_entries
+          attributes:
+            Scout-Supplier Name: Carolina Fisher's General Store
+            Scout-Response ID: 1
+            Scout-Response Status: Unclaimed
+            Scout-RSVP Response: null
+            Scout-Intend to Respond Date: null
+            Scout-Response Submitted Date: null
+            Scout-Response Submitted Date FY: null
+            Scout-Response Submitted Date FQ: null
+            Scout-Response Re-submitted Date: null
+            Scout-Response Re-submitted Date FY: null
+            Scout-Response Re-submitted Date FQ: null
+            Scout-Terms Accepted Date: null
+            Scout-Event ID: 1
+            Scout-Event Title: Event
+            Scout-Event Type: RFP
+            Scout-Event Status: Draft
+            Scout-Categories: null
+            Scout-Sourcing Owner: Ardella Ernser
+            Scout-Savings: '100.0'
+            Scout-Spend: '1000.0'
+            Scout-Currency: USD $
+            Scout-# of Stakeholders: 1
+            Scout-Stakeholders List: Ardella Ernser
+            Scout-Created Date: '2020-04-14'
+            Scout-Created Date FY: 2020
+            Scout-Created Date FQ: 2
+            Scout-Publish Date: '2020-04-14'
+            Scout-Publish Date FY: 2020
+            Scout-Publish Date FQ: 2
+            Scout-RSVP Deadline: null
+            Scout-Message Center Due Date: null
+            Scout-Submission Due Date: '2020-04-28'
+            Scout-Closed Date: null
+            Scout-Closed Date FY: null
+            Scout-Closed Date FQ: null
+            Scout-Construction Request: false
+            Scout-Sealed Bids: false
+            Scout-Public: false
+            Scout-Days in Draft: '0.0'
+            Scout-Days in Scheduled: '0.0'
+            Scout-Days in Publish: '0.0'
+            Scout-Days in Edit: '0.0'
+            'Scout-ID #': 1
+            Scout-Project Title: Project 1
+            Scout-Project Type: 'Project Type #38'
+            Scout-Project State & Status: Planned
+            Scout-Estimated Start Date: '2020-04-28'
+            Scout-Estimated End Date: '2020-06-14'
+            Scout-Actual Start Date: null
+            Scout-Actual End Date: null
+            Scout-Last Updated Date: '2020-04-14'
+            Scout-Has Attachments: false
+            'Field #5': Some text
+        - id: 2-1
+          type: event_report_entries
+          attributes:
+            Scout-Supplier Name: Priscila Collins's General Store
+            Scout-Response ID: 2
+            Scout-Response Status: Unclaimed
+            Scout-RSVP Response: null
+            Scout-Intend to Respond Date: null
+            Scout-Response Submitted Date: null
+            Scout-Response Submitted Date FY: null
+            Scout-Response Submitted Date FQ: null
+            Scout-Response Re-submitted Date: null
+            Scout-Response Re-submitted Date FY: null
+            Scout-Response Re-submitted Date FQ: null
+            Scout-Terms Accepted Date: null
+            Scout-Event ID: 1
+            Scout-Event Title: Event
+            Scout-Event Type: RFP
+            Scout-Event Status: Draft
+            Scout-Categories: null
+            Scout-Sourcing Owner: Ardella Ernser
+            Scout-Savings: '100.0'
+            Scout-Spend: '1000.0'
+            Scout-Currency: USD $
+            Scout-# of Stakeholders: 1
+            Scout-Stakeholders List: Ardella Ernser
+            Scout-Created Date: '2020-04-14'
+            Scout-Created Date FY: 2020
+            Scout-Created Date FQ: 2
+            Scout-Publish Date: '2020-04-14'
+            Scout-Publish Date FY: 2020
+            Scout-Publish Date FQ: 2
+            Scout-RSVP Deadline: null
+            Scout-Message Center Due Date: null
+            Scout-Submission Due Date: '2020-04-28'
+            Scout-Closed Date: null
+            Scout-Closed Date FY: null
+            Scout-Closed Date FQ: null
+            Scout-Construction Request: false
+            Scout-Sealed Bids: false
+            Scout-Public: false
+            Scout-Days in Draft: '0.0'
+            Scout-Days in Scheduled: '0.0'
+            Scout-Days in Publish: '0.0'
+            Scout-Days in Edit: '0.0'
+            'Scout-ID #': 1
+            Scout-Project Title: Project 1
+            Scout-Project Type: 'Project Type #38'
+            Scout-Project State & Status: Planned
+            Scout-Estimated Start Date: '2020-04-28'
+            Scout-Estimated End Date: '2020-06-14'
+            Scout-Actual Start Date: null
+            Scout-Actual End Date: null
+            Scout-Last Updated Date: '2020-04-14'
+            Scout-Has Attachments: false
+            'Field #5': Some text
+        links:
+          prev: null
+          next: null
+    all_reports_response_20190101:
+      value:
+        errors:
+        - detail: This endpoint has been deprecated
   securitySchemes:
     api_key:
       type: apiKey

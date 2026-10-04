@@ -79,94 +79,6 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Contract Report Schema
 components:
-  schemas:
-    ReportSchemaField:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    ContractReportEntryId:
-      description: Contract Report identifier string.
-      example: 1
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
-    ContractReportEntryAttributes:
-      description: Contract Report Entry attributes. See example response and schema.
-      properties: {}
-    ContractReportEntry:
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ContractReportEntryType'
-        id:
-          $ref: '#/components/schemas/ContractReportEntryId'
-        attributes:
-          $ref: '#/components/schemas/ContractReportEntryAttributes'
-    ContractReportEntryFieldModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Object ID, should always be `contract_schemas`.
-        type:
-          type: string
-          description: Object type, should always be `contract_schemas`.
-        attributes:
-          $ref: '#/components/schemas/ReportSchemaFieldModel'
-    ContractReportEntryType:
-      description: Object type, should always be `contract_report_entries`.
-      example: contract_report_entries
   examples:
     schema_response-2:
       value:
@@ -537,6 +449,94 @@ components:
         links:
           prev: null
           next: null
+  schemas:
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    ContractReportEntryAttributes:
+      description: Contract Report Entry attributes. See example response and schema.
+      properties: {}
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    ContractReportEntryId:
+      description: Contract Report identifier string.
+      example: 1
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ContractReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `contract_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `contract_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+    ContractReportEntryType:
+      description: Object type, should always be `contract_report_entries`.
+      example: contract_report_entries
+    ContractReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractReportEntryType'
+        id:
+          $ref: '#/components/schemas/ContractReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/ContractReportEntryAttributes'
   securitySchemes:
     api_key:
       type: apiKey

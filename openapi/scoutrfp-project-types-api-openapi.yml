@@ -100,64 +100,6 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Get a Project Type
 components:
-  schemas:
-    ProjectTypeBase:
-      title: ProjectType
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ProjectTypeType'
-        id:
-          $ref: '#/components/schemas/ProjectTypeId'
-    ProjectTypeType:
-      type: string
-      description: Object type, should always be `project_types`.
-      example: project_types
-    ResourceLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-    SelfLink:
-      type: object
-      properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    ProjectTypeId:
-      type: integer
-      description: Project type identifier string.
-      example: 1
-    ProjectTypeAttributes:
-      type: object
-      description: Project type attributes.
-      required:
-      - name
-      - shortcode
-      properties:
-        name:
-          type: string
-          maxLength: 255
-          description: Project type name.
-          example: My Project Type
-        shortcode:
-          type: string
-          maxLength: 4
-          description: Contract type short code.
-          example: PRJA
-    ProjectTypeModel:
-      allOf:
-      - $ref: '#/components/schemas/ProjectTypeBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/ProjectTypeAttributes'
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
   examples:
     show_response-2:
       value:
@@ -190,6 +132,64 @@ components:
             self: https://api.us.workdayspend.com/services/projects/v1/project_types/2
         links:
           self: https://api.us.workdayspend.com/services/projects/v1/project_types
+  schemas:
+    ProjectTypeAttributes:
+      type: object
+      description: Project type attributes.
+      required:
+      - name
+      - shortcode
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Project type name.
+          example: My Project Type
+        shortcode:
+          type: string
+          maxLength: 4
+          description: Contract type short code.
+          example: PRJA
+    ProjectTypeBase:
+      title: ProjectType
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ProjectTypeType'
+        id:
+          $ref: '#/components/schemas/ProjectTypeId'
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    ProjectTypeId:
+      type: integer
+      description: Project type identifier string.
+      example: 1
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    ProjectTypeModel:
+      allOf:
+      - $ref: '#/components/schemas/ProjectTypeBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/ProjectTypeAttributes'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    ProjectTypeType:
+      type: string
+      description: Object type, should always be `project_types`.
+      example: project_types
   securitySchemes:
     api_key:
       type: apiKey

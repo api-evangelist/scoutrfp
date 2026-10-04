@@ -215,10 +215,6 @@ components:
           $ref: '#/components/schemas/SupplierCompanyType'
         id:
           $ref: '#/components/schemas/SupplierCompanyId'
-    SupplierCompanyType:
-      type: string
-      description: Object type, should always be `supplier_companies`.
-      example: supplier_companies
     ExternalSupplierCompanyBase:
       title: ExternalSupplierCompany
       type: object
@@ -230,16 +226,20 @@ components:
           $ref: '#/components/schemas/ExternalSupplierCompanyType'
         id:
           $ref: '#/components/schemas/ExternalSupplierCompanyId'
-    ExternalSupplierCompanyId:
-      type: integer
-      description: Supplier company external identifier string.
-      example: 1
     ExternalSupplierCompanyType:
       type: string
       description: Object type, should always be `supplier_companies`.
       example: supplier_companies
+    ExternalSupplierCompanyId:
+      type: integer
+      description: Supplier company external identifier string.
+      example: 1
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
   examples:
-    create_request-2:
+    delete_request:
       value:
         data:
         - type: supplier_companies
@@ -253,7 +253,7 @@ components:
           id: SUP5
         - type: supplier_companies
           id: SUP11
-    delete_request:
+    create_request-2:
       value:
         data:
         - type: supplier_companies

@@ -362,16 +362,31 @@ paths:
       x-operation-id-original: Delete a Line Item
 components:
   schemas:
-    LineItemId:
-      type: integer
-      description: LineItem identifier string.
-      example: 1
-    Error:
+    Errors:
       type: object
       properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    LineItemRelationship:
+      type: object
+      description: Line item relationship.
+      properties:
+        worksheet:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/WorksheetBase'
     SelfLink:
       type: object
       properties:
@@ -379,51 +394,6 @@ components:
           type: string
           format: url
           description: Normalized link to the resource.
-    WorksheetId:
-      type: integer
-      description: Worksheet identifier string.
-      example: 1
-    PaginationLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    LineItemCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/LineItemType'
-        attributes:
-          $ref: '#/components/schemas/LineItemAttributes'
-        relationships:
-          $ref: '#/components/schemas/LineItemRelationship'
-    Pagination:
-      type: object
-      properties:
-        meta:
-          type: object
-          description: Result set metadata.
-          properties:
-            count:
-              type: integer
-              description: Number of pages in the result set.
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    LineItemBase:
-      title: LineItem
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/LineItemType'
-        id:
-          $ref: '#/components/schemas/LineItemId'
     LineItemAttributes:
       type: object
       description: LineItem attributes.
@@ -444,30 +414,51 @@ components:
             and values are cell values.
 
             '
-    WorksheetBase:
-      title: Worksheet
+    LineItemBase:
+      title: LineItem
       type: object
       required:
       - type
       - id
       properties:
         type:
-          $ref: '#/components/schemas/WorksheetType'
+          $ref: '#/components/schemas/LineItemType'
         id:
-          $ref: '#/components/schemas/WorksheetId'
-    LineItemRelationship:
-      type: object
-      description: Line item relationship.
-      properties:
-        worksheet:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/WorksheetBase'
-    LineItemType:
+          $ref: '#/components/schemas/LineItemId'
+    LineItemId:
+      type: integer
+      description: LineItem identifier string.
+      example: 1
+    WorksheetType:
       type: string
-      description: Object type, should always be `line_items`.
-      example: line_items
+      description: Object type, should always be `worksheets`.
+      example: worksheets
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    WorksheetId:
+      type: integer
+      description: Worksheet identifier string.
+      example: 1
     LineItemUpdate:
       type: object
       required:
@@ -482,29 +473,6 @@ components:
           $ref: '#/components/schemas/LineItemAttributes'
         relationships:
           $ref: '#/components/schemas/LineItemRelationship'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-          deprecated: true
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    WorksheetType:
-      type: string
-      description: Object type, should always be `worksheets`.
-      example: worksheets
     LineItem:
       allOf:
       - $ref: '#/components/schemas/LineItemBase'
@@ -512,50 +480,46 @@ components:
         properties:
           attributes:
             $ref: '#/components/schemas/LineItemAttributes'
-    Errors:
+    WorksheetBase:
+      title: Worksheet
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/WorksheetType'
+        id:
+          $ref: '#/components/schemas/WorksheetId'
+    LineItemCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/LineItemType'
+        attributes:
+          $ref: '#/components/schemas/LineItemAttributes'
+        relationships:
+          $ref: '#/components/schemas/LineItemRelationship'
+    Error:
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    LineItemType:
+      type: string
+      description: Object type, should always be `line_items`.
+      example: line_items
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
   examples:
-    create_response-2:
-      value:
-        data:
-          id: '1'
-          type: line_items
-          attributes:
-            data:
-              c1: Amazing Product
-              c2: items
-              c3: 14
-              c4: 0
-    bulk_create_request:
-      value:
-        data:
-        - type: line_items
-          attributes:
-            data:
-              c1: Product One
-              c2: items
-              c3: 14
-        - type: line_items
-          attributes:
-            data:
-              c1: Product Two
-              c2: items
-              c3: 1
-    show_response-4:
-      value:
-        data:
-          id: '1'
-          type: line_items
-          attributes:
-            data:
-              c1: Amazing Product
-              c2: 10
-              c3: items
     bulk_create_response:
       value:
         data:
@@ -574,17 +538,6 @@ components:
               c1: Product Two
               c2: items
               c3: 1
-              c4: 0
-    update_response-2:
-      value:
-        data:
-          id: '1'
-          type: line_items
-          attributes:
-            data:
-              c1: Painfully Amazing Product
-              c2: 24
-              c3: items
               c4: 0
     index_response-4:
       value:
@@ -619,6 +572,16 @@ components:
               data:
                 type: worksheets
                 id: '1'
+    show_response-4:
+      value:
+        data:
+          id: '1'
+          type: line_items
+          attributes:
+            data:
+              c1: Amazing Product
+              c2: 10
+              c3: items
     update_request-2:
       value:
         data:
@@ -634,6 +597,43 @@ components:
               data:
                 type: worksheets
                 id: '1'
+    bulk_create_request:
+      value:
+        data:
+        - type: line_items
+          attributes:
+            data:
+              c1: Product One
+              c2: items
+              c3: 14
+        - type: line_items
+          attributes:
+            data:
+              c1: Product Two
+              c2: items
+              c3: 1
+    create_response-2:
+      value:
+        data:
+          id: '1'
+          type: line_items
+          attributes:
+            data:
+              c1: Amazing Product
+              c2: items
+              c3: 14
+              c4: 0
+    update_response-2:
+      value:
+        data:
+          id: '1'
+          type: line_items
+          attributes:
+            data:
+              c1: Painfully Amazing Product
+              c2: 24
+              c3: items
+              c4: 0
   securitySchemes:
     api_key:
       type: apiKey

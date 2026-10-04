@@ -211,25 +211,18 @@ paths:
       x-operation-id-original: Remove Suppliers using Contacts External IDs
 components:
   schemas:
-    SupplierContactExternalId:
-      type: string
-      description: Supplier contact external identifier.
-      example: 1234-5678-abcd-efgh
-    ExternalSupplierContactBase:
-      title: ExternalSupplierContact
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierContactType'
-        id:
-          $ref: '#/components/schemas/SupplierContactExternalId'
     SupplierContactId:
       type: integer
       description: Supplier contact identifier string.
       example: 1
+    SupplierContactExternalId:
+      type: string
+      description: Supplier contact external identifier.
+      example: 1234-5678-abcd-efgh
+    SupplierContactType:
+      type: string
+      description: Object type, should always be `supplier_contacts`.
+      example: supplier_contacts
     SupplierContactBase:
       title: SupplierContact
       type: object
@@ -241,10 +234,17 @@ components:
           $ref: '#/components/schemas/SupplierContactType'
         id:
           $ref: '#/components/schemas/SupplierContactId'
-    SupplierContactType:
-      type: string
-      description: Object type, should always be `supplier_contacts`.
-      example: supplier_contacts
+    ExternalSupplierContactBase:
+      title: ExternalSupplierContact
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierContactType'
+        id:
+          $ref: '#/components/schemas/SupplierContactExternalId'
   examples:
     delete_request-2:
       value:
@@ -253,14 +253,14 @@ components:
           id: '10'
         - type: supplier_contacts
           id: '17'
-    external_create_request-2:
+    external_delete_request-2:
       value:
         data:
         - type: supplier_contacts
           id: SUPC10
         - type: supplier_contacts
           id: SUPC17
-    external_delete_request-2:
+    external_create_request-2:
       value:
         data:
         - type: supplier_contacts

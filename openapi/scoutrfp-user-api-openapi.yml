@@ -439,6 +439,37 @@ paths:
       x-operation-id-original: Deactivate a user
 components:
   examples:
+    create_response:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        id: 2819c223-7f76-453a-919d-413861904646
+        externalId: '701984'
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Jensen
+        active: true
+        roles:
+        - value: company_admin
+          display: Company Admin
+          primary: true
+          type: primary
+        meta:
+          resourceType: User
+          created: '2010-01-23T04:56:22Z'
+          lastModified: '2011-05-13T04:42:34Z'
+          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
+    patch_request:
+      value:
+        schemas:
+        - urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+        - op: replace
+          value:
+            externalId: EXT701984
+            name:
+              familyName: Johnson
     replace_request:
       value:
         schemas:
@@ -449,38 +480,7 @@ components:
           givenName: Barbara
           familyName: Johnson
         active: true
-    create_request:
-      value:
-        schemas:
-        - urn:ietf:params:scim:schemas:core:2.0:User
-        externalId: '701984'
-        userName: bjensen@example.com
-        name:
-          givenName: Barbara
-          familyName: Jensen
-        active: true
     patch_response:
-      value:
-        schemas:
-        - urn:ietf:params:scim:schemas:core:2.0:User
-        id: 2819c223-7f76-453a-919d-413861904646
-        externalId: EXT701984
-        userName: bjensen@example.com
-        name:
-          givenName: Barbara
-          familyName: Johnson
-        active: true
-        roles:
-        - value: company_admin
-          display: Company Admin
-          primary: true
-          type: primary
-        meta:
-          resourceType: User
-          created: '2010-01-23T04:56:22Z'
-          lastModified: '2011-06-13T04:42:34Z'
-          location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
-    replace_response:
       value:
         schemas:
         - urn:ietf:params:scim:schemas:core:2.0:User
@@ -547,16 +547,6 @@ components:
             location: https://api.us.workdayspend.com/scim/v2/Users/552245
           schemas:
           - urn:ietf:params:scim:schemas:core:2.0:User
-    patch_request:
-      value:
-        schemas:
-        - urn:ietf:params:scim:api:messages:2.0:PatchOp
-        Operations:
-        - op: replace
-          value:
-            externalId: EXT701984
-            name:
-              familyName: Johnson
     show_response:
       value:
         schemas:
@@ -578,16 +568,16 @@ components:
           created: '2010-01-23T04:56:22Z'
           lastModified: '2011-05-13T04:42:34Z'
           location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
-    create_response:
+    replace_response:
       value:
         schemas:
         - urn:ietf:params:scim:schemas:core:2.0:User
         id: 2819c223-7f76-453a-919d-413861904646
-        externalId: '701984'
+        externalId: EXT701984
         userName: bjensen@example.com
         name:
           givenName: Barbara
-          familyName: Jensen
+          familyName: Johnson
         active: true
         roles:
         - value: company_admin
@@ -597,9 +587,122 @@ components:
         meta:
           resourceType: User
           created: '2010-01-23T04:56:22Z'
-          lastModified: '2011-05-13T04:42:34Z'
+          lastModified: '2011-06-13T04:42:34Z'
           location: https://api.us.workdayspend.com/scim/v2/Users/2819c223-7f76-453a-919d-413861904646
+    create_request:
+      value:
+        schemas:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        externalId: '701984'
+        userName: bjensen@example.com
+        name:
+          givenName: Barbara
+          familyName: Jensen
+        active: true
   schemas:
+    BasicListResponse:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
+        startIndex:
+          type: integer
+          description: The 1-based index of the first result in the current set of search results
+        itemsPerPage:
+          type: integer
+          description: The number of resources returned in a results page
+    Meta:
+      type: object
+      properties:
+        resourceType:
+          type: string
+        created:
+          type: string
+        lastModified:
+          type: string
+        location:
+          type: string
+      description: Descriptive information about a resource.
+    UserListResponse:
+      description: Results for users search. See section 3.4.2.4 of RFC 7644
+      allOf:
+      - $ref: '#/components/schemas/BasicListResponse'
+      - type: object
+        properties:
+          Resources:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserResource'
+    Name:
+      type: object
+      required:
+      - familyName
+      - givenName
+      properties:
+        familyName:
+          type: string
+        givenName:
+          type: string
+      description: Name compound object
+    Role:
+      type: object
+      properties:
+        value:
+          type: string
+        display:
+          type: string
+        type:
+          type: string
+        primary:
+          type: boolean
+      description: Role. See section 4.1 of RFC 7643
+    UserBase:
+      type: object
+      required:
+      - userName
+      - name
+      properties:
+        externalId:
+          type: string
+          description: Identifier of the resource useful from the perspective of the provisioning client.
+        userName:
+          type: string
+          description: Email for the user
+        name:
+          $ref: '#/components/schemas/Name'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+          description: Roles assigned to User (read-only). See section 4.1 of RFC 7643
+          readOnly: true
+        active:
+          type: boolean
+    PatchOperation:
+      required:
+      - op
+      type: object
+      properties:
+        op:
+          type: string
+          description: The kind of operation to perform
+          enum:
+          - add
+          - remove
+          - replace
+        path:
+          type: string
+          description: Required when op is remove, optional otherwise
+        value:
+          $ref: '#/components/schemas/AnyValue'
+          description: Only required when op is add or replace
+      description: See section 3.5.2 of RFC 7644
     ErrorResponse:
       required:
       - status
@@ -622,20 +725,6 @@ components:
           type: string
           description: A detailed human-readable message of the error
       description: See section 3.12 of RFC 7644
-    AnyValue:
-      description: Can be any value - string, number, boolean, array or object
-    Meta:
-      type: object
-      properties:
-        resourceType:
-          type: string
-        created:
-          type: string
-        lastModified:
-          type: string
-        location:
-          type: string
-      description: Descriptive information about a resource.
     UserListInputFilter:
       type: object
       properties:
@@ -689,43 +778,6 @@ components:
               type: string
               description: Logical "not"
           description: Operators to filter with.
-    UserBase:
-      type: object
-      required:
-      - userName
-      - name
-      properties:
-        externalId:
-          type: string
-          description: Identifier of the resource useful from the perspective of the provisioning client.
-        userName:
-          type: string
-          description: Email for the user
-        name:
-          $ref: '#/components/schemas/Name'
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/Role'
-          description: Roles assigned to User (read-only). See section 4.1 of RFC 7643
-          readOnly: true
-        active:
-          type: boolean
-    UserListResponse:
-      description: Results for users search. See section 3.4.2.4 of RFC 7644
-      allOf:
-      - $ref: '#/components/schemas/BasicListResponse'
-      - type: object
-        properties:
-          Resources:
-            type: array
-            items:
-              $ref: '#/components/schemas/UserResource'
-    UserResource:
-      description: Represents a user resource. See section 4.1 of RFC 7643
-      allOf:
-      - $ref: '#/components/schemas/BaseResource'
-      - $ref: '#/components/schemas/UserBase'
     BaseResource:
       type: object
       properties:
@@ -739,18 +791,6 @@ components:
           description: A unique identifier for a SCIM resource. It should be treated as a non-sequential opaque string of varying length.
         meta:
           $ref: '#/components/schemas/Meta'
-    Role:
-      type: object
-      properties:
-        value:
-          type: string
-        display:
-          type: string
-        type:
-          type: string
-        primary:
-          type: boolean
-      description: Role. See section 4.1 of RFC 7643
     PatchRequest:
       description: Stores one or more patch operations
       required:
@@ -766,53 +806,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PatchOperation'
-    PatchOperation:
-      required:
-      - op
-      type: object
-      properties:
-        op:
-          type: string
-          description: The kind of operation to perform
-          enum:
-          - add
-          - remove
-          - replace
-        path:
-          type: string
-          description: Required when op is remove, optional otherwise
-        value:
-          $ref: '#/components/schemas/AnyValue'
-          description: Only required when op is add or replace
-      description: See section 3.5.2 of RFC 7644
-    BasicListResponse:
-      type: object
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
-        totalResults:
-          type: integer
-          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
-        startIndex:
-          type: integer
-          description: The 1-based index of the first result in the current set of search results
-        itemsPerPage:
-          type: integer
-          description: The number of resources returned in a results page
-    Name:
-      type: object
-      required:
-      - familyName
-      - givenName
-      properties:
-        familyName:
-          type: string
-        givenName:
-          type: string
-      description: Name compound object
+    UserResource:
+      description: Represents a user resource. See section 4.1 of RFC 7643
+      allOf:
+      - $ref: '#/components/schemas/BaseResource'
+      - $ref: '#/components/schemas/UserBase'
+    AnyValue:
+      description: Can be any value - string, number, boolean, array or object
   securitySchemes:
     api_key:
       type: apiKey

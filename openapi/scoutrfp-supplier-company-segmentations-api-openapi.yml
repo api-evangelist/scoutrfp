@@ -229,58 +229,16 @@ paths:
       x-operation-id-original: Delete a Supplier Company Segmentation
 components:
   schemas:
-    SupplierCompanySegmentationUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanySegmentationType'
-        id:
-          $ref: '#/components/schemas/SupplierCompanySegmentationId'
-        attributes:
-          $ref: '#/components/schemas/SupplierCompanySegmentationAttributes'
     Error:
       type: object
       properties:
         detail:
           type: string
           description: A human-readable explanation specific to this occurrence of the problem.
-    SupplierCompanySegmentationCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanySegmentationType'
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/SupplierCompanySegmentationCreateAttributes'
-          - type: object
-            required:
-            - label
-            - order
-    SupplierCompanySegmentationAttributes:
-      type: object
-      description: Supplier company segmentation attributes.
-      required:
-      - label
-      - order
-      properties:
-        label:
-          type: string
-          maxLength: 255
-          description: Supplier company segmentation label.
-          example: Tier 1
-        order:
-          type: integer
-          description: Supplier company segmentation order
-          example: 1
-    SupplierCompanySegmentationType:
-      type: string
-      description: Object type, should always be `supplier_company_segmentations`.
-      example: supplier_company_segmentations
+    SupplierCompanySegmentationId:
+      type: integer
+      description: Supplier company segmentation identifier string.
+      example: 1
     SupplierCompanySegmentation:
       allOf:
       - $ref: '#/components/schemas/SupplierCompanySegmentationBase'
@@ -288,6 +246,13 @@ components:
         properties:
           attributes:
             $ref: '#/components/schemas/SupplierCompanySegmentationCreateAttributes'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     SupplierCompanySegmentationCreateAttributes:
       type: object
       description: Supplier company segmentation attributes.
@@ -309,10 +274,6 @@ components:
           maxLength: 255
           description: Supplier company segmentation slug.
           example: tier_1
-    SupplierCompanySegmentationId:
-      type: integer
-      description: Supplier company segmentation identifier string.
-      example: 1
     SupplierCompanySegmentationBase:
       title: Field
       type: object
@@ -324,14 +285,61 @@ components:
           $ref: '#/components/schemas/SupplierCompanySegmentationType'
         id:
           $ref: '#/components/schemas/SupplierCompanySegmentationId'
-    Errors:
+    SupplierCompanySegmentationType:
+      type: string
+      description: Object type, should always be `supplier_company_segmentations`.
+      example: supplier_company_segmentations
+    SupplierCompanySegmentationAttributes:
       type: object
+      description: Supplier company segmentation attributes.
+      required:
+      - label
+      - order
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
+        label:
+          type: string
+          maxLength: 255
+          description: Supplier company segmentation label.
+          example: Tier 1
+        order:
+          type: integer
+          description: Supplier company segmentation order
+          example: 1
+    SupplierCompanySegmentationCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanySegmentationType'
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/SupplierCompanySegmentationCreateAttributes'
+          - type: object
+            required:
+            - label
+            - order
+    SupplierCompanySegmentationUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanySegmentationType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanySegmentationId'
+        attributes:
+          $ref: '#/components/schemas/SupplierCompanySegmentationAttributes'
   examples:
+    update_request-5:
+      value:
+        data:
+          type: supplier_company_segmentations
+          id: '1'
+          attributes:
+            label: Tier 16
+            order: 1
     create_with_slug_response:
       value:
         data:
@@ -343,14 +351,6 @@ components:
             slug: tier_5
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/5
-    create_with_slug_request:
-      value:
-        data:
-          type: supplier_company_segmentations
-          attributes:
-            label: Tier 5
-            order: 5
-            slug: tier_5
     create_response-5:
       value:
         data:
@@ -373,14 +373,13 @@ components:
             slug: tier_1
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/1
-    update_request-5:
+    create_request-4:
       value:
         data:
           type: supplier_company_segmentations
-          id: '1'
           attributes:
-            label: Tier 16
-            order: 1
+            label: Tier 5
+            order: 5
     index_response-5:
       value:
         data:
@@ -426,13 +425,14 @@ components:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations/5
         links:
           self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_company_segmentations
-    create_request-4:
+    create_with_slug_request:
       value:
         data:
           type: supplier_company_segmentations
           attributes:
             label: Tier 5
             order: 5
+            slug: tier_5
   securitySchemes:
     api_key:
       type: apiKey

@@ -84,40 +84,9 @@ paths:
       x-operation-id-original: Project Report Schema
 components:
   schemas:
-    ReportSchemaField:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
+    ProjectReportEntryAttributes:
+      description: Project Report Entry attributes. See example response and schema.
+      properties: {}
     NextPageLink:
       type: object
       properties:
@@ -127,27 +96,24 @@ components:
           - 'null'
           format: url
           description: Link to the next results page.
-    Pagination:
+    ReportSchemaField:
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    ReportSchemaFieldModel:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    PrevPageLink:
       type: object
       properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
-    ProjectReportEntryType:
-      description: Object type, should always be `project_report_entries`.
-      example: project_report_entries
-    ProjectReportEntryId:
-      description: Project Report identifier string.
-      example: 1
-    ProjectReportEntryAttributes:
-      description: Project Report Entry attributes. See example response and schema.
-      properties: {}
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
     ProjectReportEntry:
       type: object
       required:
@@ -160,6 +126,34 @@ components:
           $ref: '#/components/schemas/ProjectReportEntryId'
         attributes:
           $ref: '#/components/schemas/ProjectReportEntryAttributes'
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     ProjectReportEntryFieldModel:
       type: object
       properties:
@@ -171,6 +165,12 @@ components:
           description: Object type, should always be `project_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
+    ProjectReportEntryType:
+      description: Object type, should always be `project_report_entries`.
+      example: project_report_entries
+    ProjectReportEntryId:
+      description: Project Report identifier string.
+      example: 1
   examples:
     index_response-6:
       value:

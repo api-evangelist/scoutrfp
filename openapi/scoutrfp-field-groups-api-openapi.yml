@@ -227,114 +227,18 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Delete a Field Group
 components:
-  schemas:
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    FieldGroupId:
-      type: integer
-      description: Field group identifier string.
-      example: 1
-    FieldGroupCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldGroupType'
-        attributes:
-          $ref: '#/components/schemas/FieldGroupAttributes'
-    FieldGroupBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldGroupType'
-        id:
-          $ref: '#/components/schemas/FieldGroupId'
-    FieldGroupUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldGroupType'
-        id:
-          $ref: '#/components/schemas/FieldGroupId'
-        attributes:
-          $ref: '#/components/schemas/FieldGroupAttributes'
-    FieldGroupAttributes:
-      type: object
-      description: Field group attributes.
-      required:
-      - name
-      properties:
-        target_object:
-          type: string
-          enum:
-          - PROJECT
-          - SUPPLIER_COMPANY
-          - RFP
-          description: Field group object type string.
-        name:
-          type: string
-          maxLength: 255
-          description: Field group name.
-        position:
-          type: integer
-          description: Field group position on the UI.
-          readOnly: true
-    FieldGroup:
-      allOf:
-      - $ref: '#/components/schemas/FieldGroupBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/FieldGroupAttributes'
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    FieldGroupType:
-      type: string
-      description: Object type, should always be `field_groups`.
-      example: field_groups
   examples:
-    update_request-3:
-      value:
-        data:
-          id: '1'
-          type: field_groups
-          attributes:
-            name: Updated Field Group
-    create_response-3:
+    update_response-3:
       value:
         data:
           id: '1'
           type: field_groups
           attributes:
             target_object: PROJECT
-            name: Custom Group
+            name: Updated Field Group
             position: null
           links:
             self: https://api.us.workdayspend.com/services/fields/v1/field_groups/1
-    create_request-3:
-      value:
-        data:
-          type: field_groups
-          attributes:
-            target_object: PROJECT
-            name: Custom Group
     index_response-3:
       value:
         data:
@@ -356,6 +260,13 @@ components:
             self: https://api.us.workdayspend.com/services/fields/v1/field_groups/2
         links:
           self: https://api.us.workdayspend.com/services/fields/v1/field_groups
+    create_request-3:
+      value:
+        data:
+          type: field_groups
+          attributes:
+            target_object: PROJECT
+            name: Custom Group
     show_response-2:
       value:
         data:
@@ -367,17 +278,106 @@ components:
             position: null
           links:
             self: https://api.us.workdayspend.com/services/fields/v1/field_groups/1
-    update_response-3:
+    create_response-3:
       value:
         data:
           id: '1'
           type: field_groups
           attributes:
             target_object: PROJECT
-            name: Updated Field Group
+            name: Custom Group
             position: null
           links:
             self: https://api.us.workdayspend.com/services/fields/v1/field_groups/1
+    update_request-3:
+      value:
+        data:
+          id: '1'
+          type: field_groups
+          attributes:
+            name: Updated Field Group
+  schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    FieldGroupUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldGroupType'
+        id:
+          $ref: '#/components/schemas/FieldGroupId'
+        attributes:
+          $ref: '#/components/schemas/FieldGroupAttributes'
+    FieldGroupType:
+      type: string
+      description: Object type, should always be `field_groups`.
+      example: field_groups
+    FieldGroupCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldGroupType'
+        attributes:
+          $ref: '#/components/schemas/FieldGroupAttributes'
+    FieldGroupBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldGroupType'
+        id:
+          $ref: '#/components/schemas/FieldGroupId'
+    FieldGroupId:
+      type: integer
+      description: Field group identifier string.
+      example: 1
+    FieldGroup:
+      allOf:
+      - $ref: '#/components/schemas/FieldGroupBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/FieldGroupAttributes'
+    FieldGroupAttributes:
+      type: object
+      description: Field group attributes.
+      required:
+      - name
+      properties:
+        target_object:
+          type: string
+          enum:
+          - PROJECT
+          - SUPPLIER_COMPANY
+          - RFP
+          description: Field group object type string.
+        name:
+          type: string
+          maxLength: 255
+          description: Field group name.
+        position:
+          type: integer
+          description: Field group position on the UI.
+          readOnly: true
   securitySchemes:
     api_key:
       type: apiKey

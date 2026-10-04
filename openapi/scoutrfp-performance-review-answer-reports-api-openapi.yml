@@ -83,6 +83,15 @@ components:
     PerformanceReviewAnswerReportEntryAttributes:
       description: Performance Review Answer Report Entry attributes. See example response and schema.
       properties: {}
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
     ReportSchemaField:
       type: object
       properties:
@@ -92,15 +101,6 @@ components:
           type: string
           description: Field name
           example: Scout-System ID
-    PerformanceReviewAnswerReportEntryType:
-      description: Object type, should always be `performance_review_answer_report_entries`.
-      example: performance_review_answer_report_entries
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
     PerformanceReviewAnswerReportEntryFieldModel:
       type: object
       properties:
@@ -112,9 +112,6 @@ components:
           description: Object type, should always be `performance_review_answer_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
-    PerformanceReviewAnswerReportEntryId:
-      description: Performance Review Answer Report identifier string.
-      example: 1
     PrevPageLink:
       type: object
       properties:
@@ -124,15 +121,12 @@ components:
           - 'null'
           format: url
           description: Link to the previous results page.
-    NextPageLink:
+    PaginationLinks:
       type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
     ReportSchemaFieldType:
       type: string
       enum:
@@ -143,11 +137,6 @@ components:
       - string
       description: Field type
       example: string
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
     ReportSchemaFieldModel:
       type: object
       properties:
@@ -155,6 +144,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportSchemaField'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     PerformanceReviewAnswerReportEntry:
       type: object
       required:
@@ -167,6 +161,12 @@ components:
           $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryId'
         attributes:
           $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryAttributes'
+    PerformanceReviewAnswerReportEntryType:
+      description: Object type, should always be `performance_review_answer_report_entries`.
+      example: performance_review_answer_report_entries
+    PerformanceReviewAnswerReportEntryId:
+      description: Performance Review Answer Report identifier string.
+      example: 1
   examples:
     index_response-3:
       value:

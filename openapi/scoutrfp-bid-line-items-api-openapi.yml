@@ -172,248 +172,6 @@ paths:
       x-operation-id-original: Describe Bid Line Item Object
 components:
   schemas:
-    LineItemId:
-      type: integer
-      description: LineItem identifier string.
-      example: 1
-    BidBase:
-      title: Bid
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/BidType'
-        id:
-          $ref: '#/components/schemas/BidId'
-    BidLineItemInputFilter:
-      type: object
-      properties:
-        bid_id_equals:
-          type: integer
-          description: Return bid line items of a specific bid.
-          example: 1
-        event_id_equals:
-          type: integer
-          description: Return bid line items of a specific event.
-          example: 1
-    SelfLink:
-      type: object
-      properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    OpenApiEnum:
-      type: string
-      enum:
-      - string
-      - number
-      - integer
-      - boolean
-      - array
-      - object
-      description: OpenAPI data type.
-      example: string
-    EventId:
-      type: integer
-      description: Event identifier string.
-      example: 1
-    WorksheetId:
-      type: integer
-      description: Worksheet identifier string.
-      example: 1
-    EventBase:
-      title: Event
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/EventType'
-        id:
-          $ref: '#/components/schemas/EventId'
-    BidId:
-      type: integer
-      description: Bid identifier string.
-      example: 1
-    PaginationLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    BidType:
-      type: string
-      description: Object type, should always be `bids`.
-      example: bids
-    DescribeFieldAttributes:
-      type: object
-      description: Describe field attributes.
-      properties:
-        name:
-          type: string
-          maxLength: 255
-          description: Describe field name.
-          example: field_name
-        data_type:
-          $ref: '#/components/schemas/OpenApiEnum'
-        type_description:
-          $ref: '#/components/schemas/CustomFieldEnum'
-        custom_field:
-          type: boolean
-          description: Flag for determining if this is a user created custom field or an internal system field.
-          example: false
-    Pagination:
-      type: object
-      properties:
-        meta:
-          type: object
-          description: Result set metadata.
-          properties:
-            count:
-              type: integer
-              description: Number of pages in the result set.
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    LineItemBase:
-      title: LineItem
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/LineItemType'
-        id:
-          $ref: '#/components/schemas/LineItemId'
-    BidLineItemId:
-      type: integer
-      description: BidLineItem identifier string.
-      example: 1
-    CustomFieldEnum:
-      type: string
-      enum:
-      - Checkbox
-      - File
-      - Short Text
-      - Paragraph
-      - Date
-      - Integer
-      - Currency
-      - Decimal
-      - Single Select
-      - Multiple Select
-      - URL
-      - Lookup
-      - Related
-      description: Internal name and meaning of each field.
-      example: Short Text
-    EventType:
-      type: string
-      description: Object type, should always be `events`.
-      example: events
-    BidLineItem:
-      allOf:
-      - $ref: '#/components/schemas/BidLineItemBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/BidLineItemAttributes'
-          relationships:
-            $ref: '#/components/schemas/BidLineItemRelationship'
-    WorksheetBase:
-      title: Worksheet
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/WorksheetType'
-        id:
-          $ref: '#/components/schemas/WorksheetId'
-    DescribeFieldModel:
-      allOf:
-      - $ref: '#/components/schemas/DescribeFieldBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/DescribeFieldAttributes'
-    BidLineItemRelationship:
-      type: object
-      description: Bid line item relationship.
-      properties:
-        event:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/EventBase'
-        bid:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/BidBase'
-        line_item:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/LineItemBase'
-        worksheets:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/WorksheetBase'
-    LineItemType:
-      type: string
-      description: Object type, should always be `line_items`.
-      example: line_items
-    DescribeFieldType:
-      type: string
-      description: Object type, should always be `describe_fields`.
-      example: describe_fields
-    DescribeFieldBase:
-      title: DescribeFieldModel
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/DescribeFieldType'
-        id:
-          $ref: '#/components/schemas/DescribeFieldId'
-    BidLineItemFieldModel:
-      allOf:
-      - type: object
-        properties:
-          type:
-            type: string
-            description: Object type, should always be `bid_line_item_fields`.
-            example: bid_line_item_fields
-      - $ref: '#/components/schemas/DescribeFieldModel'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-          deprecated: true
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
     BidLineItemBase:
       title: BidLineItem
       type: object
@@ -425,10 +183,57 @@ components:
           $ref: '#/components/schemas/BidLineItemType'
         id:
           $ref: '#/components/schemas/BidLineItemId'
-    WorksheetType:
-      type: string
-      description: Object type, should always be `worksheets`.
-      example: worksheets
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    DescribeFieldBase:
+      title: DescribeFieldModel
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/DescribeFieldType'
+        id:
+          $ref: '#/components/schemas/DescribeFieldId'
+    BidLineItem:
+      allOf:
+      - $ref: '#/components/schemas/BidLineItemBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/BidLineItemAttributes'
+          relationships:
+            $ref: '#/components/schemas/BidLineItemRelationship'
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    LineItemBase:
+      title: LineItem
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/LineItemType'
+        id:
+          $ref: '#/components/schemas/LineItemId'
+    LineItemId:
+      type: integer
+      description: LineItem identifier string.
+      example: 1
     BidLineItemAttributes:
       type: object
       description: BidLineItem attributes.
@@ -457,72 +262,210 @@ components:
           readOnly: true
           description: Last modification date.
           example: '2019-10-29T21:28:46.790Z'
+    BidLineItemRelationship:
+      type: object
+      description: Bid line item relationship.
+      properties:
+        event:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/EventBase'
+        bid:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/BidBase'
+        line_item:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/LineItemBase'
+        worksheets:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/WorksheetBase'
+    WorksheetType:
+      type: string
+      description: Object type, should always be `worksheets`.
+      example: worksheets
+    DescribeFieldType:
+      type: string
+      description: Object type, should always be `describe_fields`.
+      example: describe_fields
     BidLineItemType:
       type: string
       description: Object type, should always be `bid_line_items`.
       example: bid_line_items
+    BidLineItemInputFilter:
+      type: object
+      properties:
+        bid_id_equals:
+          type: integer
+          description: Return bid line items of a specific bid.
+          example: 1
+        event_id_equals:
+          type: integer
+          description: Return bid line items of a specific event.
+          example: 1
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    WorksheetId:
+      type: integer
+      description: Worksheet identifier string.
+      example: 1
+    OpenApiEnum:
+      type: string
+      enum:
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
+    CustomFieldEnum:
+      type: string
+      enum:
+      - Checkbox
+      - File
+      - Short Text
+      - Paragraph
+      - Date
+      - Integer
+      - Currency
+      - Decimal
+      - Single Select
+      - Multiple Select
+      - URL
+      - Lookup
+      - Related
+      description: Internal name and meaning of each field.
+      example: Short Text
+    WorksheetBase:
+      title: Worksheet
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/WorksheetType'
+        id:
+          $ref: '#/components/schemas/WorksheetId'
+    EventId:
+      type: integer
+      description: Event identifier string.
+      example: 1
+    BidLineItemFieldModel:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            description: Object type, should always be `bid_line_item_fields`.
+            example: bid_line_item_fields
+      - $ref: '#/components/schemas/DescribeFieldModel'
+    EventType:
+      type: string
+      description: Object type, should always be `events`.
+      example: events
+    BidBase:
+      title: Bid
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/BidType'
+        id:
+          $ref: '#/components/schemas/BidId'
+    BidLineItemId:
+      type: integer
+      description: BidLineItem identifier string.
+      example: 1
+    BidType:
+      type: string
+      description: Object type, should always be `bids`.
+      example: bids
+    DescribeFieldAttributes:
+      type: object
+      description: Describe field attributes.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Describe field name.
+          example: field_name
+        data_type:
+          $ref: '#/components/schemas/OpenApiEnum'
+        type_description:
+          $ref: '#/components/schemas/CustomFieldEnum'
+        custom_field:
+          type: boolean
+          description: Flag for determining if this is a user created custom field or an internal system field.
+          example: false
+    LineItemType:
+      type: string
+      description: Object type, should always be `line_items`.
+      example: line_items
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    DescribeFieldModel:
+      allOf:
+      - $ref: '#/components/schemas/DescribeFieldBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/DescribeFieldAttributes'
+    EventBase:
+      title: Event
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/EventType'
+        id:
+          $ref: '#/components/schemas/EventId'
     DescribeFieldId:
       type: string
       description: Field identifier string.
       example: field_name
+    BidId:
+      type: integer
+      description: Bid identifier string.
+      example: 1
   examples:
-    index_response-6:
-      value:
-        data:
-        - id: '1'
-          type: bid_line_items
-          attributes:
-            data:
-              c4: 300.1
-              c5: 60.02
-            updated_at: '2021-02-24T21:42:17.783Z'
-          relationships:
-            line_item:
-              data:
-                id: '1'
-                type: line_items
-            bid:
-              data:
-                id: '1'
-                type: bids
-            event:
-              data:
-                id: '1'
-                type: events
-            worksheet:
-              data:
-                id: '1'
-                type: worksheets
-        - id: '2'
-          type: bid_line_items
-          attributes:
-            data:
-              c4: 200.44
-              c5: 50.11
-            updated_at: '2021-02-24T21:42:17.783Z'
-          relationships:
-            line_item:
-              data:
-                id: '2'
-                type: line_items
-            bid:
-              data:
-                id: '1'
-                type: bids
-            event:
-              data:
-                id: '1'
-                type: events
-            worksheet:
-              data:
-                id: '1'
-                type: worksheets
-        links:
-          self: https://api.us.workdayspend.com/services/events/v1/bids/1/bid_line_items?page%5Bsize%5D=20
-          next: https://api.us.workdayspend.com/services/events/v1/bids/1/bid_line_items?page%5Bcursor%5D=WzIxXQ&page%5Bdirection%5D=next&page%5Bsize%5D=20
-          prev: https://api.us.workdayspend.com/services/events/v1/bids/1/bid_line_items?page%5Bcursor%5D=WzJd&page%5Bdirection%5D=prev&page%5Bsize%5D=20
-        meta:
-          count: 2
     describe_response-4:
       value:
         data:
@@ -571,33 +514,6 @@ components:
         links: {}
         meta:
           count: 6
-    show_response-6:
-      value:
-        data:
-          id: '1'
-          type: bid_line_items
-          attributes:
-            data:
-              c4: 300.1
-              c5: 60.02
-            updated_at: '2021-02-24T21:42:17.783Z'
-          relationships:
-            line_item:
-              data:
-                id: '1'
-                type: line_items
-            bid:
-              data:
-                id: '1'
-                type: bids
-            event:
-              data:
-                id: '1'
-                type: events
-            worksheet:
-              data:
-                id: '1'
-                type: worksheets
     index_all_response:
       value:
         data:
@@ -653,6 +569,90 @@ components:
           self: https://api.us.workdayspend.com/services/events/v1/bid_line_items?page%5Bsize%5D=20
           next: https://api.us.workdayspend.com/services/events/v1/bid_line_items?page%5Bcursor%5D=WzIxXQ&page%5Bdirection%5D=next&page%5Bsize%5D=20
           prev: https://api.us.workdayspend.com/services/events/v1/bid_line_items?page%5Bcursor%5D=WzJd&page%5Bdirection%5D=prev&page%5Bsize%5D=20
+        meta:
+          count: 2
+    show_response-6:
+      value:
+        data:
+          id: '1'
+          type: bid_line_items
+          attributes:
+            data:
+              c4: 300.1
+              c5: 60.02
+            updated_at: '2021-02-24T21:42:17.783Z'
+          relationships:
+            line_item:
+              data:
+                id: '1'
+                type: line_items
+            bid:
+              data:
+                id: '1'
+                type: bids
+            event:
+              data:
+                id: '1'
+                type: events
+            worksheet:
+              data:
+                id: '1'
+                type: worksheets
+    index_response-6:
+      value:
+        data:
+        - id: '1'
+          type: bid_line_items
+          attributes:
+            data:
+              c4: 300.1
+              c5: 60.02
+            updated_at: '2021-02-24T21:42:17.783Z'
+          relationships:
+            line_item:
+              data:
+                id: '1'
+                type: line_items
+            bid:
+              data:
+                id: '1'
+                type: bids
+            event:
+              data:
+                id: '1'
+                type: events
+            worksheet:
+              data:
+                id: '1'
+                type: worksheets
+        - id: '2'
+          type: bid_line_items
+          attributes:
+            data:
+              c4: 200.44
+              c5: 50.11
+            updated_at: '2021-02-24T21:42:17.783Z'
+          relationships:
+            line_item:
+              data:
+                id: '2'
+                type: line_items
+            bid:
+              data:
+                id: '1'
+                type: bids
+            event:
+              data:
+                id: '1'
+                type: events
+            worksheet:
+              data:
+                id: '1'
+                type: worksheets
+        links:
+          self: https://api.us.workdayspend.com/services/events/v1/bids/1/bid_line_items?page%5Bsize%5D=20
+          next: https://api.us.workdayspend.com/services/events/v1/bids/1/bid_line_items?page%5Bcursor%5D=WzIxXQ&page%5Bdirection%5D=next&page%5Bsize%5D=20
+          prev: https://api.us.workdayspend.com/services/events/v1/bids/1/bid_line_items?page%5Bcursor%5D=WzJd&page%5Bdirection%5D=prev&page%5Bsize%5D=20
         meta:
           count: 2
   securitySchemes:

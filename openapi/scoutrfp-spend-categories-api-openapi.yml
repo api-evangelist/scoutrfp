@@ -346,154 +346,8 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Delete a Spend Category by External ID
 components:
-  schemas:
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    SpendCategoryName:
-      type: string
-      maxLength: 255
-      description: Spend category name.
-    SpendCategoryCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/SpendCategoryType'
-        attributes:
-          $ref: '#/components/schemas/SpendCategoryAttributes'
-    SpendCategory:
-      allOf:
-      - $ref: '#/components/schemas/SpendCategoryBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/SpendCategoryAttributes'
-    SelfLink:
-      type: object
-      properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    SpendCategoryUsages:
-      type: array
-      description: Spend category usages. Only spend categories with `procurement` usage can be used for requisitions.
-      items:
-        type: string
-        enum:
-        - procurement
-        - expense
-        - ad_hoc_payment
-        - supplier_invoice
-    SpendCategoryType:
-      type: string
-      description: Object type, should always be `spend_categories`.
-      example: spend_categories
-    SpendCategoryExternalId:
-      type: string
-      maxLength: 255
-      description: Spend category external identifier string.
-    PaginationLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    Pagination:
-      type: object
-      properties:
-        meta:
-          type: object
-          description: Result set metadata.
-          properties:
-            count:
-              type: integer
-              description: Number of pages in the result set.
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    SpendCategoryUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SpendCategoryType'
-        id:
-          $ref: '#/components/schemas/SpendCategoryId'
-        attributes:
-          $ref: '#/components/schemas/SpendCategoryUpdateAttributes'
-    SpendCategoryId:
-      type: integer
-      description: Spend category identifier string.
-      example: 1
-    SpendCategoryBase:
-      title: SpendCategory
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SpendCategoryType'
-        id:
-          $ref: '#/components/schemas/SpendCategoryId'
-    SpendCategoryUpdateAttributes:
-      type: object
-      description: Spend category update attributes.
-      properties:
-        name:
-          $ref: '#/components/schemas/SpendCategoryName'
-        external_id:
-          $ref: '#/components/schemas/SpendCategoryExternalId'
-        usages:
-          $ref: '#/components/schemas/SpendCategoryUsages'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-          deprecated: true
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    SpendCategoryAttributes:
-      type: object
-      description: Spend category attributes.
-      required:
-      - name
-      properties:
-        name:
-          $ref: '#/components/schemas/SpendCategoryName'
-        external_id:
-          $ref: '#/components/schemas/SpendCategoryExternalId'
-        usages:
-          $ref: '#/components/schemas/SpendCategoryUsages'
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
   examples:
-    external_update_response:
+    update_response:
       value:
         data:
           id: '1'
@@ -505,23 +359,14 @@ components:
             - procurement
           links:
             self: https://api.us.workdayspend.com/services/spend_categories/v1/spend_categories/1
-    create_request:
-      value:
-        data:
-          type: spend_categories
-          attributes:
-            name: 'Spend Category #1'
-            external_id: SP-1
-            usages:
-            - procurement
-    update_response:
+    create_response:
       value:
         data:
           id: '1'
           type: spend_categories
           attributes:
-            name: Spend Category Updated
-            external_id: SP-UPD
+            name: 'Spend Category #1'
+            external_id: SP-1
             usages:
             - procurement
           links:
@@ -538,6 +383,16 @@ components:
             - procurement
           links:
             self: https://api.us.workdayspend.com/services/spend_categories/v1/spend_categories/1
+    update_request:
+      value:
+        data:
+          type: spend_categories
+          id: '1'
+          attributes:
+            name: Spend Category Updated
+            external_id: SP-UPD
+            usages:
+            - procurement
     index_response:
       value:
         meta:
@@ -565,6 +420,18 @@ components:
           self: https://api.us.workdayspend.com/services/spend_categories/v1/spend_categories?page%5Bsize%5D=10
           next: https://api.us.workdayspend.com/services/spend_categories/v1/spend_categories?page%5Bcursor%5D=WzJd&page%5Bdirection%5D=next&page%5Bsize%5D=10
           prev: https://api.us.workdayspend.com/services/spend_categories/v1/spend_categories?page%5Bcursor%5D=WzFd&page%5Bdirection%5D=prev&page%5Bsize%5D=10
+    external_update_response:
+      value:
+        data:
+          id: '1'
+          type: spend_categories
+          attributes:
+            name: Spend Category Updated
+            external_id: SP-UPD
+            usages:
+            - procurement
+          links:
+            self: https://api.us.workdayspend.com/services/spend_categories/v1/spend_categories/1
     show_response:
       value:
         data:
@@ -587,28 +454,161 @@ components:
             external_id: SP-UPD
             usages:
             - procurement
-    update_request:
+    create_request:
       value:
         data:
-          type: spend_categories
-          id: '1'
-          attributes:
-            name: Spend Category Updated
-            external_id: SP-UPD
-            usages:
-            - procurement
-    create_response:
-      value:
-        data:
-          id: '1'
           type: spend_categories
           attributes:
             name: 'Spend Category #1'
             external_id: SP-1
             usages:
             - procurement
-          links:
-            self: https://api.us.workdayspend.com/services/spend_categories/v1/spend_categories/1
+  schemas:
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    SpendCategoryUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SpendCategoryType'
+        id:
+          $ref: '#/components/schemas/SpendCategoryId'
+        attributes:
+          $ref: '#/components/schemas/SpendCategoryUpdateAttributes'
+    SpendCategoryAttributes:
+      type: object
+      description: Spend category attributes.
+      required:
+      - name
+      properties:
+        name:
+          $ref: '#/components/schemas/SpendCategoryName'
+        external_id:
+          $ref: '#/components/schemas/SpendCategoryExternalId'
+        usages:
+          $ref: '#/components/schemas/SpendCategoryUsages'
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    SpendCategory:
+      allOf:
+      - $ref: '#/components/schemas/SpendCategoryBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SpendCategoryAttributes'
+    SpendCategoryBase:
+      title: SpendCategory
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SpendCategoryType'
+        id:
+          $ref: '#/components/schemas/SpendCategoryId'
+    SpendCategoryName:
+      type: string
+      maxLength: 255
+      description: Spend category name.
+    SpendCategoryCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/SpendCategoryType'
+        attributes:
+          $ref: '#/components/schemas/SpendCategoryAttributes'
+    SpendCategoryUpdateAttributes:
+      type: object
+      description: Spend category update attributes.
+      properties:
+        name:
+          $ref: '#/components/schemas/SpendCategoryName'
+        external_id:
+          $ref: '#/components/schemas/SpendCategoryExternalId'
+        usages:
+          $ref: '#/components/schemas/SpendCategoryUsages'
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SpendCategoryType:
+      type: string
+      description: Object type, should always be `spend_categories`.
+      example: spend_categories
+    SpendCategoryExternalId:
+      type: string
+      maxLength: 255
+      description: Spend category external identifier string.
+    SpendCategoryUsages:
+      type: array
+      description: Spend category usages. Only spend categories with `procurement` usage can be used for requisitions.
+      items:
+        type: string
+        enum:
+        - procurement
+        - expense
+        - ad_hoc_payment
+        - supplier_invoice
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    SpendCategoryId:
+      type: integer
+      description: Spend category identifier string.
+      example: 1
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
   securitySchemes:
     api_key:
       type: apiKey

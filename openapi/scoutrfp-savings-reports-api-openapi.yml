@@ -79,95 +79,74 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Savings Report Schema
 components:
-  schemas:
-    SavingsReportEntryFieldModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Object ID, should always be `savings_schemas`.
-        type:
-          type: string
-          description: Object type, should always be `savings_schemas`.
-        attributes:
-          $ref: '#/components/schemas/ReportSchemaFieldModel'
-    ReportSchemaField:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    SavingsReportEntryAttributes:
-      description: Savings Report Entry attributes. See example response and schema.
-      properties: {}
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
-    SavingsReportEntry:
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SavingsReportEntryType'
-        id:
-          $ref: '#/components/schemas/SavingsReportEntryId'
-        attributes:
-          $ref: '#/components/schemas/SavingsReportEntryAttributes'
-    SavingsReportEntryId:
-      description: Savings Report identifier string.
-      example: 1
-    SavingsReportEntryType:
-      description: Object type, should always be `savings_report_entries`.
-      example: savings_report_entries
   examples:
+    schema_response-8:
+      value:
+        data:
+          id: savings_schemas
+          type: savings_schemas
+          attributes:
+            fields:
+            - type: text
+              name: Scout-ID
+            - type: select
+              name: Scout-Savings Type
+            - type: date
+              name: Scout-Realized Date
+            - type: integer
+              name: Scout-Realized Date FY
+            - type: integer
+              name: Scout-Realized Date FQ
+            - type: date
+              name: Scout-Savings Start Date
+            - type: integer
+              name: Scout-Savings Start Date FY
+            - type: integer
+              name: Scout-Savings Start Date FQ
+            - type: date
+              name: Scout-Savings End Date
+            - type: integer
+              name: Scout-Savings End Date FY
+            - type: integer
+              name: Scout-Savings End Date FQ
+            - type: select
+              name: Scout-Frequency
+            - type: currency
+              name: Scout-Realized Savings
+            - type: currency
+              name: Scout-Projected Savings
+            - type: currency
+              name: Scout-Monthly Total
+            - type: currency
+              name: Scout-Total
+            - type: text
+              name: Scout-Savings Notes
+            - type: date
+              name: Scout-Last Updated Date
+            - type: text
+              name: 'Scout-ID #'
+            - type: text
+              name: Scout-Project Title
+            - type: select
+              name: Scout-Project Type
+            - type: select
+              name: Scout-Project Type Short Code
+            - type: select
+              name: Scout-Project State & Status
+            - type: select
+              name: Scout-Sourcing Owner
+            - type: select
+              name: Scout-Category
+            - type: select
+              name: Scout-Suppliers on Project
+            - type: date
+              name: Scout-Actual Start Date
+            - type: date
+              name: Scout-Actual End Date
+            - type: currency
+              name: Scout-Estimated Savings
+            - type: string
+              name: 'Field #23'
     index_response-7:
       value:
         data:
@@ -279,73 +258,94 @@ components:
         links:
           prev: null
           next: null
-    schema_response-8:
-      value:
-        data:
-          id: savings_schemas
-          type: savings_schemas
-          attributes:
-            fields:
-            - type: text
-              name: Scout-ID
-            - type: select
-              name: Scout-Savings Type
-            - type: date
-              name: Scout-Realized Date
-            - type: integer
-              name: Scout-Realized Date FY
-            - type: integer
-              name: Scout-Realized Date FQ
-            - type: date
-              name: Scout-Savings Start Date
-            - type: integer
-              name: Scout-Savings Start Date FY
-            - type: integer
-              name: Scout-Savings Start Date FQ
-            - type: date
-              name: Scout-Savings End Date
-            - type: integer
-              name: Scout-Savings End Date FY
-            - type: integer
-              name: Scout-Savings End Date FQ
-            - type: select
-              name: Scout-Frequency
-            - type: currency
-              name: Scout-Realized Savings
-            - type: currency
-              name: Scout-Projected Savings
-            - type: currency
-              name: Scout-Monthly Total
-            - type: currency
-              name: Scout-Total
-            - type: text
-              name: Scout-Savings Notes
-            - type: date
-              name: Scout-Last Updated Date
-            - type: text
-              name: 'Scout-ID #'
-            - type: text
-              name: Scout-Project Title
-            - type: select
-              name: Scout-Project Type
-            - type: select
-              name: Scout-Project Type Short Code
-            - type: select
-              name: Scout-Project State & Status
-            - type: select
-              name: Scout-Sourcing Owner
-            - type: select
-              name: Scout-Category
-            - type: select
-              name: Scout-Suppliers on Project
-            - type: date
-              name: Scout-Actual Start Date
-            - type: date
-              name: Scout-Actual End Date
-            - type: currency
-              name: Scout-Estimated Savings
-            - type: string
-              name: 'Field #23'
+  schemas:
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    SavingsReportEntryAttributes:
+      description: Savings Report Entry attributes. See example response and schema.
+      properties: {}
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    SavingsReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `savings_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `savings_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SavingsReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SavingsReportEntryType'
+        id:
+          $ref: '#/components/schemas/SavingsReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/SavingsReportEntryAttributes'
+    SavingsReportEntryType:
+      description: Object type, should always be `savings_report_entries`.
+      example: savings_report_entries
+    SavingsReportEntryId:
+      description: Savings Report identifier string.
+      example: 1
   securitySchemes:
     api_key:
       type: apiKey

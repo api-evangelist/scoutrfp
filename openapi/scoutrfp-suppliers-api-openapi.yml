@@ -105,91 +105,6 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Single supplier
 components:
-  schemas:
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    SupplierType:
-      description: Object type, should always be `suppliers`.
-      example: suppliers
-    Supplier:
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierType'
-        id:
-          $ref: '#/components/schemas/SupplierId'
-        attributes:
-          $ref: '#/components/schemas/SupplierAttributes'
-        relationships:
-          properties:
-            contacts:
-              type: array
-              items:
-                $ref: '#/components/schemas/SupplierContactReference'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    SupplierId:
-      description: Supplier identifier string.
-      example: 1
-    SupplierContactId:
-      description: Supplier contact identifier string.
-      example: 1
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    SupplierAttributes:
-      description: Supplier attributes. See example response.
-      properties:
-        name:
-          type: string
-        custom_fields:
-          type: array
-          items:
-            properties:
-              name:
-                description: Name of custom field
-              value:
-                description: Value of custom field
-    SupplierContactType:
-      description: Object type, should always be `supplier_contacts`.
-      example: supplier_contacts
-    SupplierContactReference:
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        data:
-          properties:
-            type:
-              $ref: '#/components/schemas/SupplierContactType'
-            id:
-              $ref: '#/components/schemas/SupplierContactId'
   examples:
     index_response-10:
       value:
@@ -250,6 +165,91 @@ components:
               data:
               - id: '59'
                 type: supplier_contacts
+  schemas:
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    Supplier:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierType'
+        id:
+          $ref: '#/components/schemas/SupplierId'
+        attributes:
+          $ref: '#/components/schemas/SupplierAttributes'
+        relationships:
+          properties:
+            contacts:
+              type: array
+              items:
+                $ref: '#/components/schemas/SupplierContactReference'
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    SupplierContactType:
+      description: Object type, should always be `supplier_contacts`.
+      example: supplier_contacts
+    SupplierAttributes:
+      description: Supplier attributes. See example response.
+      properties:
+        name:
+          type: string
+        custom_fields:
+          type: array
+          items:
+            properties:
+              name:
+                description: Name of custom field
+              value:
+                description: Value of custom field
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SupplierId:
+      description: Supplier identifier string.
+      example: 1
+    SupplierType:
+      description: Object type, should always be `suppliers`.
+      example: suppliers
+    SupplierContactReference:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        data:
+          properties:
+            type:
+              $ref: '#/components/schemas/SupplierContactType'
+            id:
+              $ref: '#/components/schemas/SupplierContactId'
+    SupplierContactId:
+      description: Supplier contact identifier string.
+      example: 1
   securitySchemes:
     api_key:
       type: apiKey

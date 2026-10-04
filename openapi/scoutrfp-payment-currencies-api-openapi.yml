@@ -269,13 +269,23 @@ paths:
       x-operation-id-original: Delete a Payment Currency by External ID
 components:
   schemas:
-    Error:
+    PaymentCurrencyId:
+      type: integer
+      description: Payment currency identifier string.
+      example: 1
+    Errors:
       type: object
       properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    PaymentCurrencyUpdate:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    PaymentCurrencyType:
+      type: string
+      description: Object type, should always be `payment_currencies`.
+      example: payment_currencies
+    PaymentCurrencyBase:
+      title: Field
       type: object
       required:
       - type
@@ -285,8 +295,6 @@ components:
           $ref: '#/components/schemas/PaymentCurrencyType'
         id:
           $ref: '#/components/schemas/PaymentCurrencyId'
-        attributes:
-          $ref: '#/components/schemas/PaymentCurrencyAttributes'
     PaymentCurrencyAttributes:
       type: object
       description: Payment currency attributes.
@@ -309,8 +317,14 @@ components:
           type: string
           maxLength: 255
           description: Payment currency external identifier.
-    PaymentCurrencyBase:
-      title: Field
+    PaymentCurrency:
+      allOf:
+      - $ref: '#/components/schemas/PaymentCurrencyBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/PaymentCurrencyAttributes'
+    PaymentCurrencyUpdate:
       type: object
       required:
       - type
@@ -320,10 +334,8 @@ components:
           $ref: '#/components/schemas/PaymentCurrencyType'
         id:
           $ref: '#/components/schemas/PaymentCurrencyId'
-    PaymentCurrencyType:
-      type: string
-      description: Object type, should always be `payment_currencies`.
-      example: payment_currencies
+        attributes:
+          $ref: '#/components/schemas/PaymentCurrencyAttributes'
     PaymentCurrencyCreate:
       type: object
       required:
@@ -333,70 +345,22 @@ components:
           $ref: '#/components/schemas/PaymentCurrencyType'
         attributes:
           $ref: '#/components/schemas/PaymentCurrencyAttributes'
-    Errors:
+    Error:
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    PaymentCurrencyId:
-      type: integer
-      description: Payment currency identifier string.
-      example: 1
-    PaymentCurrency:
-      allOf:
-      - $ref: '#/components/schemas/PaymentCurrencyBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/PaymentCurrencyAttributes'
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
   examples:
-    external_update_request-3:
+    update_response-3:
       value:
         data:
-          type: payment_currencies
-          id: PAYCUR
-          attributes:
-            alpha: UAH
-            numeric: '980'
-    update_request-3:
-      value:
-        data:
-          type: payment_currencies
           id: '1'
+          type: payment_currencies
           attributes:
             alpha: UAH
             numeric: '980'
             external_id: PAYCUR-UPD
-    create_response-3:
-      value:
-        data:
-          id: '1'
-          type: payment_currencies
-          attributes:
-            alpha: EUR
-            numeric: '978'
-            external_id: PAYCUR-1
-          links:
-            self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies/1
-    create_request-3:
-      value:
-        data:
-          type: payment_currencies
-          attributes:
-            alpha: EUR
-            numeric: '978'
-            external_id: PAYCUR-1
-    external_update_response-3:
-      value:
-        data:
-          id: '1'
-          type: payment_currencies
-          attributes:
-            alpha: UAH
-            numeric: '980'
-            external_id: PAYCUR
           links:
             self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies/1
     index_response-3:
@@ -420,7 +384,35 @@ components:
             self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies/2
         links:
           self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies
-    update_response-3:
+    create_request-3:
+      value:
+        data:
+          type: payment_currencies
+          attributes:
+            alpha: EUR
+            numeric: '978'
+            external_id: PAYCUR-1
+    create_response-3:
+      value:
+        data:
+          id: '1'
+          type: payment_currencies
+          attributes:
+            alpha: EUR
+            numeric: '978'
+            external_id: PAYCUR-1
+          links:
+            self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies/1
+    update_request-3:
+      value:
+        data:
+          type: payment_currencies
+          id: '1'
+          attributes:
+            alpha: UAH
+            numeric: '980'
+            external_id: PAYCUR-UPD
+    external_update_response-3:
       value:
         data:
           id: '1'
@@ -428,9 +420,17 @@ components:
           attributes:
             alpha: UAH
             numeric: '980'
-            external_id: PAYCUR-UPD
+            external_id: PAYCUR
           links:
             self: https://api.us.workdayspend.com/services/payments/v1/payment_currencies/1
+    external_update_request-3:
+      value:
+        data:
+          type: payment_currencies
+          id: PAYCUR
+          attributes:
+            alpha: UAH
+            numeric: '980'
   securitySchemes:
     api_key:
       type: apiKey

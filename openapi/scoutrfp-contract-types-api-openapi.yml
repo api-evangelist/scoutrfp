@@ -353,140 +353,7 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Delete a Contract Type by External ID
 components:
-  schemas:
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    ContractTypeModel:
-      allOf:
-      - $ref: '#/components/schemas/ContractTypeBase'
-      - type: object
-        properties:
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
-    ResourceLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-    SelfLink:
-      type: object
-      properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    ContractTypeAttributes:
-      type: object
-      description: Contract type attributes.
-      required:
-      - name
-      - shortcode
-      properties:
-        name:
-          type: string
-          maxLength: 255
-          description: Contract type name.
-          example: My Contract Type
-        shortcode:
-          type: string
-          maxLength: 4
-          description: Contract type short code.
-          example: CPUB
-        external_id:
-          type: string
-          description: Customer provided unique contract type identifier.
-          example: 1234-5678-abcd-efgh
-    ContractTypeBase:
-      title: ContractType
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ContractTypeType'
-        id:
-          $ref: '#/components/schemas/ContractTypeId'
-    ContractTypeType:
-      type: string
-      description: Object type, should always be `contract_types`.
-      example: contract_types
-    ContractTypeId:
-      type: integer
-      description: Contract type identifier string.
-      example: 1
-    ContractTypeCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/ContractTypeType'
-        attributes:
-          $ref: '#/components/schemas/ContractTypeAttributes'
-    ContractTypeUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ContractTypeType'
-        id:
-          $ref: '#/components/schemas/ContractTypeId'
-        attributes:
-          $ref: '#/components/schemas/ContractTypeAttributes'
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
   examples:
-    external_update_request-2:
-      value:
-        data:
-          id: CTR$1
-          type: contract_types
-          attributes:
-            name: Updated Contract Type
-            shortcode: C1
-            external_id: C$1
-    create_request:
-      value:
-        data:
-          type: contract_types
-          attributes:
-            name: The Contract Type
-            shortcode: CTRT
-            external_id: CTR$1
-    show_response-2:
-      value:
-        data:
-          type: contract_types
-          id: '1'
-          attributes:
-            name: The Contract Type
-            shortcode: CTRT
-            external_id: CTR$1
-          links:
-            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
-    external_update_response-2:
-      value:
-        data:
-          id: '1'
-          type: contract_types
-          attributes:
-            name: Updated Contract Type
-            shortcode: C1
-            external_id: C$1
-          links:
-            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
     update_response:
       value:
         data:
@@ -496,6 +363,17 @@ components:
             name: Updated Contract Type
             shortcode: C1
             external_id: C$1
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+    create_response:
+      value:
+        data:
+          type: contract_types
+          id: '1'
+          attributes:
+            name: The Contract Type
+            shortcode: CTRT
+            external_id: CTR$1
           links:
             self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
     index_response-2:
@@ -532,16 +410,7 @@ components:
             external_id: CTR$1
           links:
             self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
-    update_request:
-      value:
-        data:
-          id: '1'
-          type: contract_types
-          attributes:
-            name: Updated Contract Type
-            shortcode: C1
-            external_id: C$1
-    create_response:
+    show_response-2:
       value:
         data:
           type: contract_types
@@ -552,6 +421,137 @@ components:
             external_id: CTR$1
           links:
             self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+    external_update_request-2:
+      value:
+        data:
+          id: CTR$1
+          type: contract_types
+          attributes:
+            name: Updated Contract Type
+            shortcode: C1
+            external_id: C$1
+    external_update_response-2:
+      value:
+        data:
+          id: '1'
+          type: contract_types
+          attributes:
+            name: Updated Contract Type
+            shortcode: C1
+            external_id: C$1
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+    update_request:
+      value:
+        data:
+          id: '1'
+          type: contract_types
+          attributes:
+            name: Updated Contract Type
+            shortcode: C1
+            external_id: C$1
+    create_request:
+      value:
+        data:
+          type: contract_types
+          attributes:
+            name: The Contract Type
+            shortcode: CTRT
+            external_id: CTR$1
+  schemas:
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    ContractTypeUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeType'
+        id:
+          $ref: '#/components/schemas/ContractTypeId'
+        attributes:
+          $ref: '#/components/schemas/ContractTypeAttributes'
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    ContractTypeModel:
+      allOf:
+      - $ref: '#/components/schemas/ContractTypeBase'
+      - type: object
+        properties:
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    ContractTypeType:
+      type: string
+      description: Object type, should always be `contract_types`.
+      example: contract_types
+    ContractTypeAttributes:
+      type: object
+      description: Contract type attributes.
+      required:
+      - name
+      - shortcode
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Contract type name.
+          example: My Contract Type
+        shortcode:
+          type: string
+          maxLength: 4
+          description: Contract type short code.
+          example: CPUB
+        external_id:
+          type: string
+          description: Customer provided unique contract type identifier.
+          example: 1234-5678-abcd-efgh
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    ContractTypeCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeType'
+        attributes:
+          $ref: '#/components/schemas/ContractTypeAttributes'
+    ContractTypeId:
+      type: integer
+      description: Contract type identifier string.
+      example: 1
+    ContractTypeBase:
+      title: ContractType
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeType'
+        id:
+          $ref: '#/components/schemas/ContractTypeId'
   securitySchemes:
     api_key:
       type: apiKey

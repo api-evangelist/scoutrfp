@@ -125,6 +125,19 @@ paths:
       x-operation-id-original: Get an Award Line Item
 components:
   schemas:
+    AwardLineItemType:
+      type: string
+      description: Object type, should always be `award_line_items`.
+      example: award_line_items
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
     SelfLink:
       type: object
       properties:
@@ -132,17 +145,10 @@ components:
           type: string
           format: url
           description: Normalized link to the resource.
-    WorksheetId:
-      type: integer
-      description: Worksheet identifier string.
-      example: 1
-    PaginationLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
+    WorksheetType:
+      type: string
+      description: Object type, should always be `worksheets`.
+      example: worksheets
     AwardLineItemAttributes:
       type: object
       description: Award line item attributes.
@@ -184,6 +190,16 @@ components:
         is_quoted:
           type: boolean
           description: Identifies whether the award line item is quoted.
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
     Pagination:
       type: object
       properties:
@@ -196,68 +212,10 @@ components:
               description: Number of pages in the result set.
         links:
           $ref: '#/components/schemas/PaginationLinks'
-    AwardLineItemType:
-      type: string
-      description: Object type, should always be `award_line_items`.
-      example: award_line_items
-    SupplierCompanyBase:
-      title: SupplierCompany
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanyType'
-        id:
-          $ref: '#/components/schemas/SupplierCompanyId'
-    AwardLineItemBase:
-      title: Award line item
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/AwardLineItemType'
-        id:
-          $ref: '#/components/schemas/AwardLineItemId'
-    WorksheetBase:
-      title: Worksheet
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/WorksheetType'
-        id:
-          $ref: '#/components/schemas/WorksheetId'
-    AwardLineItemRelatedResources:
-      type: string
-      enum:
-      - supplier_company
-      - worksheet
-    AwardLineItemId:
+    WorksheetId:
       type: integer
-      description: Award line items identifier string.
+      description: Worksheet identifier string.
       example: 1
-    SupplierCompanyId:
-      type: integer
-      description: Supplier company identifier string.
-      example: 1
-    SupplierCompanyType:
-      type: string
-      description: Object type, should always be `supplier_companies`.
-      example: supplier_companies
-    AwardLineItemTypeEnum:
-      type: string
-      enum:
-      - STANDARD
-      - GOODS
-      - SERVICES
-      description: Award line item type.
-      example: STANDARD
     AwardLineItemInputFilter:
       type: object
       properties:
@@ -273,25 +231,6 @@ components:
           example:
           - GOODS
           - SERVICES
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-          deprecated: true
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
     AwardLineItemRelationship:
       type: object
       description: Award line item relationships.
@@ -306,10 +245,36 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/WorksheetBase'
-    WorksheetType:
-      type: string
-      description: Object type, should always be `worksheets`.
-      example: worksheets
+    SupplierCompanyId:
+      type: integer
+      description: Supplier company identifier string.
+      example: 1
+    SupplierCompanyBase:
+      title: SupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyId'
+    WorksheetBase:
+      title: Worksheet
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/WorksheetType'
+        id:
+          $ref: '#/components/schemas/WorksheetId'
+    AwardLineItemId:
+      type: integer
+      description: Award line items identifier string.
+      example: 1
     AwardLineItem:
       allOf:
       - $ref: '#/components/schemas/AwardLineItemBase'
@@ -319,6 +284,41 @@ components:
             $ref: '#/components/schemas/AwardLineItemAttributes'
           relationships:
             $ref: '#/components/schemas/AwardLineItemRelationship'
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    AwardLineItemTypeEnum:
+      type: string
+      enum:
+      - STANDARD
+      - GOODS
+      - SERVICES
+      description: Award line item type.
+      example: STANDARD
+    AwardLineItemRelatedResources:
+      type: string
+      enum:
+      - supplier_company
+      - worksheet
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    AwardLineItemBase:
+      title: Award line item
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/AwardLineItemType'
+        id:
+          $ref: '#/components/schemas/AwardLineItemId'
   examples:
     index_response-2:
       value:

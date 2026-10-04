@@ -313,13 +313,500 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Describe Event Object
 components:
+  examples:
+    update_response:
+      value:
+        data:
+          type: events
+          id: '2'
+          attributes:
+            title: Event Title Updated
+            spend_amount: 244.44
+            event_type: RFP
+            request_type: RFP
+            state: draft
+            duplication_state: null
+            late_bids: true
+            revise_bids: false
+            instant_notifications: false
+            custom_fields:
+            - name: Custom field name
+              value: Updated custom field value
+            supplier_rsvp_deadline: '2031-12-30T00:00:00.000Z'
+            supplier_question_deadline: '2032-12-30T00:00:00.000Z'
+            bid_submission_deadline: '2033-12-30T00:00:00.000Z'
+            closed_at: null
+            external_id: UEVENT1
+            is_public: false
+            restricted: true
+          relationships:
+            attachments:
+              data: []
+            event_template:
+              data:
+                id: '1'
+                type: event_templates
+            spend_category:
+              data:
+                id: '4'
+                type: spend_categories
+            project:
+              data:
+                id: '3'
+                type: projects
+            commodity_codes:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/events/2
+    create_response:
+      value:
+        data:
+          id: '2'
+          type: events
+          attributes:
+            title: Copy of Event Title
+            spend_amount: 500.5
+            supplier_rsvp_deadline: '2020-03-30T19:00:00.000Z'
+            supplier_question_deadline: '2020-04-30T19:00:00.000Z'
+            bid_submission_deadline: '2020-05-30T19:00:00.000Z'
+            event_type: RFP
+            state: draft
+            request_type: RFP
+            late_bids: true
+            revise_bids: true
+            instant_notifications: true
+            custom_fields: []
+            created_at: '2020-03-16T02:36:31.276Z'
+            updated_at: '2020-03-17T02:36:31.276Z'
+            published_at: '2020-03-17T02:36:31.276Z'
+            closed_at: null
+            duplication_state: scheduled
+            external_id: EVENT1
+            is_public: false
+            restricted: true
+          relationships:
+            attachments:
+              data: []
+            event_template:
+              data:
+                id: '1'
+                type: event_templates
+            project:
+              data:
+                id: '1'
+                type: projects
+            spend_category:
+              data:
+                id: '1'
+                type: spend_categories
+            commodity_codes:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/events/2
+    index_response-2:
+      value:
+        meta:
+          count: 2
+        data:
+        - id: '1'
+          type: events
+          attributes:
+            title: 'Event #1'
+            spend_amount: 500.5
+            supplier_rsvp_deadline: '2020-03-30T19:00:00.000Z'
+            supplier_question_deadline: '2020-04-30T19:00:00.000Z'
+            bid_submission_deadline: '2020-05-30T19:00:00.000Z'
+            event_type: RFP
+            state: draft
+            duplication_state: null
+            request_type: RFP
+            late_bids: true
+            revise_bids: false
+            instant_notifications: false
+            custom_fields:
+            - name: 'Field #0'
+              value: null
+            created_at: '2020-03-16T02:36:31.276Z'
+            updated_at: '2020-03-17T02:36:31.276Z'
+            published_at: '2020-03-17T02:36:31.276Z'
+            closed_at: null
+            external_id: EVENT1
+            is_public: false
+            restricted: true
+          relationships:
+            attachments:
+              data: []
+            event_template:
+              data: null
+            spend_category:
+              data:
+                id: '1'
+                type: spend_categories
+            project:
+              data: null
+            commodity_codes:
+              data: []
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/events/1
+        - id: '2'
+          type: events
+          attributes:
+            title: 'Event #2'
+            spend_amount: 231.5
+            supplier_rsvp_deadline: null
+            supplier_question_deadline: null
+            bid_submission_deadline: null
+            event_type: RFP
+            state: draft
+            duplication_state: null
+            request_type: RFP
+            late_bids: true
+            revise_bids: true
+            instant_notifications: false
+            custom_fields:
+            - name: 'Field #0'
+              value: Field value
+            updated_at: '2020-03-17T03:01:45.616Z'
+            closed_at: null
+            external_id: EVENT2
+            is_public: false
+            restricted: true
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+              - id: '2'
+                type: attachments
+            event_template:
+              data:
+                id: '1'
+                type: event_templates
+            spend_category:
+              data:
+                id: '1'
+                type: spend_categories
+            project:
+              data:
+                id: '1'
+                type: projects
+            commodity_codes:
+              data:
+              - id: '1'
+                type: commodity_codes
+              - id: '2'
+                type: commodity_codes
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/events/2
+        links:
+          self: https://api.us.workdayspend.com/services/events/v1/events?page%5Bsize%5D=10
+          next: https://api.us.workdayspend.com/services/events/v1/events?page%5Bcursor%5D=WzRd&page%5Bdirection%5D=next&page%5Bsize%5D=10
+          prev: https://api.us.workdayspend.com/services/events/v1/events?page%5Bcursor%5D=WzFd&page%5Bdirection%5D=prev&page%5Bsize%5D=10
+    show_response-2:
+      value:
+        data:
+          id: '1'
+          type: events
+          attributes:
+            title: Event Title
+            spend_amount: 500.5
+            supplier_rsvp_deadline: '2020-03-30T19:00:00.000Z'
+            supplier_question_deadline: '2020-04-30T19:00:00.000Z'
+            bid_submission_deadline: '2020-05-30T19:00:00.000Z'
+            event_type: RFP
+            state: draft
+            duplication_state: finished
+            request_type: RFP
+            late_bids: true
+            revise_bids: false
+            instant_notifications: false
+            custom_fields:
+            - name: 'Field #1'
+              value: Field value
+            created_at: '2020-03-16T02:36:31.276Z'
+            updated_at: '2020-03-17T02:36:31.276Z'
+            published_at: '2020-03-17T02:36:31.276Z'
+            closed_at: null
+            external_id: EVENT1
+            is_public: false
+            restricted: true
+          relationships:
+            attachments:
+              data:
+              - id: '1'
+                type: attachments
+              - id: '2'
+                type: attachments
+            event_template:
+              data:
+                id: '1'
+                type: event_templates
+            spend_category:
+              data:
+                id: '1'
+                type: spend_categories
+            project:
+              data:
+                id: '1'
+                type: projects
+            commodity_codes:
+              data:
+              - id: '1'
+                type: commodity_codes
+              - id: '2'
+                type: commodity_codes
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/events/2
+    describe_response:
+      value:
+        data:
+        - id: title
+          type: event_fields
+          attributes:
+            name: title
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: external_id
+          type: event_fields
+          attributes:
+            name: external_id
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: state
+          type: event_fields
+          attributes:
+            name: state
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: spend_amount
+          type: event_fields
+          attributes:
+            name: spend_amount
+            data_type: number
+            type_description: Currency
+            custom_field: false
+        - id: request_type
+          type: event_fields
+          attributes:
+            name: request_type
+            data_type: string
+            type_description: Single Select
+            custom_field: false
+        - id: late_bids
+          type: event_fields
+          attributes:
+            name: late_bids
+            data_type: boolean
+            type_description: Checkbox
+            custom_field: false
+        - id: revise_bids
+          type: event_fields
+          attributes:
+            name: revise_bids
+            data_type: boolean
+            type_description: Checkbox
+            custom_field: false
+        - id: department
+          type: event_fields
+          attributes:
+            name: department
+            data_type: string
+            type_description: Short Text
+            custom_field: false
+        - id: instant_notifications
+          type: event_fields
+          attributes:
+            name: instant_notifications
+            data_type: boolean
+            type_description: Checkbox
+            custom_field: false
+        - id: supplier_rsvp_deadline
+          type: event_fields
+          attributes:
+            name: supplier_rsvp_deadline
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: supplier_question_deadline
+          type: event_fields
+          attributes:
+            name: supplier_question_deadline
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: bid_submission_deadline
+          type: event_fields
+          attributes:
+            name: bid_submission_deadline
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: created_at
+          type: event_fields
+          attributes:
+            name: created_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: updated_at
+          type: event_fields
+          attributes:
+            name: updated_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: published_at
+          type: event_fields
+          attributes:
+            name: published_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: closed_at
+          type: event_fields
+          attributes:
+            name: closed_at
+            data_type: string
+            type_description: Date
+            custom_field: false
+        - id: is_public
+          type: event_fields
+          attributes:
+            name: is_public
+            data_type: boolean
+            type_description: Checkbox
+            custom_field: false
+        - id: restricted
+          type: event_fields
+          attributes:
+            name: restricted
+            data_type: boolean
+            type_description: Checkbox
+            custom_field: false
+        - id: custom_field_1
+          type: event_fields
+          attributes:
+            name: 'Custom field #1'
+            data_type: string
+            type_description: Short Text
+            custom_field: true
+        links: {}
+        meta:
+          count: 19
+    create_422_response:
+      value:
+        errors:
+        - source:
+            pointer: /data/attributes/event_template_id
+          title: Validation Error
+          detail: event_template_id Expected id to be for a duplicable record
+    update_request:
+      value:
+        data:
+          type: events
+          id: '2'
+          attributes:
+            title: Event Title Updated
+            spend_amount: 244.44
+            late_bids: true
+            revise_bids: false
+            instant_notifications: false
+            supplier_rsvp_deadline: '2031-12-30T00:00:00.000Z'
+            supplier_question_deadline: '2032-12-30T00:00:00.000Z'
+            bid_submission_deadline: '2033-12-30T00:00:00.000Z'
+            external_id: UEVENT1
+            custom_fields:
+            - name: Custom field name
+              value: Updated custom field value
+          relationships:
+            project:
+              data:
+                id: '3'
+                type: projects
+            spend_category:
+              data:
+                id: '4'
+                type: spend_categories
+            department:
+              data:
+                id: '5'
+                type: departments
+    create_request:
+      value:
+        data:
+          type: events
+          attributes:
+            duplicate_bids: true
+            is_public: false
+            external_id: EVENT1
+          relationships:
+            event_template:
+              data:
+                id: '1'
+                type: event_templates
+            project:
+              data:
+                id: '1'
+                type: projects
   schemas:
-    Error:
+    Errors:
       type: object
       properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    AttachmentId:
+      type: integer
+      description: Attachment identifier string.
+      example: 1
+    EventStateEnum:
+      type: string
+      readOnly: true
+      enum:
+      - draft
+      - scheduled
+      - published
+      - live_editing
+      - closed
+      - canceled
+      description: Current event state.
+      example: draft
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    EventUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/EventType'
+        id:
+          $ref: '#/components/schemas/EventId'
+        attributes:
+          $ref: '#/components/schemas/EventAttributes'
+    DescribeFieldBase:
+      title: DescribeFieldModel
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/DescribeFieldType'
+        id:
+          $ref: '#/components/schemas/DescribeFieldId'
     EventInputFilter:
       type: object
       properties:
@@ -499,11 +986,86 @@ components:
           type: string
           description: Find contracts excluding the one with the specified external ID.
           example: SUP-123
+    CustomFieldBase:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Custom field name.
+          example: My Custom Field
+    CustomFieldCheckbox:
+      title: Checkbox
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: boolean
+            example: true
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
     ResourceLinks:
       type: object
       description: List of related links.
       allOf:
       - $ref: '#/components/schemas/SelfLink'
+    SpendCategoryBase:
+      title: SpendCategory
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SpendCategoryType'
+        id:
+          $ref: '#/components/schemas/SpendCategoryId'
+    EventRelationship:
+      type: object
+      description: Event relationships.
+      properties:
+        attachments:
+          type: array
+          description: A list of attachments attached to this event.
+          items:
+            $ref: '#/components/schemas/AttachmentBase'
+        project:
+          type: object
+          description: Project associated with this event.
+          properties:
+            data:
+              $ref: '#/components/schemas/ProjectBase'
+        spend_category:
+          type: object
+          description: Spend category associated with this event.
+          properties:
+            data:
+              $ref: '#/components/schemas/SpendCategoryBase'
+        event_template:
+          type: object
+          description: An event template used to create this event.
+          properties:
+            data:
+              $ref: '#/components/schemas/EventTemplateBase'
+        commodity_codes:
+          type: array
+          description: A list of commodity codes added to this event.
+          items:
+            $ref: '#/components/schemas/CommodityCodeBase'
+    CustomFieldSingleSelect:
+      title: Single Select
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A single value from a predefined list of possible options.
     CustomField:
       oneOf:
       - $ref: '#/components/schemas/CustomFieldCheckbox'
@@ -518,6 +1080,199 @@ components:
       - $ref: '#/components/schemas/CustomFieldURL'
       - $ref: '#/components/schemas/CustomFieldLookup'
       - $ref: '#/components/schemas/CustomFieldRelated'
+    CustomFieldParagraph:
+      title: Paragraph
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A longer text paragraph.
+    AttachmentType:
+      type: string
+      description: Object type, should always be `attachments`.
+      example: attachments
+    DescribeFieldType:
+      type: string
+      description: Object type, should always be `describe_fields`.
+      example: describe_fields
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
+    CustomFieldLookup:
+      title: Lookup
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A value from a customer-provided lookup data source.
+    CommodityCodeType:
+      type: string
+      description: Object type, should always be `commodity_codes`.
+      example: commodity_codes
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    CustomFieldDate:
+      title: Date
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            format: date
+            description: A date value.
+    EventFieldModel:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            description: Object type, should always be `event_fields`.
+            example: event_fields
+      - $ref: '#/components/schemas/DescribeFieldModel'
+    CustomFieldRelated:
+      title: Related
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A value related to the lookup custom field value, retrieved from the same data source object.
+    OpenApiEnum:
+      type: string
+      enum:
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
+    EventTemplateBase:
+      title: EventTemplate
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/EventTemplateType'
+        id:
+          $ref: '#/components/schemas/EventTemplateId'
+    EventDuplicationStateEnum:
+      type: string
+      enum:
+      - scheduled
+      - started
+      - finished
+      - failed
+      description: "Event duplication state:\n  * `scheduled` - duplication is scheduled, but not yet started;\n  * `started` - duplication started, but not yet finished;\n  * `finished` - duplication completed;\n  * `failed` - there was an error duplicating relationships.\n"
+      example: finished
+      readOnly: true
+    CustomFieldEnum:
+      type: string
+      enum:
+      - Checkbox
+      - File
+      - Short Text
+      - Paragraph
+      - Date
+      - Integer
+      - Currency
+      - Decimal
+      - Single Select
+      - Multiple Select
+      - URL
+      - Lookup
+      - Related
+      description: Internal name and meaning of each field.
+      example: Short Text
+    PageInput:
+      type: object
+      properties:
+        size:
+          type: number
+          format: integer
+          description: The number of results returned per page. Default is `10` and max is `100`.
+          example: '25'
+    SpendCategoryType:
+      type: string
+      description: Object type, should always be `spend_categories`.
+      example: spend_categories
+    EventTemplateId:
+      type: integer
+      description: Event template identifier string.
+      example: 1
+    CustomFieldURL:
+      title: URL
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            format: url
+            description: URL string.
+    CustomFieldShortText:
+      title: Short Text
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: A short text (usually under 255 characters).
+    CommodityCodeBase:
+      title: CommodityCode
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/CommodityCodeType'
+        id:
+          $ref: '#/components/schemas/CommodityCodeId'
+    EventTypeEnum:
+      type: string
+      enum:
+      - RFP
+      - AUCTION
+      - AUCTION_WITH_LOTS
+      - AUCTION_LOT
+      - PERFORMANCE_REVIEW_EVENT
+      - PERFORMANCE_REVIEW_SCORE_CARD_ONLY_EVENT
+      - SUPPLIER_REVIEW_EVENT
+      - SUPPLIER_REVIEW_MASTER_EVENT
+      description: Event type.
+      example: RFP
+    CommodityCodeId:
+      type: integer
+      description: Commodity code identifier string.
+      example: 1
     CustomFieldCurrency:
       title: Currency
       allOf:
@@ -527,14 +1282,131 @@ components:
           value:
             format: integer
             description: A currency value represented as an integer. The maximum value is 9,007,199,254,740,991.
-    ProjectType:
+    EventId:
+      type: integer
+      description: Event identifier string.
+      example: 1
+    ProjectId:
+      type: integer
+      description: Project identifier string.
+      example: 1
+    Event:
+      allOf:
+      - $ref: '#/components/schemas/EventBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/EventAttributes'
+          relationships:
+            $ref: '#/components/schemas/EventRelationship'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    CustomFieldDecimal:
+      title: Decimal
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: string
+            format: decimal
+            description: A decimal value represented as a number with floating point.
+    EventType:
       type: string
-      description: Object type, should always be `projects`.
-      example: projects
-    CommodityCodeType:
-      type: string
-      description: Object type, should always be `commodity_codes`.
-      example: commodity_codes
+      description: Object type, should always be `events`.
+      example: events
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    CustomFieldMultipleSelect:
+      title: Multiple Select
+      allOf:
+      - $ref: '#/components/schemas/CustomFieldBase'
+      - type: object
+        properties:
+          value:
+            type: array
+            description: A list of values from a predefined list of possible options.
+            items:
+              type: string
+    SpendCategoryId:
+      type: integer
+      description: Spend category identifier string.
+      example: 1
+    ProjectBase:
+      title: Project
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ProjectType'
+        id:
+          $ref: '#/components/schemas/ProjectId'
+    EventCreate:
+      type: object
+      required:
+      - type
+      - relationships
+      properties:
+        type:
+          $ref: '#/components/schemas/EventType'
+        attributes:
+          type: object
+          description: Event creation attributes.
+          properties:
+            external_id:
+              type: string
+              description: Event ID in your internal database.
+            duplicate_bids:
+              type: boolean
+              description: Identifies whether bids should be duplicated.
+            is_public:
+              type: boolean
+              description: Identifies whether event should be created as public or private.
+            restricted:
+              type: boolean
+              description: Restricted events are invitation only even when posted on the public site.
+        relationships:
+          type: object
+          description: Event relationships.
+          required:
+          - event_template
+          - project
+          properties:
+            event_template:
+              type: object
+              description: An event template used to create this event.
+              properties:
+                data:
+                  $ref: '#/components/schemas/EventTemplateBase'
+            project:
+              type: object
+              description: Project associated with this event.
+              properties:
+                data:
+                  $ref: '#/components/schemas/ProjectBase'
+    DescribeFieldAttributes:
+      type: object
+      description: Describe field attributes.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Describe field name.
+          example: field_name
+        data_type:
+          $ref: '#/components/schemas/OpenApiEnum'
+        type_description:
+          $ref: '#/components/schemas/CustomFieldEnum'
+        custom_field:
+          type: boolean
+          description: Flag for determining if this is a user created custom field or an internal system field.
+          example: false
     EventAttributes:
       type: object
       description: Event attributes.
@@ -631,100 +1503,24 @@ components:
           items:
             $ref: '#/components/schemas/CustomField'
           description: 'Custom field values. Note: custom fields of type File can only be accessed through the user interface, they will be only exposed as `null` in the public API.'
-    EventRelationship:
+    PaginationLinks:
       type: object
-      description: Event relationships.
-      properties:
-        attachments:
-          type: array
-          description: A list of attachments attached to this event.
-          items:
-            $ref: '#/components/schemas/AttachmentBase'
-        project:
-          type: object
-          description: Project associated with this event.
-          properties:
-            data:
-              $ref: '#/components/schemas/ProjectBase'
-        spend_category:
-          type: object
-          description: Spend category associated with this event.
-          properties:
-            data:
-              $ref: '#/components/schemas/SpendCategoryBase'
-        event_template:
-          type: object
-          description: An event template used to create this event.
-          properties:
-            data:
-              $ref: '#/components/schemas/EventTemplateBase'
-        commodity_codes:
-          type: array
-          description: A list of commodity codes added to this event.
-          items:
-            $ref: '#/components/schemas/CommodityCodeBase'
-    SelfLink:
-      type: object
-      properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    CustomFieldLookup:
-      title: Lookup
+      description: List of related links.
       allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    DescribeFieldModel:
+      allOf:
+      - $ref: '#/components/schemas/DescribeFieldBase'
       - type: object
         properties:
-          value:
-            type: string
-            description: A value from a customer-provided lookup data source.
-    EventId:
-      type: integer
-      description: Event identifier string.
-      example: 1
-    OpenApiEnum:
-      type: string
-      enum:
-      - string
-      - number
-      - integer
-      - boolean
-      - array
-      - object
-      description: OpenAPI data type.
-      example: string
+          attributes:
+            $ref: '#/components/schemas/DescribeFieldAttributes'
     EventTemplateType:
       type: string
       description: Object type, should always be `event_templates`.
       example: event_templates
-    SpendCategoryType:
-      type: string
-      description: Object type, should always be `spend_categories`.
-      example: spend_categories
-    DescribeFieldId:
-      type: string
-      description: Field identifier string.
-      example: field_name
-    CustomFieldDecimal:
-      title: Decimal
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: string
-            format: decimal
-            description: A decimal value represented as a number with floating point.
-    CustomFieldShortText:
-      title: Short Text
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: A short text (usually under 255 characters).
     EventBase:
       title: Event
       type: object
@@ -736,151 +1532,10 @@ components:
           $ref: '#/components/schemas/EventType'
         id:
           $ref: '#/components/schemas/EventId'
-    CustomFieldURL:
-      title: URL
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: string
-            format: url
-            description: URL string.
-    PaginationLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    DescribeFieldAttributes:
-      type: object
-      description: Describe field attributes.
-      properties:
-        name:
-          type: string
-          maxLength: 255
-          description: Describe field name.
-          example: field_name
-        data_type:
-          $ref: '#/components/schemas/OpenApiEnum'
-        type_description:
-          $ref: '#/components/schemas/CustomFieldEnum'
-        custom_field:
-          type: boolean
-          description: Flag for determining if this is a user created custom field or an internal system field.
-          example: false
-    EventStateEnum:
+    DescribeFieldId:
       type: string
-      readOnly: true
-      enum:
-      - draft
-      - scheduled
-      - published
-      - live_editing
-      - closed
-      - canceled
-      description: Current event state.
-      example: draft
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    PageInput:
-      type: object
-      properties:
-        size:
-          type: number
-          format: integer
-          description: The number of results returned per page. Default is `10` and max is `100`.
-          example: '25'
-    Pagination:
-      type: object
-      properties:
-        meta:
-          type: object
-          description: Result set metadata.
-          properties:
-            count:
-              type: integer
-              description: Number of pages in the result set.
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    CustomFieldRelated:
-      title: Related
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: A value related to the lookup custom field value, retrieved from the same data source object.
-    CustomFieldEnum:
-      type: string
-      enum:
-      - Checkbox
-      - File
-      - Short Text
-      - Paragraph
-      - Date
-      - Integer
-      - Currency
-      - Decimal
-      - Single Select
-      - Multiple Select
-      - URL
-      - Lookup
-      - Related
-      description: Internal name and meaning of each field.
-      example: Short Text
-    EventTypeEnum:
-      type: string
-      enum:
-      - RFP
-      - AUCTION
-      - AUCTION_WITH_LOTS
-      - AUCTION_LOT
-      - PERFORMANCE_REVIEW_EVENT
-      - PERFORMANCE_REVIEW_SCORE_CARD_ONLY_EVENT
-      - SUPPLIER_REVIEW_EVENT
-      - SUPPLIER_REVIEW_MASTER_EVENT
-      description: Event type.
-      example: RFP
-    CommodityCodeBase:
-      title: CommodityCode
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/CommodityCodeType'
-        id:
-          $ref: '#/components/schemas/CommodityCodeId'
-    EventType:
-      type: string
-      description: Object type, should always be `events`.
-      example: events
-    AttachmentId:
-      type: integer
-      description: Attachment identifier string.
-      example: 1
-    ProjectId:
-      type: integer
-      description: Project identifier string.
-      example: 1
-    EventFieldModel:
-      allOf:
-      - type: object
-        properties:
-          type:
-            type: string
-            description: Object type, should always be `event_fields`.
-            example: event_fields
-      - $ref: '#/components/schemas/DescribeFieldModel'
+      description: Field identifier string.
+      example: field_name
     AttachmentBase:
       title: Attachment
       type: object
@@ -892,147 +1547,6 @@ components:
           $ref: '#/components/schemas/AttachmentType'
         id:
           $ref: '#/components/schemas/AttachmentId'
-    DescribeFieldModel:
-      allOf:
-      - $ref: '#/components/schemas/DescribeFieldBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/DescribeFieldAttributes'
-    CustomFieldSingleSelect:
-      title: Single Select
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: A single value from a predefined list of possible options.
-    EventCreate:
-      type: object
-      required:
-      - type
-      - relationships
-      properties:
-        type:
-          $ref: '#/components/schemas/EventType'
-        attributes:
-          type: object
-          description: Event creation attributes.
-          properties:
-            external_id:
-              type: string
-              description: Event ID in your internal database.
-            duplicate_bids:
-              type: boolean
-              description: Identifies whether bids should be duplicated.
-            is_public:
-              type: boolean
-              description: Identifies whether event should be created as public or private.
-            restricted:
-              type: boolean
-              description: Restricted events are invitation only even when posted on the public site.
-        relationships:
-          type: object
-          description: Event relationships.
-          required:
-          - event_template
-          - project
-          properties:
-            event_template:
-              type: object
-              description: An event template used to create this event.
-              properties:
-                data:
-                  $ref: '#/components/schemas/EventTemplateBase'
-            project:
-              type: object
-              description: Project associated with this event.
-              properties:
-                data:
-                  $ref: '#/components/schemas/ProjectBase'
-    CustomFieldMultipleSelect:
-      title: Multiple Select
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: array
-            description: A list of values from a predefined list of possible options.
-            items:
-              type: string
-    CustomFieldDate:
-      title: Date
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: string
-            format: date
-            description: A date value.
-    SpendCategoryId:
-      type: integer
-      description: Spend category identifier string.
-      example: 1
-    SpendCategoryBase:
-      title: SpendCategory
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SpendCategoryType'
-        id:
-          $ref: '#/components/schemas/SpendCategoryId'
-    DescribeFieldType:
-      type: string
-      description: Object type, should always be `describe_fields`.
-      example: describe_fields
-    ProjectBase:
-      title: Project
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ProjectType'
-        id:
-          $ref: '#/components/schemas/ProjectId'
-    DescribeFieldBase:
-      title: DescribeFieldModel
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/DescribeFieldType'
-        id:
-          $ref: '#/components/schemas/DescribeFieldId'
-    EventUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/EventType'
-        id:
-          $ref: '#/components/schemas/EventId'
-        attributes:
-          $ref: '#/components/schemas/EventAttributes'
-    EventTemplateId:
-      type: integer
-      description: Event template identifier string.
-      example: 1
-    AttachmentType:
-      type: string
-      description: Object type, should always be `attachments`.
-      example: attachments
     CustomFieldInteger:
       title: Integer
       allOf:
@@ -1042,524 +1556,10 @@ components:
           value:
             type: integer
             description: An integer value. The maximum value is 9,007,199,254,740,991.
-    CustomFieldBase:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Custom field name.
-          example: My Custom Field
-    CustomFieldParagraph:
-      title: Paragraph
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: A longer text paragraph.
-    EventDuplicationStateEnum:
+    ProjectType:
       type: string
-      enum:
-      - scheduled
-      - started
-      - finished
-      - failed
-      description: "Event duplication state:\n  * `scheduled` - duplication is scheduled, but not yet started;\n  * `started` - duplication started, but not yet finished;\n  * `finished` - duplication completed;\n  * `failed` - there was an error duplicating relationships.\n"
-      example: finished
-      readOnly: true
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-          deprecated: true
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    CommodityCodeId:
-      type: integer
-      description: Commodity code identifier string.
-      example: 1
-    CustomFieldCheckbox:
-      title: Checkbox
-      allOf:
-      - $ref: '#/components/schemas/CustomFieldBase'
-      - type: object
-        properties:
-          value:
-            type: boolean
-            example: true
-    EventTemplateBase:
-      title: EventTemplate
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/EventTemplateType'
-        id:
-          $ref: '#/components/schemas/EventTemplateId'
-    Event:
-      allOf:
-      - $ref: '#/components/schemas/EventBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/EventAttributes'
-          relationships:
-            $ref: '#/components/schemas/EventRelationship'
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
-  examples:
-    create_request:
-      value:
-        data:
-          type: events
-          attributes:
-            duplicate_bids: true
-            is_public: false
-            external_id: EVENT1
-          relationships:
-            event_template:
-              data:
-                id: '1'
-                type: event_templates
-            project:
-              data:
-                id: '1'
-                type: projects
-    show_response-2:
-      value:
-        data:
-          id: '1'
-          type: events
-          attributes:
-            title: Event Title
-            spend_amount: 500.5
-            supplier_rsvp_deadline: '2020-03-30T19:00:00.000Z'
-            supplier_question_deadline: '2020-04-30T19:00:00.000Z'
-            bid_submission_deadline: '2020-05-30T19:00:00.000Z'
-            event_type: RFP
-            state: draft
-            duplication_state: finished
-            request_type: RFP
-            late_bids: true
-            revise_bids: false
-            instant_notifications: false
-            custom_fields:
-            - name: 'Field #1'
-              value: Field value
-            created_at: '2020-03-16T02:36:31.276Z'
-            updated_at: '2020-03-17T02:36:31.276Z'
-            published_at: '2020-03-17T02:36:31.276Z'
-            closed_at: null
-            external_id: EVENT1
-            is_public: false
-            restricted: true
-          relationships:
-            attachments:
-              data:
-              - id: '1'
-                type: attachments
-              - id: '2'
-                type: attachments
-            event_template:
-              data:
-                id: '1'
-                type: event_templates
-            spend_category:
-              data:
-                id: '1'
-                type: spend_categories
-            project:
-              data:
-                id: '1'
-                type: projects
-            commodity_codes:
-              data:
-              - id: '1'
-                type: commodity_codes
-              - id: '2'
-                type: commodity_codes
-          links:
-            self: https://api.us.workdayspend.com/services/events/v1/events/2
-    create_422_response:
-      value:
-        errors:
-        - source:
-            pointer: /data/attributes/event_template_id
-          title: Validation Error
-          detail: event_template_id Expected id to be for a duplicable record
-    update_response:
-      value:
-        data:
-          type: events
-          id: '2'
-          attributes:
-            title: Event Title Updated
-            spend_amount: 244.44
-            event_type: RFP
-            request_type: RFP
-            state: draft
-            duplication_state: null
-            late_bids: true
-            revise_bids: false
-            instant_notifications: false
-            custom_fields:
-            - name: Custom field name
-              value: Updated custom field value
-            supplier_rsvp_deadline: '2031-12-30T00:00:00.000Z'
-            supplier_question_deadline: '2032-12-30T00:00:00.000Z'
-            bid_submission_deadline: '2033-12-30T00:00:00.000Z'
-            closed_at: null
-            external_id: UEVENT1
-            is_public: false
-            restricted: true
-          relationships:
-            attachments:
-              data: []
-            event_template:
-              data:
-                id: '1'
-                type: event_templates
-            spend_category:
-              data:
-                id: '4'
-                type: spend_categories
-            project:
-              data:
-                id: '3'
-                type: projects
-            commodity_codes:
-              data: []
-          links:
-            self: https://api.us.workdayspend.com/services/events/v1/events/2
-    index_response-2:
-      value:
-        meta:
-          count: 2
-        data:
-        - id: '1'
-          type: events
-          attributes:
-            title: 'Event #1'
-            spend_amount: 500.5
-            supplier_rsvp_deadline: '2020-03-30T19:00:00.000Z'
-            supplier_question_deadline: '2020-04-30T19:00:00.000Z'
-            bid_submission_deadline: '2020-05-30T19:00:00.000Z'
-            event_type: RFP
-            state: draft
-            duplication_state: null
-            request_type: RFP
-            late_bids: true
-            revise_bids: false
-            instant_notifications: false
-            custom_fields:
-            - name: 'Field #0'
-              value: null
-            created_at: '2020-03-16T02:36:31.276Z'
-            updated_at: '2020-03-17T02:36:31.276Z'
-            published_at: '2020-03-17T02:36:31.276Z'
-            closed_at: null
-            external_id: EVENT1
-            is_public: false
-            restricted: true
-          relationships:
-            attachments:
-              data: []
-            event_template:
-              data: null
-            spend_category:
-              data:
-                id: '1'
-                type: spend_categories
-            project:
-              data: null
-            commodity_codes:
-              data: []
-          links:
-            self: https://api.us.workdayspend.com/services/events/v1/events/1
-        - id: '2'
-          type: events
-          attributes:
-            title: 'Event #2'
-            spend_amount: 231.5
-            supplier_rsvp_deadline: null
-            supplier_question_deadline: null
-            bid_submission_deadline: null
-            event_type: RFP
-            state: draft
-            duplication_state: null
-            request_type: RFP
-            late_bids: true
-            revise_bids: true
-            instant_notifications: false
-            custom_fields:
-            - name: 'Field #0'
-              value: Field value
-            updated_at: '2020-03-17T03:01:45.616Z'
-            closed_at: null
-            external_id: EVENT2
-            is_public: false
-            restricted: true
-          relationships:
-            attachments:
-              data:
-              - id: '1'
-                type: attachments
-              - id: '2'
-                type: attachments
-            event_template:
-              data:
-                id: '1'
-                type: event_templates
-            spend_category:
-              data:
-                id: '1'
-                type: spend_categories
-            project:
-              data:
-                id: '1'
-                type: projects
-            commodity_codes:
-              data:
-              - id: '1'
-                type: commodity_codes
-              - id: '2'
-                type: commodity_codes
-          links:
-            self: https://api.us.workdayspend.com/services/events/v1/events/2
-        links:
-          self: https://api.us.workdayspend.com/services/events/v1/events?page%5Bsize%5D=10
-          next: https://api.us.workdayspend.com/services/events/v1/events?page%5Bcursor%5D=WzRd&page%5Bdirection%5D=next&page%5Bsize%5D=10
-          prev: https://api.us.workdayspend.com/services/events/v1/events?page%5Bcursor%5D=WzFd&page%5Bdirection%5D=prev&page%5Bsize%5D=10
-    describe_response:
-      value:
-        data:
-        - id: title
-          type: event_fields
-          attributes:
-            name: title
-            data_type: string
-            type_description: Short Text
-            custom_field: false
-        - id: external_id
-          type: event_fields
-          attributes:
-            name: external_id
-            data_type: string
-            type_description: Short Text
-            custom_field: false
-        - id: state
-          type: event_fields
-          attributes:
-            name: state
-            data_type: string
-            type_description: Single Select
-            custom_field: false
-        - id: spend_amount
-          type: event_fields
-          attributes:
-            name: spend_amount
-            data_type: number
-            type_description: Currency
-            custom_field: false
-        - id: request_type
-          type: event_fields
-          attributes:
-            name: request_type
-            data_type: string
-            type_description: Single Select
-            custom_field: false
-        - id: late_bids
-          type: event_fields
-          attributes:
-            name: late_bids
-            data_type: boolean
-            type_description: Checkbox
-            custom_field: false
-        - id: revise_bids
-          type: event_fields
-          attributes:
-            name: revise_bids
-            data_type: boolean
-            type_description: Checkbox
-            custom_field: false
-        - id: department
-          type: event_fields
-          attributes:
-            name: department
-            data_type: string
-            type_description: Short Text
-            custom_field: false
-        - id: instant_notifications
-          type: event_fields
-          attributes:
-            name: instant_notifications
-            data_type: boolean
-            type_description: Checkbox
-            custom_field: false
-        - id: supplier_rsvp_deadline
-          type: event_fields
-          attributes:
-            name: supplier_rsvp_deadline
-            data_type: string
-            type_description: Date
-            custom_field: false
-        - id: supplier_question_deadline
-          type: event_fields
-          attributes:
-            name: supplier_question_deadline
-            data_type: string
-            type_description: Date
-            custom_field: false
-        - id: bid_submission_deadline
-          type: event_fields
-          attributes:
-            name: bid_submission_deadline
-            data_type: string
-            type_description: Date
-            custom_field: false
-        - id: created_at
-          type: event_fields
-          attributes:
-            name: created_at
-            data_type: string
-            type_description: Date
-            custom_field: false
-        - id: updated_at
-          type: event_fields
-          attributes:
-            name: updated_at
-            data_type: string
-            type_description: Date
-            custom_field: false
-        - id: published_at
-          type: event_fields
-          attributes:
-            name: published_at
-            data_type: string
-            type_description: Date
-            custom_field: false
-        - id: closed_at
-          type: event_fields
-          attributes:
-            name: closed_at
-            data_type: string
-            type_description: Date
-            custom_field: false
-        - id: is_public
-          type: event_fields
-          attributes:
-            name: is_public
-            data_type: boolean
-            type_description: Checkbox
-            custom_field: false
-        - id: restricted
-          type: event_fields
-          attributes:
-            name: restricted
-            data_type: boolean
-            type_description: Checkbox
-            custom_field: false
-        - id: custom_field_1
-          type: event_fields
-          attributes:
-            name: 'Custom field #1'
-            data_type: string
-            type_description: Short Text
-            custom_field: true
-        links: {}
-        meta:
-          count: 19
-    update_request:
-      value:
-        data:
-          type: events
-          id: '2'
-          attributes:
-            title: Event Title Updated
-            spend_amount: 244.44
-            late_bids: true
-            revise_bids: false
-            instant_notifications: false
-            supplier_rsvp_deadline: '2031-12-30T00:00:00.000Z'
-            supplier_question_deadline: '2032-12-30T00:00:00.000Z'
-            bid_submission_deadline: '2033-12-30T00:00:00.000Z'
-            external_id: UEVENT1
-            custom_fields:
-            - name: Custom field name
-              value: Updated custom field value
-          relationships:
-            project:
-              data:
-                id: '3'
-                type: projects
-            spend_category:
-              data:
-                id: '4'
-                type: spend_categories
-            department:
-              data:
-                id: '5'
-                type: departments
-    create_response:
-      value:
-        data:
-          id: '2'
-          type: events
-          attributes:
-            title: Copy of Event Title
-            spend_amount: 500.5
-            supplier_rsvp_deadline: '2020-03-30T19:00:00.000Z'
-            supplier_question_deadline: '2020-04-30T19:00:00.000Z'
-            bid_submission_deadline: '2020-05-30T19:00:00.000Z'
-            event_type: RFP
-            state: draft
-            request_type: RFP
-            late_bids: true
-            revise_bids: true
-            instant_notifications: true
-            custom_fields: []
-            created_at: '2020-03-16T02:36:31.276Z'
-            updated_at: '2020-03-17T02:36:31.276Z'
-            published_at: '2020-03-17T02:36:31.276Z'
-            closed_at: null
-            duplication_state: scheduled
-            external_id: EVENT1
-            is_public: false
-            restricted: true
-          relationships:
-            attachments:
-              data: []
-            event_template:
-              data:
-                id: '1'
-                type: event_templates
-            project:
-              data:
-                id: '1'
-                type: projects
-            spend_category:
-              data:
-                id: '1'
-                type: spend_categories
-            commodity_codes:
-              data: []
-          links:
-            self: https://api.us.workdayspend.com/services/events/v1/events/2
+      description: Object type, should always be `projects`.
+      example: projects
   securitySchemes:
     api_key:
       type: apiKey

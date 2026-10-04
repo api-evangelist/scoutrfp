@@ -146,37 +146,21 @@ paths:
       x-operation-id-original: Describe Worksheet object
 components:
   schemas:
-    ResourceLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
     WorksheetColumnId:
       type: string
       description: Column identifier string.
       example: 1
-    SelfLink:
+    DescribeFieldBase:
+      title: DescribeFieldModel
       type: object
+      required:
+      - type
+      - id
       properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    OpenApiEnum:
-      type: string
-      enum:
-      - string
-      - number
-      - integer
-      - boolean
-      - array
-      - object
-      description: OpenAPI data type.
-      example: string
-    WorksheetId:
-      type: integer
-      description: Worksheet identifier string.
-      example: 1
+        type:
+          $ref: '#/components/schemas/DescribeFieldType'
+        id:
+          $ref: '#/components/schemas/DescribeFieldId'
     WorksheetAttributes:
       type: object
       description: Worksheet attributes.
@@ -213,23 +197,50 @@ components:
           items:
             $ref: '#/components/schemas/WorksheetColumnModel'
           description: Column field values.
-    DescribeFieldAttributes:
+    WorksheetFieldModel:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+            description: Object type, should always be `worksheet_fields`.
+            example: worksheet_fields
+      - $ref: '#/components/schemas/DescribeFieldModel'
+    SelfLink:
       type: object
-      description: Describe field attributes.
       properties:
-        name:
+        self:
           type: string
-          maxLength: 255
-          description: Describe field name.
-          example: field_name
-        data_type:
-          $ref: '#/components/schemas/OpenApiEnum'
-        type_description:
-          $ref: '#/components/schemas/CustomFieldEnum'
-        custom_field:
-          type: boolean
-          description: Flag for determining if this is a user created custom field or an internal system field.
-          example: false
+          format: url
+          description: Normalized link to the resource.
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    WorksheetType:
+      type: string
+      description: Object type, should always be `worksheets`.
+      example: worksheets
+    DescribeFieldType:
+      type: string
+      description: Object type, should always be `describe_fields`.
+      example: describe_fields
+    WorksheetId:
+      type: integer
+      description: Worksheet identifier string.
+      example: 1
+    OpenApiEnum:
+      type: string
+      enum:
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
     CustomFieldEnum:
       type: string
       enum:
@@ -259,13 +270,6 @@ components:
           $ref: '#/components/schemas/WorksheetType'
         id:
           $ref: '#/components/schemas/WorksheetId'
-    DescribeFieldModel:
-      allOf:
-      - $ref: '#/components/schemas/DescribeFieldBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/DescribeFieldAttributes'
     WorksheetModel:
       allOf:
       - $ref: '#/components/schemas/WorksheetBase'
@@ -275,34 +279,34 @@ components:
             $ref: '#/components/schemas/WorksheetAttributes'
           links:
             $ref: '#/components/schemas/ResourceLinks'
-    DescribeFieldType:
-      type: string
-      description: Object type, should always be `describe_fields`.
-      example: describe_fields
-    DescribeFieldBase:
-      title: DescribeFieldModel
+    DescribeFieldAttributes:
       type: object
-      required:
-      - type
-      - id
+      description: Describe field attributes.
       properties:
-        type:
-          $ref: '#/components/schemas/DescribeFieldType'
-        id:
-          $ref: '#/components/schemas/DescribeFieldId'
-    WorksheetFieldModel:
+        name:
+          type: string
+          maxLength: 255
+          description: Describe field name.
+          example: field_name
+        data_type:
+          $ref: '#/components/schemas/OpenApiEnum'
+        type_description:
+          $ref: '#/components/schemas/CustomFieldEnum'
+        custom_field:
+          type: boolean
+          description: Flag for determining if this is a user created custom field or an internal system field.
+          example: false
+    DescribeFieldModel:
       allOf:
+      - $ref: '#/components/schemas/DescribeFieldBase'
       - type: object
         properties:
-          type:
-            type: string
-            description: Object type, should always be `worksheet_fields`.
-            example: worksheet_fields
-      - $ref: '#/components/schemas/DescribeFieldModel'
-    WorksheetType:
+          attributes:
+            $ref: '#/components/schemas/DescribeFieldAttributes'
+    DescribeFieldId:
       type: string
-      description: Object type, should always be `worksheets`.
-      example: worksheets
+      description: Field identifier string.
+      example: field_name
     WorksheetColumnModel:
       type: object
       properties:
@@ -320,45 +324,7 @@ components:
           type: string
           description: Column field mapping key.
           example: TITLE
-    DescribeFieldId:
-      type: string
-      description: Field identifier string.
-      example: field_name
   examples:
-    show_response-3:
-      value:
-        data:
-          type: worksheets
-          id: '1'
-          attributes:
-            title: 'Worksheet title #1'
-            budget: null
-            notes: null
-            updated_at: '2019-10-29T21:28:46.790Z'
-            worksheet_type: standard
-            columns:
-            - id: '111'
-              name: Title
-              data_identifier: c11
-              mapping_key: TITLE
-            - id: '113'
-              name: Unit of Measure
-              data_identifier: c13
-              mapping_key: UNIT_OF_MEASURE
-            - id: '112'
-              name: Quantity
-              data_identifier: c12
-              mapping_key: QUANTITY
-            - id: '115'
-              name: Price
-              data_identifier: c15
-              mapping_key: PRICE
-            - id: '114'
-              name: Extended Price
-              data_identifier: c14
-              mapping_key: EXTENDED_PRICE
-          links:
-            self: https://api.us.workdayspend.com/services/events/v1/events/3/worksheets/1
     index_response-3:
       value:
         meta:
@@ -462,6 +428,40 @@ components:
             type_description: Date
             custom_field: false
         links: {}
+    show_response-3:
+      value:
+        data:
+          type: worksheets
+          id: '1'
+          attributes:
+            title: 'Worksheet title #1'
+            budget: null
+            notes: null
+            updated_at: '2019-10-29T21:28:46.790Z'
+            worksheet_type: standard
+            columns:
+            - id: '111'
+              name: Title
+              data_identifier: c11
+              mapping_key: TITLE
+            - id: '113'
+              name: Unit of Measure
+              data_identifier: c13
+              mapping_key: UNIT_OF_MEASURE
+            - id: '112'
+              name: Quantity
+              data_identifier: c12
+              mapping_key: QUANTITY
+            - id: '115'
+              name: Price
+              data_identifier: c15
+              mapping_key: PRICE
+            - id: '114'
+              name: Extended Price
+              data_identifier: c14
+              mapping_key: EXTENDED_PRICE
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/events/3/worksheets/1
   securitySchemes:
     api_key:
       type: apiKey
