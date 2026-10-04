@@ -1,21 +1,19 @@
-# Kin Score artifact — scoutrfp — 2026-08-30T203505
+# Kin Score artifact — scoutrfp — 2026-09-24T064009
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: scoutrfp
-  schema_version: 0.17.2
-  scored_at: '2026-08-30'
-  run_ts: 2026-08-30T203505
-  composite: 40.6
+  schema_version: 0.22.0
+  scored_at: '2026-09-24'
+  run_ts: 2026-09-24T064009
+  composite: 45.5
   band: developing
   facets:
-    discoverability: 63.0
-    contract_quality: 63.9
-    governance: 4.5
-    operational_transparency: 44.7
-    developer_ergonomics: 51.8
-    commercial_clarity: 7.9
+    discoverability: 81.5
+    contract_quality: 66.6
     contract_governance: 4.5
+    operational_transparency: 47.4
+    developer_ergonomics: 51.8
     access_clarity: 7.9
   agent_readiness:
     score: 31.5
