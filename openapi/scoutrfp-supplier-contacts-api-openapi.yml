@@ -575,92 +575,749 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Delete a Supplier Contact by External ID
 components:
-  schemas:
-    PhoneType:
-      type: string
-      description: Object type, should always be `phones`.
-      example: phones
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    SelfLink:
-      type: object
-      properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    ContactTypeType:
-      type: string
-      description: Object type, should always be `contact_types`.
-      example: contact_types
-    ResourceLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-    ContactTypeId:
-      type: integer
-      description: Contact type identifier string.
-      example: 1
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-          deprecated: true
-    Pagination:
-      type: object
-      properties:
-        meta:
-          type: object
-          description: Result set metadata.
-          properties:
-            count:
-              type: integer
-              description: Number of pages in the result set.
+  examples:
+    create_response-2:
+      value:
+        data:
+          type: supplier_contacts
+          id: '1'
+          attributes:
+            name: Supplier Contact Name
+            first_name: null
+            last_name: null
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data:
+              - id: '1'
+                type: contact_types
+            phones:
+              data:
+              - id: '1'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+    create_compound_response-2:
+      value:
+        data:
+          type: supplier_contacts
+          attributes:
+            name: Supplier Contact Name
+            first_name: null
+            last_name: null
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+          relationships:
+            external_supplier_company:
+              data:
+                id: 1234-5678-abcd-efgh
+                type: supplier_companies
+            contact_types:
+              data: []
+            phones:
+              data:
+              - id: '1'
+                type: phones
+        included:
+        - id: '1'
+          type: supplier_companies
+          attributes:
+            external_id: 1234-5678-abcd-efgh
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+        - id: '1'
+          type: phones
+          attributes:
+            number: 555-555-5555
+            extension: null
+            country_name: Canada
+            country_alpha2: CA
+            country_alpha3: CAN
+            external_id: null
+            country_code: '1'
+          relationships:
+            device_type:
+              data: null
+    external_show_response-2:
+      value:
+        data:
+          type: supplier_contacts
+          id: '1'
+          attributes:
+            name: John Doe
+            first_name: John
+            last_name: Doe
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data: []
+            phones:
+              data:
+              - id: '1'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+    show_compound_response:
+      value:
+        data:
+          type: supplier_contacts
+          id: '1'
+          attributes:
+            name: Supplier Contact Name
+            first_name: null
+            last_name: null
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data:
+              - id: '1'
+                type: contact_types
+            phones:
+              data:
+              - id: '1'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+        included:
+        - id: '1'
+          type: supplier_companies
+          attributes:
+            external_id: 1234-5678-abcd-efgh
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+        - id: '1'
+          type: contact_types
+          attributes:
+            external_id: CT$1
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
+        - id: '1'
+          type: phones
+          attributes:
+            number: 555-555-5555
+            extension: null
+            country_name: Canada
+            country_alpha2: CA
+            country_alpha3: CAN
+            external_id: PH$1
+            country_code: '1'
+          relationships:
+            device_type:
+              data: null
+    external_update_response-2:
+      value:
+        data:
+          type: supplier_contacts
+          id: '1'
+          attributes:
+            name: John-Updated Doe-Updated
+            first_name: John-Updated
+            last_name: Doe-Updated
+            email: supplier.contact.updated@example.com
+            notes: Supplier Contact Notes Updated
+            phone_number: 777-777-7777
+            job_title: Supplier Contact Job Title Updated
+            is_suggested: false
+            external_id: CNT-18
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '2'
+                type: supplier_companies
+            contact_types:
+              data:
+              - id: '2'
+                type: contact_types
+            phones:
+              data:
+              - id: '1'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+    create_with_supplier_company_request:
+      value:
+        data:
+          type: supplier_contacts
+          attributes:
+            name: Supplier Contact Name
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data:
+              - id: 1
+                type: contact_types
+    external_index_compound_response:
+      value:
+        data:
+        - type: supplier_contacts
+          id: '1'
+          attributes:
+            first_name: John
+            last_name: Doe
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data: []
+            phones:
+              data:
+              - id: '1'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+        - type: supplier_contacts
+          id: '2'
+          attributes:
+            name: 'Supplier Contact Name #2'
+            email: supplier.contact2@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-18
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data: []
+            phones:
+              data:
+              - id: '2'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/2
+        included:
+        - id: '1'
+          type: supplier_companies
+          attributes:
+            external_id: 1234-5678-abcd-efgh
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
         links:
-          $ref: '#/components/schemas/PaginationLinks'
-    SupplierCompanyId:
-      type: integer
-      description: Supplier company identifier string.
-      example: 1
-    SupplierCompanyBase:
-      title: SupplierCompany
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanyType'
-        id:
-          $ref: '#/components/schemas/SupplierCompanyId'
-    PhoneId:
-      type: integer
-      description: Phone identifier string.
-      example: 1
-    SupplierContactExternalRelationshipUpdate:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1/supplier_contacts
+        meta:
+          count: 2
+    external_index_response:
+      value:
+        meta:
+          count: 2
+        data:
+        - type: supplier_contacts
+          id: '1'
+          attributes:
+            name: John Doe
+            first_name: John
+            last_name: Doe
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data: []
+            phones:
+              data:
+              - id: '1'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+        - type: supplier_contacts
+          id: '2'
+          attributes:
+            name: 'Supplier Contact Name #2'
+            first_name: null
+            last_name: null
+            email: supplier.contact2@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-18
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data: []
+            phones:
+              data:
+              - id: '2'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/2
+        links:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1/supplier_contacts
+    update_compound_response-2:
+      value:
+        data:
+          type: supplier_contacts
+          id: '1'
+          attributes:
+            name: Supplier Contact Name Updated
+            first_name: null
+            last_name: null
+            email: supplier.contact.updated@example.com
+            notes: Supplier Contact Notes Updated
+            phone_number: 777-777-7777
+            job_title: Supplier Contact Job Title Updated
+            is_suggested: false
+            external_id: CNT-18
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '2'
+                type: supplier_companies
+            contact_types:
+              data: []
+            phones:
+              data:
+              - id: '1'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+        included:
+        - id: '1'
+          type: supplier_companies
+          attributes:
+            external_id: 1234-5678-abcd-efgh
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+        - id: '1'
+          type: phones
+          attributes:
+            number: 777-777-7777
+            extension: null
+            country_name: Canada
+            country_alpha2: CA
+            country_alpha3: CAN
+            external_id: PH$1
+            country_code: '1'
+          relationships:
+            device_type:
+              data: null
+    external_update_compound_response:
+      value:
+        data:
+          type: supplier_contacts
+          id: '1'
+          attributes:
+            name: John Doe
+            first_name: John
+            last_name: Doe
+            email: supplier.contact.updated@example.com
+            notes: Supplier Contact Notes Updated
+            phone_number: 777-777-7777
+            job_title: Supplier Contact Job Title Updated
+            is_suggested: false
+            external_id: CNT-18
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '2'
+                type: supplier_companies
+            phones:
+              data:
+              - id: '1'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+        included:
+        - id: '1'
+          type: supplier_companies
+          attributes:
+            external_id: 1234-5678-abcd-efgh
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+    show_response-2:
+      value:
+        data:
+          type: supplier_contacts
+          id: '1'
+          attributes:
+            name: Supplier Contact Name
+            first_name: null
+            last_name: null
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data:
+              - id: '1'
+                type: contact_types
+            phones:
+              data:
+              - id: '1'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+    update_request-2:
+      value:
+        data:
+          type: supplier_contacts
+          id: '1'
+          attributes:
+            name: Supplier Contact Name Updated
+            email: supplier.contact.updated@example.com
+            notes: Supplier Contact Notes Updated
+            phone_number: 777-777-7777
+            job_title: Supplier Contact Job Title Updated
+            is_suggested: false
+            external_id: CNT-18
+          relationships:
+            contact_types:
+              data:
+              - id: 1
+                type: contact_types
+    index_response-2:
+      value:
+        meta:
+          count: 2
+        data:
+        - type: supplier_contacts
+          id: '1'
+          attributes:
+            name: 'Supplier Contact Name #1'
+            first_name: null
+            last_name: null
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data:
+              - id: 1
+                type: contact_types
+            phones:
+              data:
+              - id: 1
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+        - type: supplier_contacts
+          id: '2'
+          attributes:
+            name: 'Supplier Contact Name #2'
+            first_name: null
+            last_name: null
+            email: supplier.contact2@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-18
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data:
+              - id: '1'
+                type: contact_types
+              - id: '2'
+                type: contact_types
+            phones:
+              data:
+              - id: '2'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/2
+        links:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1/supplier_contacts
+    create_with_external_supplier_company_request:
+      value:
+        data:
+          type: supplier_contacts
+          attributes:
+            first_name: John
+            last_name: Doe
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+          relationships:
+            external_supplier_company:
+              data:
+                id: 1234-5678-abcd-efgh
+                type: supplier_companies
+            contact_types:
+              data: []
+    external_show_compound_response:
+      value:
+        data:
+          type: supplier_contacts
+          id: '1'
+          attributes:
+            name: John Doe
+            first_name: John
+            last_name: Doe
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data: []
+            phones:
+              data:
+              - id: '1'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+        included:
+        - id: '1'
+          type: supplier_companies
+          attributes:
+            external_id: 1234-5678-abcd-efgh
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+    update_response-2:
+      value:
+        data:
+          type: supplier_contacts
+          id: '1'
+          attributes:
+            name: Supplier Contact Name Updated
+            first_name: null
+            last_name: null
+            email: supplier.contact.updated@example.com
+            notes: Supplier Contact Notes Updated
+            phone_number: 777-777-7777
+            job_title: Supplier Contact Job Title Updated
+            is_suggested: false
+            external_id: CNT-18
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '2'
+                type: supplier_companies
+            contact_types:
+              data:
+              - id: '2'
+                type: contact_types
+            phones:
+              data:
+              - id: '2'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+    index_compound_response-2:
+      value:
+        data:
+        - type: supplier_contacts
+          id: '1'
+          attributes:
+            name: 'Supplier Contact Name #1'
+            first_name: null
+            last_name: null
+            email: supplier.contact1@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-17
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data: []
+            phones:
+              data:
+              - id: 1
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
+        - type: supplier_contacts
+          id: '2'
+          attributes:
+            name: 'Supplier Contact Name #2'
+            email: supplier.contact2@example.com
+            notes: Supplier Contact Notes
+            phone_number: 555-555-5555
+            job_title: Supplier Contact Job Title
+            is_suggested: false
+            external_id: CNT-18
+            updated_at: '2019-10-29T21:28:46.790Z'
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            contact_types:
+              data: []
+            phones:
+              data:
+              - id: '2'
+                type: phones
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/2
+        included:
+        - id: '1'
+          type: supplier_companies
+          attributes:
+            external_id: 1234-5678-abcd-efgh
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
+        - id: '1'
+          type: phones
+          attributes:
+            number: 555-555-555
+            extension: null
+            country_name: Canada
+            country_alpha2: CA
+            country_alpha3: CAN
+            external_id: PH$1
+            country_code: '1'
+          relationships:
+            device_type:
+              data: null
+        - id: '2'
+          type: phones
+          attributes:
+            number: 555-555-555
+            extension: null
+            country_name: Cameroon
+            country_alpha2: CM
+            country_alpha3: CMR
+            external_id: null
+            country_code: '237'
+          relationships:
+            device_type:
+              data: null
+        links:
+          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1/supplier_contacts
+        meta:
+          count: 2
+    external_update_request-2:
+      value:
+        data:
+          type: supplier_contacts
+          id: CNT-17
+          attributes:
+            first_name: John-Updated
+            last_name: Doe-Updated
+            email: supplier.contact.updated@example.com
+            notes: Supplier Contact Notes Updated
+            phone_number: 777-777-7777
+            job_title: Supplier Contact Job Title Updated
+            is_suggested: false
+            external_id: CNT-18
+          relationships:
+            contact_types:
+              data:
+              - id: 1
+                type: contact_types
+  schemas:
+    SupplierContactExternalRelationshipCreate:
       type: object
       description: Supplier contact relationship with ID containing the `external_id`.
+      required:
+      - external_supplier_company
       properties:
+        external_supplier_company:
+          description: Supplier company referenced by external ID.
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/SupplierCompanyBase'
         external_contact_types:
           description: Contact types referenced by external ID.
           type: object
@@ -673,50 +1330,11 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/PhoneBase'
-    SupplierContact:
+    ResourceLinks:
+      type: object
+      description: List of related links.
       allOf:
-      - $ref: '#/components/schemas/SupplierContactBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/SupplierContactAttributes'
-          relationships:
-            $ref: '#/components/schemas/SupplierContactRelationshipCreate'
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
-    SupplierContactRelationshipUpdate:
-      type: object
-      description: Supplier contact relationships.
-      required:
-      - supplier_company
-      properties:
-        contact_types:
-          type: object
-          description: List of contact types for a contact.
-          properties:
-            data:
-              type: array
-              items:
-                $ref: '#/components/schemas/ContactTypeBase'
-        phones:
-          type: object
-          description: List of phones for a contact.
-          properties:
-            data:
-              type: array
-              items:
-                $ref: '#/components/schemas/PhoneBase'
-    ContactTypeBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ContactTypeType'
-        id:
-          $ref: '#/components/schemas/ContactTypeId'
+      - $ref: '#/components/schemas/SelfLink'
     SupplierContactUpdate:
       type: object
       required:
@@ -733,6 +1351,188 @@ components:
           anyOf:
           - $ref: '#/components/schemas/SupplierContactRelationshipUpdate'
           - $ref: '#/components/schemas/SupplierContactExternalRelationshipUpdate'
+    ContactTypeType:
+      type: string
+      description: Object type, should always be `contact_types`.
+      example: contact_types
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
+    SupplierContactRelationshipCreate:
+      type: object
+      description: Supplier contact relationships.
+      required:
+      - supplier_company
+      properties:
+        supplier_company:
+          description: Supplier company.
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/SupplierCompanyBase'
+        contact_types:
+          type: object
+          description: List of contact types for a contact.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ContactTypeBase'
+        phones:
+          type: object
+          description: List of phones for a contact. Limited to 1.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/PhoneBase'
+    SupplierContactCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierContactType'
+        attributes:
+          $ref: '#/components/schemas/SupplierContactAttributes'
+        relationships:
+          anyOf:
+          - $ref: '#/components/schemas/SupplierContactRelationshipCreate'
+          - $ref: '#/components/schemas/SupplierContactExternalRelationshipCreate'
+    SupplierContactExternalRelationshipUpdate:
+      type: object
+      description: Supplier contact relationship with ID containing the `external_id`.
+      properties:
+        external_contact_types:
+          description: Contact types referenced by external ID.
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ContactTypeBase'
+        phones:
+          description: List of phones for a contact. Limited to 1 for now.
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PhoneBase'
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    SupplierCompanyId:
+      type: integer
+      description: Supplier company identifier string.
+      example: 1
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    SupplierContactType:
+      type: string
+      description: Object type, should always be `supplier_contacts`.
+      example: supplier_contacts
+    PhoneId:
+      type: integer
+      description: Phone identifier string.
+      example: 1
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    SupplierContactRelatedResources:
+      type: string
+      enum:
+      - supplier_company
+      - contact_types
+      - phones
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    ContactTypeBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContactTypeType'
+        id:
+          $ref: '#/components/schemas/ContactTypeId'
+    SupplierContact:
+      allOf:
+      - $ref: '#/components/schemas/SupplierContactBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierContactAttributes'
+          relationships:
+            $ref: '#/components/schemas/SupplierContactRelationshipCreate'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    SupplierCompanyBase:
+      title: SupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyId'
+    ContactTypeId:
+      type: integer
+      description: Contact type identifier string.
+      example: 1
+    SupplierContactId:
+      type: integer
+      description: Supplier contact identifier string.
+      example: 1
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
     SupplierContactInputFilter:
       type: object
       properties:
@@ -858,44 +1658,54 @@ components:
           type: string
           description: Find supplier contacts excluding the one with the specified external ID.
           example: CNT-17
-    SupplierContactId:
-      type: integer
-      description: Supplier contact identifier string.
-      example: 1
-    SupplierCompanyType:
-      type: string
-      description: Object type, should always be `supplier_companies`.
-      example: supplier_companies
-    SupplierContactExternalRelationshipCreate:
+    PhoneBase:
+      title: Field
       type: object
-      description: Supplier contact relationship with ID containing the `external_id`.
       required:
-      - external_supplier_company
+      - type
+      - id
       properties:
-        external_supplier_company:
-          description: Supplier company referenced by external ID.
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/SupplierCompanyBase'
-        external_contact_types:
-          description: Contact types referenced by external ID.
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/ContactTypeBase'
-        phones:
-          description: List of phones for a contact. Limited to 1 for now.
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/PhoneBase'
-    Error:
+        type:
+          $ref: '#/components/schemas/PhoneType'
+        id:
+          $ref: '#/components/schemas/PhoneId'
+    SupplierContactBase:
+      title: SupplierContact
       type: object
+      required:
+      - type
+      - id
       properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
+        type:
+          $ref: '#/components/schemas/SupplierContactType'
+        id:
+          $ref: '#/components/schemas/SupplierContactId'
+    PhoneType:
+      type: string
+      description: Object type, should always be `phones`.
+      example: phones
+    SupplierContactRelationshipUpdate:
+      type: object
+      description: Supplier contact relationships.
+      required:
+      - supplier_company
+      properties:
+        contact_types:
+          type: object
+          description: List of contact types for a contact.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ContactTypeBase'
+        phones:
+          type: object
+          description: List of phones for a contact.
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/PhoneBase'
     SupplierContactAttributes:
       type: object
       description: Supplier contact attributes.
@@ -945,816 +1755,6 @@ components:
           readOnly: true
           description: Last modification date.
           example: '2019-10-29T21:28:46.790Z'
-    SupplierContactRelationshipCreate:
-      type: object
-      description: Supplier contact relationships.
-      required:
-      - supplier_company
-      properties:
-        supplier_company:
-          description: Supplier company.
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/SupplierCompanyBase'
-        contact_types:
-          type: object
-          description: List of contact types for a contact.
-          properties:
-            data:
-              type: array
-              items:
-                $ref: '#/components/schemas/ContactTypeBase'
-        phones:
-          type: object
-          description: List of phones for a contact. Limited to 1.
-          properties:
-            data:
-              type: array
-              items:
-                $ref: '#/components/schemas/PhoneBase'
-    PhoneBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/PhoneType'
-        id:
-          $ref: '#/components/schemas/PhoneId'
-    SupplierContactType:
-      type: string
-      description: Object type, should always be `supplier_contacts`.
-      example: supplier_contacts
-    SupplierContactBase:
-      title: SupplierContact
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierContactType'
-        id:
-          $ref: '#/components/schemas/SupplierContactId'
-    SupplierContactRelatedResources:
-      type: string
-      enum:
-      - supplier_company
-      - contact_types
-      - phones
-    SupplierContactCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierContactType'
-        attributes:
-          $ref: '#/components/schemas/SupplierContactAttributes'
-        relationships:
-          anyOf:
-          - $ref: '#/components/schemas/SupplierContactRelationshipCreate'
-          - $ref: '#/components/schemas/SupplierContactExternalRelationshipCreate'
-    PaginationLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-  examples:
-    index_response-2:
-      value:
-        meta:
-          count: 2
-        data:
-        - type: supplier_contacts
-          id: '1'
-          attributes:
-            name: 'Supplier Contact Name #1'
-            first_name: null
-            last_name: null
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data:
-              - id: 1
-                type: contact_types
-            phones:
-              data:
-              - id: 1
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-        - type: supplier_contacts
-          id: '2'
-          attributes:
-            name: 'Supplier Contact Name #2'
-            first_name: null
-            last_name: null
-            email: supplier.contact2@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-18
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data:
-              - id: '1'
-                type: contact_types
-              - id: '2'
-                type: contact_types
-            phones:
-              data:
-              - id: '2'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/2
-        links:
-          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1/supplier_contacts
-    external_show_compound_response:
-      value:
-        data:
-          type: supplier_contacts
-          id: '1'
-          attributes:
-            name: John Doe
-            first_name: John
-            last_name: Doe
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data: []
-            phones:
-              data:
-              - id: '1'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-        included:
-        - id: '1'
-          type: supplier_companies
-          attributes:
-            external_id: 1234-5678-abcd-efgh
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
-    external_index_response:
-      value:
-        meta:
-          count: 2
-        data:
-        - type: supplier_contacts
-          id: '1'
-          attributes:
-            name: John Doe
-            first_name: John
-            last_name: Doe
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data: []
-            phones:
-              data:
-              - id: '1'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-        - type: supplier_contacts
-          id: '2'
-          attributes:
-            name: 'Supplier Contact Name #2'
-            first_name: null
-            last_name: null
-            email: supplier.contact2@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-18
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data: []
-            phones:
-              data:
-              - id: '2'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/2
-        links:
-          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1/supplier_contacts
-    index_compound_response-2:
-      value:
-        data:
-        - type: supplier_contacts
-          id: '1'
-          attributes:
-            name: 'Supplier Contact Name #1'
-            first_name: null
-            last_name: null
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data: []
-            phones:
-              data:
-              - id: 1
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-        - type: supplier_contacts
-          id: '2'
-          attributes:
-            name: 'Supplier Contact Name #2'
-            email: supplier.contact2@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-18
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data: []
-            phones:
-              data:
-              - id: '2'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/2
-        included:
-        - id: '1'
-          type: supplier_companies
-          attributes:
-            external_id: 1234-5678-abcd-efgh
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
-        - id: '1'
-          type: phones
-          attributes:
-            number: 555-555-555
-            extension: null
-            country_name: Canada
-            country_alpha2: CA
-            country_alpha3: CAN
-            external_id: PH$1
-            country_code: '1'
-          relationships:
-            device_type:
-              data: null
-        - id: '2'
-          type: phones
-          attributes:
-            number: 555-555-555
-            extension: null
-            country_name: Cameroon
-            country_alpha2: CM
-            country_alpha3: CMR
-            external_id: null
-            country_code: '237'
-          relationships:
-            device_type:
-              data: null
-        links:
-          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1/supplier_contacts
-        meta:
-          count: 2
-    external_show_response-2:
-      value:
-        data:
-          type: supplier_contacts
-          id: '1'
-          attributes:
-            name: John Doe
-            first_name: John
-            last_name: Doe
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data: []
-            phones:
-              data:
-              - id: '1'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-    show_response-2:
-      value:
-        data:
-          type: supplier_contacts
-          id: '1'
-          attributes:
-            name: Supplier Contact Name
-            first_name: null
-            last_name: null
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data:
-              - id: '1'
-                type: contact_types
-            phones:
-              data:
-              - id: '1'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-    external_update_compound_response:
-      value:
-        data:
-          type: supplier_contacts
-          id: '1'
-          attributes:
-            name: John Doe
-            first_name: John
-            last_name: Doe
-            email: supplier.contact.updated@example.com
-            notes: Supplier Contact Notes Updated
-            phone_number: 777-777-7777
-            job_title: Supplier Contact Job Title Updated
-            is_suggested: false
-            external_id: CNT-18
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '2'
-                type: supplier_companies
-            phones:
-              data:
-              - id: '1'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-        included:
-        - id: '1'
-          type: supplier_companies
-          attributes:
-            external_id: 1234-5678-abcd-efgh
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
-    create_compound_response-2:
-      value:
-        data:
-          type: supplier_contacts
-          attributes:
-            name: Supplier Contact Name
-            first_name: null
-            last_name: null
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-          relationships:
-            external_supplier_company:
-              data:
-                id: 1234-5678-abcd-efgh
-                type: supplier_companies
-            contact_types:
-              data: []
-            phones:
-              data:
-              - id: '1'
-                type: phones
-        included:
-        - id: '1'
-          type: supplier_companies
-          attributes:
-            external_id: 1234-5678-abcd-efgh
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
-        - id: '1'
-          type: phones
-          attributes:
-            number: 555-555-5555
-            extension: null
-            country_name: Canada
-            country_alpha2: CA
-            country_alpha3: CAN
-            external_id: null
-            country_code: '1'
-          relationships:
-            device_type:
-              data: null
-    create_with_external_supplier_company_request:
-      value:
-        data:
-          type: supplier_contacts
-          attributes:
-            first_name: John
-            last_name: Doe
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-          relationships:
-            external_supplier_company:
-              data:
-                id: 1234-5678-abcd-efgh
-                type: supplier_companies
-            contact_types:
-              data: []
-    external_update_request-2:
-      value:
-        data:
-          type: supplier_contacts
-          id: CNT-17
-          attributes:
-            first_name: John-Updated
-            last_name: Doe-Updated
-            email: supplier.contact.updated@example.com
-            notes: Supplier Contact Notes Updated
-            phone_number: 777-777-7777
-            job_title: Supplier Contact Job Title Updated
-            is_suggested: false
-            external_id: CNT-18
-          relationships:
-            contact_types:
-              data:
-              - id: 1
-                type: contact_types
-    external_update_response-2:
-      value:
-        data:
-          type: supplier_contacts
-          id: '1'
-          attributes:
-            name: John-Updated Doe-Updated
-            first_name: John-Updated
-            last_name: Doe-Updated
-            email: supplier.contact.updated@example.com
-            notes: Supplier Contact Notes Updated
-            phone_number: 777-777-7777
-            job_title: Supplier Contact Job Title Updated
-            is_suggested: false
-            external_id: CNT-18
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '2'
-                type: supplier_companies
-            contact_types:
-              data:
-              - id: '2'
-                type: contact_types
-            phones:
-              data:
-              - id: '1'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-    external_index_compound_response:
-      value:
-        data:
-        - type: supplier_contacts
-          id: '1'
-          attributes:
-            first_name: John
-            last_name: Doe
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data: []
-            phones:
-              data:
-              - id: '1'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-        - type: supplier_contacts
-          id: '2'
-          attributes:
-            name: 'Supplier Contact Name #2'
-            email: supplier.contact2@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-18
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data: []
-            phones:
-              data:
-              - id: '2'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/2
-        included:
-        - id: '1'
-          type: supplier_companies
-          attributes:
-            external_id: 1234-5678-abcd-efgh
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
-        links:
-          self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1/supplier_contacts
-        meta:
-          count: 2
-    update_request-2:
-      value:
-        data:
-          type: supplier_contacts
-          id: '1'
-          attributes:
-            name: Supplier Contact Name Updated
-            email: supplier.contact.updated@example.com
-            notes: Supplier Contact Notes Updated
-            phone_number: 777-777-7777
-            job_title: Supplier Contact Job Title Updated
-            is_suggested: false
-            external_id: CNT-18
-          relationships:
-            contact_types:
-              data:
-              - id: 1
-                type: contact_types
-    update_compound_response-2:
-      value:
-        data:
-          type: supplier_contacts
-          id: '1'
-          attributes:
-            name: Supplier Contact Name Updated
-            first_name: null
-            last_name: null
-            email: supplier.contact.updated@example.com
-            notes: Supplier Contact Notes Updated
-            phone_number: 777-777-7777
-            job_title: Supplier Contact Job Title Updated
-            is_suggested: false
-            external_id: CNT-18
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '2'
-                type: supplier_companies
-            contact_types:
-              data: []
-            phones:
-              data:
-              - id: '1'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-        included:
-        - id: '1'
-          type: supplier_companies
-          attributes:
-            external_id: 1234-5678-abcd-efgh
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
-        - id: '1'
-          type: phones
-          attributes:
-            number: 777-777-7777
-            extension: null
-            country_name: Canada
-            country_alpha2: CA
-            country_alpha3: CAN
-            external_id: PH$1
-            country_code: '1'
-          relationships:
-            device_type:
-              data: null
-    show_compound_response:
-      value:
-        data:
-          type: supplier_contacts
-          id: '1'
-          attributes:
-            name: Supplier Contact Name
-            first_name: null
-            last_name: null
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data:
-              - id: '1'
-                type: contact_types
-            phones:
-              data:
-              - id: '1'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-        included:
-        - id: '1'
-          type: supplier_companies
-          attributes:
-            external_id: 1234-5678-abcd-efgh
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_companies/1
-        - id: '1'
-          type: contact_types
-          attributes:
-            external_id: CT$1
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
-        - id: '1'
-          type: phones
-          attributes:
-            number: 555-555-5555
-            extension: null
-            country_name: Canada
-            country_alpha2: CA
-            country_alpha3: CAN
-            external_id: PH$1
-            country_code: '1'
-          relationships:
-            device_type:
-              data: null
-    create_response-2:
-      value:
-        data:
-          type: supplier_contacts
-          id: '1'
-          attributes:
-            name: Supplier Contact Name
-            first_name: null
-            last_name: null
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data:
-              - id: '1'
-                type: contact_types
-            phones:
-              data:
-              - id: '1'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
-    create_with_supplier_company_request:
-      value:
-        data:
-          type: supplier_contacts
-          attributes:
-            name: Supplier Contact Name
-            email: supplier.contact1@example.com
-            notes: Supplier Contact Notes
-            phone_number: 555-555-5555
-            job_title: Supplier Contact Job Title
-            is_suggested: false
-            external_id: CNT-17
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            contact_types:
-              data:
-              - id: 1
-                type: contact_types
-    update_response-2:
-      value:
-        data:
-          type: supplier_contacts
-          id: '1'
-          attributes:
-            name: Supplier Contact Name Updated
-            first_name: null
-            last_name: null
-            email: supplier.contact.updated@example.com
-            notes: Supplier Contact Notes Updated
-            phone_number: 777-777-7777
-            job_title: Supplier Contact Job Title Updated
-            is_suggested: false
-            external_id: CNT-18
-            updated_at: '2019-10-29T21:28:46.790Z'
-          relationships:
-            supplier_company:
-              data:
-                id: '2'
-                type: supplier_companies
-            contact_types:
-              data:
-              - id: '2'
-                type: contact_types
-            phones:
-              data:
-              - id: '2'
-                type: phones
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_contacts/1
   securitySchemes:
     api_key:
       type: apiKey

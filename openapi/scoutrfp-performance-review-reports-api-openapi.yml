@@ -80,18 +80,6 @@ paths:
       x-operation-id-original: Performance Review Report Schema
 components:
   schemas:
-    PerformanceReviewReportEntryId:
-      description: Performance Review Report identifier string.
-      example: 1
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
     ReportSchemaField:
       type: object
       properties:
@@ -104,28 +92,25 @@ components:
     PerformanceReviewReportEntryType:
       description: Object type, should always be `performance_review_report_entries`.
       example: performance_review_report_entries
-    PrevPageLink:
+    Pagination:
       type: object
       properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     PerformanceReviewReportEntryAttributes:
       description: Performance Review Report Entry attributes. See example response and schema.
       properties: {}
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
+    PerformanceReviewReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `performance_review_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `performance_review_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
     PaginationLinks:
       type: object
       description: List of pagination links.
@@ -139,11 +124,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportSchemaField'
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
     PerformanceReviewReportEntry:
       type: object
       required:
@@ -156,17 +146,27 @@ components:
           $ref: '#/components/schemas/PerformanceReviewReportEntryId'
         attributes:
           $ref: '#/components/schemas/PerformanceReviewReportEntryAttributes'
-    PerformanceReviewReportEntryFieldModel:
+    NextPageLink:
       type: object
       properties:
-        id:
-          type: string
-          description: Object ID, should always be `performance_review_schemas`.
-        type:
-          type: string
-          description: Object type, should always be `performance_review_schemas`.
-        attributes:
-          $ref: '#/components/schemas/ReportSchemaFieldModel'
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+    PerformanceReviewReportEntryId:
+      description: Performance Review Report identifier string.
+      example: 1
   examples:
     index_response-4:
       value:

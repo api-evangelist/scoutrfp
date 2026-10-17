@@ -228,6 +228,24 @@ paths:
       x-operation-id-original: Delete a Field Group
 components:
   examples:
+    update_request-3:
+      value:
+        data:
+          id: '1'
+          type: field_groups
+          attributes:
+            name: Updated Field Group
+    show_response-2:
+      value:
+        data:
+          id: '1'
+          type: field_groups
+          attributes:
+            target_object: PROJECT
+            name: My Field Group
+            position: null
+          links:
+            self: https://api.us.workdayspend.com/services/fields/v1/field_groups/1
     update_response-3:
       value:
         data:
@@ -267,17 +285,6 @@ components:
           attributes:
             target_object: PROJECT
             name: Custom Group
-    show_response-2:
-      value:
-        data:
-          id: '1'
-          type: field_groups
-          attributes:
-            target_object: PROJECT
-            name: My Field Group
-            position: null
-          links:
-            self: https://api.us.workdayspend.com/services/fields/v1/field_groups/1
     create_response-3:
       value:
         data:
@@ -289,27 +296,11 @@ components:
             position: null
           links:
             self: https://api.us.workdayspend.com/services/fields/v1/field_groups/1
-    update_request-3:
-      value:
-        data:
-          id: '1'
-          type: field_groups
-          attributes:
-            name: Updated Field Group
   schemas:
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
+    FieldGroupType:
+      type: string
+      description: Object type, should always be `field_groups`.
+      example: field_groups
     FieldGroupUpdate:
       type: object
       required:
@@ -320,19 +311,6 @@ components:
           $ref: '#/components/schemas/FieldGroupType'
         id:
           $ref: '#/components/schemas/FieldGroupId'
-        attributes:
-          $ref: '#/components/schemas/FieldGroupAttributes'
-    FieldGroupType:
-      type: string
-      description: Object type, should always be `field_groups`.
-      example: field_groups
-    FieldGroupCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldGroupType'
         attributes:
           $ref: '#/components/schemas/FieldGroupAttributes'
     FieldGroupBase:
@@ -346,17 +324,12 @@ components:
           $ref: '#/components/schemas/FieldGroupType'
         id:
           $ref: '#/components/schemas/FieldGroupId'
-    FieldGroupId:
-      type: integer
-      description: Field group identifier string.
-      example: 1
-    FieldGroup:
-      allOf:
-      - $ref: '#/components/schemas/FieldGroupBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/FieldGroupAttributes'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
     FieldGroupAttributes:
       type: object
       description: Field group attributes.
@@ -378,6 +351,33 @@ components:
           type: integer
           description: Field group position on the UI.
           readOnly: true
+    FieldGroupId:
+      type: integer
+      description: Field group identifier string.
+      example: 1
+    FieldGroup:
+      allOf:
+      - $ref: '#/components/schemas/FieldGroupBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/FieldGroupAttributes'
+    FieldGroupCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldGroupType'
+        attributes:
+          $ref: '#/components/schemas/FieldGroupAttributes'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     api_key:
       type: apiKey

@@ -83,9 +83,17 @@ components:
     SupplierReportEntryAttributes:
       description: Supplier Report Entry attributes. See example response and schema.
       properties: {}
-    SupplierReportEntryType:
-      description: Object type, should always be `supplier_report_entries`.
-      example: supplier_report_entries
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     NextPageLink:
       type: object
       properties:
@@ -95,27 +103,6 @@ components:
           - 'null'
           format: url
           description: Link to the next results page.
-    ReportSchemaField:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
-    SupplierReportEntryId:
-      description: Supplier Report identifier string.
-      example: 1
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
     SupplierReportEntry:
       type: object
       required:
@@ -128,12 +115,47 @@ components:
           $ref: '#/components/schemas/SupplierReportEntryId'
         attributes:
           $ref: '#/components/schemas/SupplierReportEntryAttributes'
-    PaginationLinks:
+    SupplierReportEntryType:
+      description: Object type, should always be `supplier_report_entries`.
+      example: supplier_report_entries
+    ReportSchemaFieldModel:
       type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    SupplierReportEntryId:
+      description: Supplier Report identifier string.
+      example: 1
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
     SupplierReportEntryFieldModel:
       type: object
       properties:
@@ -145,30 +167,8 @@ components:
           description: Object type, should always be `supplier_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
   examples:
-    schema_response-9:
+    index_response-8:
       value:
         data:
           id: supplier_schemas
@@ -289,7 +289,7 @@ components:
               name: Scout-Tax ID Type
             - type: string
               name: 'Field #27'
-    index_response-8:
+    schema_response-9:
       value:
         data:
           id: supplier_schemas

@@ -101,6 +101,26 @@ paths:
       x-operation-id-original: Get an Event Template
 components:
   schemas:
+    EventTemplateModel:
+      allOf:
+      - $ref: '#/components/schemas/EventTemplateBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/EventTemplateAttributes'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
+    EventTemplateBase:
+      title: EventTemplate
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/EventTemplateType'
+        id:
+          $ref: '#/components/schemas/EventTemplateId'
     EventTemplateId:
       type: integer
       description: Event template identifier string.
@@ -139,36 +159,26 @@ components:
           type: string
           format: url
           description: Normalized link to the resource.
-    EventTemplateType:
-      type: string
-      description: Object type, should always be `event_templates`.
-      example: event_templates
     ResourceLinks:
       type: object
       description: List of related links.
       allOf:
       - $ref: '#/components/schemas/SelfLink'
-    EventTemplateModel:
-      allOf:
-      - $ref: '#/components/schemas/EventTemplateBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/EventTemplateAttributes'
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
-    EventTemplateBase:
-      title: EventTemplate
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/EventTemplateType'
-        id:
-          $ref: '#/components/schemas/EventTemplateId'
+    EventTemplateType:
+      type: string
+      description: Object type, should always be `event_templates`.
+      example: event_templates
   examples:
+    show_response:
+      value:
+        data:
+          type: event_templates
+          id: '1'
+          attributes:
+            title: The Event Template
+            event_type: RFP
+          links:
+            self: https://api.us.workdayspend.com/services/events/v1/event_templates/1
     index_response:
       value:
         meta:
@@ -190,16 +200,6 @@ components:
             self: https://api.us.workdayspend.com/services/events/v1/event_templates/2
         links:
           self: https://api.us.workdayspend.com/services/events/v1/event_templates
-    show_response:
-      value:
-        data:
-          type: event_templates
-          id: '1'
-          attributes:
-            title: The Event Template
-            event_type: RFP
-          links:
-            self: https://api.us.workdayspend.com/services/events/v1/event_templates/1
   securitySchemes:
     api_key:
       type: apiKey

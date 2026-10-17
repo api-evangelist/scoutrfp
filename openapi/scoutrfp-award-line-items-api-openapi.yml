@@ -125,30 +125,6 @@ paths:
       x-operation-id-original: Get an Award Line Item
 components:
   schemas:
-    AwardLineItemType:
-      type: string
-      description: Object type, should always be `award_line_items`.
-      example: award_line_items
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    SelfLink:
-      type: object
-      properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    WorksheetType:
-      type: string
-      description: Object type, should always be `worksheets`.
-      example: worksheets
     AwardLineItemAttributes:
       type: object
       description: Award line item attributes.
@@ -190,32 +166,19 @@ components:
         is_quoted:
           type: boolean
           description: Identifies whether the award line item is quoted.
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-          deprecated: true
-    Pagination:
-      type: object
-      properties:
-        meta:
-          type: object
-          description: Result set metadata.
-          properties:
-            count:
-              type: integer
-              description: Number of pages in the result set.
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    WorksheetId:
+    AwardLineItemId:
       type: integer
-      description: Worksheet identifier string.
+      description: Award line items identifier string.
       example: 1
+    AwardLineItem:
+      allOf:
+      - $ref: '#/components/schemas/AwardLineItemBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/AwardLineItemAttributes'
+          relationships:
+            $ref: '#/components/schemas/AwardLineItemRelationship'
     AwardLineItemInputFilter:
       type: object
       properties:
@@ -231,6 +194,53 @@ components:
           example:
           - GOODS
           - SERVICES
+    WorksheetId:
+      type: integer
+      description: Worksheet identifier string.
+      example: 1
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
+          deprecated: true
+    WorksheetBase:
+      title: Worksheet
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/WorksheetType'
+        id:
+          $ref: '#/components/schemas/WorksheetId'
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    AwardLineItemRelatedResources:
+      type: string
+      enum:
+      - supplier_company
+      - worksheet
+    SupplierCompanyId:
+      type: integer
+      description: Supplier company identifier string.
+      example: 1
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
     AwardLineItemRelationship:
       type: object
       description: Award line item relationships.
@@ -245,10 +255,29 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/WorksheetBase'
-    SupplierCompanyId:
-      type: integer
-      description: Supplier company identifier string.
-      example: 1
+    WorksheetType:
+      type: string
+      description: Object type, should always be `worksheets`.
+      example: worksheets
+    PaginationLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    Pagination:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: Result set metadata.
+          properties:
+            count:
+              type: integer
+              description: Number of pages in the result set.
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
     SupplierCompanyBase:
       title: SupplierCompany
       type: object
@@ -260,54 +289,17 @@ components:
           $ref: '#/components/schemas/SupplierCompanyType'
         id:
           $ref: '#/components/schemas/SupplierCompanyId'
-    WorksheetBase:
-      title: Worksheet
+    AwardLineItemType:
+      type: string
+      description: Object type, should always be `award_line_items`.
+      example: award_line_items
+    SelfLink:
       type: object
-      required:
-      - type
-      - id
       properties:
-        type:
-          $ref: '#/components/schemas/WorksheetType'
-        id:
-          $ref: '#/components/schemas/WorksheetId'
-    AwardLineItemId:
-      type: integer
-      description: Award line items identifier string.
-      example: 1
-    AwardLineItem:
-      allOf:
-      - $ref: '#/components/schemas/AwardLineItemBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/AwardLineItemAttributes'
-          relationships:
-            $ref: '#/components/schemas/AwardLineItemRelationship'
-    SupplierCompanyType:
-      type: string
-      description: Object type, should always be `supplier_companies`.
-      example: supplier_companies
-    AwardLineItemTypeEnum:
-      type: string
-      enum:
-      - STANDARD
-      - GOODS
-      - SERVICES
-      description: Award line item type.
-      example: STANDARD
-    AwardLineItemRelatedResources:
-      type: string
-      enum:
-      - supplier_company
-      - worksheet
-    PaginationLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
     AwardLineItemBase:
       title: Award line item
       type: object
@@ -319,7 +311,44 @@ components:
           $ref: '#/components/schemas/AwardLineItemType'
         id:
           $ref: '#/components/schemas/AwardLineItemId'
+    AwardLineItemTypeEnum:
+      type: string
+      enum:
+      - STANDARD
+      - GOODS
+      - SERVICES
+      description: Award line item type.
+      example: STANDARD
   examples:
+    show_response:
+      value:
+        data:
+          id: '1_5'
+          type: award_line_items
+          attributes:
+            data:
+              c263: Worksheet 1 line item 1
+              c264: 1
+              c265: 10
+              c266: 10
+              c268: 0
+            allocated_quantity: 1
+            sought_quantity: 1
+            price: 10
+            total_spend: 10
+            net_savings: -10
+            net_savings_percentage: null
+            line_item_type: STANDARD
+            is_quoted: true
+          relationships:
+            supplier_company:
+              data:
+                id: '1'
+                type: supplier_companies
+            worksheet:
+              data:
+                id: '2'
+                type: worksheets
     index_response-2:
       value:
         data:
@@ -382,35 +411,6 @@ components:
           prev: null
         meta:
           count: 2
-    show_response:
-      value:
-        data:
-          id: '1_5'
-          type: award_line_items
-          attributes:
-            data:
-              c263: Worksheet 1 line item 1
-              c264: 1
-              c265: 10
-              c266: 10
-              c268: 0
-            allocated_quantity: 1
-            sought_quantity: 1
-            price: 10
-            total_spend: 10
-            net_savings: -10
-            net_savings_percentage: null
-            line_item_type: STANDARD
-            is_quoted: true
-          relationships:
-            supplier_company:
-              data:
-                id: '1'
-                type: supplier_companies
-            worksheet:
-              data:
-                id: '2'
-                type: worksheets
   securitySchemes:
     api_key:
       type: apiKey

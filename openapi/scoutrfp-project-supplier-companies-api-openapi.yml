@@ -199,47 +199,22 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Remove Suppliers using External IDs
 components:
-  schemas:
-    SupplierCompanyId:
-      type: integer
-      description: Supplier company identifier string.
-      example: 1
-    SupplierCompanyBase:
-      title: SupplierCompany
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierCompanyType'
-        id:
-          $ref: '#/components/schemas/SupplierCompanyId'
-    ExternalSupplierCompanyBase:
-      title: ExternalSupplierCompany
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ExternalSupplierCompanyType'
-        id:
-          $ref: '#/components/schemas/ExternalSupplierCompanyId'
-    ExternalSupplierCompanyType:
-      type: string
-      description: Object type, should always be `supplier_companies`.
-      example: supplier_companies
-    ExternalSupplierCompanyId:
-      type: integer
-      description: Supplier company external identifier string.
-      example: 1
-    SupplierCompanyType:
-      type: string
-      description: Object type, should always be `supplier_companies`.
-      example: supplier_companies
   examples:
+    external_delete_request:
+      value:
+        data:
+        - type: supplier_companies
+          id: SUP5
+        - type: supplier_companies
+          id: SUP11
     delete_request:
+      value:
+        data:
+        - type: supplier_companies
+          id: '5'
+        - type: supplier_companies
+          id: '11'
+    create_request-2:
       value:
         data:
         - type: supplier_companies
@@ -253,20 +228,45 @@ components:
           id: SUP5
         - type: supplier_companies
           id: SUP11
-    create_request-2:
-      value:
-        data:
-        - type: supplier_companies
-          id: '5'
-        - type: supplier_companies
-          id: '11'
-    external_delete_request:
-      value:
-        data:
-        - type: supplier_companies
-          id: SUP5
-        - type: supplier_companies
-          id: SUP11
+  schemas:
+    SupplierCompanyBase:
+      title: SupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/SupplierCompanyId'
+    ExternalSupplierCompanyId:
+      type: integer
+      description: Supplier company external identifier string.
+      example: 1
+    SupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
+    ExternalSupplierCompanyBase:
+      title: ExternalSupplierCompany
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ExternalSupplierCompanyType'
+        id:
+          $ref: '#/components/schemas/ExternalSupplierCompanyId'
+    SupplierCompanyId:
+      type: integer
+      description: Supplier company identifier string.
+      example: 1
+    ExternalSupplierCompanyType:
+      type: string
+      description: Object type, should always be `supplier_companies`.
+      example: supplier_companies
   securitySchemes:
     api_key:
       type: apiKey

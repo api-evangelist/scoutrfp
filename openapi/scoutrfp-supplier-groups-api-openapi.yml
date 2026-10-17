@@ -269,6 +269,16 @@ paths:
       x-operation-id-original: Delete a Supplier Group by External ID
 components:
   examples:
+    create_response-9:
+      value:
+        data:
+          id: '1'
+          type: supplier_groups
+          attributes:
+            name: 'Supplier Group #1'
+            external_id: SUPGROUP-1
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1
     external_update_response-6:
       value:
         data:
@@ -301,14 +311,14 @@ components:
           attributes:
             name: Supplier Group Updated
             external_id: SUPGROUP-UPD
-    create_response-9:
+    update_response-9:
       value:
         data:
           id: '1'
           type: supplier_groups
           attributes:
-            name: 'Supplier Group #1'
-            external_id: SUPGROUP-1
+            name: Supplier Group Updated
+            external_id: SUPGROUP-UPD
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1
     index_response-9:
@@ -330,17 +340,32 @@ components:
             self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/2
         links:
           self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups
-    update_response-9:
-      value:
-        data:
-          id: '1'
-          type: supplier_groups
-          attributes:
-            name: Supplier Group Updated
-            external_id: SUPGROUP-UPD
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/supplier_groups/1
   schemas:
+    SupplierGroupBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/SupplierGroupType'
+        id:
+          $ref: '#/components/schemas/SupplierGroupId'
+    SupplierGroup:
+      allOf:
+      - $ref: '#/components/schemas/SupplierGroupBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/SupplierGroupAttributes'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     SupplierGroupUpdate:
       type: object
       required:
@@ -353,17 +378,6 @@ components:
           $ref: '#/components/schemas/SupplierGroupId'
         attributes:
           $ref: '#/components/schemas/SupplierGroupAttributes'
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    SupplierGroupType:
-      type: string
-      description: Object type, should always be `supplier_groups`.
-      example: supplier_groups
     SupplierGroupAttributes:
       type: object
       description: Supplier group attributes.
@@ -378,17 +392,16 @@ components:
           type: string
           maxLength: 255
           description: Supplier group external identifier.
-    SupplierGroupId:
-      type: integer
-      description: Supplier group identifier string.
-      example: 1
-    SupplierGroup:
-      allOf:
-      - $ref: '#/components/schemas/SupplierGroupBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/SupplierGroupAttributes'
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    SupplierGroupType:
+      type: string
+      description: Object type, should always be `supplier_groups`.
+      example: supplier_groups
     SupplierGroupCreate:
       type: object
       required:
@@ -398,23 +411,10 @@ components:
           $ref: '#/components/schemas/SupplierGroupType'
         attributes:
           $ref: '#/components/schemas/SupplierGroupAttributes'
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    SupplierGroupBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/SupplierGroupType'
-        id:
-          $ref: '#/components/schemas/SupplierGroupId'
+    SupplierGroupId:
+      type: integer
+      description: Supplier group identifier string.
+      example: 1
   securitySchemes:
     api_key:
       type: apiKey

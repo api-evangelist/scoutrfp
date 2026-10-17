@@ -269,6 +269,14 @@ paths:
       x-operation-id-original: Delete a Contact Type by External ID
 components:
   examples:
+    update_request-3:
+      value:
+        data:
+          type: contact_types
+          id: '1'
+          attributes:
+            name: Contact Type Updated
+            external_id: CTYPE-UPD
     update_response-3:
       value:
         data:
@@ -279,6 +287,20 @@ components:
             external_id: CTYPE-UPD
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
+    external_update_request-3:
+      value:
+        data:
+          type: contact_types
+          id: CTYPE
+          attributes:
+            name: Contact Type Updated
+    create_request-2:
+      value:
+        data:
+          type: contact_types
+          attributes:
+            name: 'Contact Type #1'
+            external_id: CTYPE-1
     index_response-3:
       value:
         data:
@@ -298,31 +320,6 @@ components:
             self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/2
         links:
           self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types
-    create_request-2:
-      value:
-        data:
-          type: contact_types
-          attributes:
-            name: 'Contact Type #1'
-            external_id: CTYPE-1
-    create_response-3:
-      value:
-        data:
-          id: '1'
-          type: contact_types
-          attributes:
-            name: 'Contact Type #1'
-            external_id: CTYPE-1
-          links:
-            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
-    update_request-3:
-      value:
-        data:
-          type: contact_types
-          id: '1'
-          attributes:
-            name: Contact Type Updated
-            external_id: CTYPE-UPD
     external_update_response-3:
       value:
         data:
@@ -333,20 +330,74 @@ components:
             external_id: CTYPE
           links:
             self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
-    external_update_request-3:
+    create_response-3:
       value:
         data:
+          id: '1'
           type: contact_types
-          id: CTYPE
           attributes:
-            name: Contact Type Updated
+            name: 'Contact Type #1'
+            external_id: CTYPE-1
+          links:
+            self: https://api.us.workdayspend.com/services/suppliers/v1/contact_types/1
   schemas:
+    ContactTypeBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContactTypeType'
+        id:
+          $ref: '#/components/schemas/ContactTypeId'
+    ContactTypeUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContactTypeType'
+        id:
+          $ref: '#/components/schemas/ContactTypeId'
+        attributes:
+          $ref: '#/components/schemas/ContactTypeAttributes'
+    ContactTypeId:
+      type: integer
+      description: Contact type identifier string.
+      example: 1
+    ContactType:
+      allOf:
+      - $ref: '#/components/schemas/ContactTypeBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/ContactTypeAttributes'
+    ContactTypeCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/ContactTypeType'
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContactTypeAttributes'
+          - type: object
+            required:
+            - name
     Error:
       type: object
       properties:
         detail:
           type: string
           description: A human-readable explanation specific to this occurrence of the problem.
+    ContactTypeType:
+      type: string
+      description: Object type, should always be `contact_types`.
+      example: contact_types
     Errors:
       type: object
       properties:
@@ -354,10 +405,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
-    ContactTypeId:
-      type: integer
-      description: Contact type identifier string.
-      example: 1
     ContactTypeAttributes:
       type: object
       description: Contact type attributes.
@@ -373,53 +420,6 @@ components:
           type: string
           maxLength: 255
           description: Contact type external identifier.
-    ContactTypeType:
-      type: string
-      description: Object type, should always be `contact_types`.
-      example: contact_types
-    ContactTypeUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ContactTypeType'
-        id:
-          $ref: '#/components/schemas/ContactTypeId'
-        attributes:
-          $ref: '#/components/schemas/ContactTypeAttributes'
-    ContactType:
-      allOf:
-      - $ref: '#/components/schemas/ContactTypeBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/ContactTypeAttributes'
-    ContactTypeBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ContactTypeType'
-        id:
-          $ref: '#/components/schemas/ContactTypeId'
-    ContactTypeCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/ContactTypeType'
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/ContactTypeAttributes'
-          - type: object
-            required:
-            - name
   securitySchemes:
     api_key:
       type: apiKey

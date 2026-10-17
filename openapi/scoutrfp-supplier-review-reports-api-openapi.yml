@@ -80,69 +80,20 @@ paths:
       x-operation-id-original: Supplier Review Report Schema
 components:
   schemas:
-    SupplierReviewReportEntryId:
-      description: Supplier Review Report identifier string.
-      example: 1
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
-    SupplierReviewReportEntryAttributes:
-      description: Supplier Review Report Entry attributes. See example response and schema.
-      properties: {}
-    ReportSchemaField:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ReportSchemaFieldType'
-        name:
-          type: string
-          description: Field name
-          example: Scout-System ID
-    SupplierReviewReportEntryFieldModel:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Object ID, should always be `supplier_review_schemas`.
-        type:
-          type: string
-          description: Object type, should always be `supplier_review_schemas`.
-        attributes:
-          $ref: '#/components/schemas/ReportSchemaFieldModel'
-    PrevPageLink:
-      type: object
-      properties:
-        prev:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the previous results page.
-    SupplierReviewReportEntryType:
-      description: Object type, should always be `supplier_review_report_entries`.
-      example: supplier_review_report_entries
     PaginationLinks:
       type: object
       description: List of pagination links.
       allOf:
       - $ref: '#/components/schemas/NextPageLink'
       - $ref: '#/components/schemas/PrevPageLink'
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    SupplierReviewReportEntryId:
+      description: Supplier Review Report identifier string.
+      example: 1
     ReportSchemaFieldModel:
       type: object
       properties:
@@ -150,11 +101,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportSchemaField'
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
+    SupplierReviewReportEntryType:
+      description: Object type, should always be `supplier_review_report_entries`.
+      example: supplier_review_report_entries
     SupplierReviewReportEntry:
       type: object
       required:
@@ -167,6 +116,57 @@ components:
           $ref: '#/components/schemas/SupplierReviewReportEntryId'
         attributes:
           $ref: '#/components/schemas/SupplierReviewReportEntryAttributes'
+    SupplierReviewReportEntryFieldModel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Object ID, should always be `supplier_review_schemas`.
+        type:
+          type: string
+          description: Object type, should always be `supplier_review_schemas`.
+        attributes:
+          $ref: '#/components/schemas/ReportSchemaFieldModel'
+    ReportSchemaField:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ReportSchemaFieldType'
+        name:
+          type: string
+          description: Field name
+          example: Scout-System ID
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
+    SupplierReviewReportEntryAttributes:
+      description: Supplier Review Report Entry attributes. See example response and schema.
+      properties: {}
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
+    PrevPageLink:
+      type: object
+      properties:
+        prev:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the previous results page.
   examples:
     schema_response-10:
       value:

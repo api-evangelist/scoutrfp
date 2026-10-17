@@ -354,6 +354,47 @@ paths:
       x-operation-id-original: Delete a Contract Type by External ID
 components:
   examples:
+    create_response:
+      value:
+        data:
+          type: contract_types
+          id: '1'
+          attributes:
+            name: The Contract Type
+            shortcode: CTRT
+            external_id: CTR$1
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+    external_show_response-2:
+      value:
+        data:
+          type: contract_types
+          id: '1'
+          attributes:
+            name: The Contract Type
+            shortcode: CTRT
+            external_id: CTR$1
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+    external_update_response-2:
+      value:
+        data:
+          id: '1'
+          type: contract_types
+          attributes:
+            name: Updated Contract Type
+            shortcode: C1
+            external_id: C$1
+          links:
+            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
+    create_request:
+      value:
+        data:
+          type: contract_types
+          attributes:
+            name: The Contract Type
+            shortcode: CTRT
+            external_id: CTR$1
     update_response:
       value:
         data:
@@ -365,7 +406,16 @@ components:
             external_id: C$1
           links:
             self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
-    create_response:
+    update_request:
+      value:
+        data:
+          id: '1'
+          type: contract_types
+          attributes:
+            name: Updated Contract Type
+            shortcode: C1
+            external_id: C$1
+    show_response-2:
       value:
         data:
           type: contract_types
@@ -399,28 +449,6 @@ components:
             self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/2
         links:
           self: https://api.us.workdayspend.com/services/contracts/v1/contract_types
-    external_show_response-2:
-      value:
-        data:
-          type: contract_types
-          id: '1'
-          attributes:
-            name: The Contract Type
-            shortcode: CTRT
-            external_id: CTR$1
-          links:
-            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
-    show_response-2:
-      value:
-        data:
-          type: contract_types
-          id: '1'
-          attributes:
-            name: The Contract Type
-            shortcode: CTRT
-            external_id: CTR$1
-          links:
-            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
     external_update_request-2:
       value:
         data:
@@ -430,61 +458,20 @@ components:
             name: Updated Contract Type
             shortcode: C1
             external_id: C$1
-    external_update_response-2:
-      value:
-        data:
-          id: '1'
-          type: contract_types
-          attributes:
-            name: Updated Contract Type
-            shortcode: C1
-            external_id: C$1
-          links:
-            self: https://api.us.workdayspend.com/services/contracts/v1/contract_types/1
-    update_request:
-      value:
-        data:
-          id: '1'
-          type: contract_types
-          attributes:
-            name: Updated Contract Type
-            shortcode: C1
-            external_id: C$1
-    create_request:
-      value:
-        data:
-          type: contract_types
-          attributes:
-            name: The Contract Type
-            shortcode: CTRT
-            external_id: CTR$1
   schemas:
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    SelfLink:
-      type: object
-      properties:
-        self:
-          type: string
-          format: url
-          description: Normalized link to the resource.
-    ContractTypeUpdate:
+    ContractTypeCreate:
       type: object
       required:
       - type
-      - id
       properties:
         type:
           $ref: '#/components/schemas/ContractTypeType'
-        id:
-          $ref: '#/components/schemas/ContractTypeId'
         attributes:
           $ref: '#/components/schemas/ContractTypeAttributes'
+    ContractTypeType:
+      type: string
+      description: Object type, should always be `contract_types`.
+      example: contract_types
     ResourceLinks:
       type: object
       description: List of related links.
@@ -497,10 +484,46 @@ components:
         properties:
           links:
             $ref: '#/components/schemas/ResourceLinks'
-    ContractTypeType:
-      type: string
-      description: Object type, should always be `contract_types`.
-      example: contract_types
+    ContractTypeUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeType'
+        id:
+          $ref: '#/components/schemas/ContractTypeId'
+        attributes:
+          $ref: '#/components/schemas/ContractTypeAttributes'
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    ContractTypeId:
+      type: integer
+      description: Contract type identifier string.
+      example: 1
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    ContractTypeBase:
+      title: ContractType
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/ContractTypeType'
+        id:
+          $ref: '#/components/schemas/ContractTypeId'
     ContractTypeAttributes:
       type: object
       description: Contract type attributes.
@@ -522,36 +545,13 @@ components:
           type: string
           description: Customer provided unique contract type identifier.
           example: 1234-5678-abcd-efgh
-    Error:
+    SelfLink:
       type: object
       properties:
-        detail:
+        self:
           type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    ContractTypeCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/ContractTypeType'
-        attributes:
-          $ref: '#/components/schemas/ContractTypeAttributes'
-    ContractTypeId:
-      type: integer
-      description: Contract type identifier string.
-      example: 1
-    ContractTypeBase:
-      title: ContractType
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/ContractTypeType'
-        id:
-          $ref: '#/components/schemas/ContractTypeId'
+          format: url
+          description: Normalized link to the resource.
   securitySchemes:
     api_key:
       type: apiKey

@@ -80,18 +80,55 @@ paths:
       x-operation-id-original: Performance Review Answer Schema
 components:
   schemas:
+    PerformanceReviewAnswerReportEntryId:
+      description: Performance Review Answer Report identifier string.
+      example: 1
+    PaginationLinks:
+      type: object
+      description: List of pagination links.
+      allOf:
+      - $ref: '#/components/schemas/NextPageLink'
+      - $ref: '#/components/schemas/PrevPageLink'
+    Pagination:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+    PerformanceReviewAnswerReportEntryType:
+      description: Object type, should always be `performance_review_answer_report_entries`.
+      example: performance_review_answer_report_entries
+    ReportSchemaFieldModel:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportSchemaField'
+    PerformanceReviewAnswerReportEntry:
+      type: object
+      required:
+      - name
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryType'
+        id:
+          $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryId'
+        attributes:
+          $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryAttributes'
     PerformanceReviewAnswerReportEntryAttributes:
       description: Performance Review Answer Report Entry attributes. See example response and schema.
       properties: {}
-    NextPageLink:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          format: url
-          description: Link to the next results page.
+    ReportSchemaFieldType:
+      type: string
+      enum:
+      - text
+      - date
+      - integer
+      - select
+      - string
+      description: Field type
+      example: string
     ReportSchemaField:
       type: object
       properties:
@@ -112,6 +149,15 @@ components:
           description: Object type, should always be `performance_review_answer_schemas`.
         attributes:
           $ref: '#/components/schemas/ReportSchemaFieldModel'
+    NextPageLink:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          format: url
+          description: Link to the next results page.
     PrevPageLink:
       type: object
       properties:
@@ -121,52 +167,6 @@ components:
           - 'null'
           format: url
           description: Link to the previous results page.
-    PaginationLinks:
-      type: object
-      description: List of pagination links.
-      allOf:
-      - $ref: '#/components/schemas/NextPageLink'
-      - $ref: '#/components/schemas/PrevPageLink'
-    ReportSchemaFieldType:
-      type: string
-      enum:
-      - text
-      - date
-      - integer
-      - select
-      - string
-      description: Field type
-      example: string
-    ReportSchemaFieldModel:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportSchemaField'
-    Pagination:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/PaginationLinks'
-    PerformanceReviewAnswerReportEntry:
-      type: object
-      required:
-      - name
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryType'
-        id:
-          $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryId'
-        attributes:
-          $ref: '#/components/schemas/PerformanceReviewAnswerReportEntryAttributes'
-    PerformanceReviewAnswerReportEntryType:
-      description: Object type, should always be `performance_review_answer_report_entries`.
-      example: performance_review_answer_report_entries
-    PerformanceReviewAnswerReportEntryId:
-      description: Performance Review Answer Report identifier string.
-      example: 1
   examples:
     index_response-3:
       value:

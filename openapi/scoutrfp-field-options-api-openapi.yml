@@ -172,7 +172,130 @@ paths:
       x-operation-id-source: normalized
       x-operation-id-original: Delete a Field Option
 components:
+  schemas:
+    FieldOptionType:
+      type: string
+      description: Object type, should always be `fields`.
+      example: fields
+    FieldOptionUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldOptionType'
+        id:
+          $ref: '#/components/schemas/FieldOptionId'
+        attributes:
+          $ref: '#/components/schemas/FieldOptionAttributes'
+    FieldOptionAttributes:
+      type: object
+      description: Field attributes.
+      required:
+      - name
+      properties:
+        label:
+          type: string
+          maxLength: 255
+          description: Field name.
+        position:
+          type: integer
+          description: Field order position on the UI.
+          readOnly: true
+    FieldOptionId:
+      type: integer
+      description: Field identifier string.
+      example: 1
+    FieldOptionBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldOptionType'
+        id:
+          $ref: '#/components/schemas/FieldOptionId'
+    FieldBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldType'
+        id:
+          $ref: '#/components/schemas/FieldId'
+    FieldType:
+      type: string
+      description: Object type, should always be `fields`.
+      example: fields
+    FieldOptionCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldOptionType'
+        attributes:
+          $ref: '#/components/schemas/FieldOptionAttributes'
+        relationships:
+          $ref: '#/components/schemas/FieldOptionRelationship'
+    FieldId:
+      type: integer
+      description: Field identifier string.
+      example: 1
+    FieldOptionRelationship:
+      type: object
+      description: Field option relationship.
+      required:
+      - field
+      properties:
+        field:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/FieldBase'
+    FieldOption:
+      allOf:
+      - $ref: '#/components/schemas/FieldOptionBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/FieldOptionAttributes'
   examples:
+    create_response-2:
+      value:
+        data:
+          id: '1'
+          type: field_options
+          attributes:
+            label: Field Option One
+            position: null
+    update_request-2:
+      value:
+        data:
+          id: '1'
+          type: field_options
+          attributes:
+            label: Updated Field Option
+    index_response-2:
+      value:
+        data:
+        - id: '1'
+          type: field_options
+          attributes:
+            label: Option One
+            position: 1
+        - id: '2'
+          type: field_options
+          attributes:
+            label: Option Two
+            position: 2
+        links: {}
     create_request-2:
       value:
         data:
@@ -192,129 +315,6 @@ components:
           attributes:
             label: Updated Field Option
             position: 1
-    index_response-2:
-      value:
-        data:
-        - id: '1'
-          type: field_options
-          attributes:
-            label: Option One
-            position: 1
-        - id: '2'
-          type: field_options
-          attributes:
-            label: Option Two
-            position: 2
-        links: {}
-    create_response-2:
-      value:
-        data:
-          id: '1'
-          type: field_options
-          attributes:
-            label: Field Option One
-            position: null
-    update_request-2:
-      value:
-        data:
-          id: '1'
-          type: field_options
-          attributes:
-            label: Updated Field Option
-  schemas:
-    FieldOptionBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldOptionType'
-        id:
-          $ref: '#/components/schemas/FieldOptionId'
-    FieldOptionId:
-      type: integer
-      description: Field identifier string.
-      example: 1
-    FieldOptionType:
-      type: string
-      description: Object type, should always be `fields`.
-      example: fields
-    FieldBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldType'
-        id:
-          $ref: '#/components/schemas/FieldId'
-    FieldOptionRelationship:
-      type: object
-      description: Field option relationship.
-      required:
-      - field
-      properties:
-        field:
-          type: object
-          properties:
-            data:
-              $ref: '#/components/schemas/FieldBase'
-    FieldOptionUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldOptionType'
-        id:
-          $ref: '#/components/schemas/FieldOptionId'
-        attributes:
-          $ref: '#/components/schemas/FieldOptionAttributes'
-    FieldOptionCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldOptionType'
-        attributes:
-          $ref: '#/components/schemas/FieldOptionAttributes'
-        relationships:
-          $ref: '#/components/schemas/FieldOptionRelationship'
-    FieldOptionAttributes:
-      type: object
-      description: Field attributes.
-      required:
-      - name
-      properties:
-        label:
-          type: string
-          maxLength: 255
-          description: Field name.
-        position:
-          type: integer
-          description: Field order position on the UI.
-          readOnly: true
-    FieldType:
-      type: string
-      description: Object type, should always be `fields`.
-      example: fields
-    FieldId:
-      type: integer
-      description: Field identifier string.
-      example: 1
-    FieldOption:
-      allOf:
-      - $ref: '#/components/schemas/FieldOptionBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/FieldOptionAttributes'
   securitySchemes:
     api_key:
       type: apiKey

@@ -242,25 +242,6 @@ paths:
       x-operation-id-original: Delete a Field
 components:
   examples:
-    update_response:
-      value:
-        data:
-          id: '1'
-          type: fields
-          attributes:
-            target_object: PROJECT
-            name: Updated Custom Field
-            data_type: string
-            type_description: Short Text
-            position: null
-            required: true
-          relationships:
-            group:
-              data:
-                id: '2'
-                type: field_groups
-          links:
-            self: https://api.us.workdayspend.com/services/fields/v1/fields/1
     create_response:
       value:
         data:
@@ -280,6 +261,39 @@ components:
                 type: field_groups
           links:
             self: https://api.us.workdayspend.com/services/fields/v1/fields/1
+    create_request:
+      value:
+        data:
+          type: fields
+          attributes:
+            target_object: PROJECT
+            name: Custom Field
+            type_description: Short Text
+            required: false
+          relationships:
+            group:
+              data:
+                type: field_groups
+                id: '1'
+    update_response:
+      value:
+        data:
+          id: '1'
+          type: fields
+          attributes:
+            target_object: PROJECT
+            name: Updated Custom Field
+            data_type: string
+            type_description: Short Text
+            position: null
+            required: true
+          relationships:
+            group:
+              data:
+                id: '2'
+                type: field_groups
+          links:
+            self: https://api.us.workdayspend.com/services/fields/v1/fields/1
     update_request:
       value:
         data:
@@ -294,6 +308,25 @@ components:
               data:
                 id: '2'
                 type: field_groups
+    show_response:
+      value:
+        data:
+          id: '1'
+          type: fields
+          attributes:
+            target_object: PROJECT
+            name: Field One
+            data_type: string
+            type_description: Short Text
+            position: null
+            required: false
+          relationships:
+            group:
+              data:
+                id: '1'
+                type: field_groups
+          links:
+            self: https://api.us.workdayspend.com/services/fields/v1/fields/1
     index_response:
       value:
         data:
@@ -331,40 +364,61 @@ components:
             self: https://api.us.workdayspend.com/services/fields/v1/fields/2
         links:
           self: https://api.us.workdayspend.com/services/fields/v1/fields
-    show_response:
-      value:
-        data:
-          id: '1'
-          type: fields
-          attributes:
-            target_object: PROJECT
-            name: Field One
-            data_type: string
-            type_description: Short Text
-            position: null
-            required: false
-          relationships:
-            group:
-              data:
-                id: '1'
-                type: field_groups
-          links:
-            self: https://api.us.workdayspend.com/services/fields/v1/fields/1
-    create_request:
-      value:
-        data:
-          type: fields
-          attributes:
-            target_object: PROJECT
-            name: Custom Field
-            type_description: Short Text
-            required: false
-          relationships:
-            group:
-              data:
-                type: field_groups
-                id: '1'
   schemas:
+    OpenApiEnum:
+      type: string
+      enum:
+      - string
+      - number
+      - integer
+      - boolean
+      - array
+      - object
+      description: OpenAPI data type.
+      example: string
+    ResourceLinks:
+      type: object
+      description: List of related links.
+      allOf:
+      - $ref: '#/components/schemas/SelfLink'
+    FieldInputFilter:
+      type: object
+      properties:
+        group_id_equals:
+          type: string
+          description: ID of the group for which fields should be selected.
+          example: 1
+        target_object_equals:
+          type: string
+          description: Find custom fields by target class name.
+          example: RFP
+    FieldUpdate:
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldType'
+        id:
+          $ref: '#/components/schemas/FieldId'
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/FieldAttributes'
+          - type: object
+            properties:
+              target_object:
+                readOnly: true
+        relationships:
+          $ref: '#/components/schemas/FieldRelationship'
+    FieldType:
+      type: string
+      description: Object type, should always be `fields`.
+      example: fields
+    FieldId:
+      type: integer
+      description: Field identifier string.
+      example: 1
     Errors:
       type: object
       properties:
@@ -372,40 +426,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
-    FieldCreate:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldType'
-        attributes:
-          $ref: '#/components/schemas/FieldAttributes'
-        relationships:
-          $ref: '#/components/schemas/FieldRelationship'
-    SelfLink:
+    Error:
       type: object
       properties:
-        self:
+        detail:
           type: string
-          format: url
-          description: Normalized link to the resource.
-    ResourceLinks:
-      type: object
-      description: List of related links.
-      allOf:
-      - $ref: '#/components/schemas/SelfLink'
-    Field:
-      allOf:
-      - $ref: '#/components/schemas/FieldBase'
-      - type: object
-        properties:
-          attributes:
-            $ref: '#/components/schemas/FieldAttributes'
-          relationships:
-            $ref: '#/components/schemas/FieldRelationship'
-          links:
-            $ref: '#/components/schemas/ResourceLinks'
+          description: A human-readable explanation specific to this occurrence of the problem.
     FieldAttributes:
       type: object
       description: Field attributes.
@@ -438,17 +464,6 @@ components:
           description: 'Identifies whether the field is required in order to create the object successfully.
 
             '
-    FieldGroupBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldGroupType'
-        id:
-          $ref: '#/components/schemas/FieldGroupId'
     FieldRelationship:
       type: object
       description: Field relationship.
@@ -463,17 +478,54 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/FieldGroupBase'
-    OpenApiEnum:
+    FieldGroupType:
       type: string
-      enum:
-      - string
-      - number
-      - integer
-      - boolean
-      - array
-      - object
-      description: OpenAPI data type.
-      example: string
+      description: Object type, should always be `field_groups`.
+      example: field_groups
+    FieldBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldType'
+        id:
+          $ref: '#/components/schemas/FieldId'
+    FieldCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldType'
+        attributes:
+          $ref: '#/components/schemas/FieldAttributes'
+        relationships:
+          $ref: '#/components/schemas/FieldRelationship'
+    FieldGroupBase:
+      title: Field
+      type: object
+      required:
+      - type
+      - id
+      properties:
+        type:
+          $ref: '#/components/schemas/FieldGroupType'
+        id:
+          $ref: '#/components/schemas/FieldGroupId'
+    SelfLink:
+      type: object
+      properties:
+        self:
+          type: string
+          format: url
+          description: Normalized link to the resource.
+    FieldGroupId:
+      type: integer
+      description: Field group identifier string.
+      example: 1
     CustomFieldEnum:
       type: string
       enum:
@@ -492,69 +544,17 @@ components:
       - Related
       description: Internal name and meaning of each field.
       example: Short Text
-    FieldGroupType:
-      type: string
-      description: Object type, should always be `field_groups`.
-      example: field_groups
-    FieldUpdate:
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldType'
-        id:
-          $ref: '#/components/schemas/FieldId'
-        attributes:
-          allOf:
-          - $ref: '#/components/schemas/FieldAttributes'
-          - type: object
-            properties:
-              target_object:
-                readOnly: true
-        relationships:
-          $ref: '#/components/schemas/FieldRelationship'
-    FieldBase:
-      title: Field
-      type: object
-      required:
-      - type
-      - id
-      properties:
-        type:
-          $ref: '#/components/schemas/FieldType'
-        id:
-          $ref: '#/components/schemas/FieldId'
-    FieldType:
-      type: string
-      description: Object type, should always be `fields`.
-      example: fields
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: A human-readable explanation specific to this occurrence of the problem.
-    FieldInputFilter:
-      type: object
-      properties:
-        group_id_equals:
-          type: string
-          description: ID of the group for which fields should be selected.
-          example: 1
-        target_object_equals:
-          type: string
-          description: Find custom fields by target class name.
-          example: RFP
-    FieldGroupId:
-      type: integer
-      description: Field group identifier string.
-      example: 1
-    FieldId:
-      type: integer
-      description: Field identifier string.
-      example: 1
+    Field:
+      allOf:
+      - $ref: '#/components/schemas/FieldBase'
+      - type: object
+        properties:
+          attributes:
+            $ref: '#/components/schemas/FieldAttributes'
+          relationships:
+            $ref: '#/components/schemas/FieldRelationship'
+          links:
+            $ref: '#/components/schemas/ResourceLinks'
   securitySchemes:
     api_key:
       type: apiKey
